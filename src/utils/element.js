@@ -1,31 +1,35 @@
-// import lang from "element-plus/lib/locale/lang/zh-cn";
-// import locale from "element-plus/lib/locale";
-// import "element-plus/packages/theme-chalk/src/base.scss";
-
 import {
-  // ElButton,
   ElInput,
-  // ElMenu,
-  // ElMenuItem,
-  // ElSubmenu,
-  // ElMessage,
+  ElTooltip,
+  ElEmpty,
+  ElDialog,
+  ElNotification,
+  ElInputNumber,
+  ElDropdown,
+  ElDropdownMenu,
+  ElDropdownItem,
+  ElRadio,
+  ElRadioGroup,
+  ElRadioButton,
+  ElInfiniteScroll,
 } from "element-plus";
 
-const components = [
-  // ElButton,
+const EleUI = [
   ElInput,
-  // ElMenu,
-  // ElMenuItem,
-  // ElSubmenu,
-  // ElMessage,
+  ElTooltip,
+  ElEmpty,
+  ElDialog,
+  ElNotification,
+  ElInputNumber,
+  ElDropdown,
+  ElDropdownMenu,
+  ElDropdownItem,
+  ElRadio,
+  ElRadioGroup,
+  ElRadioButton,
+  ElInfiniteScroll,
 ];
 
 export default (app) => {
-  components.forEach((component) => {
-    app.component(component.name, component);
-  });
-
-  // plugins.forEach((plugin) => {
-  //   app.use(plugin);
-  // });
+  EleUI.forEach((ui) => app.use(ui));
 };

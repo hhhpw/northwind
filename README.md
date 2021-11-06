@@ -17,3 +17,8 @@
 - .env.production 生产环境打包（一定要慎重修改！！！）
 - .env-stagedev 本地开发使用， 测试环境数据
 - .env-stageprod 测试环境使用，生产数据和生产环境变量打包
+
+# todo
+
+element-plus 升级配套 按需加载
+star-input-number 取消正则限制 所有涉及都判断不能输入数

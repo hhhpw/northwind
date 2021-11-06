@@ -133,7 +133,7 @@ import SvgIcon from "@components/SvgIcon/Index.vue";
 import StarSpace from "@StarUI/StarSpace.vue";
 import StarButton from "@StarUI/StarButton.vue";
 import { useStore } from "vuex";
-import { ElDialog } from "element-plus";
+// import { ElDialog } from "element-plus";
 import dialogOnGoingImg from "../../assets/nft/confirm-logo.gif";
 import dialogFailedImg from "../../assets/nft/dialog-error.png";
 import dialogSuccessImg from "../../assets/nft/dialog-ok.png";

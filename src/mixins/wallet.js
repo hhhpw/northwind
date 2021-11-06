@@ -162,7 +162,7 @@ export default function connectLogic(store) {
                 utilsTool.openNewWindow(CONSTANTS_STAR_MASK.PLUGIN_URL);
               },
             },
-            () => utilsFormat.computedLangCtx("下载")
+            () => utilsFormat.computedLangCtx("下载").value
           ),
         ]
       ),

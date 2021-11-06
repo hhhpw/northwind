@@ -31,7 +31,7 @@
 <script setup>
 import { defineProps, defineEmits, reactive, watch } from "vue";
 import SvgIcon from "@components/SvgIcon/Index.vue";
-import { ElDialog } from "element-plus";
+// import { ElDialog } from "element-plus";
 
 const props = defineProps({
   title: {

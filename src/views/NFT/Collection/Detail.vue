@@ -27,6 +27,7 @@
       () => {
         editState.edit_price_show = false;
         editState.edit_price_error = false;
+        editState.edit_price_isInteger = true;
       }
     "
   >
@@ -42,6 +43,7 @@
         <star-space :size="10"></star-space>
         <div style="text-align: right">
           {{ t("最高出价") }}
+          {{ editState.edit_price_isInteger }}
           {{
             (state.detail_info.topBidPrice &&
               utilsFormat.formatPrice(state.detail_info.topBidPrice)) ||
@@ -49,16 +51,10 @@
           }}
           STC
         </div>
-        <div
-          v-if="editState.edit_price_error"
-          style="
-            text-align: right;
-            margin-top: 3px;
-            font-size: 12px;
-            text-align: right;
-            color: #f36346;
-          "
-        >
+        <div v-if="!editState.edit_price_isInteger" class="error">
+          *{{ $t("只能输入正整数") }}
+        </div>
+        <div v-if="editState.edit_price_error" class="error">
           *{{ $t("售价需大于当前最高出价") }}
         </div>
       </div>
@@ -109,6 +105,7 @@
   </nft-sold-out-dialog>
 </template>
 <script setup>
+/* eslint-disable */
 import {
   reactive,
   computed,
@@ -121,6 +118,7 @@ import StarNft from "@StarUI/StarNFT.vue";
 import StarLoadingFish from "@StarUI/StarLoadingFish.vue";
 import DetailCard from "@components/NFT/DetailCard.vue";
 import utilsNumber from "@utils/number";
+import utilsRegexp from "@utils/regexp";
 import NftDialog from "@components/NFT/NFTDialog.vue";
 import NftSecondDialog from "@components/NFT/NFTSecondDialog.vue";
 import NftSoldOutDialog from "@components/NFT/NFTSoldOutDialog.vue";
@@ -177,6 +175,7 @@ let editState = reactive({
   edit_price_inputVal: 1,
   edit_price_show: false, // 修改报价弹窗
   edit_price_error: false,
+  edit_price_isInteger: true,
 });
 
 watchEffect(() => {
@@ -241,15 +240,23 @@ onUnmounted(() => {
 
 // 修改报价
 const changeBidPrice = async () => {
-  editState.edit_price_show = false;
   editState.edit_price_error = false;
-  console.log("state.detail_info.", state.detail_info);
+  editState.edit_price_isInteger = true;
+  const isInteger = utilsRegexp.isInteger(editState.edit_price_inputVal);
+  if (!isInteger) {
+    editState.edit_price_isInteger = false;
+    return;
+  }
+  if (!checkEditValue(editState.edit_price_inputVal)) {
+    return;
+  }
   const price = utilsNumber
     .bigNum(editState.edit_price_inputVal)
     .times(Math.pow(10, 9))
     .toString();
   if (!price) return;
   let params;
+  editState.edit_price_show = false;
   if (state.detail_type === "nft") {
     params = {
       args: [String(state.detail_info.nftId), price],
@@ -292,12 +299,9 @@ const checkEditValue = (value) => {
 };
 
 const editInputEvent = (e) => {
+  editState.edit_price_isInteger = true;
   editState.edit_price_error = false;
   editState.edit_price_inputVal = Number(e);
-  if (!e) return;
-  if (!checkEditValue(e)) {
-    return;
-  }
 };
 
 const actionsCall = async (d) => {
@@ -357,7 +361,6 @@ const actionsCall = async (d) => {
         };
       }
       state.dialogEvent = dialogEventMaps["Sell"];
-      console.log("===", state.dialogEvent);
       store.dispatch("StoreCollection/sellContractsCall", params);
     }
   } else if (d.action === "OpenBlinkBox") {
@@ -385,7 +388,6 @@ const actionsCall = async (d) => {
       };
     }
     if (state.detail_type === "box") {
-      console.log("state.detail_info.", state.detail_info);
       params = {
         type: "box",
         tyArgs: [state.detail_info.boxToken, state.detail_info.payToken],
@@ -455,5 +457,12 @@ const sencondDialogConfirm = () => {
       min-height: 600px;
     }
   }
+}
+.error {
+  text-align: right;
+  margin-top: 3px;
+  font-size: 12px;
+  text-align: right;
+  color: #f36346;
 }
 </style>

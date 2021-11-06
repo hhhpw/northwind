@@ -21,9 +21,7 @@
 </template>
 
 <script setup>
-/* eslint-disable */
-import { ElInputNumber } from "element-plus";
-import { defineProps, defineEmits, reactive, watch } from "vue";
+import { defineProps, defineEmits } from "vue";
 import utilsNumber from "@utils/number";
 const props = defineProps({
   value: [String, Number],
@@ -57,12 +55,13 @@ const props = defineProps({
 const emits = defineEmits(["inputEvent"]);
 
 const inputEvent = (e) => {
+  console.log("e", e);
   if (String(e)) {
-    let val = String(e).replace(/^(0+)|[^\d]+/g, "");
-    if (utilsNumber.bigNum(val).gt(props.max)) {
+    // let val = String(e).replace(/^(0+)|[^\d]+/g, "");
+    if (utilsNumber.bigNum(e).gt(props.max)) {
       emits("inputEvent", props.max);
     } else {
-      emits("inputEvent", val);
+      emits("inputEvent", e);
     }
   }
 };

@@ -117,6 +117,7 @@
             <!-- <p v-if="state.errors[0]">
               * {{ t("购买数量需小于剩余可购买数量") }}
             </p> -->
+            <p v-if="!state.inputVal_isInteger">*{{ t("只能输入正整数") }}</p>
             <p v-if="state.errors[1]">* {{ t("可用金额不足") }}</p>
           </div>
         </div>
@@ -175,6 +176,7 @@ import utilsFormat from "@utils/format";
 import connectLogic from "../../../mixins/wallet";
 import CONSTANTS_TOKENS from "@constants/token";
 import NftSoldOutDialog from "@components/NFT/NFTSoldOutDialog.vue";
+import utilsRegexp from "@utils/regexp";
 const store = useStore();
 const router = useRouter();
 const route = useRoute();
@@ -191,6 +193,7 @@ let state = reactive({
   remainQuantity: computed(() => store.state.StoreBlindBox.remainQuantity),
   inputVal: 1,
   loaded: false,
+  inputVal_isInteger: true,
   errors: [false, false],
   buyStatus: computed(() => store.state.StoreBlindBox.buyStatus),
   provider: computed(() => store.state.StoreWallet.stcProvider),
@@ -295,12 +298,18 @@ const validateVal = () => {
 
 const inputEvent = (e) => {
   state.inputVal = Number(e);
+  state.inputVal_isInteger = true;
   state.errors = [false, false];
   validateVal(e);
 };
 
 const buyBlindBox = async () => {
+  state.inputVal_isInteger = true;
   state.errors = [false, false];
+  if (!utilsRegexp.isInteger(state.inputVal)) {
+    state.inputVal_isInteger = false;
+    return;
+  }
   if (!validateVal(state.inputVal)) {
     return;
   }

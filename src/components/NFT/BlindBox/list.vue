@@ -63,18 +63,8 @@
   </div>
 </template>
 <script setup>
-/* eslint-disable */
-import {
-  computed,
-  onMounted,
-  reactive,
-  defineProps,
-  defineEmits,
-  onUnmounted,
-  watch,
-} from "vue";
+import { computed, onMounted, reactive, onUnmounted, watch } from "vue";
 import StarSpace from "@StarUI/StarSpace.vue";
-import StarScroller from "@StarUI/StarScroller.vue";
 import utilsDate from "@utils/date.js";
 import { isUndefined, cloneDeep } from "lodash";
 import dayjs from "dayjs";
@@ -167,6 +157,7 @@ const pushDetailPage = (groupId) => {
 };
 
 const sellStatus = (type, sellingTime) =>
+  /* eslint-disable-next-line */
   computed(() => {
     {
       if (type === "willsell") {

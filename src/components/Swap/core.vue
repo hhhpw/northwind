@@ -212,7 +212,7 @@ const store = useStore();
 import Wallet from "../../wallet/index";
 import SettingDialog from "../SettingDialog.vue";
 import commonApi from "@api/common";
-import { ElTooltip } from "element-plus";
+// import { ElTooltip } from "element-plus";
 
 const { connectWallet } = connectLogic(store);
 let state = reactive({

@@ -24,7 +24,7 @@
 </template>
 
 <script setup>
-import { ElDialog } from "element-plus";
+// import { ElDialog } from "element-plus";
 import { reactive, defineProps, watch } from "vue";
 import StarSpace from "@StarUI/StarSpace";
 const props = defineProps({

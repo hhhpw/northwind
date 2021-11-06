@@ -91,7 +91,7 @@
 <script setup>
 import SvgIcon from "@components/SvgIcon/Index.vue";
 import { computed, reactive } from "vue";
-import { ElTooltip } from "element-plus";
+// import { ElTooltip } from "element-plus";
 import { useStore } from "vuex";
 const store = useStore();
 let state = reactive({

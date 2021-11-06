@@ -9,7 +9,7 @@
 </template>
 
 <script setup>
-import { ElInput } from "element-plus";
+// import { ElInput } from "element-plus";
 import { defineProps, defineEmits, reactive, watch } from "vue";
 import utilsNumber from "@utils/number";
 const state = reactive({
@@ -44,6 +44,7 @@ watch(
 );
 
 const inputEvent = (val) => {
+  console.log("inputEvent", val);
   val = val.toString();
   if (props.validateType === "decimal") {
     val = val

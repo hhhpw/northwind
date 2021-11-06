@@ -34,7 +34,7 @@
 <script setup>
 import { reactive, defineEmits, defineProps } from "vue";
 import SvgIcon from "@components/SvgIcon/Index.vue";
-import { ElTooltip } from "element-plus";
+// import { ElTooltip } from "element-plus";
 import NFT_CONSTANTS from "@constants/nft";
 const props = defineProps({
   showTips: {

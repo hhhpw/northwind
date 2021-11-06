@@ -64,7 +64,7 @@ import SvgIcon from "@components/SvgIcon/Index.vue";
 import StarSpace from "@StarUI/StarSpace.vue";
 import { useStore } from "vuex";
 import StarInput from "@StarUI/StarInput";
-import { ElTooltip } from "element-plus";
+// import { ElTooltip } from "element-plus";
 const store = useStore();
 
 let state = reactive({

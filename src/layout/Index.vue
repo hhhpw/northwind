@@ -110,6 +110,7 @@ watch(
     background-position: center;
     .star-layout-content {
       padding-top: 64px;
+      padding-bottom: 50px;
     }
   }
   .star-layout-home {

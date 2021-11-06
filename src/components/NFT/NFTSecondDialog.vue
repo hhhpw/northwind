@@ -62,7 +62,7 @@
 import { defineProps, defineEmits, reactive, watch } from "vue";
 import SvgIcon from "@components/SvgIcon/Index.vue";
 import StarButton from "@StarUI/StarButton.vue";
-import { ElDialog } from "element-plus";
+// import { ElDialog } from "element-plus";
 
 const props = defineProps({
   dialogVisible: {

@@ -27,6 +27,7 @@
             state.quotation_show = false;
             state.quotation_inputVal = 1;
             state.quotation_error = [false, false];
+            state.quotation_isInteger = true;
           }
         "
       >
@@ -48,6 +49,9 @@
             <div style="text-align: right">
               {{ t("可用") + " : " + userAmount }}
               STC
+            </div>
+            <div v-if="!state.quotation_isInteger" class="error">
+              *{{ $t("只能输入正整数") }}
             </div>
             <div v-if="state.quotation_error[0]" class="error">
               *{{ $t("报价需大于当前最高出价") }}
@@ -81,6 +85,7 @@
           () => {
             editState.edit_price_show = false;
             editState.edit_price_error = false;
+            editState.edit_price_isInteger = true;
           }
         "
       >
@@ -103,16 +108,11 @@
               }}
               STC
             </div>
-            <div
-              v-if="editState.edit_price_error"
-              style="
-                text-align: right;
-                margin-top: 3px;
-                font-size: 12px;
-                text-align: right;
-                color: #f36346;
-              "
-            >
+            <div v-if="!editState.edit_price_isInteger" class="error">
+              *{{ $t("只能输入正整数") }}
+            </div>
+
+            <div v-if="editState.edit_price_error" class="error">
               *{{ $t("售价需大于当前最高出价") }}
             </div>
           </div>
@@ -182,6 +182,7 @@ import StarLoadingFish from "@StarUI/StarLoadingFish.vue";
 import StarConfirm from "@StarUI/StarConfirm";
 import StarInputNumber from "@StarUI/StarInputNumber";
 import utilsFormat from "@utils/format";
+import utilsRegexp from "@utils/regexp";
 import StarSpace from "@StarUI/StarSpace.vue";
 import StarNft from "@StarUI/StarNFT.vue";
 import detailCard from "@components/NFT/DetailCard.vue";
@@ -192,17 +193,24 @@ import CONSTANTS_TOKENS from "@constants/token";
 import utilsNumber from "@utils/number";
 import { useRoute } from "vue-router";
 import { dialogEventMaps } from "./dialog";
+// import { ElInputNumber } from "element-plus";
 import { useI18n } from "vue-i18n";
 const { t } = useI18n();
 const route = useRoute();
 import { useStore } from "vuex";
 const store = useStore();
 
+const num = ref(1);
+const handleChange = (value) => {
+  console.log(value);
+};
+
 let state = reactive({
   soldDialogParams: computed(() => store.state.StoreNftMarket.soldDialogParams),
   quotation_show: false, // 报价弹窗
   quotation_error: [false, false],
   quotation_inputVal: 1,
+  quotation_isInteger: true,
   balances: computed(() => store.state.StoreWallet.balances),
   id: "", // NFT的id
   groupId: "", // 盲盒id
@@ -268,12 +276,13 @@ const editState = reactive({
   edit_price_inputVal: 1,
   edit_price_show: false, // 修改报价弹窗
   edit_price_error: false,
+  edit_price_isInteger: true,
 });
 
 watchEffect(() => {
   if (state.box_detail && editState.edit_price_show) {
     editState.edit_price_inputVal = Number(
-      utilsFormat.formatPrice(state.box_detail.sellingPrice || 0)
+      utilsFormat.formatBalance(state.box_detail.sellingPrice || 0, 9)
     );
   }
 });
@@ -457,6 +466,7 @@ const checkValue = (value) => {
   return true;
 };
 const inputEvent = (e) => {
+  state.quotation_isInteger = true;
   state.quotation_error = [false, false];
   state.quotation_inputVal = Number(e);
 };
@@ -476,12 +486,19 @@ const checkEditValue = (value) => {
 };
 
 const editInputEvent = (e) => {
+  editState.edit_price_isInteger = true;
   editState.edit_price_error = false;
   editState.edit_price_inputVal = Number(e);
 };
 
 const changeBidPrice = () => {
+  editState.edit_price_isInteger = true;
   editState.edit_price_error = false;
+  const isInteger = utilsRegexp.isInteger(editState.edit_price_inputVal);
+  if (!isInteger) {
+    editState.edit_price_isInteger = false;
+    return;
+  }
   if (state.action_type_UI === "OWNERSELL") {
     state.action_type = "UpdateBid";
     if (checkEditValue(editState.edit_price_inputVal)) {
@@ -501,58 +518,69 @@ const changeBidPrice = () => {
   }
 };
 const bidPrice = () => {
-  state.quotation_error = [false, false];
-  // state.quotation_inputVal = 1;
-  if (state.action_type_UI !== "OWNERSELL") {
-    state.action_type = "BidPrice";
-    if (checkValue(state.quotation_inputVal)) {
-      const sellPrice = utilsNumber
-        .bigNum(state.box_detail.sellingPrice)
-        .div(Math.pow(10, 9))
-        .toString();
-      state.bidOfferPrice = state.quotation_inputVal;
-      state.quotation_show = false;
-      state.quotation_inputVal = 1;
-      // 大于售价二次弹窗确认购买，  后续走购买的流程
-      console.log(
-        "sellPrice",
-        sellPrice,
-        "state.bidOfferPrice",
-        state.bidOfferPrice,
-        "state.quotation_inputVal ",
-        state.quotation_inputVal
-      );
-      if (utilsNumber.bigNum(state.bidOfferPrice).gte(sellPrice)) {
-        console.log("出价大于售价");
-        state.secondDialogParams = Object.assign(
-          {},
-          NFT_CONSTANTS.INIT_SECOND_DIALOG_PARAMS,
-          {
-            isShow: true,
-            imgUrl: state.box_detail.boxTokenLogo || state.box_detail.imageLink,
-            text: t("市场买入", {
-              price: sellPrice,
-              currency: utilsFormat.getTokenCurrency(state.box_detail.payToken),
-            }),
-          }
-        );
-      } else {
-        console.log("出价小于售价");
-        state.dialogEvent = dialogEventMaps["BidPrice"];
-        store.dispatch(
-          "StoreNftMarket/bidPrice",
-          Object.assign({}, state.contract_params, {
-            offerPrice: state.bidOfferPrice,
-            nftId: ref(route.query.id).value,
-            groupId: ref(route.query.groupId).value,
-            chainId: ref(route.query.chainId).value,
-          })
-        );
-      }
-    }
-  } else {
-    state.action_type = "UpdateBid";
+  state.quotation_isInteger = true;
+  const isInteger = utilsRegexp.isInteger(state.quotation_inputVal);
+  if (!isInteger) {
+    state.quotation_isInteger = false;
+    return;
   }
+  state.quotation_error = [false, false];
+  if (state.quotation_inputVal)
+    if (state.action_type_UI !== "OWNERSELL") {
+      // state.quotation_inputVal = 1;
+      state.action_type = "BidPrice";
+      if (checkValue(state.quotation_inputVal)) {
+        const sellPrice = utilsNumber
+          .bigNum(state.box_detail.sellingPrice)
+          .div(Math.pow(10, 9))
+          .toString();
+        state.bidOfferPrice = state.quotation_inputVal;
+        state.quotation_show = false;
+        setTimeout(() => state.quotation_inputVal, 1000);
+        // state.quotation_inputVal = 1;
+        // 大于售价二次弹窗确认购买，  后续走购买的流程
+        console.log(
+          "sellPrice",
+          sellPrice,
+          "state.bidOfferPrice",
+          state.bidOfferPrice,
+          "state.quotation_inputVal ",
+          state.quotation_inputVal
+        );
+        if (utilsNumber.bigNum(state.bidOfferPrice).gte(sellPrice)) {
+          console.log("出价大于售价");
+          state.secondDialogParams = Object.assign(
+            {},
+            NFT_CONSTANTS.INIT_SECOND_DIALOG_PARAMS,
+            {
+              isShow: true,
+              imgUrl:
+                state.box_detail.boxTokenLogo || state.box_detail.imageLink,
+              text: t("市场买入", {
+                price: sellPrice,
+                currency: utilsFormat.getTokenCurrency(
+                  state.box_detail.payToken
+                ),
+              }),
+            }
+          );
+        } else {
+          console.log("出价小于售价");
+          state.dialogEvent = dialogEventMaps["BidPrice"];
+          store.dispatch(
+            "StoreNftMarket/bidPrice",
+            Object.assign({}, state.contract_params, {
+              offerPrice: state.bidOfferPrice,
+              nftId: ref(route.query.id).value,
+              groupId: ref(route.query.groupId).value,
+              chainId: ref(route.query.chainId).value,
+            })
+          );
+        }
+      }
+    } else {
+      state.action_type = "UpdateBid";
+    }
 };
 
 const secondDialogClose = () => {

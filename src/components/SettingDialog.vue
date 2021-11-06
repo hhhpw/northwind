@@ -24,30 +24,38 @@
               </template>
             </ElTooltip>
           </p>
-          <ElRadioGroup v-model="state.slippageTolerance" class="radio-group">
-            <ElRadioButton
-              v-for="(item, i) in state.labels"
-              :key="i"
-              :label="item"
-              class="radio-button"
-              :border="false"
-              @change="changeSlippage(item)"
-              >{{ item + "%" }}</ElRadioButton
+          <div class="flex-style">
+            <el-radio-group
+              v-model="state.slippageTolerance"
+              class="radio-group"
             >
-          </ElRadioGroup>
-          <ElInput
-            class="input-el"
-            v-model="state.slippageTolerance"
-            :style="
-              state.slippageTolerance !== '0.1' &&
-              state.slippageTolerance !== '0.5' &&
-              state.slippageTolerance !== '1.0'
-                ? 'border: 2px solid #fb8000'
-                : ''
-            "
-            @input="setSlippage"
-            @blur="handleBlurSlipppage"
-          /><span class="unit-input">%</span>
+              <el-radio-button
+                v-for="(item, i) in state.labels"
+                :key="i"
+                :label="item"
+                class="radio-button"
+                :border="false"
+                @change="changeSlippage(item)"
+                >{{ item + "%" }}</el-radio-button
+              >
+            </el-radio-group>
+            <div>
+              <ElInput
+                class="input-el"
+                v-model="state.slippageTolerance"
+                :style="
+                  state.slippageTolerance !== '0.1' &&
+                  state.slippageTolerance !== '0.5' &&
+                  state.slippageTolerance !== '1.0'
+                    ? 'border: 2px solid #fb8000'
+                    : ''
+                "
+                @input="setSlippage"
+                @blur="handleBlurSlipppage"
+              /><span class="unit-input">%</span>
+            </div>
+          </div>
+
           <p>
             <label>{{ $t("多节点兑换") }}</label>
             <ElTooltip effect="light" placement="right" :append-to-body="false">
@@ -77,7 +85,7 @@
 <script setup>
 import starDialog from "@StarUI/StarDialog.vue";
 import { reactive, defineProps, watch, defineEmits, computed } from "vue";
-import { ElRadioGroup, ElRadioButton, ElInput, ElTooltip } from "element-plus";
+// import { ElRadioGroup, ElRadioButton, ElInput, ElTooltip } from "element-plus";
 import session from "@utils/session";
 import { useStore } from "vuex";
 import SvgIcon from "@components/SvgIcon/Index.vue";
@@ -148,6 +156,11 @@ const handleBlurSlipppage = () => {
 
 <style lang="scss" scoped>
 @import "~@/styles/variables.scss";
+.flex-style {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
 .star-setting {
   ::v-deep(.el-dialog__body) {
     padding: 14px 18px 32px;
@@ -213,7 +226,8 @@ const handleBlurSlipppage = () => {
       border-radius: 6px;
       border: 1px solid #ededed;
       position: relative;
-      top: 3px;
+      // top: 3px;
+      display: inline-block;
       .border-show {
         ::v-deep(.el-input__inner) {
           border-color: $text-orange-color;

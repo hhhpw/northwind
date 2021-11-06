@@ -35,7 +35,7 @@
   </div>
 </template>
 <script setup>
-import { ElTooltip } from "element-plus";
+// import { ElTooltip } from "element-plus";
 import { computed, reactive } from "vue";
 import SvgIcon from "@components/SvgIcon/Index.vue";
 import { useStore } from "vuex";

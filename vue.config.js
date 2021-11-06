@@ -4,6 +4,8 @@ const CompressionWebpackPlugin = require("compression-webpack-plugin");
 const LodashModuleReplacementPlugin = require("lodash-webpack-plugin");
 const ImageminWebpWebpackPlugin = require("imagemin-webp-webpack-plugin");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+// https://github.com/antfu/unplugin-vue-components#readme
+const unpluginVueComponents = require("unplugin-vue-components/webpack");
 
 // https://staven630.github.io/vue-cli4-config/
 function resolve(dir) {
@@ -11,6 +13,32 @@ function resolve(dir) {
 }
 
 const isProduction = process.env.NODE_ENV === "production";
+
+const plugins = isProduction
+  ? [
+      new CompressionWebpackPlugin({
+        filename: "[path].gz[query]",
+        algorithm: "gzip",
+        test: /\.js$|\.css$|\.html$/,
+        threshold: 10240, // 只有大小大于该值的资源会被处理 10240
+        minRatio: 0.8, // 只有压缩率小于这个值的资源才会被处理
+      }),
+      new UglifyJsPlugin({
+        uglifyOptions: {
+          //生产环境自动删除console
+          compress: {
+            drop_debugger: true,
+            drop_console: true,
+            dead_code: true,
+            pure_funcs: ["console.log"], //移除console
+          },
+        },
+        sourceMap: false,
+        parallel: true,
+      }),
+      unpluginVueComponents,
+    ]
+  : [new ImageminWebpWebpackPlugin(), unpluginVueComponents];
 
 module.exports = {
   publicPath: "/",
@@ -74,45 +102,17 @@ module.exports = {
       config.plugin("loadshReplace").use(new LodashModuleReplacementPlugin());
     }
   },
-  configureWebpack: (config) => {
-    config.output.filename = `js/[name].[hash].js`;
-    config.output.chunkFilename = `js/[name].[hash].js`;
-    if (isProduction) {
-      return {
-        // externals: {
-        //   vue: "vue",
-        //   "vue-router": "VueRouter",
-        //   axios: "axios",
-        //   vuex: "vuex",
-        // },
-        plugins: [
-          new CompressionWebpackPlugin({
-            filename: "[path].gz[query]",
-            algorithm: "gzip",
-            test: /\.js$|\.css$|\.html$/,
-            threshold: 10240, // 只有大小大于该值的资源会被处理 10240
-            minRatio: 0.8, // 只有压缩率小于这个值的资源才会被处理
-          }),
-          new UglifyJsPlugin({
-            uglifyOptions: {
-              //生产环境自动删除console
-              compress: {
-                drop_debugger: true,
-                drop_console: true,
-                dead_code: true,
-                pure_funcs: ["console.log"], //移除console
-              },
-            },
-            sourceMap: false,
-            parallel: true,
-          }),
-        ],
-      };
-    } else {
-      return {
-        plugins: [new ImageminWebpWebpackPlugin()],
-      };
-    }
+  configureWebpack: {
+    module: {
+      rules: [
+        {
+          test: /\.mjs$/,
+          include: /node_modules/,
+          type: "javascript/auto",
+        },
+      ],
+    },
+    plugins: plugins,
   },
   css: {
     extract: false,
