@@ -282,6 +282,7 @@ const changeBuyModalStatus = (flag) => {
   store.commit("StoreBlindBox/CHANGE_BUY_MODAL_STATUS", flag);
   state.inputVal = 1;
   state.errors = [false, false];
+  state.inputVal_isInteger = true;
 };
 
 const validateVal = () => {
