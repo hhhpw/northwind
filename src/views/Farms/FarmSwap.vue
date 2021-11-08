@@ -8,6 +8,7 @@
         :class="$style['container-farm-swap-header-item']"
       ></person-value>
     </div>
+    <swap-core :class="$style['container-farm-swap-core']"></swap-core>
   </div>
 </template>
 <script setup>
@@ -15,18 +16,17 @@
 import { computed, onMounted, reactive, defineProps, defineEmits } from "vue";
 import TotalValue from "@components/Farms/FarmSwap/totaldata";
 import PersonValue from "@components/Farms/FarmSwap/persondata";
+import SwapCore from "@components/Farms/FarmSwap/swapcore";
 </script>
 <style lang="scss" module>
 .container-farm-swap {
   width: 1100px;
   margin: 0px auto;
-  margin-top: 40px;
-  background: #fff;
+  margin-top: 25px;
+  // background: #fff;
   overflow: hidden;
   .container-farm-swap-header {
     width: 100%;
-    // display: flex;
-    // overflow: hidden;
     display: flex;
     justify-content: space-between;
     .container-farm-swap-header-item {
@@ -37,6 +37,10 @@ import PersonValue from "@components/Farms/FarmSwap/persondata";
         margin-left: 15px;
       }
     }
+  }
+  .container-farm-swap-core {
+    margin-top: 60px;
+    // padding: 0 0;
   }
   // height: 200px;
 }

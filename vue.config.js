@@ -40,6 +40,15 @@ const plugins = isProduction
     ]
   : [new ImageminWebpWebpackPlugin(), unpluginVueComponents];
 
+const cssConfig = isProduction
+  ? {
+      modules: {
+        mode: "local",
+        localIdentName: "hpw__[hash:base64:8]",
+      },
+    }
+  : {};
+
 module.exports = {
   publicPath: "/",
   outputDir: "dist",
@@ -123,12 +132,7 @@ module.exports = {
         @import "@styles/variables.scss";
         `,
       },
-      css: {
-        modules: {
-          mode: "local",
-          localIdentName: "hpw__[hash:base64:8]",
-        },
-      },
+      css: cssConfig,
     },
     requireModuleExtension: true,
   },

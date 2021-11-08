@@ -52,7 +52,7 @@
           STC
         </div>
         <div v-if="!editState.edit_price_isInteger" class="error">
-          *{{ $t("只能输入正整数") }}
+          *{{ $t("只能输入整数") }}
         </div>
         <div v-if="editState.edit_price_error" class="error">
           *{{ $t("售价需大于当前最高出价") }}

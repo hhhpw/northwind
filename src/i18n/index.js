@@ -31,6 +31,8 @@ langs.forEach((lang) => {
   });
 });
 
+console.log("messages", messages);
+
 const getLang = () => {
   let lang = session.getItem("language");
   if (lang) {

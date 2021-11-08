@@ -7,7 +7,7 @@
         :key="i"
       >
         <p :class="$style['container-total-data-content-item-title']">
-          {{ $t(`farm-swap-total-${i + 1}`) }}
+          {{ $t(`farms.farm-swap-total-${i + 1}`) }}
         </p>
         <star-amount
           :value="d"
@@ -22,8 +22,8 @@
     </div>
     <star-space :size="20"></star-space>
 
-    <p>* {{ $t("container-total-data-desc-1") }}</p>
-    <p>* {{ $t("container-total-data-desc-2") }}</p>
+    <p>* {{ $t("farms.farm-swap-total-data-desc-1") }}</p>
+    <p>* {{ $t("farms.farm-swap-total-data-desc-2") }}</p>
   </div>
 </template>
 <script setup>
