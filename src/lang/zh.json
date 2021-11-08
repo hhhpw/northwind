@@ -243,7 +243,11 @@
     "可用金额不足": "可用金額不足",
     "商品上架成功": "商品上架成功",
     "即将出售": "即將出售",
-    "已售罄": "已售罄"
+    "已售罄": "已售罄",
+    "farm-swap-total-1": "farm-swap-total-1",
+    "farm-swap-total-2": "farm-swap-total-2",
+    "farm-swap-total-3": "farm-swap-total-3",
+    "farm-swap-total-4": "farm-swap-total-4"
   },
   "navs": {
     "首页": "首頁",

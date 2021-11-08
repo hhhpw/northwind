@@ -12,13 +12,13 @@ const routes = [
         path: "/",
         component: () => import("@views/Home/Index.vue"),
         name: "home",
-        meta: { title: "首页", affix: true, url: "/" },
+        meta: { title: "首页", url: "/" },
       },
       {
         path: "/swap",
         component: () => import("@views/Swap/Index.vue"),
         name: "swap",
-        meta: { title: "兑换", affix: true, url: "/swap", bg: "swap" },
+        meta: { title: "兑换", url: "/swap", bg: "swap" },
       },
       {
         path: "/liquidity",
@@ -26,7 +26,6 @@ const routes = [
         name: "liquidity",
         meta: {
           title: "流动性",
-          affix: true,
           url: "/liquidity",
           bg: "liquidity",
         },
@@ -37,7 +36,6 @@ const routes = [
         name: "nftblindbox",
         meta: {
           title: "盲盒",
-          affix: true,
           url: "/nftblindbox",
           bg: "nft",
         },
@@ -48,7 +46,6 @@ const routes = [
         name: "nftblindboxdetail",
         meta: {
           title: "盲盒",
-          affix: true,
           url: "/nftblindbox/:id",
           bg: "nft",
         },
@@ -57,7 +54,7 @@ const routes = [
         path: "/nftbuyback",
         component: () => import("@views/NFT/BuyBack/Index.vue"),
         name: "nftbuyback",
-        meta: { title: "平台回购", affix: true, url: "/nftbuyback", bg: "nft" },
+        meta: { title: "平台回购", url: "/nftbuyback", bg: "nft" },
       },
       {
         path: "/nftcollection/:tabIndex",
@@ -74,7 +71,7 @@ const routes = [
         path: "/nftmarket",
         component: () => import("@views/NFT/Market/Index.vue"),
         name: "nftmarket",
-        meta: { title: "市场", affix: true, url: "/nftmarket", bg: "nft" },
+        meta: { title: "市场", url: "/nftmarket", bg: "nft" },
       },
       {
         path: "/nftcollectiondetail",
@@ -82,7 +79,6 @@ const routes = [
         name: "nftcollectiondetail",
         meta: {
           title: "我的NFT详情",
-          affix: true,
           url: "/nftcollectiondetail",
           bg: "nft",
         },
@@ -93,7 +89,6 @@ const routes = [
         name: "nftmarketdetail",
         meta: {
           title: "市场详情",
-          affix: true,
           url: "/nftmarketdetail",
           bg: "nft",
         },
@@ -104,7 +99,6 @@ const routes = [
         name: "nftbuybackdetail",
         meta: {
           title: "平台回购详情",
-          affix: true,
           bg: "nft",
           url: "/nftbuybackdetail",
         },
@@ -115,9 +109,18 @@ const routes = [
         name: "info",
         meta: {
           title: "行情",
-          affix: true,
           bg: "nft",
           url: "/info",
+        },
+      },
+      {
+        path: "/swapfarms",
+        component: () => import("@views/Farms/FarmSwap.vue"),
+        name: "swapfarms",
+        meta: {
+          title: "交易挖矿",
+          bg: "nft",
+          url: "/swapfarms",
         },
       },
     ],

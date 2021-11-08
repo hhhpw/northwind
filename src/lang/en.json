@@ -244,7 +244,11 @@
     "可用金额不足": "Insufficient balance",
     "商品上架成功": "Item listing succeed",
     "即将出售": "Will be on sale in",
-    "已售罄": "Sold out"
+    "已售罄": "Sold out",
+    "farm-swap-total-1": "farm-swap-total-1=en",
+    "farm-swap-total-2": "farm-swap-total-2=en",
+    "farm-swap-total-3": "farm-swap-total-3=en",
+    "farm-swap-total-4": "farm-swap-total-4=en"
   },
   "navs": {
     "首页": "Home",
