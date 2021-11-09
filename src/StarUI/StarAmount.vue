@@ -9,6 +9,9 @@
         <span v-if="props.currency">
           {{ props.currency }}
         </span>
+        <span v-if="props.displaySuffix">
+          {{ props.displaySuffix }}
+        </span>
       </span>
     </span>
   </star-trade>
@@ -71,6 +74,11 @@ const props = defineProps({
   // ----------
   // 数量前缀 ¥、$
   displayPreFix: {
+    type: String,
+    default: "",
+  },
+  // 后缀
+  displaySuffix: {
     type: String,
     default: "",
   },

@@ -245,7 +245,11 @@
     "即将出售": "即將出售",
     "已售罄": "已售罄",
     "只能输入整数": "只能輸入整數",
-    "售价需大于当前最高出价": "售價需大於當前最高出價"
+    "售价需大于当前最高出价": "售價需大於當前最高出價",
+    "操作失败": "操作失敗",
+    "提取中": "提取中",
+    "操作成功": "操作成功",
+    "提取收益失败": "提取收益失敗"
   },
   "farms": {
     "farm-swap-total-1": "總交易額",
@@ -254,10 +258,11 @@
     "farm-swap-total-4": "預計每日可得KIKO數量",
     "farm-swap-total-data-desc-1": "我的交易額（池中算力）可以提供持續的挖礦能力，算力會以每4小時衰減5%的速率進行衰減",
     "farm-swap-total-data-desc-2": "提取收益將使我的交易額（池中算力）進行清零，在下次交易時重新進行累積",
-    "swap-farm-draw": "提取",
-    "swap-farm-person-title1": "當前挖礦收益KIKO",
-    "swap-farm-person-title2": "七日鎖倉KIKO",
-    "swap-farm-person-drawdesc": "提取收益時，其中50%部分會進行鎖倉",
+    "farm-swap-draw": "提取",
+    "farm-swap-can-draw": "可提取",
+    "farm-swap-person-title1": "當前挖礦收益KIKO",
+    "farm-swap-person-title2": "七日鎖倉KIKO",
+    "farm-swap-person-drawdesc": "提取收益時，其中50%部分會進行鎖倉",
     "farm-swap-pool-title": "交易礦池",
     "farm-swap-pool-title-desc": "所有的交易量將會按比例挖取新區塊的KIKO",
     "farm-swap-pool-card-year-rate": "年化收益率",
@@ -266,7 +271,11 @@
     "farm-swap-pool-card-total-reward-item-3": "當前交易額",
     "farm-swap-pool-card-person-reward-item-1": "積累獎勵",
     "farm-swap-pool-card-person-reward-item-2": "我的交易額",
-    "farm-swap-pool-card-person-reward-item-3": "未領取獎勵"
+    "farm-swap-pool-card-person-reward-item-3": "未領取獎勵",
+    "farm-swap-draw-sure-title": "提前收益確認",
+    "farm-swap-draw-sure-error": "本次操作將失去算力",
+    "farm-swap-lock": "鎖倉",
+    "farm-swap-draw-gas": "提取費用"
   },
   "navs": {
     "首页": "首頁",

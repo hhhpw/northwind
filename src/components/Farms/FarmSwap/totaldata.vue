@@ -14,7 +14,7 @@
           displayPreFix="$"
           :class="$style['container-total-data-content-item-amount']"
           :formatOptions="{
-            precision: 2,
+            precision: i === 3 ? 4 : 2,
             trailingZero: false,
           }"
         ></star-amount>

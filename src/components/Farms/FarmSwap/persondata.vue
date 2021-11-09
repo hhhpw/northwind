@@ -1,65 +1,101 @@
 <template>
-  <div :class="$style['container-person-data']">
-    <div :class="$style['container-person-data-header']">
-      <div
-        :class="$style['container-person-data-header-item']"
-        v-for="(d, i) in new Array(2)"
-        :key="i"
-      >
-        <template v-if="i === 0">
-          <div
-            :class="[
-              $style['container-person-data-header-item-block'],
-              $style['after-block'],
-            ]"
-          >
-            <!-- 当前挖矿收益kiko -->
-            <p>{{ $t("farms.swap-farm-person-title1") }}</p>
-            <star-amount
-              :class="$style['container-person-data-header-item-block-amount']"
-              :value="21313.12312"
-              :formatOptions="{ precision: 2, trailingZero: false }"
+  <div>
+    <div :class="$style['container-person-data']">
+      <div>{{ state.secondDialogParams }}</div>
+      <div :class="$style['container-person-data-header']">
+        <div
+          :class="$style['container-person-data-header-item']"
+          v-for="(d, i) in new Array(2)"
+          :key="i"
+        >
+          <template v-if="i === 0">
+            <div
+              :class="[
+                $style['container-person-data-header-item-block'],
+                $style['after-block'],
+              ]"
             >
-            </star-amount>
-          </div>
-          <star-button
-            v-if="state.walletStatus === 'connected'"
-            type="dark"
-            :class="$style['container-person-data-header-item-btn']"
-            >{{ $t("farms.swap-farm-draw") }}</star-button
-          >
-        </template>
+              <!-- 当前挖矿收益kiko -->
+              <p>{{ $t("farms.farm-swap-person-title1") }}</p>
+              <star-amount
+                :class="
+                  $style['container-person-data-header-item-block-amount']
+                "
+                :value="state.data[0]"
+                :formatOptions="{ precision: 4, trailingZero: false }"
+                v-if="state.data[0] && state.walletStatus === 'connected'"
+              >
+              </star-amount>
+              <p v-else>- -</p>
+            </div>
+            <star-button
+              v-if="state.walletStatus === 'connected'"
+              type="dark"
+              :class="$style['container-person-data-header-item-btn']"
+              @click="drawProfit"
+              >{{ $t("farms.farm-swap-draw") }}</star-button
+            >
+          </template>
 
-        <template v-if="i === 1">
-          <!-- 七日锁仓kiko -->
-          <div :class="$style['container-person-data-header-item-block']">
-            <p>{{ $t("farms.swap-farm-person-title2") }}</p>
-            <star-amount
-              :class="$style['container-person-data-header-item-block-amount']"
-              :value="21313.12312"
-              :formatOptions="{ precision: 4, trailingZero: true }"
+          <template v-if="i === 1">
+            <!-- 七日锁仓kiko -->
+            <div :class="$style['container-person-data-header-item-block']">
+              <p>{{ $t("farms.farm-swap-person-title2") }}</p>
+              <star-amount
+                :class="
+                  $style['container-person-data-header-item-block-amount']
+                "
+                :value="state.data[1]"
+                :formatOptions="{ precision: 4, trailingZero: true }"
+                v-if="state.data[1] && state.walletStatus === 'connected'"
+              >
+              </star-amount>
+              <p v-else>- -</p>
+              <star-space :size="30"></star-space>
+              <p>{{ $t("farms.farm-swap-can-draw") }}</p>
+              <star-amount
+                :class="
+                  $style['container-person-data-header-item-block-amount']
+                "
+                :value="state.data[2]"
+                :formatOptions="{ precision: 4, trailingZero: true }"
+                v-if="state.data[2] && state.walletStatus === 'connected'"
+              >
+              </star-amount>
+              <p v-else>- -</p>
+            </div>
+            <star-button
+              v-if="state.walletStatus === 'connected'"
+              type="dark"
+              :class="$style['container-person-data-header-item-btn']"
+              >{{ $t("farms.farm-swap-draw") }}</star-button
             >
-            </star-amount>
-          </div>
-          <star-button
-            v-if="state.walletStatus === 'connected'"
-            type="dark"
-            :class="$style['container-person-data-header-item-btn']"
-            >{{ $t("farms.swap-farm-draw") }}</star-button
-          >
-        </template>
+          </template>
+        </div>
       </div>
+      <star-button
+        type="dark"
+        :class="$style['connect-wallet-btn']"
+        v-if="state.walletStatus !== 'connected'"
+        @click="() => connectWallet()"
+        >{{ $t("链接钱包") }}
+      </star-button>
+      <p :class="$style['container-person-data-drawdesc']">
+        {{ $t("farms.farm-swap-person-drawdesc") }}
+      </p>
     </div>
-    <star-button
-      type="dark"
-      :class="$style['connect-wallet-btn']"
-      v-if="state.walletStatus !== 'connected'"
-      @click="() => connectWallet()"
-      >{{ $t("链接钱包") }}
-    </star-button>
-    <p :class="$style['container-person-data-drawdesc']">
-      {{ $t("farms.swap-farm-person-drawdesc") }}
-    </p>
+    <!-- 二次弹窗 -->
+    <farm-second-dialog
+      :dialogParams="state.secondDialogDataParams"
+      @handleClose="handleClose('second')"
+      :dataParams="state.dataParams"
+    ></farm-second-dialog>
+    <!-- loading弹窗 -->
+    <farm-dialog
+      :dialogParams="state.dialogParams"
+      @handleClose="handleClose('feedback')"
+      :dataParams="state.dataParams"
+    ></farm-dialog>
   </div>
 </template>
 <script setup>
@@ -67,15 +103,44 @@
 import { computed, onMounted, reactive, defineProps, defineEmits } from "vue";
 import StarButton from "@StarUI/StarButton";
 import StarAmount from "@StarUI/StarAmount";
+import StarSpace from "@StarUI/StarSpace";
+import FarmSecondDialog from "./farmseconddialog";
+import FarmDialog from "./farmdialog";
 import connectLogic from "@mixins/wallet";
 import { useStore } from "vuex";
+import FARMS_CONSTANTS from "@constants/farms.js";
 let store = useStore();
 
 const { connectWallet } = connectLogic(store);
 let state = reactive({
-  data: ["23412231.12"],
+  data: ["23412231.12", "23212", "23212"],
   walletStatus: computed(() => store.state.StoreWallet.walletStatus),
+  secondDialogParams: computed(() => store.state.StoreFarms.secondDialogParams),
+  dialogParams: computed(() => store.state.StoreFarms.dialogParams),
+  secondDialogDataParams: {
+    draw: "123213",
+    gas: "983121",
+    locked: "123212",
+  },
 });
+
+const drawProfit = () => {
+  store.dispatch("StoreFarms/swapDrawProfit");
+};
+const handleClose = (type) => {
+  if (type === "second") {
+    store.commit(
+      "StoreFarms/CHANGE_SECOND_DIALOG_PARAMS",
+      FARMS_CONSTANTS.SWAP_SECOND_DIALOG_PARAMS
+    );
+  }
+  if (type === "feedback") {
+    store.commit(
+      "StoreFarms/CHANGE_DIALOG_PARAMS",
+      FARMS_CONSTANTS.SWAP_DIALOG_PARAMS
+    );
+  }
+};
 </script>
 <style lang="scss" module>
 .container-person-data {
@@ -110,7 +175,7 @@ let state = reactive({
         }
         .container-person-data-header-item-block-amount {
           margin-top: 3px;
-          font-size: 24px;
+          font-size: 20px;
           font-weight: bold;
         }
       }
