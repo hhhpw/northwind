@@ -9,6 +9,7 @@ export const SWAP_DIALOG_PARAMS = {
   failedBtnText: "",
   failedContentText: "",
   isShowClose: false,
+  successBtnText: "",
   // failedBtnText: utilsFormat.computedLangCtx("确认"),
   // successBtnText: utilsFormat.computedLangCtx("查看"),
   title: "",

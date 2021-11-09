@@ -2,6 +2,7 @@
 import * as types from "../types/farms.js";
 import FARMS_CONSTANTS from "@constants/farms.js";
 import utilsFormat from "@utils/format";
+import farmsAPI from "@api/farms.js";
 
 const StoreFarms = {
   namespaced: true,
@@ -10,6 +11,7 @@ const StoreFarms = {
     dialogParams: FARMS_CONSTANTS.SWAP_DIALOG_PARAMS,
     secondDialogParams: FARMS_CONSTANTS.SWAP_SECOND_DIALOG_PARAMS,
     swapPersonData: ["23412231.12", "23212", "23212"],
+    swapPoolList: null,
   },
   mutations: {
     [types.CHANGE_SECOND_DIALOG_PARAMS](state, payload) {
@@ -22,8 +24,17 @@ const StoreFarms = {
     [types.CHANGE_DIALOG_PARAMS](state, payload) {
       state.dialogParams = Object.assign({}, state.dialogParams, payload);
     },
+    [types.SET_SWAP_POOL_LIST](state, payload) {
+      state.swapPoolList = payload;
+    },
   },
   actions: {
+    async getTradingPoolList({ commit }, payload) {
+      const res = await farmsAPI.getTradingPoolList(payload);
+      if (res.code === 200) {
+        commit(types.SET_SWAP_POOL_LIST, res.data);
+      }
+    },
     swapDrawProfit({ state, commit }) {
       // 计算后可以提取
       // commit(types.CHANGE_SECOND_DIALOG_PARAMS, {
@@ -42,10 +53,30 @@ const StoreFarms = {
       //   isShowClose: true,
       // });
       // 发起请求
+      // commit(types.CHANGE_DIALOG_PARAMS, {
+      //   dialogVisible: true,
+      //   dialogStatus: "ongoing",
+      // });
+      // 阶段一
+      // commit(types.CHANGE_DIALOG_PARAMS, {
+      //   phase1: "ongoing",
+      // });
+      // 阶段二
+      // commit(types.CHANGE_DIALOG_PARAMS, {
+      //   phase2: "ongoing",
+      // });
+      // 操作成功
       commit(types.CHANGE_DIALOG_PARAMS, {
         dialogVisible: true,
-        dialogStatus: "ongoing",
+        dialogStatus: "success",
+        isShowClose: true,
+        dialogText: "操作成功",
+        successBtnText: "确认",
       });
+      // 操作失败
+      // commit(types.CHANGE_DIALOG_PARAMS, {
+      //   dialogStatus: "failed",
+      // });
     },
   },
 };

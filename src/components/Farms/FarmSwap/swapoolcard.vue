@@ -1,5 +1,6 @@
 <template>
   <div :class="$style['container-swap-card']">
+    {{ props.data }}
     <div :class="$style['container-swap-card-header']">
       <div>
         <img src="../../../assets/nft/dialog-error.png" />
@@ -8,13 +9,15 @@
           :class="$style['token-b-img']"
         />
         <p :class="$style['container-swap-card-heard-symboldetail']">
-          BTC/USDT
-          <span :class="$style['container-swap-card-heard-raise']">25X</span>
+          {{ props.data.pairName.replace("_", "/") }}
+          <span :class="$style['container-swap-card-heard-raise']"
+            >{{ props.data.allocationMultiple }}X</span
+          >
         </p>
       </div>
       <div :class="$style['container-swap-card-header-right']">
         <star-amount
-          :value="22.0"
+          :value="props.data.apy * 100"
           :formatOptions="{
             precision: 2,
             percentStyle: true,
@@ -75,6 +78,10 @@ import StarAmount from "@StarUI/StarAmount";
 let state = reactive({
   totalReward: ["2321", "321321", "321971"],
   personReWard: [null, null, null],
+});
+const farmsTokenDisplay = () => {};
+const props = defineProps({
+  data: null,
 });
 </script>
 <style lang="scss" module>
