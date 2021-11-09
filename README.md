@@ -8,6 +8,11 @@
 - bulid-stage 测试环境
 - build 生产环境
 
+# 分支
+
+- master 主网
+- stage-prd 测试分支
+
 # 注意
 
 .env 文件修改一定要慎重
