@@ -1,7 +1,7 @@
 const path = require("path");
 const devServer = require("./src/scripts/devServer");
 const CompressionWebpackPlugin = require("compression-webpack-plugin");
-const LodashModuleReplacementPlugin = require("lodash-webpack-plugin");
+// const LodashModuleReplacementPlugin = require("lodash-webpack-plugin");
 const ImageminWebpWebpackPlugin = require("imagemin-webp-webpack-plugin");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 // https://github.com/antfu/unplugin-vue-components#readme
@@ -99,7 +99,7 @@ module.exports = {
       //   .plugin("webpack-bundle-analyzer")
       //   .use(require("webpack-bundle-analyzer").BundleAnalyzerPlugin);
       // lodash
-      config.plugin("loadshReplace").use(new LodashModuleReplacementPlugin());
+      // config.plugin("loadshReplace").use(new LodashModuleReplacementPlugin());
     }
   },
   configureWebpack: {
