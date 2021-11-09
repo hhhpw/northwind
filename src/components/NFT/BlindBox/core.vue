@@ -117,7 +117,7 @@
             <!-- <p v-if="state.errors[0]">
               * {{ t("购买数量需小于剩余可购买数量") }}
             </p> -->
-            <p v-if="!state.inputVal_isInteger">*{{ t("只能输入正整数") }}</p>
+            <p v-if="!state.inputVal_isInteger">*{{ t("只能输入整数") }}</p>
             <p v-if="state.errors[1]">* {{ t("可用金额不足") }}</p>
           </div>
         </div>

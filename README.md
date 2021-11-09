@@ -20,5 +20,24 @@
 
 # todo
 
-element-plus 升级配套 按需加载
-star-input-number 取消正则限制 所有涉及都判断不能输入数
+- build 后 Loading chunk {n} failed
+
+```js
+router.onError((error) => {
+  const pattern = /Loading chunk (\d)+ failed/g;
+  const isChunkLoadFailed = error.message.match(pattern);
+  if (isChunkLoadFailed) {
+    window.location.reload();
+    // router.replace(router.history.pending.fullPath);
+  } else {
+    console.log(error);
+  }
+});
+```
+
+- lodash build 后报错
+
+```js
+// config.plugin("loadshReplace").use(new LodashModuleReplacementPlugin());
+// t is not a function 怀疑是和 vue-i18n 冲突
+```

@@ -1,7 +1,7 @@
 const path = require("path");
 const devServer = require("./src/scripts/devServer");
 const CompressionWebpackPlugin = require("compression-webpack-plugin");
-const LodashModuleReplacementPlugin = require("lodash-webpack-plugin");
+// const LodashModuleReplacementPlugin = require("lodash-webpack-plugin");
 const ImageminWebpWebpackPlugin = require("imagemin-webp-webpack-plugin");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 // https://github.com/antfu/unplugin-vue-components#readme
@@ -26,12 +26,12 @@ const plugins = isProduction
       new UglifyJsPlugin({
         uglifyOptions: {
           //生产环境自动删除console
-          compress: {
-            drop_debugger: true,
-            drop_console: true,
-            dead_code: true,
-            pure_funcs: ["console.log"], //移除console
-          },
+          // compress: {
+          //   drop_debugger: true,
+          //   drop_console: true,
+          //   dead_code: true,
+          //   pure_funcs: ["console.log"], //移除console
+          // },
         },
         sourceMap: false,
         parallel: true,
@@ -107,8 +107,9 @@ module.exports = {
       // config
       //   .plugin("webpack-bundle-analyzer")
       //   .use(require("webpack-bundle-analyzer").BundleAnalyzerPlugin);
-      // lodash
-      config.plugin("loadshReplace").use(new LodashModuleReplacementPlugin());
+      // lodash 这里build后出问题
+      // t is not a function 怀疑是和vue-i18n冲突
+      // config.plugin("loadshReplace").use(new LodashModuleReplacementPlugin());
     }
   },
   configureWebpack: {
