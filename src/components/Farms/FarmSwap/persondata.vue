@@ -1,7 +1,6 @@
 <template>
   <div>
     <div :class="$style['container-person-data']">
-      <div>{{ state.secondDialogParams }}</div>
       <div :class="$style['container-person-data-header']">
         <div
           :class="$style['container-person-data-header-item']"
@@ -21,9 +20,11 @@
                 :class="
                   $style['container-person-data-header-item-block-amount']
                 "
-                :value="state.data[0]"
+                :value="state.swapPersonData[0]"
                 :formatOptions="{ precision: 4, trailingZero: false }"
-                v-if="state.data[0] && state.walletStatus === 'connected'"
+                v-if="
+                  state.swapPersonData[0] && state.walletStatus === 'connected'
+                "
               >
               </star-amount>
               <p v-else>- -</p>
@@ -45,9 +46,11 @@
                 :class="
                   $style['container-person-data-header-item-block-amount']
                 "
-                :value="state.data[1]"
+                :value="state.swapPersonData[1]"
                 :formatOptions="{ precision: 4, trailingZero: true }"
-                v-if="state.data[1] && state.walletStatus === 'connected'"
+                v-if="
+                  state.swapPersonData[1] && state.walletStatus === 'connected'
+                "
               >
               </star-amount>
               <p v-else>- -</p>
@@ -57,9 +60,11 @@
                 :class="
                   $style['container-person-data-header-item-block-amount']
                 "
-                :value="state.data[2]"
+                :value="state.swapPersonData[2]"
                 :formatOptions="{ precision: 4, trailingZero: true }"
-                v-if="state.data[2] && state.walletStatus === 'connected'"
+                v-if="
+                  state.swapPersonData[2] && state.walletStatus === 'connected'
+                "
               >
               </star-amount>
               <p v-else>- -</p>
@@ -100,7 +105,7 @@
 </template>
 <script setup>
 /* eslint-disable */
-import { computed, onMounted, reactive, defineProps, defineEmits } from "vue";
+import { computed, onMounted, reactive, watch } from "vue";
 import StarButton from "@StarUI/StarButton";
 import StarAmount from "@StarUI/StarAmount";
 import StarSpace from "@StarUI/StarSpace";
@@ -113,16 +118,30 @@ let store = useStore();
 
 const { connectWallet } = connectLogic(store);
 let state = reactive({
-  data: ["23412231.12", "23212", "23212"],
+  swapPersonData: computed(() => store.state.StoreFarms.swapPersonData),
   walletStatus: computed(() => store.state.StoreWallet.walletStatus),
   secondDialogParams: computed(() => store.state.StoreFarms.secondDialogParams),
   dialogParams: computed(() => store.state.StoreFarms.dialogParams),
+  accounts: computed(() => store.state.StoreWallet.accounts),
   secondDialogDataParams: {
     draw: "123213",
     gas: "983121",
     locked: "123212",
   },
 });
+
+if (state.accounts && state.accounts[0]) {
+  store.dispatch("StoreFarms/getTradingReward", state.accounts[0]);
+}
+
+watch(
+  () => state.accounts,
+  (n) => {
+    if (n && n[0]) {
+      store.dispatch("StoreFarms/getTradingReward", n[0]);
+    }
+  }
+);
 
 const drawProfit = () => {
   store.dispatch("StoreFarms/swapDrawProfit");

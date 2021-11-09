@@ -437,11 +437,11 @@ const swapFunc = async (status) => {
       ];
     } else if (state.focusType === "to") {
       amount = [
-        changeAmountScale(state.to.inputVal, state.to.exchangePrecision),
         changeAmountScale(
           state.swapCalcalatorData.maxSold,
           state.from.exchangePrecision
         ),
+        changeAmountScale(state.to.inputVal, state.to.exchangePrecision),
       ];
     }
     const params = {

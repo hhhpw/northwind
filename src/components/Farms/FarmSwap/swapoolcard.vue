@@ -1,13 +1,9 @@
 <template>
   <div :class="$style['container-swap-card']">
-    {{ props.data }}
     <div :class="$style['container-swap-card-header']">
       <div>
-        <img src="../../../assets/nft/dialog-error.png" />
-        <img
-          src="../../../assets/common/net-error.png"
-          :class="$style['token-b-img']"
-        />
+        <img :src="props.data.tokenIconA" />
+        <img :src="props.data.tokenIconB" :class="$style['token-b-img']" />
         <p :class="$style['container-swap-card-heard-symboldetail']">
           {{ props.data.pairName.replace("_", "/") }}
           <span :class="$style['container-swap-card-heard-raise']"
@@ -29,7 +25,11 @@
     </div>
     <div :class="$style['container-swap-card-totalreward']">
       <div
-        v-for="(d, i) in state.totalReward"
+        v-for="(d, i) in [
+          props.data.allocatedRewardAmount,
+          props.data.totalTradingAmount,
+          props.data.currentTradingAmount,
+        ]"
         :key="i"
         :class="$style['container-swap-card-totalreward-item']"
       >
@@ -47,7 +47,11 @@
     <div :class="$style['container-swap-card-line']"></div>
     <div :class="$style['container-swap-card-personreward']">
       <div
-        v-for="(d, i) in state.personReWard"
+        v-for="(d, i) in [
+          props.data.totalReward,
+          props.data.tradingAmount,
+          props.data.currentReward,
+        ]"
         :key="i"
         :class="$style['container-swap-card-personreward-item']"
       >
@@ -72,14 +76,8 @@
   </div>
 </template>
 <script setup>
-/* eslint-disable */
-import { computed, onMounted, reactive, defineProps, defineEmits } from "vue";
+import { defineProps } from "vue";
 import StarAmount from "@StarUI/StarAmount";
-let state = reactive({
-  totalReward: ["2321", "321321", "321971"],
-  personReWard: [null, null, null],
-});
-const farmsTokenDisplay = () => {};
 const props = defineProps({
   data: null,
 });

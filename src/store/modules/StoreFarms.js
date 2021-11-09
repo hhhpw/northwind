@@ -12,6 +12,8 @@ const StoreFarms = {
     secondDialogParams: FARMS_CONSTANTS.SWAP_SECOND_DIALOG_PARAMS,
     swapPersonData: ["23412231.12", "23212", "23212"],
     swapPoolList: null,
+    swapPersonData: [null, null, null],
+    swapTotalData: [null, null, null, null],
   },
   mutations: {
     [types.CHANGE_SECOND_DIALOG_PARAMS](state, payload) {
@@ -27,12 +29,40 @@ const StoreFarms = {
     [types.SET_SWAP_POOL_LIST](state, payload) {
       state.swapPoolList = payload;
     },
+    [types.SET_SWAP_PERSON_DATA](state, payload) {
+      state.swapPersonData = [
+        payload.freedReward,
+        payload.lockedReward,
+        payload.currentReward,
+      ];
+    },
+    [types.SET_SWAP_TOTAL_DATA](state, payload) {
+      state.swapTotalData = [
+        payload.totalTradingAmount,
+        payload.currentTradingAmount,
+        payload.userCurrentTradingAmount,
+        payload.dailyUserReward,
+      ];
+      console.log("swapTotalData", state.swapTotalData);
+    },
   },
   actions: {
     async getTradingPoolList({ commit }, payload) {
       const res = await farmsAPI.getTradingPoolList(payload);
       if (res.code === 200) {
         commit(types.SET_SWAP_POOL_LIST, res.data);
+      }
+    },
+    async getTradingReward({ commit }, payload) {
+      const res = await farmsAPI.getTradingReward(payload);
+      if (res.code === 200) {
+        commit(types.SET_SWAP_PERSON_DATA, res.data);
+      }
+    },
+    async getTradingMarket({ commit }, payload) {
+      const res = await farmsAPI.getTradingMarket(payload);
+      if (res.code === 200) {
+        commit(types.SET_SWAP_TOTAL_DATA, res.data);
       }
     },
     swapDrawProfit({ state, commit }) {

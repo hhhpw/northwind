@@ -3,13 +3,14 @@
     <div :class="$style['container-total-data-content']">
       <div
         :class="$style['container-total-data-content-item']"
-        v-for="(d, i) in state.dataSource"
+        v-for="(d, i) in state.swapTotalData"
         :key="i"
       >
         <p :class="$style['container-total-data-content-item-title']">
           {{ $t(`farms.farm-swap-total-${i + 1}`) }}
         </p>
         <star-amount
+          v-if="d"
           :value="d"
           displayPreFix="$"
           :class="$style['container-total-data-content-item-amount']"
@@ -18,6 +19,7 @@
             trailingZero: false,
           }"
         ></star-amount>
+        <p v-else>- -</p>
       </div>
     </div>
     <star-space :size="20"></star-space>
@@ -28,12 +30,28 @@
 </template>
 <script setup>
 /* eslint-disable */
-import { computed, onMounted, reactive, defineProps, defineEmits } from "vue";
+import { computed, reactive, watch } from "vue";
 import StarAmount from "@StarUI/StarAmount";
 import StarSpace from "@StarUI/StarSpace";
+import { useStore } from "vuex";
+let store = useStore();
 let state = reactive({
-  dataSource: ["1232131.32132", "9761230231", "23186131", "312397922"],
+  swapTotalData: computed(() => store.state.StoreFarms.swapTotalData),
+  accounts: computed(() => store.state.StoreWallet.accounts),
 });
+
+if (state.accounts && state.accounts[0]) {
+  store.dispatch("StoreFarms/getTradingMarket", state.accounts[0]);
+}
+
+watch(
+  () => state.accounts,
+  (n) => {
+    if (n && n[0]) {
+      store.dispatch("StoreFarms/getTradingMarket", n[0]);
+    }
+  }
+);
 </script>
 <style lang="scss" module>
 .container-total-data {
