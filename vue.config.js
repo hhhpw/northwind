@@ -26,12 +26,12 @@ const plugins = isProduction
       new UglifyJsPlugin({
         uglifyOptions: {
           //生产环境自动删除console
-          // compress: {
-          //   drop_debugger: true,
-          //   drop_console: true,
-          //   dead_code: true,
-          //   pure_funcs: ["console.log"], //移除console
-          // },
+          compress: {
+            drop_debugger: true,
+            drop_console: true,
+            dead_code: true,
+            pure_funcs: ["console.log"], //移除console
+          },
         },
         sourceMap: false,
         parallel: true,
@@ -98,7 +98,8 @@ module.exports = {
       // config
       //   .plugin("webpack-bundle-analyzer")
       //   .use(require("webpack-bundle-analyzer").BundleAnalyzerPlugin);
-      // lodash
+      // lodash 这里build后出问题
+      // t is not a function 怀疑是和vue-i18n冲突
       // config.plugin("loadshReplace").use(new LodashModuleReplacementPlugin());
     }
   },
