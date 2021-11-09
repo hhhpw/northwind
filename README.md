@@ -43,6 +43,7 @@ router.onError((error) => {
 - lodash build 后报错
 
 ```js
+// https://zhuanlan.zhihu.com/p/349260482
 // config.plugin("loadshReplace").use(new LodashModuleReplacementPlugin());
-// t is not a function 怀疑是和 vue-i18n 冲突
+// 使用lodash-webpack-plugin会出问题
 ```
