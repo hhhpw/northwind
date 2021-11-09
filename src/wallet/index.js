@@ -152,6 +152,16 @@ const swapToken = async ({ provider, tokenCode, amount, focusType }) => {
         funcId = process.env.VUE_APP_SWAP_EXCHANGE_OUT + `_${tokenIndex}`;
       }
     }
+    console.log(
+      "funcId",
+      funcId,
+      "tokenCode",
+      tokenCode,
+      "amount",
+      amount,
+      "focusType",
+      focusType
+    );
     const tyArgs = utils.tx.encodeStructTypeTags(tokenCode);
     const amountHexA = (function () {
       const se = new bcs.BcsSerializer();
