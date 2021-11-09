@@ -707,18 +707,43 @@ const StoreLiquidity = {
       } else {
         const res = await liquidityApi.getAllPoolListByUser(payload);
         if (res.result && res.result.resources) {
+          console.log("res.result.resources", res.result.resources);
           let list = [];
+          // const s = {
+          //   "0x00000000000000000000000000000001::Account::Balance<0xa371dcd3556f40221b480bd1792c02ad::SwapPair::LPToken<0x00000000000000000000000000000001::STC::STC, 0x9350502a3af6c617e9a42fa9e306a385::BX_USDT::BX_USDT>>":
+          //     {
+          //       json: {
+          //         token: {
+          //           value: 15498283984,
+          //         },
+          //       },
+          //     },
+          // };
           for (const [k, v] of Object.entries(res.result.resources)) {
             if (
               k.indexOf(
                 `${process.env.VUE_APP_LPTOKEN_ADDRESS}::SwapPair::LPToken<`
               ) > -1
             ) {
+              console.log(
+                "VUE_APP_LPTOKEN_ADDRESS",
+                process.env.VUE_APP_LPTOKEN_ADDRESS
+              );
+              console.log(
+                "process.env.VUE_APP_CONTRACTS_ADDRESS",
+                process.env.VUE_APP_CONTRACTS_ADDRESS
+              );
               const contracts = k.match(/Balance<(.*)::SwapPair/)[1];
+              console.log("contracts", contracts);
               if (contracts === process.env.VUE_APP_CONTRACTS_ADDRESS) {
+                console.log("k", k);
                 const tokenString = k.match(/LPToken<(.*)>>/)[1]; // 匹配LPToken开头、>>结束
+                console.log("tokenString", tokenString);
                 const tokenAddress = tokenString.split(", ");
+                console.log("tokenAddress", tokenAddress);
                 const tokens = tokenAddress.map((d) => d.split("::")[2]);
+                console.log("tokens", tokens);
+                console.log("v=--", v, v.json);
                 if (v.json.token.value > 0) {
                   list.push({
                     lpToken: `LP - ${tokens[0]}/${tokens[1]}`,
