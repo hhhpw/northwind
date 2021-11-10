@@ -61,7 +61,6 @@
                 compact: true,
                 grouped: true,
               }"
-              :isShowTradeColor="true"
               displayPreFix="$"
             >
             </star-amount>

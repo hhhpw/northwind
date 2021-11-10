@@ -112,7 +112,11 @@
           class="specific-description"
           v-if="state.selected_tab === 'description'"
         >
-          {{ props.box_detail && props.box_detail.cnDescription }}
+          {{
+            props.box_detail && state.currLang === "en"
+              ? props.box_detail.enDescription
+              : props.box_detail.cnDescription
+          }}
         </div>
         <div
           class="specific-rarevalue"
@@ -151,6 +155,7 @@ let state = reactive({
   selected_tab: "description",
   contract_address: computed(() => store.state.StoreNFTDetail.contract_address),
   accounts: computed(() => store.state.StoreWallet.accounts),
+  currLang: computed(() => store.state.StoreApp.currLang),
   description: computed(() => {
     if (store.state.StoreApp.currLang == "cn") {
       return state.is_blind_open
