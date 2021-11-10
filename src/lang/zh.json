@@ -275,7 +275,12 @@
     "farm-swap-draw-sure-title": "提前收益確認",
     "farm-swap-draw-sure-error": "本次操作將失去算力",
     "farm-swap-lock": "鎖倉",
-    "farm-swap-draw-gas": "提取費用"
+    "farm-swap-draw-gas": "提取費用",
+    "farm-swap-mining-success1": "已提取 {amount} KIKO至錢包",
+    "farm-swap-mining-success2": "已轉入 {amount} KIKO至七日鎖倉",
+    "farm-liquidity-title": "質押LP獲取STC收益",
+    "farm-liquidity-stake-total": "當前質押總價值 {amount} USDT",
+    "farm-liquidity-list-th-name-1": "交易對"
   },
   "navs": {
     "首页": "首頁",

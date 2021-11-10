@@ -12,8 +12,6 @@
   </div>
 </template>
 <script setup>
-/* eslint-disable */
-import { computed, onMounted, reactive, defineProps, defineEmits } from "vue";
 import TotalValue from "@components/Farms/FarmSwap/totaldata";
 import PersonValue from "@components/Farms/FarmSwap/persondata";
 import SwapCore from "@components/Farms/FarmSwap/swapcore";
@@ -23,7 +21,6 @@ import SwapCore from "@components/Farms/FarmSwap/swapcore";
   width: 1100px;
   margin: 0px auto;
   margin-top: 25px;
-  // background: #fff;
   overflow: hidden;
   .container-farm-swap-header {
     width: 100%;
@@ -40,8 +37,6 @@ import SwapCore from "@components/Farms/FarmSwap/swapcore";
   }
   .container-farm-swap-core {
     margin-top: 60px;
-    // padding: 0 0;
   }
-  // height: 200px;
 }
 </style>

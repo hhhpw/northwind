@@ -81,8 +81,47 @@ function getTradingReward(payload) {
   };
 }
 
+// swap farm 提前当前收益
+function getPersonCurrReward(payload) {
+  // return request({
+  //   url: "/v1/mining/trading/currentReward/harvest",
+  //   method: "GET",
+  //   params: {
+  //     userAddress: payload,
+  //   },
+  // });
+  return {
+    code: 200,
+    msg: "ok",
+    timeStamp: 1234567890123,
+    data: {
+      transactionHash: "0xABCD1234", // 交易哈希
+    },
+  };
+}
+// swap farm 提取已释放收益
+
+function getPersonFreeReward(payload) {
+  // return request({
+  //   url: "/v1/mining/trading/freedReward/harvest",
+  //   method: "GET",
+  //   params: {
+  //     userAddress: payload,
+  //   },
+  // });
+  return {
+    code: 200,
+    msg: "ok",
+    timeStamp: 1234567890123,
+    data: {
+      transactionHash: "0xABCD1234", // 交易哈希
+    },
+  };
+}
+
 export default {
   getTradingPoolList,
   getTradingMarket,
   getTradingReward,
+  getPersonCurrReward,
 };

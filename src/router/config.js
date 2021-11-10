@@ -123,6 +123,16 @@ const routes = [
           url: "/swapfarms",
         },
       },
+      {
+        path: "/liquidityfarms",
+        component: () => import("@views/Farms/FarmLiquidity.vue"),
+        name: "liquidityfarms",
+        meta: {
+          title: "流动性挖矿",
+          bg: "liquidity",
+          url: "/liquidityfarms",
+        },
+      },
     ],
   },
 ];

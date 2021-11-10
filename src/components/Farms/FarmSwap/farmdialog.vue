@@ -47,6 +47,26 @@
           v-if="!props.dialogParams.customImgUrl"
         ></star-space>
         <div
+          v-if="props.dialogParams.miningData"
+          class="farm-dialog-content-mining-success"
+        >
+          <p>
+            {{
+              $t("farms.farm-swap-mining-success1", {
+                amount: formatAmount(props.dialogParams.miningData.draw),
+              })
+            }}
+          </p>
+          <p>
+            {{
+              $t("farms.farm-swap-mining-success2", {
+                amount: formatAmount(props.dialogParams.miningData.locked),
+              })
+            }}
+          </p>
+          <star-space :size="20"></star-space>
+        </div>
+        <div
           class="farm-dialog-content-feedback"
           :style="{ width: setDiaglogStyle.feedBackWith }"
           v-if="props.dialogParams.dialogStatus === 'ongoing'"
@@ -116,6 +136,7 @@ import dialogFailedImg from "../../../assets/nft/dialog-error.png";
 import dialogSuccessImg from "../../../assets/nft/dialog-ok.png";
 import dialogLoadingImg from "../../../assets/nft/dialog-loading.png";
 import dialogPhaseSuccessImg from "../../../assets/nft/dialog-success.png";
+import utilsNumber from "@utils/number";
 
 const store = useStore();
 const props = defineProps({
@@ -219,6 +240,14 @@ const emits = defineEmits(["handleClose", "handleSuccess", "handleFailed"]);
 const handleClose = () => {
   emits("handleClose");
 };
+
+const formatAmount = (amount) => {
+  return utilsNumber.formatNumberMeta(utilsNumber.bigNum(amount), {
+    precision: 4,
+    trailingZero: true,
+    round: "floor",
+  }).text;
+};
 </script>
 
 <style lang="scss" scoped>
@@ -274,6 +303,10 @@ const handleClose = () => {
         font-weight: 600;
       }
     }
+  }
+  .farm-dialog-content-mining-success {
+    color: #8b8b8b;
+    text-align: center;
   }
   .farm-dialog-content-feedback {
     width: 323px;

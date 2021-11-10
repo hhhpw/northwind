@@ -102,10 +102,16 @@ const StoreFarms = {
         isShowClose: true,
         dialogText: "操作成功",
         successBtnText: "确认",
+        isMining: true,
+        miningData: {
+          draw: "2121",
+          locked: "98231"
+        }
       });
       // 操作失败
       // commit(types.CHANGE_DIALOG_PARAMS, {
       //   dialogStatus: "failed",
+      //  successBtnText: "确认",
       // });
     },
   },
