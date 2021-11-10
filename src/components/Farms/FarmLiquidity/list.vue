@@ -14,6 +14,7 @@
         :class="$style['container-farm-liquidity-list-body-item']"
         v-for="(d, i) in new Array(7)"
         :key="i"
+        @click="pushPage"
       >
         <div :class="$style['container-farm-liquidity-list-body-item-symbol']">
           <span>
@@ -112,7 +113,14 @@ import { computed, onMounted, reactive } from "vue";
 import StarAmount from "@StarUI/StarAmount";
 import SvgIcon from "@components/SvgIcon/Index.vue";
 import ListToolTip from "./listtooltip";
+import utilsRouter from "@utils/router";
 let state = reactive({});
+
+const pushPage = () => {
+  utilsRouter.push({
+    path: "/liquidityfarmsdetail",
+  });
+};
 </script>
 <style lang="scss" module>
 .container-farm-liquidity-list {
@@ -139,6 +147,7 @@ let state = reactive({});
   }
   .container-farm-liquidity-list-body {
     .container-farm-liquidity-list-body-item {
+      cursor: pointer;
       color: #000000;
       font-size: 14px;
       height: 72px;
@@ -147,6 +156,9 @@ let state = reactive({});
       align-items: center;
       &:last-child {
         border-bottom: 1px solid transparent;
+      }
+      &:hover {
+        opacity: 0.6;
       }
       .container-farm-liquidity-list-body-item-symbol {
         text-align: right;
@@ -192,12 +204,8 @@ let state = reactive({});
       }
       .container-farm-liquidity-list-body-item-mining {
         flex: 0.5;
-        cursor: pointer;
         color: #fb8000;
         font-weight: 600;
-        :hover {
-          opacity: 0.6;
-        }
       }
     }
   }

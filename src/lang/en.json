@@ -67,6 +67,7 @@
     "价格与资金池份额": "Price and shares in liquidity pool",
     "资金池中份额": "Shares in pool",
     "报价": "Bid",
+    "出价成功": "Bid succeeded",
     "出价失败": "Bid Price failed",
     "报价更改失败": "Price change failed",
     "出价中": "Bidding",

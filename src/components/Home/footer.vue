@@ -23,7 +23,7 @@ const state = reactive({
     {
       title: "Twitter",
       img: require("../../assets/home/twitter.png"),
-      url: "https://twitter.com/Kiko_Swap",
+      url: "https://twitter.com/Kiko_verse",
     },
     {
       title: "Telegram",
@@ -33,7 +33,7 @@ const state = reactive({
     {
       title: "Medium",
       img: require("../../assets/home/med.png"),
-      url: "https://medium.com/@kikoswap",
+      url: "https://medium.com/@kikoverse",
     },
   ],
 });

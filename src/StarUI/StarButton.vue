@@ -42,8 +42,11 @@ const props = defineProps({
   background-color: #fff;
 }
 .star-button.disabled {
-  background-color: $btn-gray-bgcolor;
-  color: $text-gary2-color;
+  // background-color: $btn-gray-bgcolor;
+  // color: $text-gary2-color;
+  background: rgba(178, 178, 178, 0.11);
+  color: #b2b2b2;
+  border: 1px solid #d1d1d1;
 }
 .star-button.brown {
   background-color: $btn-light-brown-bgcolor;
