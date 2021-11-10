@@ -249,7 +249,8 @@
     "操作失败": "操作失敗",
     "提取中": "提取中",
     "操作成功": "操作成功",
-    "提取收益失败": "提取收益失敗"
+    "提取收益失败": "提取收益失敗",
+    "挖矿": "挖礦"
   },
   "farms": {
     "farm-swap-total-1": "總交易額",
@@ -280,7 +281,16 @@
     "farm-swap-mining-success2": "已轉入 {amount} KIKO至七日鎖倉",
     "farm-liquidity-title": "質押LP獲取STC收益",
     "farm-liquidity-stake-total": "當前質押總價值 {amount} USDT",
-    "farm-liquidity-list-th-name-1": "交易對"
+    "farm-liquidity-list-th-name-1": "交易對",
+    "farm-liquidity-list-th-name-2": "日產量",
+    "farm-liquidity-list-th-name-3": "APR",
+    "farm-liquidity-list-th-name-4": "總質押",
+    "farm-liquidity-list-th-name-5": "個人質押",
+    "farm-liquidity-list-th-name-6": "個人獎勵",
+    "farm-liquidity-list-th-name-7": "",
+    "farm-liquidity-list-apr-tip-simpleyear": "單利年化",
+    "farm-liquidity-list-apr-tip-comflexyear": "復利年化",
+    "farm-liquidity-list-apr-desc": "每日將受益提取，進行手動復投：隨著時間的增加復利收益將會越來越多。"
   },
   "navs": {
     "首页": "首頁",

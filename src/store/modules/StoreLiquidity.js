@@ -5,7 +5,6 @@ import utilsNumber from "@utils/number";
 import { has, get, cloneDeep, isNil } from "lodash";
 import Wallet from "../../wallet/index";
 import liquidityApi from "@api/liquidity.js";
-
 function formatLiquidityInfo(c1, c2, tokensInfo, fValue, tValue, flag) {
   let result = [];
   result[0] = {
@@ -600,6 +599,23 @@ const StoreLiquidity = {
       { commit, state, dispatch, rootState },
       payload
     ) {
+      const dir = state.currencySelectType === "to" ? "from" : "to";
+      if (state[dir].currency === payload.currency) {
+        // 交换
+        commit(types.TRANSFROM_CURRENCY);
+      }
+      commit(types.SET_CURRENCY_INFO, payload);
+
+      if (state.to.currency && state.from.currency) {
+        if (state.poolType === "add") {
+          dispatch("getLiquidityXY");
+        }
+      }
+      commit(types.HANDLE_CURRENCY_SELECT_VISIBLE, {
+        isShow: false,
+        type: null,
+      });
+
       const walletStatus = rootState.StoreWallet.walletStatus;
       if (walletStatus === "connected") {
         // 连接钱包自动获取余额
@@ -621,22 +637,6 @@ const StoreLiquidity = {
           );
         }
       }
-      const dir = state.currencySelectType === "to" ? "from" : "to";
-      if (state[dir].currency === payload.currency) {
-        // 交换
-        commit(types.TRANSFROM_CURRENCY);
-      }
-      commit(types.SET_CURRENCY_INFO, payload);
-
-      if (state.to.currency && state.from.currency) {
-        if (state.poolType === "add") {
-          dispatch("getLiquidityXY");
-        }
-      }
-      commit(types.HANDLE_CURRENCY_SELECT_VISIBLE, {
-        isShow: false,
-        type: null,
-      });
     },
 
     async getTotalAmountWithLPToken({ commit, state }) {

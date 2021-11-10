@@ -115,11 +115,16 @@ const props = defineProps({
     font-weight: bold;
     align-items: center;
     img {
-      display: inline-block;
       width: 20px;
       height: 20px;
       border-radius: 50%;
-      // position: absolute;
+      display: inline-block;
+      border: 2px solid transparent;
+    }
+    img + img {
+      border: 2px solid #fff;
+      position: relative;
+      left: -6px;
     }
     .container-swap-card-header-right {
       text-align: right;

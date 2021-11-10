@@ -31,8 +31,10 @@ function getTradingPoolList(payload) {
         tradingAmount: 4.48, // 交易额
         currentReward: 0.006092256, // 待领取收益
         totalReward: 0.00507688, // 总收益
-        tokenIconA: "https://photo.16pic.com/00/68/78/16pic_6878865_b.png",
-        tokenIconB: "https://photo.16pic.com/00/68/78/16pic_6878865_b.png",
+        tokenIconA:
+          "https://imagedelivery.net/3mRLd_IbBrrQFSP57PNsVw/3bfe4edc-b91a-429a-eb5c-0a529fbb2200/public",
+        tokenIconB:
+          "https://imagedelivery.net/3mRLd_IbBrrQFSP57PNsVw/771fed83-9d98-4be2-162d-b8639dfa6800/public",
       },
     ],
   };
