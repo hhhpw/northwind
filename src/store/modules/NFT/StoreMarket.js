@@ -36,6 +36,7 @@ const StoreNftMarket = {
     listStatus: INIT_LIST_STATUS,
     marketListRule: [true, true],
     soldDialogParams: NFT_CONSTANTS.INIT_SOLD_DIALOG_PARAMS,
+    isScrollLoad: false, // 防止多次加载
   },
   mutations: {
     [types.CHANGE_SOLD_DIALOG_PARAMS](state, payload) {
@@ -46,12 +47,12 @@ const StoreNftMarket = {
       );
     },
     [types.CLEAR_DATA](state) {
-      console.log("B", INIT_LIST_PARAMS);
       state.listStatus = INIT_LIST_STATUS;
       state.marketList = null;
       state.listParams = INIT_LIST_PARAMS;
       state.firstLoading = true;
       state.marketListRule = [true, true];
+      state.isScrollLoad = false;
     },
     [types.SET_INIT_STATUS](state) {
       state.listStatus = INIT_LIST_STATUS;
@@ -115,6 +116,9 @@ const StoreNftMarket = {
         open,
       });
     },
+    [types.SCROLLING_LOADED](state, payload) {
+      state.isScrollLoad = payload;
+    },
   },
   getters: {
     market_data: (state) => {
@@ -159,6 +163,9 @@ const StoreNftMarket = {
           console.log("没数据了");
           return;
         } else {
+          if (state.isScrollLoad) return;
+          // 防止scroll多次加载
+          commit(types.SCROLLING_LOADED, true);
           commit(
             types.SET_LIST_STATUS,
             Object.assign({}, state.listStatus, {
@@ -179,6 +186,7 @@ const StoreNftMarket = {
           hasMore: res.hasNext,
           type,
         });
+        commit(types.SCROLLING_LOADED, false);
       }
     },
     // 获取盲盒详情
