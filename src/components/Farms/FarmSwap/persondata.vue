@@ -70,6 +70,7 @@
               <p v-else>- -</p>
             </div>
             <star-button
+              @click="swapDrawLockedProfit"
               v-if="state.walletStatus === 'connected'"
               type="dark"
               :class="$style['container-person-data-header-item-btn']"
@@ -145,6 +146,10 @@ watch(
 
 const drawProfit = () => {
   store.dispatch("StoreFarms/swapDrawProfit");
+};
+
+const swapDrawLockedProfit = () => {
+  store.dispatch("StoreFarms/swapDrawLockedProfit");
 };
 const handleClose = (type) => {
   if (type === "second") {

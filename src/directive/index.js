@@ -1,5 +1,5 @@
 import utilsTools from "@utils/tool";
-
+/* eslint-disable */
 export default (app) => {
   app.directive("unsold-nft-url", {
     mounted(el, binding) {
@@ -9,5 +9,8 @@ export default (app) => {
         });
       }
     },
+  });
+  app.directive("img-lazy-load", {
+    mounted(el, binding) {},
   });
 };

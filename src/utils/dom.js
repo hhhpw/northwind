@@ -36,4 +36,18 @@ const prefixStyle = (style) => {
   return vendor + style.charAt(0).toUpperCase() + style.substring(1);
 };
 
-export default { getScrollTop, getViewPortHeight, prefixStyle };
+/**
+ * 元素可视区范围
+ * @param {*} element
+ * @returns
+ */
+const isInViewPort = (element) => {
+  const viewWidth = window.innerWidth || document.documentElement.clientWidth;
+  const viewHeight =
+    window.innerHeight || document.documentElement.clientHeight;
+  const { top, right, bottom, left } = element.getBoundingClientRect();
+
+  return top >= 0 && left >= 0 && right <= viewWidth && bottom <= viewHeight;
+};
+
+export default { getScrollTop, getViewPortHeight, prefixStyle, isInViewPort };

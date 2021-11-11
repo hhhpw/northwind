@@ -2,6 +2,7 @@
 import * as types from "../types/farms.js";
 import FARMS_CONSTANTS from "@constants/farms.js";
 import utilsFormat from "@utils/format";
+import utilsNumber from "@utils/number";
 import farmsAPI from "@api/farms.js";
 
 const StoreFarms = {
@@ -105,14 +106,24 @@ const StoreFarms = {
         isMining: true,
         miningData: {
           draw: "2121",
-          locked: "98231"
-        }
+          locked: utilsNumber.bigNum("2121").times(0.5).toString(),
+        },
       });
       // 操作失败
       // commit(types.CHANGE_DIALOG_PARAMS, {
       //   dialogStatus: "failed",
       //  successBtnText: "确认",
       // });
+    },
+    // 提取锁仓收益
+    swapDrawLockedProfit() {
+      commit(types.CHANGE_SECOND_DIALOG_PARAMS, {
+        dialogVisible: true,
+        operateWaring: true,
+        cancelText: "",
+        lockedVisible: true,
+        confirmText: "确认",
+      });
     },
   },
 };

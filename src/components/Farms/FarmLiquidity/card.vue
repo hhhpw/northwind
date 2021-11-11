@@ -54,7 +54,7 @@
         <star-button
           :class="$style['card-footer-longbtn']"
           type="light"
-          @click="connectWallet"
+          @click="() => connectWallet()"
           v-if="state.walletStatus !== 'connected'"
         >
           {{ $t("链接钱包") }}
