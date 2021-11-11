@@ -50,6 +50,7 @@ const StoreNftMarket = {
       state.marketList = null;
       state.listParams = INIT_LIST_PARAMS;
       state.firstLoading = true;
+      state.marketListRule = [true, true];
     },
     [types.SET_INIT_STATUS](state) {
       state.listStatus = INIT_LIST_STATUS;
@@ -120,6 +121,7 @@ const StoreNftMarket = {
       if (!state.marketList) return;
       let list = cloneDeep(state.marketList);
       const rules = state.marketListRule;
+      console.log("rules", rules);
       if (rules[0] && !rules[1]) {
         return list.filter((d) => d.type === "box");
       }
