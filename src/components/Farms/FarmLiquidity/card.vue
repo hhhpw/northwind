@@ -1,5 +1,5 @@
 <template>
-  <div :class="$style['card']">
+  <div :class="$style['card']" v-if="props">
     <div :class="$style['card-header']">
       <template v-if="props.lpToken">
         <img
@@ -20,22 +20,22 @@
         <p>STC {{ $t("收益") }}</p>
         <star-amount
           :class="$style['card-content-amount']"
-          :value="props.value"
+          :value="props.params.value"
           :formatOptions="{
-            precision: 4,
-            trailingZero: false,
+            precision: props.params.precision,
+            trailingZero: true,
             grouped: true,
           }"
         ></star-amount>
       </template>
       <template v-else>
-        <p>{{ props.symbol }} LP</p>
+        <p>{{ props.params.symbol }} LP</p>
         <star-amount
           :class="$style['card-content-amount']"
-          :value="props.value"
+          :value="props.params.value"
           :formatOptions="{
-            precision: 4,
-            trailingZero: false,
+            precision: props.params.precision,
+            trailingZero: true,
             grouped: true,
           }"
         ></star-amount>
@@ -95,18 +95,26 @@ let state = reactive({
 });
 const emits = defineEmits(["addLpToken", "lpTokenDraw", "stcDraw"]);
 const props = defineProps({
+  params: {
+    type: () => {},
+    default: {
+      value: 0,
+      precision: 2,
+      symbol: "BTC_USDT",
+    },
+  },
   lpToken: {
     type: Boolean,
     default: false,
   },
-  value: {
-    type: [String, Number],
-    default: "4321",
-  },
-  symbol: {
-    type: String,
-    default: "BTC/STC",
-  },
+  // value: {
+  //   type: [String, Number],
+  //   default: "0",
+  // },
+  // symbol: {
+  //   type: String,
+  //   default: "BTC/STC",
+  // },
 });
 
 const stcDraw = () => {
