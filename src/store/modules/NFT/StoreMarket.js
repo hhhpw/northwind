@@ -46,6 +46,7 @@ const StoreNftMarket = {
       );
     },
     [types.CLEAR_DATA](state) {
+      console.log("B", INIT_LIST_PARAMS);
       state.listStatus = INIT_LIST_STATUS;
       state.marketList = null;
       state.listParams = INIT_LIST_PARAMS;
@@ -148,7 +149,8 @@ const StoreNftMarket = {
     },
     // 获取市场列表
     async queryMarketList({ commit, state }, { type }) {
-      console.log("listParams", state.listParams);
+      console.log("listParams", JSON.stringify(state.listParams));
+      console.error("type:", type);
       let res;
       if (type === "init") {
         res = await marketAPI.getMarketList(state.listParams);
