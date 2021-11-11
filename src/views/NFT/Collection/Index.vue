@@ -247,9 +247,10 @@ const loadData = () => {
   if (state.UserAddress && state.UserAddress[0]) {
     if (tabIndex === 1) {
       store.dispatch("StoreCollection/groupList", state.UserAddress[0]);
-      store.dispatch("StoreCollection/getSellingData", state.UserAddress[0]);
+      // store.dispatch("StoreCollection/getSellingData", state.UserAddress[0]);
     }
     if (tabIndex === 2) {
+      // store.dispatch("StoreCollection/groupList", state.UserAddress[0]);
       store.dispatch("StoreCollection/getSellingData", state.UserAddress[0]);
     }
     if (tabIndex === 3) {
@@ -289,6 +290,7 @@ const clearData = () => {
   store.commit("StoreCollection/SET_SHOW_RULES", [true, true]);
   store.commit("StoreCollection/SET_UNSOLD_BOX_DATA", []);
   store.commit("StoreCollection/SET_UNSOLD_NFT_DATA", []);
+  store.commit("StoreCollection/SET_SELLING_DATA", []);
   store.commit(
     "StoreCollection/CHANGE_SECOND_DIALOG_STATUS",
     NFT_CONSTANTS.INIT_SECOND_DIALOG_PARAMS

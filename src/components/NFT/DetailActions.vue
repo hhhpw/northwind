@@ -10,6 +10,7 @@
           @inputEvent="inputEvent"
           validateType="integer"
           max="999999999"
+          :placeholder="$t('输入出售价格')"
         >
         </star-input>
         <div class="currency-select">

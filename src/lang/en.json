@@ -45,7 +45,7 @@
     "暂无数据": "No data",
     "已经到底了": "No more transaction record",
     "您的流动性": "Your liquidity",
-    "添加流动性可以获得手续费分红或空投代币收益，实际获得的数量将和在流动性资金池中的份额成正比。同时还可以获得LP Tokens。": "Providing liquidity gives you a reward in forms of trading fees or airdrops, which will be proportional to the share in the liquidity pool. And you will also obtain Liquidity Provider (LP) tokes.",
+    "添加流动性可以获得手续费分红或空投代币收益，实际获得的数量将和在流动性资金池中的份额成正比。同时还可以获得LP Tokens。": "Providing liquidity gives you a reward in forms of trading fees or airdrops, which will be proportional to the share in the liquidity pool. And you will also obtain Liquidity Provider (LP) tokens.",
     "添加流动性": "Add Liquidity",
     "添加": "Add",
     "移除": "Remove",
@@ -158,7 +158,7 @@
     "费率": "Fees",
     "背景": "Background",
     "皮肤": "Skin",
-    "衣服": "Cothes",
+    "衣服": "Clothes",
     "表情": "Expression",
     "头部": "Head",
     "配饰": "Acc",
@@ -247,7 +247,8 @@
     "即将出售": "Will be on sale in",
     "已售罄": "Sold out",
     "只能输入整数": "Integers only",
-    "售价需大于当前最高出价": "Changed price must be greater than the current highest bid"
+    "售价需大于当前最高出价": "Changed price must be greater than the current highest bid",
+    "输入出售价格": "Enter selling price"
   },
   "navs": {
     "首页": "Home",
