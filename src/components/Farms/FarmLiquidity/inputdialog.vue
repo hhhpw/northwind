@@ -34,7 +34,10 @@
         </div>
       </template>
       <template #footer>
-        <star-button class="confirm-btn" @click="handleConfirm">{{
+        <star-button class="confirm-btn" type="light" @click="handleConfirm">{{
+          $t("确认")
+        }}</star-button>
+        <star-button class="confirm-btn" type="light" @click="handleConfirm">{{
           $t("确认")
         }}</star-button>
       </template>

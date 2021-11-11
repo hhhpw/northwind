@@ -90,6 +90,7 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
+  console.log("A");
   store.commit("StoreNftMarket/CLEAR_DATA");
 });
 

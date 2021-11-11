@@ -112,7 +112,7 @@ const scrollEvent = () => {
         setTimeout(() => {
           emits("loadMore");
           state.isAchiveBottom = false;
-        }, 500);
+        }, 1000);
       }
     },
     false
