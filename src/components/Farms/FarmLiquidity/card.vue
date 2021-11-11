@@ -17,7 +17,7 @@
     </div>
     <div :class="$style['card-content']">
       <template v-if="!props.lpToken">
-        <p>STC {{ $t("收益") }}</p>
+        <p>KIKO {{ $t("收益") }}</p>
         <star-amount
           :class="$style['card-content-amount']"
           :value="props.params.value"
@@ -44,7 +44,7 @@
     <div :class="$style['card-footer']">
       <template v-if="!props.lpToken">
         <star-button
-          @click="stcDraw"
+          @click="kikoDraw"
           :class="$style['card-footer-longbtn']"
           :type="state.walletStatus !== 'connected' ? 'disabled' : 'light'"
           >{{ $t("提取") }}</star-button
@@ -117,9 +117,9 @@ const props = defineProps({
   // },
 });
 
-const stcDraw = () => {
+const kikoDraw = () => {
   if (state.walletStatus !== "connected") return;
-  emits("stcDraw");
+  emits("kikoDraw");
 };
 
 const lpTokenDraw = () => {

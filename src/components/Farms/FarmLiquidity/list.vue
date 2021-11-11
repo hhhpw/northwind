@@ -14,7 +14,7 @@
         :class="$style['container-farm-liquidity-list-body-item']"
         v-for="(d, i) in new Array(7)"
         :key="i"
-        @click="pushPage"
+        @click="pushPage('BTC/ETH')"
       >
         <div :class="$style['container-farm-liquidity-list-body-item-symbol']">
           <span>
@@ -114,9 +114,14 @@ import StarAmount from "@StarUI/StarAmount";
 import SvgIcon from "@components/SvgIcon/Index.vue";
 import ListToolTip from "./listtooltip";
 import utilsRouter from "@utils/router";
+import { useStore } from "vuex";
+const store = useStore();
 let state = reactive({});
 
-const pushPage = () => {
+const pushPage = (lpToken) => {
+  store.commit("StoreFarms/SET_CURR_LPTOKEN_INFO", {
+    lpToken,
+  });
   utilsRouter.push({
     path: "/liquidityfarmsdetail",
   });

@@ -236,8 +236,9 @@ const actionsCall = (action) => {
   overflow: hidden;
   margin-right: 20px;
   &:hover {
-    transform: scale(1.01);
-    transition: scale ease-in-out 0.2s;
+    // transform: scale(1.01);
+    opacity: 0.85;
+    transition: opacity ease-in-out 0.2s;
   }
   .nft-blind-box-pic {
     width: 279px;

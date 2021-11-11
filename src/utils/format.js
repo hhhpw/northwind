@@ -43,9 +43,9 @@ const formatPrice = (price, precision = 9, options) => {
  * @param {*} content
  * @returns
  */
-const computedLangCtx = (content) => {
+const computedLangCtx = (content, options) => {
   return computed(() => {
-    return i18n.global.t(content);
+    return i18n.global.t(content, options || {});
   });
 };
 

@@ -247,6 +247,7 @@
     "已售罄": "已售罄",
     "只能输入整数": "只能輸入整數",
     "售价需大于当前最高出价": "售價需大於當前最高出價",
+    "输入出售价格": "輸入出售價格",
     "操作失败": "操作失敗",
     "提取中": "提取中",
     "操作成功": "操作成功",
@@ -293,7 +294,9 @@
     "farm-liquidity-list-th-name-7": "",
     "farm-liquidity-list-apr-tip-simpleyear": "單利年化",
     "farm-liquidity-list-apr-tip-comflexyear": "復利年化",
-    "farm-liquidity-list-apr-desc": "每日將受益提取，進行手動復投：隨著時間的增加復利收益將會越來越多。"
+    "farm-liquidity-list-apr-desc": "每日將受益提取，進行手動復投：隨著時間的增加復利收益將會越來越多。",
+    "farm-liquidity-detail-dialog-draw-title": "提取 LP {token}",
+    "farm-liquidity-detail-dialog-stake-title": "質押 LP {token}"
   },
   "navs": {
     "首页": "首頁",

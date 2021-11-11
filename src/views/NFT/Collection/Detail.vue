@@ -43,7 +43,6 @@
         <star-space :size="10"></star-space>
         <div style="text-align: right">
           {{ t("最高出价") }}
-          {{ editState.edit_price_isInteger }}
           {{
             (state.detail_info.topBidPrice &&
               utilsFormat.formatPrice(state.detail_info.topBidPrice)) ||

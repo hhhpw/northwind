@@ -4,6 +4,7 @@ import FARMS_CONSTANTS from "@constants/farms.js";
 import utilsFormat from "@utils/format";
 import utilsNumber from "@utils/number";
 import farmsAPI from "@api/farms.js";
+import commonAPI from "@api/common.js";
 
 const StoreFarms = {
   namespaced: true,
@@ -15,6 +16,10 @@ const StoreFarms = {
     swapPoolList: null,
     swapPersonData: [null, null, null],
     swapTotalData: [null, null, null, null],
+    // 流动性挖矿
+    inputDialogParams: FARMS_CONSTANTS.LIQUIDITY_INPUT_DIALOG_PARAMS,
+    poolList: null,
+    lpToken: "BTC/ETH",
   },
   mutations: {
     [types.CHANGE_SECOND_DIALOG_PARAMS](state, payload) {
@@ -45,6 +50,17 @@ const StoreFarms = {
         payload.dailyUserReward,
       ];
       console.log("swapTotalData", state.swapTotalData);
+    },
+    // 流动性
+    [types.CHANGE_INPUT_DIALOG_PARAMS](state, payload) {
+      state.inputDialogParams = Object.assign(
+        {},
+        state.inputDialogParams,
+        payload
+      );
+    },
+    [types.SET_CURR_LPTOKEN_INFO](state, payload) {
+      // state. = payload;
     },
   },
   actions: {
@@ -115,7 +131,7 @@ const StoreFarms = {
       //  successBtnText: "确认",
       // });
     },
-    // 提取锁仓收益
+    // 提取swap锁仓收益
     swapDrawLockedProfit() {
       commit(types.CHANGE_SECOND_DIALOG_PARAMS, {
         dialogVisible: true,
@@ -124,6 +140,77 @@ const StoreFarms = {
         lockedVisible: true,
         confirmText: "确认",
       });
+    },
+
+    // 提取流动性kiko收益
+    drawLiquidityKIKOProfit({ commit }) {
+      console.log("提取流动性stc收益");
+      // secondDialogParams: FARMS_CONSTANTS.SWAP_SECOND_DIALOG_PARAMS,
+    },
+
+    // 提取流动性LPTOKEN
+    drawLiquidityLPToken({ commit }) {
+      console.log("提取流动性LPTOKEN");
+      commit(types.CHANGE_INPUT_DIALOG_PARAMS, {
+        dialogVisible: true,
+        lpToken: "ETH_SCT",
+        type: "draw",
+      });
+    },
+    // 获取用户流动性记录
+    async getAllPoolListByUser({ commit, state }, payload) {
+      const res = await commonAPI.getAllPoolListByUser(payload);
+      if (res.result && res.result.resources) {
+        console.log("res.result.resources", res.result.resources);
+        console.log(
+          "process.env.VUE_APP_LPTOKEN_ADDRESS",
+          process.env.VUE_APP_LPTOKEN_ADDRESS
+        );
+        let data = 0;
+        for (const [k, v] of Object.entries(res.result.resources)) {
+          if (
+            k.indexOf(
+              `${process.env.VUE_APP_LPTOKEN_ADDRESS}::SwapPair::LPToken<`
+            ) > -1
+          ) {
+            const contracts = k.match(/Balance<(.*)::SwapPair/)[1];
+            if (contracts === process.env.VUE_APP_CONTRACTS_ADDRESS) {
+              const tokenString = k.match(/LPToken<(.*)>>/)[1]; // 匹配LPToken开头、>>结束
+              const tokenAddress = tokenString.split(", ");
+              const tokens = tokenAddress.map((d) => d.split("::")[2]);
+              const lpToken = `${tokens[0]}/${tokens[1]}`;
+              console.log("tokens", lpToken);
+              if (lpToken === state.lpToken) {
+                data = v.json.token.value;
+              }
+
+              // console.log("tokens", tokens, tokenAddress);
+              // if (v.json.token.value > 0) {
+              //   list.push({
+              //     lpToken: `LP - ${tokens[0]}/${tokens[1]}`,
+              //     A: {
+              //       key: tokens[0],
+              //       data: "0.0",
+              //       token: tokenAddress[0],
+              //     },
+              //     B: {
+              //       key: tokens[1],
+              //       data: "0.0",
+              //       token: tokenAddress[1],
+              //     },
+              //     poolAmount: utilsNumber
+              //       .bigNum(v.json.token.value)
+              //       .div(Math.pow(10, 9))
+              //       .toString(),
+              //   });
+              // }
+            }
+          }
+        }
+        commit(types.SET_LIQUIDITY_POOLLIST, data);
+      } else {
+        commit(types.SET_LIQUIDITY_POOLLIST, []);
+      }
     },
   },
 };

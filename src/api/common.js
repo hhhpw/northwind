@@ -93,6 +93,24 @@ function getVolumeData() {
   // ];
 }
 
+// 获取用户所有流动池LP-TOKEN
+function getAllPoolListByUser(account) {
+  let params = {
+    id: 101,
+    jsonrpc: "2.0",
+    method: "state.list_resource",
+    params: [account, { decode: true }],
+  };
+  return request({
+    headers: {
+      "content-type": "application/json",
+    },
+    url: process.env.VUE_APP_CONTRACTS_SERVE_URL,
+    method: "post",
+    data: JSON.stringify(params),
+  });
+}
+
 export default {
   getCurrency,
   getUserResourceList,
@@ -100,4 +118,5 @@ export default {
   getTransactionInfo,
   getImgTruePath,
   getVolumeData,
+  getAllPoolListByUser,
 };

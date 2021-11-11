@@ -1,7 +1,7 @@
 <template>
   <div class="star-refresh">
     <star-dialog
-      :title="$t(props.title || '')"
+      :title="!props.isCustomTitle ? $t(props.title || '') : props.title"
       :dialogVisible="state.visible"
       @handleClose="handleClose"
       :close-on-click-modal="false"
@@ -45,6 +45,10 @@ const props = defineProps({
   isShowClose: {
     type: Boolean,
     default: true,
+  },
+  isCustomTitle: {
+    type: Boolean,
+    default: false,
   },
 });
 

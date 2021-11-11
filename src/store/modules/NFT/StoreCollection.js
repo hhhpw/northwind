@@ -116,7 +116,6 @@ const StoreCollection = {
           list = [];
         }
       }
-      console.log("selling_data", list);
       return list;
     },
     unsold_data: (state) => {

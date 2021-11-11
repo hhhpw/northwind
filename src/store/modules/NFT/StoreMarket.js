@@ -110,7 +110,6 @@ const StoreNftMarket = {
       if (payload[0] && payload[1]) {
         open = "all";
       }
-      console.log("open", open);
       state.listParams = Object.assign({}, state.listParams, {
         open,
       });
@@ -121,7 +120,6 @@ const StoreNftMarket = {
       if (!state.marketList) return;
       let list = cloneDeep(state.marketList);
       const rules = state.marketListRule;
-      console.log("rules", rules);
       if (rules[0] && !rules[1]) {
         return list.filter((d) => d.type === "box");
       }

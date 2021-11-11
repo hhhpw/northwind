@@ -24,7 +24,12 @@ export const SWAP_SECOND_DIALOG_PARAMS = {
   lockedVisible: false,
 };
 
+export const LIQUIDITY_INPUT_DIALOG_PARAMS = {
+  dialogVisible: false,
+};
+
 export default {
   SWAP_DIALOG_PARAMS,
   SWAP_SECOND_DIALOG_PARAMS,
+  LIQUIDITY_INPUT_DIALOG_PARAMS,
 };

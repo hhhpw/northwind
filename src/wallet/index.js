@@ -193,6 +193,7 @@ const addLiquidity = async ({ provider, tokens, amounts }) => {
   try {
     let funcId = process.env.VUE_APP_ADD_LIQUIDITY_FUNCTION_ID;
     const tyArgs = utils.tx.encodeStructTypeTags(tokens);
+    console.log("funcId", funcId, "tokens", tokens);
     const amountHexA = (function () {
       const se = new bcs.BcsSerializer();
       se.serializeU128(amounts[0].toString(10));
