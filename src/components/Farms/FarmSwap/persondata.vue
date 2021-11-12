@@ -1,6 +1,7 @@
 <template>
   <div>
     <div :class="$style['container-person-data']">
+      {{ state.secondDialogParams }}
       <div :class="$style['container-person-data-header']">
         <div
           :class="$style['container-person-data-header-item']"
@@ -27,13 +28,13 @@
                 "
               >
               </star-amount>
-              <p v-else>- -</p>
+              <p v-else>0.0000</p>
             </div>
             <star-button
               v-if="state.walletStatus === 'connected'"
               type="dark"
               :class="$style['container-person-data-header-item-btn']"
-              @click="drawProfit"
+              @click="canDrawMiningProfit"
               >{{ $t("farms.farm-swap-draw") }}</star-button
             >
           </template>
@@ -53,7 +54,7 @@
                 "
               >
               </star-amount>
-              <p v-else>- -</p>
+              <p v-else>0.0000</p>
               <star-space :size="30"></star-space>
               <p>{{ $t("farms.farm-swap-can-draw") }}</p>
               <star-amount
@@ -67,10 +68,10 @@
                 "
               >
               </star-amount>
-              <p v-else>- -</p>
+              <p v-else>0.0000</p>
             </div>
             <star-button
-              @click="swapDrawLockedProfit"
+              @click="canDrawLockedProfit"
               v-if="state.walletStatus === 'connected'"
               type="dark"
               :class="$style['container-person-data-header-item-btn']"
@@ -92,14 +93,38 @@
     </div>
     <!-- 二次弹窗 -->
     <farm-second-dialog
-      :dialogParams="state.secondDialogDataParams"
-      @handleClose="handleClose('second')"
-      :dataParams="state.dataParams"
+      :dialogParams="state.secondDialogParams"
+      @handleClose="
+        () =>
+          dialogEventMaps &&
+          dialogEventMaps.swapSecondDialog.handleClose(
+            state.secondDialogParams && state.secondDialogParams.dialogStatus
+          )
+      "
+      @handleConfirm="
+        () =>
+          dialogEventMaps &&
+          dialogEventMaps.swapSecondDialog.handleSuccess(
+            state.secondDialogParams.type
+          )
+      "
     ></farm-second-dialog>
     <!-- loading弹窗 -->
     <farm-dialog
       :dialogParams="state.dialogParams"
-      @handleClose="handleClose('feedback')"
+      @handleClose="
+        () =>
+          dialogEventMaps &&
+          dialogEventMaps.swapDialog.handleClose(
+            state.dialogParams && state.dialogParams.dialogStatus
+          )
+      "
+      @handleSuccess="
+        () => dialogEventMaps && dialogEventMaps.swapDialog.handleSuccess()
+      "
+      @handleFailed="
+        () => dialogEventMaps && dialogEventMaps.swapDialog.handleFailed()
+      "
       :dataParams="state.dataParams"
     ></farm-dialog>
   </div>
@@ -115,6 +140,7 @@ import FarmDialog from "./farmdialog";
 import connectLogic from "@mixins/wallet";
 import { useStore } from "vuex";
 import FARMS_CONSTANTS from "@constants/farms.js";
+import { dialogEventMaps } from "./dialog.js";
 let store = useStore();
 
 const { connectWallet } = connectLogic(store);
@@ -124,11 +150,6 @@ let state = reactive({
   secondDialogParams: computed(() => store.state.StoreFarms.secondDialogParams),
   dialogParams: computed(() => store.state.StoreFarms.dialogParams),
   accounts: computed(() => store.state.StoreWallet.accounts),
-  secondDialogDataParams: {
-    draw: "123213",
-    gas: "983121",
-    locked: "123212",
-  },
 });
 
 if (state.accounts && state.accounts[0]) {
@@ -144,13 +165,17 @@ watch(
   }
 );
 
-const drawProfit = () => {
-  store.dispatch("StoreFarms/swapDrawProfit");
+const canDrawMiningProfit = () => {
+  store.dispatch("StoreFarms/canDrawMiningProfit");
 };
 
-const swapDrawLockedProfit = () => {
-  store.dispatch("StoreFarms/swapDrawLockedProfit");
+const canDrawLockedProfit = () => {
+  store.dispatch("StoreFarms/canDrawLockedProfit");
 };
+
+// const swapDrawLockedProfit = () => {
+//   store.dispatch("StoreFarms/swapDrawLockedProfit");
+// };
 const handleClose = (type) => {
   if (type === "second") {
     store.commit(

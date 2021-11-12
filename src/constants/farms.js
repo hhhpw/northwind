@@ -12,6 +12,7 @@ export const SWAP_DIALOG_PARAMS = {
   isShowClose: false,
   successBtnText: "",
   miningData: "",
+  type: "", // mining locked
   // failedBtnText: utilsFormat.computedLangCtx("确认"),
   // successBtnText: utilsFormat.computedLangCtx("查看"),
 };
@@ -21,7 +22,8 @@ export const SWAP_SECOND_DIALOG_PARAMS = {
   cancelText: "",
   dialogVisible: false,
   operateWaring: false,
-  lockedVisible: false,
+  // lockedVisible: false,
+  dataParams: null,
 };
 
 export const LIQUIDITY_INPUT_DIALOG_PARAMS = {

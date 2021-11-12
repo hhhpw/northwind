@@ -29,7 +29,7 @@
         ></star-amount>
       </template>
       <template v-else>
-        <p>{{ props.params.symbol }} LP</p>
+        <p>{{ props.params.token }} LP</p>
         <star-amount
           :class="$style['card-content-amount']"
           :value="props.params.value"
@@ -100,7 +100,7 @@ const props = defineProps({
     default: {
       value: 0,
       precision: 2,
-      symbol: "BTC_USDT",
+      token: "BTC_USDT",
     },
   },
   lpToken: {
@@ -111,7 +111,7 @@ const props = defineProps({
   //   type: [String, Number],
   //   default: "0",
   // },
-  // symbol: {
+  // token: {
   //   type: String,
   //   default: "BTC/STC",
   // },

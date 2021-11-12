@@ -76,7 +76,7 @@ function getTradingReward(payload) {
     msg: "ok",
     timeStamp: 1234567890123,
     data: {
-      currentReward: 123456.123, // 待领取收益
+      currentReward: 0.0006, // 待领取收益
       lockedReward: 12345.123, // 锁仓收益
       freedReward: 123.123, // 已释放收益
     },
@@ -97,13 +97,13 @@ function getPersonCurrReward(payload) {
     msg: "ok",
     timeStamp: 1234567890123,
     data: {
-      transactionHash: "0xABCD1234", // 交易哈希
+      transactionHash:
+        "0x13b80d11761b0a2aa1c4c977efc91f9760b8bd29c0f605bae090b08a37885e31", // 交易哈希
     },
   };
 }
-// swap farm 提取已释放收益
-
-function getPersonFreeReward(payload) {
+// swap farm 提取锁仓收益
+function getPersonLockedReward(payload) {
   // return request({
   //   url: "/v1/mining/trading/freedReward/harvest",
   //   method: "GET",
@@ -116,7 +116,19 @@ function getPersonFreeReward(payload) {
     msg: "ok",
     timeStamp: 1234567890123,
     data: {
-      transactionHash: "0xABCD1234", // 交易哈希
+      transactionHash:
+        "0x13b80d11761b0a2aa1c4c977efc91f9760b8bd29c0f605bae090b08a37885e31", // 交易哈希
+    },
+  };
+}
+
+function getSwapMiningDrawGas() {
+  return {
+    code: 200,
+    msg: "ok",
+    timeStamp: 1234567890123,
+    data: {
+      value: "0.0002",
     },
   };
 }
@@ -126,4 +138,6 @@ export default {
   getTradingMarket,
   getTradingReward,
   getPersonCurrReward,
+  getSwapMiningDrawGas,
+  getPersonLockedReward,
 };

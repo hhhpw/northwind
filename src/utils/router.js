@@ -24,8 +24,18 @@ function back() {
 function getCurrentRoute() {
   return ref(router.currentRoute).value;
 }
+
+const encodePath = (str) => {
+  return window.encodeURI(str);
+};
+
+const decodePath = (str) => {
+  return window.decodeURI(str);
+};
 export default {
   push,
   back,
   getCurrentRoute,
+  encodePath,
+  decodePath,
 };

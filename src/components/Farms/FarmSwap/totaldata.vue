@@ -19,7 +19,7 @@
             trailingZero: false,
           }"
         ></star-amount>
-        <p v-else>- -</p>
+        <p v-else>0.0000</p>
       </div>
     </div>
     <star-space :size="20"></star-space>

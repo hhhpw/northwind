@@ -120,10 +120,15 @@ let state = reactive({});
 
 const pushPage = (lpToken) => {
   store.commit("StoreFarms/SET_CURR_LPTOKEN_INFO", {
-    lpToken,
+    token: lpToken,
   });
   utilsRouter.push({
     path: "/liquidityfarmsdetail",
+    query: {
+      token: lpToken,
+      // token: utilsRouter.encodePath(lpToken),
+      // token: utilsRouter.encodePath(lpToken),
+    },
   });
 };
 </script>

@@ -73,6 +73,26 @@ const pollingTxnInfo = ({ txnHash, delay = 1000 } = {}) => {
 };
 
 /**
+ * 轮询查上链信息 上面的方法只针对NFT使用
+ * @param {txnHash, delay}
+ * @returns
+ */
+const pollingBlockHashInfo = ({ txnHash, delay = 1000 } = {}) => {
+  return new Promise((resolve) => {
+    commonApi.getTransactionInfo(txnHash).then((res) => {
+      console.log("====>pollingBlockHashInfo======>", res);
+      if (res.result && res.result.status === "Executed") {
+        resolve(res.result.status);
+      } else {
+        setTimeout(() => {
+          resolve(pollingBlockHashInfo({ txnHash }));
+        }, delay);
+      }
+    });
+  });
+};
+
+/**
  * 隐藏nft-image地址
  * @param {*} path
  * @returns
@@ -110,4 +130,5 @@ export default {
   pollingTxnInfo,
   getImgTruePath,
   setJWT,
+  pollingBlockHashInfo,
 };

@@ -37,8 +37,8 @@
           >
             {{
               props.dialogParams.dialogStatus === "ongoing"
-                ? $t(props.dialogParams.dialogText) + "..."
-                : $t(props.dialogParams.dialogText)
+                ? props.dialogParams.dialogText + "..."
+                : props.dialogParams.dialogText
             }}
           </p>
         </div>
@@ -46,18 +46,15 @@
           :size="20"
           v-if="!props.dialogParams.customImgUrl"
         ></star-space>
-        <div
-          v-if="props.dialogParams.miningData"
-          class="farm-dialog-content-mining-success"
-        >
-          <p>
+        <div class="farm-dialog-content-mining-success">
+          <p v-if="props.dialogParams?.miningData?.draw">
             {{
               $t("farms.farm-swap-mining-success1", {
                 amount: formatAmount(props.dialogParams.miningData.draw),
               })
             }}
           </p>
-          <p>
+          <p v-if="props.dialogParams?.miningData?.locked">
             {{
               $t("farms.farm-swap-mining-success2", {
                 amount: formatAmount(props.dialogParams.miningData.locked),

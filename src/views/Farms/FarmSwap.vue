@@ -15,6 +15,9 @@
 import TotalValue from "@components/Farms/FarmSwap/totaldata";
 import PersonValue from "@components/Farms/FarmSwap/persondata";
 import SwapCore from "@components/Farms/FarmSwap/swapcore";
+import { useStore } from "vuex";
+const store = useStore();
+store.dispatch("StoreFarms/getSwapMiningDrawGas");
 </script>
 <style lang="scss" module>
 .container-farm-swap {

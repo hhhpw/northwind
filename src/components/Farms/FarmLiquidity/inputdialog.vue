@@ -2,7 +2,7 @@
   <div :class="$style['dialog-container']">
     <star-confirm
       :dialogVisible="state.visible"
-      @handleClose="handleClose"
+      :isShowClose="false"
       :isCustomContent="true"
       :isCustomTitle="true"
       :title="state.title"
@@ -10,23 +10,22 @@
       <template #core>
         <div :class="$style['dialog-container-core']">
           <div :class="$style['dialog-container-core-title']">
-            <!-- <span v-if="A.disPlayBalance">
-                {{ $t("余额") }}: {{ A.disPlayBalance }}
-              </span> -->
-            {{ $t("余额") }}: 31212
+            <span v-if="props.dataParams && props.dataParams.value">
+              {{ $t("余额") }}: {{ props.dataParams.value }}
+            </span>
           </div>
           <div :class="$style['dialog-container-core-main']">
             <star-input
               class="dialog-container-core-main-input"
               placeholder="0.0"
-              :value="22"
-              :max="32131232"
-              :precision="4"
-              @inputEvent="inputEvent($event, 'from')"
+              :value="state.inputValue"
+              :max="props.dataParams.value"
+              :precision="9"
+              @inputEvent="inputEvent($event)"
             ></star-input>
             <div
               :class="$style['dialog-container-core-main-max']"
-              @click="setToInputValueMax('from', A.disPlayBalance)"
+              @click="setInputValueMax"
             >
               Max
             </div>
@@ -34,12 +33,20 @@
         </div>
       </template>
       <template #footer>
-        <star-button class="confirm-btn" type="light" @click="handleConfirm">{{
-          $t("确认")
-        }}</star-button>
-        <star-button class="confirm-btn" type="light" @click="handleConfirm">{{
-          $t("确认")
-        }}</star-button>
+        <div :class="$style['dialog-container-footer']">
+          <star-button
+            :class="$style['dialog-container-footer-btn']"
+            type="light"
+            @click="handleCancel"
+            >{{ $t("取消") }}</star-button
+          >
+          <star-button
+            :class="$style['dialog-container-footer-btn']"
+            :type="canConfirm ? 'dark' : 'disabled'"
+            @click="handleConfirm"
+            >{{ $t("确认") }}</star-button
+          >
+        </div>
       </template>
     </star-confirm>
   </div>
@@ -51,22 +58,44 @@ import StarInput from "@StarUI/StarInput";
 import StarConfirm from "@StarUI/StarConfirm";
 import StarButton from "@StarUI/StarButton";
 import utilsFormat from "@utils/format";
+
 const props = defineProps({
   dialogParams: {
     title: "",
     dialogVisible: false,
-    lpToken: "STC_BTC",
+    // lpToken: "STC_BTC",
+  },
+  dataParams: {
+    value: "0.00",
   },
 });
 
+const emits = defineEmits(["handleCancel"]);
+
+// const handleConfirm = () => {
+//   if ()
+
+// };
+const inputEvent = (value) => {
+  state.inputValue = value;
+};
+const setInputValueMax = () => {
+  state.inputValue = props.dataParams.value;
+};
 const state = reactive({
   visible: props.dialogParams && props.dialogParams.dialogVisible,
   title: "",
+  inputValue: "",
 });
 
-const handleClose = () => {
-  console.log("A");
+const handleCancel = () => {
+  state.inputValue = "";
+  emits("handleCancel");
 };
+
+const canConfirm = computed(() => {
+  return !!state.inputValue;
+});
 
 watch(
   () => props.dialogParams.dialogVisible,
@@ -75,13 +104,13 @@ watch(
   }
 );
 watchEffect(() => {
-  if (props.dialogParams.type && props.dialogParams.lpToken) {
+  if (props.dialogParams.type && props?.dataParams?.token) {
     let type =
       props.dialogParams.type === "draw"
         ? "farms.farm-liquidity-detail-dialog-draw-title"
         : "farms.farm-liquidity-detail-dialog-stake-title";
     state.title = utilsFormat.computedLangCtx(type, {
-      token: props.dialogParams.lpToken,
+      token: props.dataParams.token,
     }).value;
   }
 });
@@ -130,6 +159,13 @@ watchEffect(() => {
         margin-left: 6px;
         cursor: pointer;
       }
+    }
+  }
+  .dialog-container-footer {
+    display: flex;
+    justify-content: space-around;
+    .dialog-container-footer-btn {
+      width: 120px;
     }
   }
 }

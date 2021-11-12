@@ -31,38 +31,44 @@
           {{ $t("farms.farm-swap-draw-sure-error") }}
         </p>
         <div class="farm-second-dialog-content-block">
-          <div class="farm-second-dialog-content-block-item">
+          <div
+            class="farm-second-dialog-content-block-item"
+            v-if="props.dialogParams?.dataParams?.draw"
+          >
             <p class="farm-second-dialog-content-block-item-label">
               {{ $t("farms.farm-swap-draw") }}
             </p>
             <star-amount
               class="farm-second-dialog-content-block-item-amount"
-              :value="props.dataParams && props.dataParams.draw"
+              :value="props.dialogParams.dataParams.draw"
               :formatOptions="{ precision: 4, trailingZero: true }"
               displaySuffix="kiko"
             ></star-amount>
           </div>
           <div
             class="farm-second-dialog-content-block-item"
-            v-if="props.dialogParams.lockedVisible"
+            v-if="props.dialogParams?.dataParams?.locked"
           >
             <p class="farm-second-dialog-content-block-item-label">
               {{ $t("farms.farm-swap-lock") }}
             </p>
             <star-amount
               class="farm-second-dialog-content-block-item-amount"
-              :value="props.dataParams && props.dataParams.locked"
+              :value="props.dialogParams.dataParams.locked"
               :formatOptions="{ precision: 4, trailingZero: true }"
               displaySuffix="kiko"
             ></star-amount>
           </div>
-          <div class="farm-second-dialog-content-block-item">
+          <div
+            class="farm-second-dialog-content-block-item"
+            v-if="props.dialogParams?.dataParams?.gas"
+          >
             <p class="farm-second-dialog-content-block-item-label">
               {{ $t("farms.farm-swap-draw-gas") }}
             </p>
             <star-amount
               class="farm-second-dialog-content-block-item-amount"
-              :value="props.dataParams && props.dataParams.gas"
+              :value="props.dialogParams.dataParams.gas"
               :formatOptions="{ precision: 4, trailingZero: true }"
               displaySuffix="kiko"
             ></star-amount>
@@ -76,7 +82,7 @@
           type="green"
           v-if="props.dialogParams.confirmText"
         >
-          {{ $t(props.dialogParams.confirmText) }}
+          {{ props.dialogParams.confirmText }}
         </star-button>
         <star-button
           type="red"
@@ -84,7 +90,7 @@
           @click="emits('handleCancel')"
           v-if="props.dialogParams.cancelText"
         >
-          {{ $t(props.dialogParams.cancelText) }}
+          {{ props.dialogParams.cancelText }}
         </star-button>
       </div>
     </ElDialog>
@@ -110,10 +116,10 @@ const props = defineProps({
     default: true,
   },
   dialogParams: null,
-  dataParams: {
-    type: Object,
-    default: () => {},
-  },
+  // dialogParams.dataParams: {
+  //   type: Object,
+  //   default: () => {},
+  // },
 });
 const state = reactive({
   visible: false,
@@ -137,7 +143,6 @@ watch(
 const emits = defineEmits(["handleClose", "handleCancel", "handleConfirm"]);
 
 const handleClose = () => {
-  console.log("===yes===");
   emits("handleClose");
 };
 </script>

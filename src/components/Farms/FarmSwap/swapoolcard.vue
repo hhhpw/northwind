@@ -87,7 +87,7 @@ const props = defineProps({
   margin-bottom: 40px;
   &:hover {
     cursor: pointer;
-    transform: scale(1.01);
+    transform: scale(1.005);
     transition: all ease 0.2s;
   }
   .token-b-img {

@@ -5,6 +5,7 @@ import utilsFormat from "@utils/format";
 import utilsNumber from "@utils/number";
 import farmsAPI from "@api/farms.js";
 import commonAPI from "@api/common.js";
+import utilsTool from "@utils/tool.js";
 
 const StoreFarms = {
   namespaced: true,
@@ -12,16 +13,20 @@ const StoreFarms = {
   state: {
     dialogParams: FARMS_CONSTANTS.SWAP_DIALOG_PARAMS,
     secondDialogParams: FARMS_CONSTANTS.SWAP_SECOND_DIALOG_PARAMS,
-    swapPersonData: ["23412231.12", "23212", "23212"],
     swapPoolList: null,
     swapPersonData: [null, null, null],
     swapTotalData: [null, null, null, null],
+    swapMiningDrawGas: null, // 提取费用
     // 流动性挖矿
     inputDialogParams: FARMS_CONSTANTS.LIQUIDITY_INPUT_DIALOG_PARAMS,
     poolList: null,
     lpToken: "BTC/ETH",
+    lpTokenInfo: {},
   },
   mutations: {
+    [types.SWAP_MINING_DRAW_GAS](state, payload) {
+      state.swapMiningDrawGas = payload;
+    },
     [types.CHANGE_SECOND_DIALOG_PARAMS](state, payload) {
       state.secondDialogParams = Object.assign(
         {},
@@ -37,9 +42,9 @@ const StoreFarms = {
     },
     [types.SET_SWAP_PERSON_DATA](state, payload) {
       state.swapPersonData = [
-        payload.freedReward,
-        payload.lockedReward,
         payload.currentReward,
+        payload.lockedReward,
+        payload.freedReward,
       ];
     },
     [types.SET_SWAP_TOTAL_DATA](state, payload) {
@@ -52,6 +57,9 @@ const StoreFarms = {
       console.log("swapTotalData", state.swapTotalData);
     },
     // 流动性
+    [types.SET_LIQUIDITY_POOLLIST](state, payload) {
+      state.poolList = payload;
+    },
     [types.CHANGE_INPUT_DIALOG_PARAMS](state, payload) {
       state.inputDialogParams = Object.assign(
         {},
@@ -60,7 +68,7 @@ const StoreFarms = {
       );
     },
     [types.SET_CURR_LPTOKEN_INFO](state, payload) {
-      // state. = payload;
+      state.lpTokenInfo = Object.assign({}, state.lpTokenInfo, payload);
     },
   },
   actions: {
@@ -82,64 +90,175 @@ const StoreFarms = {
         commit(types.SET_SWAP_TOTAL_DATA, res.data);
       }
     },
-    swapDrawProfit({ state, commit }) {
-      // 计算后可以提取
-      // commit(types.CHANGE_SECOND_DIALOG_PARAMS, {
-      //   dialogVisible: true,
-      //   operateWaring: true,
-      //   cancelText: "",
-      //   lockedVisible: true,
-      //   confirmText: "确认",
-      // });
-      // 计算后不可以提取
-      // commit(types.CHANGE_DIALOG_PARAMS, {
-      //   dialogVisible: true,
-      //   dialogStatus: "failed",
-      //   failedBtnText: "确认",
-      //   dialogText: "操作失败",
-      //   isShowClose: true,
-      // });
-      // 发起请求
-      // commit(types.CHANGE_DIALOG_PARAMS, {
-      //   dialogVisible: true,
-      //   dialogStatus: "ongoing",
-      // });
-      // 阶段一
-      // commit(types.CHANGE_DIALOG_PARAMS, {
-      //   phase1: "ongoing",
-      // });
-      // 阶段二
-      // commit(types.CHANGE_DIALOG_PARAMS, {
-      //   phase2: "ongoing",
-      // });
-      // 操作成功
+    // 获取提取费用
+    async getSwapMiningDrawGas({ commit }) {
+      const res = await farmsAPI.getSwapMiningDrawGas();
+      if (res.code === 200) {
+        commit(types.SWAP_MINING_DRAW_GAS, res.data.value);
+      }
+    },
+    // 是否可以提取挖矿收益
+    async canDrawMiningProfit({ state, commit }) {
+      //可提取条件是 总提取的金额 * 50% > 提取gas费用
+      if (!state.swapMiningDrawGas) return;
+      const canDraw = utilsNumber
+        .bigNum(state.swapPersonData[0])
+        .times(0.5)
+        .gt(state.swapMiningDrawGas);
+      if (canDraw) {
+        //可提取
+        commit(types.CHANGE_SECOND_DIALOG_PARAMS, {
+          dialogVisible: true,
+          operateWaring: true,
+          cancelText: "",
+          lockedVisible: true,
+          confirmText: utilsFormat.computedLangCtx("确认"),
+          type: "mining",
+          dataParams: {
+            draw: state.swapPersonData[0],
+            locked: utilsNumber
+              .bigNum(state.swapPersonData[0])
+              .times(0.5)
+              .toString(),
+            gas: state.swapMiningDrawGas,
+          },
+        });
+      } else {
+        commit(types.CHANGE_DIALOG_PARAMS, {
+          dialogVisible: true,
+          dialogStatus: "failed",
+          failedBtnText: utilsFormat.computedLangCtx("确认"),
+          dialogText: utilsFormat.computedLangCtx("操作失败"),
+          isShowClose: true,
+        });
+      }
+    },
+
+    // 提取挖矿收益
+    async drawMiningReward({ commit, state }, payload) {
+      commit(
+        types.CHANGE_SECOND_DIALOG_PARAMS,
+        FARMS_CONSTANTS.SWAP_SECOND_DIALOG_PARAMS
+      );
       commit(types.CHANGE_DIALOG_PARAMS, {
         dialogVisible: true,
-        dialogStatus: "success",
-        isShowClose: true,
-        dialogText: "操作成功",
-        successBtnText: "确认",
-        isMining: true,
-        miningData: {
-          draw: "2121",
-          locked: utilsNumber.bigNum("2121").times(0.5).toString(),
-        },
+        dialogStatus: "ongoing",
+        dialogText: utilsFormat.computedLangCtx("提取中"),
       });
-      // 操作失败
-      // commit(types.CHANGE_DIALOG_PARAMS, {
-      //   dialogStatus: "failed",
-      //  successBtnText: "确认",
-      // });
+      const txnHashData = await farmsAPI.getPersonCurrReward(payload);
+      if (txnHashData.code === 200) {
+        let txnHash = txnHashData.data.transactionHash;
+        commit(types.CHANGE_DIALOG_PARAMS, {
+          phase1: "success",
+        });
+        utilsTool.pollingBlockHashInfo({ txnHash }).then((res) => {
+          if (res === "Executed") {
+            commit(types.CHANGE_DIALOG_PARAMS, {
+              phase2: "success",
+            });
+            setTimeout(() => {
+              commit(types.CHANGE_DIALOG_PARAMS, {
+                dialogStatus: "success",
+                dialogText: utilsFormat.computedLangCtx("操作成功"),
+                successBtnText: utilsFormat.computedLangCtx("确认"),
+                isShowClose: true,
+                miningData: {
+                  draw: utilsNumber
+                    .bigNum(state.swapPersonData[0])
+                    .minus(state.swapMiningDrawGas)
+                    .toString(),
+                  locked: utilsNumber
+                    .bigNum(state.swapPersonData[0])
+                    .times(0.5)
+                    .toString(),
+                },
+              });
+            }, 1500);
+          }
+        });
+      } else {
+        commit(types.CHANGE_DIALOG_PARAMS, {
+          dialogStatus: "failed",
+          dialogText: utilsFormat.computedLangCtx("提取收益失败"),
+          failedBtnText: utilsFormat.computedLangCtx("确认"),
+          isShowClose: true,
+        });
+      }
     },
-    // 提取swap锁仓收益
-    swapDrawLockedProfit() {
-      commit(types.CHANGE_SECOND_DIALOG_PARAMS, {
+    // 是否可提取swap锁仓收益
+    canDrawLockedProfit({ commit, state }) {
+      if (!state.swapMiningDrawGas) return;
+      if (
+        utilsNumber.bigNum(state.swapPersonData[2]).gt(state.swapMiningDrawGas)
+      ) {
+        commit(types.CHANGE_SECOND_DIALOG_PARAMS, {
+          dialogVisible: true,
+          cancelText: "",
+          lockedVisible: true,
+          confirmText: utilsFormat.computedLangCtx("确认"),
+          type: "locked",
+          dataParams: {
+            draw: state.swapPersonData[2],
+            gas: state.swapMiningDrawGas,
+          },
+        });
+      } else {
+        commit(types.CHANGE_DIALOG_PARAMS, {
+          dialogVisible: true,
+          dialogStatus: "failed",
+          failedBtnText: utilsFormat.computedLangCtx("确认"),
+          dialogText: utilsFormat.computedLangCtx("操作失败"),
+          isShowClose: true,
+        });
+      }
+    },
+    // 提取锁仓收益
+    async drawLockedReward({ commit, state }, payload) {
+      commit(
+        types.CHANGE_SECOND_DIALOG_PARAMS,
+        FARMS_CONSTANTS.SWAP_SECOND_DIALOG_PARAMS
+      );
+      commit(types.CHANGE_DIALOG_PARAMS, {
         dialogVisible: true,
-        operateWaring: true,
-        cancelText: "",
-        lockedVisible: true,
-        confirmText: "确认",
+        dialogStatus: "ongoing",
+        dialogText: utilsFormat.computedLangCtx("提取中"),
       });
+      const txnHashData = await farmsAPI.getPersonLockedReward(payload);
+      if (txnHashData.code === 200) {
+        let txnHash = txnHashData.data.transactionHash;
+        commit(types.CHANGE_DIALOG_PARAMS, {
+          phase1: "success",
+        });
+        utilsTool.pollingBlockHashInfo({ txnHash }).then((res) => {
+          if (res === "Executed") {
+            commit(types.CHANGE_DIALOG_PARAMS, {
+              phase2: "success",
+            });
+            setTimeout(() => {
+              commit(types.CHANGE_DIALOG_PARAMS, {
+                dialogStatus: "success",
+                dialogText: utilsFormat.computedLangCtx("操作成功"),
+                successBtnText: utilsFormat.computedLangCtx("确认"),
+                isShowClose: true,
+                miningData: {
+                  draw: utilsNumber
+                    .bigNum(state.swapPersonData[2])
+                    .minus(state.swapMiningDrawGas)
+                    .toString(),
+                },
+              });
+            }, 1500);
+          }
+        });
+      } else {
+        commit(types.CHANGE_DIALOG_PARAMS, {
+          dialogStatus: "failed",
+          dialogText: utilsFormat.computedLangCtx("提取收益失败"),
+          failedBtnText: utilsFormat.computedLangCtx("确认"),
+          isShowClose: true,
+        });
+      }
+      // getPersonLockedReward
     },
 
     // 提取流动性kiko收益
@@ -158,14 +277,9 @@ const StoreFarms = {
       });
     },
     // 获取用户流动性记录
-    async getAllPoolListByUser({ commit, state }, payload) {
+    async getLPDataByUser({ commit, state }, payload) {
       const res = await commonAPI.getAllPoolListByUser(payload);
       if (res.result && res.result.resources) {
-        console.log("res.result.resources", res.result.resources);
-        console.log(
-          "process.env.VUE_APP_LPTOKEN_ADDRESS",
-          process.env.VUE_APP_LPTOKEN_ADDRESS
-        );
         let data = 0;
         for (const [k, v] of Object.entries(res.result.resources)) {
           if (
@@ -179,31 +293,20 @@ const StoreFarms = {
               const tokenAddress = tokenString.split(", ");
               const tokens = tokenAddress.map((d) => d.split("::")[2]);
               const lpToken = `${tokens[0]}/${tokens[1]}`;
-              console.log("tokens", lpToken);
               if (lpToken === state.lpToken) {
-                data = v.json.token.value;
+                commit(types.SET_CURR_LPTOKEN_INFO, {
+                  value: utilsNumber.formatNumberMeta(
+                    utilsNumber
+                      .bigNum(v.json.token.value)
+                      .div(utilsNumber.bigNum(Math.pow(10, 9))),
+                    {
+                      precision: 9,
+                      trailingZero: false,
+                      round: "floor",
+                    }
+                  ).text,
+                });
               }
-
-              // console.log("tokens", tokens, tokenAddress);
-              // if (v.json.token.value > 0) {
-              //   list.push({
-              //     lpToken: `LP - ${tokens[0]}/${tokens[1]}`,
-              //     A: {
-              //       key: tokens[0],
-              //       data: "0.0",
-              //       token: tokenAddress[0],
-              //     },
-              //     B: {
-              //       key: tokens[1],
-              //       data: "0.0",
-              //       token: tokenAddress[1],
-              //     },
-              //     poolAmount: utilsNumber
-              //       .bigNum(v.json.token.value)
-              //       .div(Math.pow(10, 9))
-              //       .toString(),
-              //   });
-              // }
             }
           }
         }
