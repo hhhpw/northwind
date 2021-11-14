@@ -43,7 +43,7 @@
           <star-button
             :class="$style['dialog-container-footer-btn']"
             :type="canConfirm ? 'dark' : 'disabled'"
-            @click="handleConfirm"
+            @click="handleConfirm(props?.dialogParams?.type)"
             >{{ $t("确认") }}</star-button
           >
         </div>
@@ -70,12 +70,8 @@ const props = defineProps({
   },
 });
 
-const emits = defineEmits(["handleCancel"]);
+const emits = defineEmits(["handleCancel", "handleConfirm"]);
 
-// const handleConfirm = () => {
-//   if ()
-
-// };
 const inputEvent = (value) => {
   state.inputValue = value;
 };
@@ -91,6 +87,11 @@ const state = reactive({
 const handleCancel = () => {
   state.inputValue = "";
   emits("handleCancel");
+};
+
+const handleConfirm = (type) => {
+  if (!canConfirm.value) return;
+  emits("handleConfirm", type);
 };
 
 const canConfirm = computed(() => {

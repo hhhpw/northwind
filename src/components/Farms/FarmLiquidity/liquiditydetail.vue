@@ -6,7 +6,12 @@
     ></liquidity-detail-card>
     <liquidity-detail-card
       :lpToken="true"
-      @lpTokenDraw="store.dispatch('StoreFarms/drawLiquidityLPToken')"
+      @lpTokenDraw="
+        () => store.dispatch('StoreFarms/showLiquidityDialog', 'draw')
+      "
+      @addLpToken="
+        () => store.dispatch('StoreFarms/showLiquidityDialog', 'add')
+      "
       :params="state.lpTokenInfo"
     ></liquidity-detail-card>
   </div>
@@ -14,7 +19,28 @@
     :dialogParams="state.inputDialogParams"
     :dataParams="state.lpTokenInfo"
     @handleCancel="handleCancelInputDialog"
+    @handleConfirm="
+      ($event) =>
+        store.dispatch('StoreFarms/liquidityContracts', { type: $event })
+    "
   ></input-dialog>
+
+  <farm-dialog
+    :dialogParams="state.dialogParams"
+    @handleClose="
+      () =>
+        dialogEventMaps &&
+        dialogEventMaps.swapDialog.handleClose(
+          state.dialogParams && state.dialogParams.dialogStatus
+        )
+    "
+    @handleSuccess="
+      () => dialogEventMaps && dialogEventMaps.swapDialog.handleSuccess()
+    "
+    @handleFailed="
+      () => dialogEventMaps && dialogEventMaps.swapDialog.handleFailed()
+    "
+  ></farm-dialog>
 </template>
 <script setup>
 /* eslint-disable */
@@ -24,6 +50,11 @@ import InputDialog from "./inputdialog";
 import { useStore } from "vuex";
 import { useRouter, useRoute } from "vue-router";
 import utilsRouter from "@utils/router";
+import FarmSecondDialog from "../farmseconddialog";
+import FarmDialog from "../farmdialog";
+import FARMS_CONSTANTS from "@constants/farms";
+import { dialogEventMaps } from "../dialog.js";
+
 const token = utilsRouter.getCurrentRoute()?.query?.token;
 
 const store = useStore();
@@ -31,22 +62,16 @@ let state = reactive({
   inputDialogParams: computed(() => store.state.StoreFarms.inputDialogParams),
   accounts: computed(() => store.state.StoreWallet.accounts),
   lpTokenInfo: computed(() => store.state.StoreFarms.lpTokenInfo),
+  secondDialogParams: computed(() => store.state.StoreFarms.secondDialogParams),
+  dialogParams: computed(() => store.state.StoreFarms.dialogParams),
 });
 
 const handleCancelInputDialog = () => {
-  store.commit("StoreFarms/CHANGE_INPUT_DIALOG_PARAMS", {
-    dialogVisible: false,
-  });
+  store.commit(
+    "StoreFarms/CHANGE_INPUT_DIALOG_PARAMS",
+    FARMS_CONSTANTS.LIQUIDITY_INPUT_DIALOG_PARAMS
+  );
 };
-
-// watchEffect(() => {
-//   console.log("accounts", state.accounts, token);
-//   if (state.accounts && state.accounts[0] && token) {
-//     console.log("asdasd");
-//     store.commit("StoreFarms/SET_CURR_LPTOKEN_INFO", { token });
-//     store.dispatch("StoreFarms/getLPDataByUser", state.accounts[0]);
-//   }
-// });
 
 const onceWatch = watchEffect(() => {
   if (state.accounts && state.accounts[0] && token) {

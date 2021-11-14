@@ -20,8 +20,7 @@ const StoreFarms = {
     // 流动性挖矿
     inputDialogParams: FARMS_CONSTANTS.LIQUIDITY_INPUT_DIALOG_PARAMS,
     poolList: null,
-    lpToken: "BTC/ETH",
-    lpTokenInfo: {},
+    lpTokenInfo: {}, // {token: , value:}
   },
   mutations: {
     [types.SWAP_MINING_DRAW_GAS](state, payload) {
@@ -97,42 +96,6 @@ const StoreFarms = {
         commit(types.SWAP_MINING_DRAW_GAS, res.data.value);
       }
     },
-    // 是否可以提取挖矿收益
-    async canDrawMiningProfit({ state, commit }) {
-      //可提取条件是 总提取的金额 * 50% > 提取gas费用
-      if (!state.swapMiningDrawGas) return;
-      const canDraw = utilsNumber
-        .bigNum(state.swapPersonData[0])
-        .times(0.5)
-        .gt(state.swapMiningDrawGas);
-      if (canDraw) {
-        //可提取
-        commit(types.CHANGE_SECOND_DIALOG_PARAMS, {
-          dialogVisible: true,
-          operateWaring: true,
-          cancelText: "",
-          lockedVisible: true,
-          confirmText: utilsFormat.computedLangCtx("确认"),
-          type: "mining",
-          dataParams: {
-            draw: state.swapPersonData[0],
-            locked: utilsNumber
-              .bigNum(state.swapPersonData[0])
-              .times(0.5)
-              .toString(),
-            gas: state.swapMiningDrawGas,
-          },
-        });
-      } else {
-        commit(types.CHANGE_DIALOG_PARAMS, {
-          dialogVisible: true,
-          dialogStatus: "failed",
-          failedBtnText: utilsFormat.computedLangCtx("确认"),
-          dialogText: utilsFormat.computedLangCtx("操作失败"),
-          isShowClose: true,
-        });
-      }
-    },
 
     // 提取挖矿收益
     async drawMiningReward({ commit, state }, payload) {
@@ -185,24 +148,53 @@ const StoreFarms = {
         });
       }
     },
-    // 是否可提取swap锁仓收益
-    canDrawLockedProfit({ commit, state }) {
+    canDrawProfit({ commit, state }, { type }) {
       if (!state.swapMiningDrawGas) return;
-      if (
-        utilsNumber.bigNum(state.swapPersonData[2]).gt(state.swapMiningDrawGas)
-      ) {
-        commit(types.CHANGE_SECOND_DIALOG_PARAMS, {
+      let canDraw,
+        params = {
+          confirmText: utilsFormat.computedLangCtx("确认"),
           dialogVisible: true,
           cancelText: "",
-          lockedVisible: true,
-          confirmText: utilsFormat.computedLangCtx("确认"),
-          type: "locked",
-          dataParams: {
-            draw: state.swapPersonData[2],
-            gas: state.swapMiningDrawGas,
-          },
-        });
-      } else {
+          type,
+        };
+      if (type === "mining") {
+        canDraw = utilsNumber
+          .bigNum(state.swapPersonData[0])
+          .times(0.5)
+          .gt(state.swapMiningDrawGas);
+        if (canDraw) {
+          params = Object.assign({}, params, {
+            operateWaring: true,
+            dataParams: {
+              draw: state.swapPersonData[0],
+              locked: utilsNumber
+                .bigNum(state.swapPersonData[0])
+                .times(0.5)
+                .toString(),
+              gas: state.swapMiningDrawGas,
+            },
+          });
+          commit(types.CHANGE_SECOND_DIALOG_PARAMS, params);
+          return;
+        }
+      }
+      if (type === "locked") {
+        canDraw = utilsNumber
+          .bigNum(state.swapPersonData[2])
+          .gt(state.swapMiningDrawGas);
+        if (canDraw) {
+          params = Object.assign({}, params, {
+            dataParams: {
+              draw: state.swapPersonData[2],
+              gas: state.swapMiningDrawGas,
+            },
+          });
+          commit(types.CHANGE_SECOND_DIALOG_PARAMS, params);
+          return;
+        }
+      }
+      // 流动性kiko提取
+      if (!canDraw) {
         commit(types.CHANGE_DIALOG_PARAMS, {
           dialogVisible: true,
           dialogStatus: "failed",
@@ -267,15 +259,49 @@ const StoreFarms = {
       // secondDialogParams: FARMS_CONSTANTS.SWAP_SECOND_DIALOG_PARAMS,
     },
 
-    // 提取流动性LPTOKEN
-    drawLiquidityLPToken({ commit }) {
-      console.log("提取流动性LPTOKEN");
+    showLiquidityDialog({ commit, state }, type) {
       commit(types.CHANGE_INPUT_DIALOG_PARAMS, {
         dialogVisible: true,
-        lpToken: "ETH_SCT",
-        type: "draw",
+        lpToken: state.lpTokenInfo.token,
+        type, // draw add
       });
     },
+    // 流动性提取和质押LpToken
+    async liquidityContracts({ commit, rootState }, { type }) {
+      console.log("liquidityContracts", liquidityContracts);
+      commit(
+        types.CHANGE_INPUT_DIALOG_PARAMS,
+        FARMS_CONSTANTS.LIQUIDITY_INPUT_DIALOG_PARAMS
+      );
+      let params = {
+        provider: rootState.StoreWallet.stcProvider,
+        account: rootState.StoreWallet.accounts[0],
+      };
+      if (type === "draw") {
+        // 提取
+      }
+      if (type === "add") {
+        // 添加
+      }
+      commit(types.CHANGE_DIALOG_PARAMS, {
+        dialogVisible: true,
+        dialogStatus: "ongoing",
+        dialogText:
+          type === "draw"
+            ? utilsFormat.computedLangCtx("提取中")
+            : utilsFormat.computedLangCtx("质押中"),
+      });
+      // 失败
+      // commit(types.CHANGE_DIALOG_PARAMS, {
+      //   dialogStatus: "failed",
+      //   dialogText: utilsFormat.computedLangCtx("操作失败"),
+      //   failedBtnText: utilsFormat.computedLangCtx("确认"),
+      //   isShowClose: true,
+      // });
+    },
+    // 流动性收否能提取kiko收益
+    canDrawLiquidityProfit() {},
+
     // 获取用户流动性记录
     async getLPDataByUser({ commit, state }, payload) {
       const res = await commonAPI.getAllPoolListByUser(payload);
@@ -293,7 +319,7 @@ const StoreFarms = {
               const tokenAddress = tokenString.split(", ");
               const tokens = tokenAddress.map((d) => d.split("::")[2]);
               const lpToken = `${tokens[0]}/${tokens[1]}`;
-              if (lpToken === state.lpToken) {
+              if (lpToken === state.lpTokenInfo.token) {
                 commit(types.SET_CURR_LPTOKEN_INFO, {
                   value: utilsNumber.formatNumberMeta(
                     utilsNumber

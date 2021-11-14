@@ -34,7 +34,7 @@
               v-if="state.walletStatus === 'connected'"
               type="dark"
               :class="$style['container-person-data-header-item-btn']"
-              @click="canDrawMiningProfit"
+              @click="canDrawProfit('mining')"
               >{{ $t("farms.farm-swap-draw") }}</star-button
             >
           </template>
@@ -71,7 +71,7 @@
               <p v-else>0.0000</p>
             </div>
             <star-button
-              @click="canDrawLockedProfit"
+              @click="canDrawProfit('locked')"
               v-if="state.walletStatus === 'connected'"
               type="dark"
               :class="$style['container-person-data-header-item-btn']"
@@ -135,12 +135,12 @@ import { computed, onMounted, reactive, watch } from "vue";
 import StarButton from "@StarUI/StarButton";
 import StarAmount from "@StarUI/StarAmount";
 import StarSpace from "@StarUI/StarSpace";
-import FarmSecondDialog from "./farmseconddialog";
-import FarmDialog from "./farmdialog";
+import FarmSecondDialog from "../farmseconddialog";
+import FarmDialog from "../farmdialog";
 import connectLogic from "@mixins/wallet";
 import { useStore } from "vuex";
 import FARMS_CONSTANTS from "@constants/farms.js";
-import { dialogEventMaps } from "./dialog.js";
+import { dialogEventMaps } from "../dialog.js";
 let store = useStore();
 
 const { connectWallet } = connectLogic(store);
@@ -165,13 +165,16 @@ watch(
   }
 );
 
-const canDrawMiningProfit = () => {
-  store.dispatch("StoreFarms/canDrawMiningProfit");
+const canDrawProfit = (type) => {
+  store.dispatch("StoreFarms/canDrawProfit", { type });
 };
+// const canDrawMiningProfit = () => {
+//   store.dispatch("StoreFarms/canDrawMiningProfit");
+// };
 
-const canDrawLockedProfit = () => {
-  store.dispatch("StoreFarms/canDrawLockedProfit");
-};
+// const canDrawLockedProfit = () => {
+//   store.dispatch("StoreFarms/canDrawLockedProfit");
+// };
 
 // const swapDrawLockedProfit = () => {
 //   store.dispatch("StoreFarms/swapDrawLockedProfit");

@@ -18,6 +18,7 @@ export const dialogEventMaps = {
     },
     handleSuccess: (type) => {
       if (type === "mining") {
+        console.log("A");
         store.dispatch("StoreFarms/drawMiningReward");
       }
       if (type === "locked") {

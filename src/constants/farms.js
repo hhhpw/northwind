@@ -28,6 +28,7 @@ export const SWAP_SECOND_DIALOG_PARAMS = {
 
 export const LIQUIDITY_INPUT_DIALOG_PARAMS = {
   dialogVisible: false,
+  type: "", // draw add
 };
 
 export default {

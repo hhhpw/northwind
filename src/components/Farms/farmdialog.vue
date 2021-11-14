@@ -128,11 +128,11 @@ import SvgIcon from "@components/SvgIcon/Index.vue";
 import StarSpace from "@StarUI/StarSpace.vue";
 import StarButton from "@StarUI/StarButton.vue";
 import { useStore } from "vuex";
-import dialogOnGoingImg from "../../../assets/nft/confirm-logo.gif";
-import dialogFailedImg from "../../../assets/nft/dialog-error.png";
-import dialogSuccessImg from "../../../assets/nft/dialog-ok.png";
-import dialogLoadingImg from "../../../assets/nft/dialog-loading.png";
-import dialogPhaseSuccessImg from "../../../assets/nft/dialog-success.png";
+import dialogOnGoingImg from "../../assets/nft/confirm-logo.gif";
+import dialogFailedImg from "../../assets/nft/dialog-error.png";
+import dialogSuccessImg from "../../assets/nft/dialog-ok.png";
+import dialogLoadingImg from "../../assets/nft/dialog-loading.png";
+import dialogPhaseSuccessImg from "../../assets/nft/dialog-success.png";
 import utilsNumber from "@utils/number";
 
 const store = useStore();
