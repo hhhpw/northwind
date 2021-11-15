@@ -21,6 +21,7 @@ const StoreFarms = {
     inputDialogParams: FARMS_CONSTANTS.LIQUIDITY_INPUT_DIALOG_PARAMS,
     poolList: null,
     lpTokenInfo: {}, // {token: , value:}
+    liquidityDrawData: null, // 可提取的kiko
   },
   mutations: {
     [types.SWAP_MINING_DRAW_GAS](state, payload) {
@@ -149,7 +150,6 @@ const StoreFarms = {
       }
     },
     canDrawProfit({ commit, state }, { type }) {
-      if (!state.swapMiningDrawGas) return;
       let canDraw,
         params = {
           confirmText: utilsFormat.computedLangCtx("确认"),
@@ -158,6 +158,8 @@ const StoreFarms = {
           type,
         };
       if (type === "mining") {
+        if (!state.swapMiningDrawGas) return;
+        // swap 挖矿
         canDraw = utilsNumber
           .bigNum(state.swapPersonData[0])
           .times(0.5)
@@ -179,6 +181,8 @@ const StoreFarms = {
         }
       }
       if (type === "locked") {
+        if (!state.swapMiningDrawGas) return;
+        // swap 锁仓
         canDraw = utilsNumber
           .bigNum(state.swapPersonData[2])
           .gt(state.swapMiningDrawGas);
@@ -194,6 +198,23 @@ const StoreFarms = {
         }
       }
       // 流动性kiko提取
+      if (type === "liquiditykiko") {
+        if (!state.liquidityDrawData) return;
+        canDraw = utilsNumber
+          .bigNum(state.liquidityDrawData)
+          .gt(state.swapMiningDrawGas);
+        if (canDraw) {
+          params = Object.assign({}, params, {
+            dataParams: {
+              draw: state.liquidityDrawData,
+              gas: state.swapMiningDrawGas,
+            },
+          });
+          commit(types.CHANGE_SECOND_DIALOG_PARAMS, params);
+          return;
+        }
+      }
+
       if (!canDraw) {
         commit(types.CHANGE_DIALOG_PARAMS, {
           dialogVisible: true,
@@ -299,8 +320,6 @@ const StoreFarms = {
       //   isShowClose: true,
       // });
     },
-    // 流动性收否能提取kiko收益
-    canDrawLiquidityProfit() {},
 
     // 获取用户流动性记录
     async getLPDataByUser({ commit, state }, payload) {

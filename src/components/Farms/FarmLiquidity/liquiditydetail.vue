@@ -2,7 +2,17 @@
   <div :class="$style['container-detail']">
     <div>{{ state.lpTokenInfo }}</div>
     <liquidity-detail-card
-      @kikoDraw="store.dispatch('StoreFarms/drawLiquidityKIKOProfit')"
+      :params="
+        Object.assign(
+          {},
+          {
+            value: state.liquidityDrawData,
+          }
+        )
+      "
+      @kikoDraw="
+        () => store.dispatch('StoreFarms/canDrawProfit', 'liquiditykiko')
+      "
     ></liquidity-detail-card>
     <liquidity-detail-card
       :lpToken="true"
@@ -59,6 +69,7 @@ const token = utilsRouter.getCurrentRoute()?.query?.token;
 
 const store = useStore();
 let state = reactive({
+  liquidityDrawData: computed(() => store.state.StoreFarms.liquidityDrawData),
   inputDialogParams: computed(() => store.state.StoreFarms.inputDialogParams),
   accounts: computed(() => store.state.StoreWallet.accounts),
   lpTokenInfo: computed(() => store.state.StoreFarms.lpTokenInfo),
@@ -74,8 +85,10 @@ const handleCancelInputDialog = () => {
 };
 
 const onceWatch = watchEffect(() => {
-  if (state.accounts && state.accounts[0] && token) {
+  if (token) {
     store.commit("StoreFarms/SET_CURR_LPTOKEN_INFO", { token });
+  }
+  if (state.accounts && state.accounts[0] && token) {
     store.dispatch("StoreFarms/getLPDataByUser", state.accounts[0]);
     onceWatch && onceWatch();
   }

@@ -20,21 +20,26 @@
         <p>KIKO {{ $t("收益") }}</p>
         <star-amount
           :class="$style['card-content-amount']"
-          :value="props.params.value"
+          :value="
+            state.walletStatus !== 'connected' ? '0.00' : props.params.value
+          "
           :formatOptions="{
-            precision: props.params.precision,
+            precision: state.walletStatus !== 'connected' ? 2 : 4,
             trailingZero: true,
             grouped: true,
           }"
         ></star-amount>
       </template>
       <template v-else>
-        <p>{{ props.params.token }} LP</p>
+        <p v-if="props.params.token">{{ props.params.token }} LP</p>
         <star-amount
           :class="$style['card-content-amount']"
-          :value="props.params.value"
+          :value="
+            state.walletStatus !== 'connected' ? '0.00' : props.params.value
+          "
           :formatOptions="{
-            precision: props.params.precision,
+            precision:
+              state.walletStatus !== 'connected' ? 2 : props.params.precision,
             trailingZero: true,
             grouped: true,
           }"
@@ -98,9 +103,12 @@ const props = defineProps({
   params: {
     type: () => {},
     default: {
-      value: 0,
+      value: 0.0,
       precision: 2,
       token: "BTC_USDT",
+      // imgA:
+      // imgB:
+      // img:
     },
   },
   lpToken: {
