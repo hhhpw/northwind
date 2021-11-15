@@ -15,24 +15,27 @@ export default function connectLogic(store) {
     walletStatus: computed(() => store.state.StoreWallet.walletStatus),
     provider: computed(() => store.state.StoreWallet.stcProvider),
     balances: computed(() => store.state.StoreWallet.balances),
+    walletTimer: computed(() => store.state.StoreWallet.walletTimer),
   });
-  let timer = null;
   // 网络切换
   const handleChainIdChange = (id) => {
     store.commit("StoreWallet/SET_WALLET_NET_WORK_ID", id);
   };
   // 账户切换
   const handleAccountsChange = (account) => {
+    clearInterval(state.walletTimer);
+    store.commit("StoreWallet/CHANGE_WALLET_TIMER_STATUS", null);
     // account为空数组则认为是断开链接
     if (account.length === 0) {
       store.commit("StoreWallet/SET_WALLET_CONNECT_STATUS", "unConnected");
       utilsRouter.push("/");
     } else {
-      clearInterval(timer);
-      console.log("handleAccountsChange====", state.accounts);
+      console.log("====handleAccountsChange====", state.accounts);
+      store.dispatch("StoreWallet/setAccounts", []);
       store.dispatch("StoreWallet/setAccounts", account);
       getSTCBalance(state.provider);
-      timer = setInterval(() => getSTCBalance(state.provider), 10000);
+      let timer = setInterval(() => getSTCBalance(state.provider), 10000);
+      store.commit("StoreWallet/CHANGE_WALLET_TIMER_STATUS", timer);
       // 为啥不重刷页面
 
       utilsRouter.push("/");
@@ -94,16 +97,24 @@ export default function connectLogic(store) {
       unInstalled();
       return;
     }
+    if (isStalled && state.walletStatus === "connected") {
+      // 防止重复链接
+      // 以免导致网站连接多个account
+      // 出现余额和账户的变化跳动
+      return;
+    }
     const accounts = await Wallet.connect();
     store.dispatch("StoreWallet/setAccounts", accounts);
     const isStarMaskConnected = accounts && accounts.length > 0;
-    console.log("accounts", accounts);
     if (isStarMaskConnected) {
       const permissions = await Wallet.getPermissions();
       const stcProvider = Wallet.createStcProvider();
       store.dispatch("StoreWallet/setStcProvider", stcProvider);
       getSTCBalance(stcProvider);
-      timer = setInterval(() => getSTCBalance(state.provider), 10000);
+      clearInterval(state.walletTimer);
+      store.commit("StoreWallet/CHANGE_WALLET_TIMER_STATUS", null);
+      let timer = setInterval(() => getSTCBalance(state.provider), 10000);
+      store.commit("StoreWallet/CHANGE_WALLET_TIMER_STATUS", timer);
       // 由于某些操作会导致账户余额发生改变，且变化不是及时的
       // 但目前starmask没有提供监听的方法
       // 只能前端去定时去查询

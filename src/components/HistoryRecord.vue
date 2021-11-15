@@ -301,7 +301,7 @@ const handleClose = () => {
         width: 54%;
         .status-btn {
           width: auto;
-          max-width: 62px;
+          max-width: 72px;
           margin-right: 10px;
         }
       }

@@ -92,37 +92,32 @@ const loadMore = () => {
   state.isAchiveBottom = false;
 };
 
-const scrollEvent = () => {
-  window.addEventListener(
-    "scroll",
-    () => {
-      let scrollTop =
-        document.documentElement.scrollTop || document.body.scrollTop;
-      let windowHeight =
-        document.documentElement.clientHeight || document.body.clientHeight;
-      let scrollHeight =
-        document.documentElement.scrollHeight || document.body.scrollHeight;
-      //滚动条到底部的条件(距底部20px时触发加载)
-      if (
-        scrollTop + windowHeight >= scrollHeight - 20 &&
-        !state.isAchiveBottom &&
-        state.hasMore
-      ) {
-        state.isAchiveBottom = true;
-        setTimeout(() => {
-          emits("loadMore");
-          state.isAchiveBottom = false;
-        }, 1000);
-      }
-    },
-    false
-  );
+const scrollLoad = () => {
+  let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+  let windowHeight =
+    document.documentElement.clientHeight || document.body.clientHeight;
+  let scrollHeight =
+    document.documentElement.scrollHeight || document.body.scrollHeight;
+  //滚动条到底部的条件(距底部20px时触发加载)
+  if (
+    scrollTop + windowHeight >= scrollHeight - 20 &&
+    !state.isAchiveBottom &&
+    state.hasMore
+  ) {
+    state.isAchiveBottom = true;
+    setTimeout(() => {
+      emits("loadMore");
+      state.isAchiveBottom = false;
+    }, 1000);
+  }
 };
+
 onMounted(() => {
-  scrollEvent();
+  window.addEventListener("scroll", scrollLoad, false);
 });
+
 onUnmounted(() => {
-  window.removeEventListener("scroll", scrollEvent);
+  window.removeEventListener("scroll", scrollLoad);
 });
 </script>
 
