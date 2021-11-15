@@ -85,10 +85,7 @@ let props = defineProps({
 
 onMounted(() => {
   const path = ref(route.path).value;
-  console.log("path", path);
-  console.log("findIndex", findIndex);
   state.activeIndex = findIndex(state.tabs, { path });
-  console.log("  state.activeIndex ", state.activeIndex);
   if (path.indexOf("/nftblindbox") > -1) {
     state.activeIndex = 0;
   }
@@ -101,7 +98,6 @@ onMounted(() => {
   if (path === "/nftbuybackdetail") {
     state.activeIndex = 3;
   }
-  console.log(" state.activeIndex", state.activeIndex);
 });
 </script>
 <style lang="scss" scoped>

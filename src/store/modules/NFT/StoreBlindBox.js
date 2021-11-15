@@ -108,12 +108,10 @@ const StoreBlindBox = {
       { tyArgs, args, boxToken }
     ) {
       if (!boxToken) return;
-      console.log("boxToken", boxToken);
       const isExistedBox = await blindboxApi.getOfferingAmount(boxToken);
       if (isExistedBox.result && isExistedBox.result.value) {
         const amount =
           isExistedBox.result.value[0][1]["Struct"]["value"][0][1]["U128"];
-        console.log("amount", amount, "args[0]", args[0]);
         if (String(amount) === "0") {
           commit(
             "CHANGE_BUY_CB_MODAL_STATUS",
@@ -141,6 +139,8 @@ const StoreBlindBox = {
           return;
         }
       }
+      console.time("===盲盒hash===");
+      console.time("===盲盒购买===");
       const params = {
         provider: rootState.StoreWallet.stcProvider,
         type: "BUY_FROM_OFFERING",
@@ -148,12 +148,15 @@ const StoreBlindBox = {
         args,
       };
       const txnHash = await Wallet.blindBoxContractCall(params);
+      console.timeEnd("===盲盒hash===");
       if (txnHash !== "error") {
         commit("CHANGE_BUY_CB_MODAL_STATUS", {
           phase1: "success",
         });
+        console.time("===盲盒上链===");
         utilsTool.pollingTxnInfo({ txnHash }).then((res) => {
           if (res === "Executed") {
+            console.timeEnd("===盲盒上链===");
             // 查询到信息
             dispatch("getOfferingAmount", {
               boxToken: state.blindBoxData.boxToken,
@@ -169,6 +172,8 @@ const StoreBlindBox = {
               });
             }, 5000);
           } else {
+            console.warn("盲盒上链失败");
+            console.timeEnd("===盲盒上链===");
             commit("CHANGE_BUY_CB_MODAL_STATUS", {
               dialogStatus: "failed",
               dialogText: utilsFormat.computedLangCtx("购买失败"),
@@ -186,6 +191,7 @@ const StoreBlindBox = {
           dialogText: "购买失败",
         });
       }
+      console.timeEnd("===盲盒购买===");
     },
     async getOfferingList({ commit, dispatch, state }, payload) {
       const { type } = payload;

@@ -272,15 +272,15 @@ const StoreSwap = {
               round: "floor",
             }
           ).text;
-          obj.avgPriceA = utilsNumber.formatNumberMeta(
-            utilsNumber.bigNum(avgPriceA),
+          obj.avgPriceB = utilsNumber.formatNumberMeta(
+            utilsNumber.bigNum(avgPriceB),
             {
               precision: state.from.displayPrecision,
               trailingZero: false,
               round: "floor",
             }
           ).text;
-          obj.priceFormatStr = `${obj.avgPriceA} ${state.from.currency} per ${state.to.currency}`;
+          obj.priceFormatStr = `${obj.avgPriceB} ${state.from.currency} per ${state.to.currency}`;
           obj.payAmount = utilsNumber.formatNumberMeta(
             utilsNumber.bigNum(payAmount),
             {

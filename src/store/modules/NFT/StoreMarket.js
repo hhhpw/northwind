@@ -36,6 +36,7 @@ const StoreNftMarket = {
     listStatus: INIT_LIST_STATUS,
     marketListRule: [true, true],
     soldDialogParams: NFT_CONSTANTS.INIT_SOLD_DIALOG_PARAMS,
+    isScrollLoad: false, // 防止多次加载
   },
   mutations: {
     [types.CHANGE_SOLD_DIALOG_PARAMS](state, payload) {
@@ -50,6 +51,8 @@ const StoreNftMarket = {
       state.marketList = null;
       state.listParams = INIT_LIST_PARAMS;
       state.firstLoading = true;
+      state.marketListRule = [true, true];
+      state.isScrollLoad = false;
     },
     [types.SET_INIT_STATUS](state) {
       state.listStatus = INIT_LIST_STATUS;
@@ -109,10 +112,12 @@ const StoreNftMarket = {
       if (payload[0] && payload[1]) {
         open = "all";
       }
-      console.log("open", open);
       state.listParams = Object.assign({}, state.listParams, {
         open,
       });
+    },
+    [types.SCROLLING_LOADED](state, payload) {
+      state.isScrollLoad = payload;
     },
   },
   getters: {
@@ -148,7 +153,8 @@ const StoreNftMarket = {
     },
     // 获取市场列表
     async queryMarketList({ commit, state }, { type }) {
-      console.log("listParams", state.listParams);
+      console.log("listParams", JSON.stringify(state.listParams));
+      console.error("type:", type);
       let res;
       if (type === "init") {
         res = await marketAPI.getMarketList(state.listParams);
@@ -157,6 +163,9 @@ const StoreNftMarket = {
           console.log("没数据了");
           return;
         } else {
+          if (state.isScrollLoad) return;
+          // 防止scroll多次加载
+          commit(types.SCROLLING_LOADED, true);
           commit(
             types.SET_LIST_STATUS,
             Object.assign({}, state.listStatus, {
@@ -177,6 +186,7 @@ const StoreNftMarket = {
           hasMore: res.hasNext,
           type,
         });
+        commit(types.SCROLLING_LOADED, false);
       }
     },
     // 获取盲盒详情

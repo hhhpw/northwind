@@ -72,7 +72,18 @@
         <star-space :size="30" v-if="i !== 0"></star-space>
         <p class="nft-blindbox-core-introduces-title">{{ t(`${d.title}`) }}</p>
         <star-space :size="15"></star-space>
-        <p class="nft-blindbox-core-introduces-desc">
+        <p
+          class="nft-blindbox-core-introduces-desc"
+          v-html="
+            state.lang === 'en'
+              ? `${d.enDesc}`
+              : state.lang === 'zh'
+              ? `${d.cnDesc}`
+              : ''
+          "
+        ></p>
+
+        <!-- <p class="nft-blindbox-core-introduces-desc">
           {{
             state.lang === "en"
               ? `${d.enDesc}`
@@ -80,7 +91,7 @@
               ? `${d.cnDesc}`
               : ""
           }}
-        </p>
+        </p> -->
       </div>
     </div>
     <star-confirm

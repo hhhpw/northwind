@@ -13,6 +13,7 @@ const state = {
   precision: {}, // {stc: 1000000000}
   balances: {}, // {tokens: string}
   walletStatus: "unConnected", // 钱包链接状态 "unConnected", "connected"
+  walletTimer: null,
 };
 const mutations = {
   [types.SET_CHIANID](state, chianID) {
@@ -39,11 +40,13 @@ const mutations = {
   [types.SET_WALLET_NET_WORK_ID](state, id) {
     state.netChainId = String(id);
   },
+  [types.CHANGE_WALLET_TIMER_STATUS](state, payload) {
+    state.walletTimer = payload; // 切换账户时候清楚timer
+  },
 };
 
 const getters = {
   isConnectedWallet: (state) => {
-    console.log("isConnectedWallet", state.walletStatus);
     return state.walletStatus;
   },
 };

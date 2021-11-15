@@ -53,13 +53,13 @@
       </li>
     </ul>
     <div class="star-sidebar-icons">
-      <a href="https://twitter.com/Kiko_Swap" target="_blank"
+      <a href="https://twitter.com/Kiko_verse" target="_blank"
         ><img src="../assets/sidebar/twitter.png" alt=""
       /></a>
       <a href="https://t.me/kikoswap" target="_blank"
         ><img src="../assets/sidebar/telegram.png" alt=""
       /></a>
-      <a href="https://medium.com/@kikoswap" target="_blank"
+      <a href="https://medium.com/@kikoverse" target="_blank"
         ><img src="../assets/sidebar/medium.png" alt=""
       /></a>
     </div>

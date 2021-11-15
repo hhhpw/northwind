@@ -116,7 +116,6 @@ const StoreCollection = {
           list = [];
         }
       }
-      console.log("selling_data", list);
       return list;
     },
     unsold_data: (state) => {
@@ -475,6 +474,7 @@ const StoreCollection = {
               payload.nftBody,
               id
             );
+            console.log("nft结果：", nftInfo);
             if (nftInfo.code === 200) {
               console.log("nftInfo.data.", nftInfo.data);
               commit(types.CHANGE_DIALOG_STATUS, {

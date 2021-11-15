@@ -62,7 +62,7 @@
                 }}</span
               >
             </div>
-            <div class="base-info-item" v-if="props.action_type !== 'RECOVERY'">
+            <!-- <div class="base-info-item" v-if="props.action_type !== 'RECOVERY'">
               <span class="title">{{ $t("当前持有者") }}</span>
               <span
                 class="value"
@@ -74,6 +74,15 @@
                   )
                 }}</span
               >
+            </div> -->
+            <div
+              class="base-info-item"
+              v-if="props.box_detail && props.box_detail.owner"
+            >
+              <span class="title">{{ $t("当前持有者") }}</span>
+              <span class="value" @click="pushPage(props.box_detail.owner)">{{
+                stringFormat(props.box_detail && props.box_detail.owner)
+              }}</span>
             </div>
             <div class="base-info-item">
               <span class="title">{{ $t("合约地址") }}</span>
@@ -112,7 +121,11 @@
           class="specific-description"
           v-if="state.selected_tab === 'description'"
         >
-          {{ props.box_detail && props.box_detail.cnDescription }}
+          {{
+            props.box_detail && state.currLang === "en"
+              ? props.box_detail.enDescription
+              : props.box_detail.cnDescription
+          }}
         </div>
         <div
           class="specific-rarevalue"
@@ -151,6 +164,7 @@ let state = reactive({
   selected_tab: "description",
   contract_address: computed(() => store.state.StoreNFTDetail.contract_address),
   accounts: computed(() => store.state.StoreWallet.accounts),
+  currLang: computed(() => store.state.StoreApp.currLang),
   description: computed(() => {
     if (store.state.StoreApp.currLang == "cn") {
       return state.is_blind_open
