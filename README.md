@@ -12,6 +12,7 @@
 
 - master 主网
 - stage-prd 测试分支
+- farms 挖矿
 
 # 注意
 
@@ -24,7 +25,17 @@
 - .env-stageprod 测试环境使用，生产数据和生产环境变量打包
 - 链上交互会存在区块高度不一致、丢区块等问题。排查问题时，优先查看是否区块请求是否正常。
 
-# todo
+# TODO
+
+- CI/CD
+- 迁移
+
+# 记错事项
+
+- 页面白屏 控制台报错 unpected token : <
+
+比对请求文件，发现报错的机器请求的 js 文件并不是最新的 build 文件。
+js 本身已带 hash 保持唯一性，因为是 cdn(couldflare)缓存导致。
 
 - build 后 Loading chunk {n} failed
 

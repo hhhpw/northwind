@@ -121,7 +121,7 @@ function getPersonLockedReward(payload) {
     },
   };
 }
-
+// 提取费用
 function getSwapMiningDrawGas() {
   return {
     code: 200,
@@ -133,6 +133,25 @@ function getSwapMiningDrawGas() {
   };
 }
 
+// 获取流动性可提取kiko
+function getLiquidityKikoReward(payload) {
+  // return request({
+  //   url: "/v1/mining/trading/reward",
+  //   method: "GET",
+  //   params: {
+  //     userAddress: payload,
+  //   },
+  // });
+  return {
+    code: 200,
+    msg: "ok",
+    timeStamp: 1234567890123,
+    data: {
+      value: 0.0006, // 待领取收益
+    },
+  };
+}
+
 export default {
   getTradingPoolList,
   getTradingMarket,
@@ -140,4 +159,5 @@ export default {
   getPersonCurrReward,
   getSwapMiningDrawGas,
   getPersonLockedReward,
+  getLiquidityKikoReward,
 };

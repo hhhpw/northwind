@@ -18,11 +18,13 @@ export const dialogEventMaps = {
     },
     handleSuccess: (type) => {
       if (type === "mining") {
-        console.log("A");
         store.dispatch("StoreFarms/drawMiningReward");
       }
       if (type === "locked") {
         store.dispatch("StoreFarms/drawLockedReward");
+      }
+      if (type === "liquiditykiko") {
+        store.dispatch("StoreFarms/drawLiquidityKIKOProfit");
       }
     },
     handleFailed: () => {

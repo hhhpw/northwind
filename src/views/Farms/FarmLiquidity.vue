@@ -7,6 +7,9 @@
 <script setup>
 import ListHeader from "@components/Farms/FarmLiquidity/header";
 import ListLiquidity from "@components/Farms/FarmLiquidity/list";
+import { useStore } from "vuex";
+const store = useStore();
+store.dispatch("StoreFarms/getSwapMiningDrawGas");
 </script>
 <style lang="scss" module>
 .container-liquidity-swap {

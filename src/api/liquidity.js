@@ -72,6 +72,7 @@ function getTotalAmountWithLPToken(tokenA, tokenB) {
     data: JSON.stringify(params),
   });
 }
+
 export default {
   getLiquidityXY,
   getAllPoolListByUser,

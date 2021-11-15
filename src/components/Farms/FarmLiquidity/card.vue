@@ -21,7 +21,7 @@
         <star-amount
           :class="$style['card-content-amount']"
           :value="
-            state.walletStatus !== 'connected' ? '0.00' : props.params.value
+            state.walletStatus !== 'connected' ? '0.00' : props.params?.value
           "
           :formatOptions="{
             precision: state.walletStatus !== 'connected' ? 2 : 4,

@@ -1,6 +1,5 @@
 <template>
   <div :class="$style['container-detail']">
-    <div>{{ state.lpTokenInfo }}</div>
     <liquidity-detail-card
       :params="
         Object.assign(
@@ -11,7 +10,8 @@
         )
       "
       @kikoDraw="
-        () => store.dispatch('StoreFarms/canDrawProfit', 'liquiditykiko')
+        () =>
+          store.dispatch('StoreFarms/canDrawProfit', { type: 'liquiditykiko' })
       "
     ></liquidity-detail-card>
     <liquidity-detail-card
@@ -51,6 +51,24 @@
       () => dialogEventMaps && dialogEventMaps.swapDialog.handleFailed()
     "
   ></farm-dialog>
+  <!-- 二次弹窗 -->
+  <farm-second-dialog
+    :dialogParams="state.secondDialogParams"
+    @handleClose="
+      () =>
+        dialogEventMaps &&
+        dialogEventMaps.swapSecondDialog.handleClose(
+          state.secondDialogParams && state.secondDialogParams.dialogStatus
+        )
+    "
+    @handleConfirm="
+      () =>
+        dialogEventMaps &&
+        dialogEventMaps.swapSecondDialog.handleSuccess(
+          state.secondDialogParams.type
+        )
+    "
+  ></farm-second-dialog>
 </template>
 <script setup>
 /* eslint-disable */
@@ -90,6 +108,7 @@ const onceWatch = watchEffect(() => {
   }
   if (state.accounts && state.accounts[0] && token) {
     store.dispatch("StoreFarms/getLPDataByUser", state.accounts[0]);
+    store.dispatch("StoreFarms/getLiquidityKikoReward", state.accounts[0]);
     onceWatch && onceWatch();
   }
 });

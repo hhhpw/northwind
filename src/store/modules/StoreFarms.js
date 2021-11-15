@@ -24,6 +24,9 @@ const StoreFarms = {
     liquidityDrawData: null, // 可提取的kiko
   },
   mutations: {
+    [types.SET_LIQUIDITY_DRAW_DATA](state, payload) {
+      state.liquidityDrawData = payload;
+    },
     [types.SWAP_MINING_DRAW_GAS](state, payload) {
       state.swapMiningDrawGas = payload;
     },
@@ -54,7 +57,6 @@ const StoreFarms = {
         payload.userCurrentTradingAmount,
         payload.dailyUserReward,
       ];
-      console.log("swapTotalData", state.swapTotalData);
     },
     // 流动性
     [types.SET_LIQUIDITY_POOLLIST](state, payload) {
@@ -91,7 +93,8 @@ const StoreFarms = {
       }
     },
     // 获取提取费用
-    async getSwapMiningDrawGas({ commit }) {
+    async getSwapMiningDrawGas({ commit, state }) {
+      if (state.swapMiningDrawGas) return;
       const res = await farmsAPI.getSwapMiningDrawGas();
       if (res.code === 200) {
         commit(types.SWAP_MINING_DRAW_GAS, res.data.value);
@@ -99,7 +102,7 @@ const StoreFarms = {
     },
 
     // 提取挖矿收益
-    async drawMiningReward({ commit, state }, payload) {
+    async drawMiningReward({ commit, state }) {
       commit(
         types.CHANGE_SECOND_DIALOG_PARAMS,
         FARMS_CONSTANTS.SWAP_SECOND_DIALOG_PARAMS
@@ -109,7 +112,11 @@ const StoreFarms = {
         dialogStatus: "ongoing",
         dialogText: utilsFormat.computedLangCtx("提取中"),
       });
-      const txnHashData = await farmsAPI.getPersonCurrReward(payload);
+      let params = {
+        provider: rootState.StoreWallet.stcProvider,
+        account: rootState.StoreWallet.accounts[0],
+      };
+      const txnHashData = await farmsAPI.getPersonCurrReward(params);
       if (txnHashData.code === 200) {
         let txnHash = txnHashData.data.transactionHash;
         commit(types.CHANGE_DIALOG_PARAMS, {
@@ -150,6 +157,7 @@ const StoreFarms = {
       }
     },
     canDrawProfit({ commit, state }, { type }) {
+      console.log("type", type);
       let canDraw,
         params = {
           confirmText: utilsFormat.computedLangCtx("确认"),
@@ -197,7 +205,7 @@ const StoreFarms = {
           return;
         }
       }
-      // 流动性kiko提取
+      // 流动性kiko提取确认
       if (type === "liquiditykiko") {
         if (!state.liquidityDrawData) return;
         canDraw = utilsNumber
@@ -214,7 +222,6 @@ const StoreFarms = {
           return;
         }
       }
-
       if (!canDraw) {
         commit(types.CHANGE_DIALOG_PARAMS, {
           dialogVisible: true,
@@ -226,7 +233,11 @@ const StoreFarms = {
       }
     },
     // 提取锁仓收益
-    async drawLockedReward({ commit, state }, payload) {
+    async drawLockedReward({ commit, state, rootState }) {
+      let params = {
+        provider: rootState.StoreWallet.stcProvider,
+        account: rootState.StoreWallet.accounts[0],
+      };
       commit(
         types.CHANGE_SECOND_DIALOG_PARAMS,
         FARMS_CONSTANTS.SWAP_SECOND_DIALOG_PARAMS
@@ -236,7 +247,7 @@ const StoreFarms = {
         dialogStatus: "ongoing",
         dialogText: utilsFormat.computedLangCtx("提取中"),
       });
-      const txnHashData = await farmsAPI.getPersonLockedReward(payload);
+      const txnHashData = await farmsAPI.getPersonLockedReward(params);
       if (txnHashData.code === 200) {
         let txnHash = txnHashData.data.transactionHash;
         commit(types.CHANGE_DIALOG_PARAMS, {
@@ -271,12 +282,59 @@ const StoreFarms = {
           isShowClose: true,
         });
       }
-      // getPersonLockedReward
     },
 
     // 提取流动性kiko收益
-    drawLiquidityKIKOProfit({ commit }) {
-      console.log("提取流动性stc收益");
+    async drawLiquidityKIKOProfit({ commit, rootState, state }) {
+      console.log("提取流动性kiko收益");
+      let params = {
+        provider: rootState.StoreWallet.stcProvider,
+        account: rootState.StoreWallet.accounts[0],
+      };
+      commit(
+        types.CHANGE_SECOND_DIALOG_PARAMS,
+        FARMS_CONSTANTS.SWAP_SECOND_DIALOG_PARAMS
+      );
+      commit(types.CHANGE_DIALOG_PARAMS, {
+        dialogVisible: true,
+        dialogStatus: "ongoing",
+        dialogText: utilsFormat.computedLangCtx("提取中"),
+      });
+      const txnHashData = await farmsAPI.getPersonLockedReward(params);
+      if (txnHashData.code === 200) {
+        let txnHash = txnHashData.data.transactionHash;
+        commit(types.CHANGE_DIALOG_PARAMS, {
+          phase1: "success",
+        });
+        utilsTool.pollingBlockHashInfo({ txnHash }).then((res) => {
+          if (res === "Executed") {
+            commit(types.CHANGE_DIALOG_PARAMS, {
+              phase2: "success",
+            });
+            setTimeout(() => {
+              commit(types.CHANGE_DIALOG_PARAMS, {
+                dialogStatus: "success",
+                dialogText: utilsFormat.computedLangCtx("操作成功"),
+                successBtnText: utilsFormat.computedLangCtx("确认"),
+                isShowClose: true,
+                miningData: {
+                  draw: utilsNumber
+                    .bigNum(state.liquidityDrawData)
+                    .minus(state.swapMiningDrawGas)
+                    .toString(),
+                },
+              });
+            }, 1500);
+          }
+        });
+      } else {
+        commit(types.CHANGE_DIALOG_PARAMS, {
+          dialogStatus: "failed",
+          dialogText: utilsFormat.computedLangCtx("提取收益失败"),
+          failedBtnText: utilsFormat.computedLangCtx("确认"),
+          isShowClose: true,
+        });
+      }
       // secondDialogParams: FARMS_CONSTANTS.SWAP_SECOND_DIALOG_PARAMS,
     },
 
@@ -299,10 +357,10 @@ const StoreFarms = {
         account: rootState.StoreWallet.accounts[0],
       };
       if (type === "draw") {
-        // 提取
+        // 提取合约
       }
       if (type === "add") {
-        // 添加
+        // 提取合约
       }
       commit(types.CHANGE_DIALOG_PARAMS, {
         dialogVisible: true,
@@ -319,6 +377,13 @@ const StoreFarms = {
       //   failedBtnText: utilsFormat.computedLangCtx("确认"),
       //   isShowClose: true,
       // });
+    },
+    // 流动性的kiko收益
+    async getLiquidityKikoReward({ commit }, payload) {
+      const res = await farmsAPI.getLiquidityKikoReward(payload);
+      if (res.code === 200) {
+        commit(types.SET_LIQUIDITY_DRAW_DATA, res.data.value);
+      }
     },
 
     // 获取用户流动性记录
@@ -337,6 +402,7 @@ const StoreFarms = {
               const tokenString = k.match(/LPToken<(.*)>>/)[1]; // 匹配LPToken开头、>>结束
               const tokenAddress = tokenString.split(", ");
               const tokens = tokenAddress.map((d) => d.split("::")[2]);
+              console.log("tokens", tokens);
               const lpToken = `${tokens[0]}/${tokens[1]}`;
               if (lpToken === state.lpTokenInfo.token) {
                 commit(types.SET_CURR_LPTOKEN_INFO, {
@@ -355,9 +421,6 @@ const StoreFarms = {
             }
           }
         }
-        commit(types.SET_LIQUIDITY_POOLLIST, data);
-      } else {
-        commit(types.SET_LIQUIDITY_POOLLIST, []);
       }
     },
   },
