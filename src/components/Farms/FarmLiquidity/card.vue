@@ -127,6 +127,9 @@ const props = defineProps({
 
 const kikoDraw = () => {
   if (state.walletStatus !== "connected") return;
+  if (props?.params?.value <= 0) {
+    return;
+  }
   emits("kikoDraw");
 };
 
