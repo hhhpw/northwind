@@ -114,6 +114,11 @@ const StoreBuyBack = {
                 }),
               });
             }, 5000);
+          } else {
+            commit(types.CHANGE_DIALOG_STATUS, {
+              dialogStatus: "failed",
+              dialogText: utilsFormat.computedLangCtx("获取收益失败"),
+            });
           }
         });
       } else {

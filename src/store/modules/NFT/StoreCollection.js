@@ -540,6 +540,11 @@ const StoreCollection = {
                 dialogText: utilsFormat.computedLangCtx("商品上架成功"),
               });
             }, 5000);
+          } else {
+            commit(types.CHANGE_DIALOG_STATUS, {
+              dialogStatus: "failed",
+              dialogText: utilsFormat.computedLangCtx("商品上架失败"),
+            });
           }
         });
       } else {
