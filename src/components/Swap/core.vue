@@ -177,6 +177,7 @@
     />
     <search-currency
       :dialogVisible="state.isShowSearchDialog"
+      :currencyList="state.currencyList"
       @handleClose="handleClose('isShowSearchDialog')"
       @handleSelect="handleSelectCurrency"
     ></search-currency>
@@ -187,14 +188,7 @@
   </div>
 </template>
 <script setup>
-import {
-  computed,
-  reactive,
-  watch,
-  onUnmounted,
-  onMounted,
-  onBeforeMount,
-} from "vue";
+import { computed, reactive, watch, onUnmounted, onMounted } from "vue";
 import SvgIcon from "@components/SvgIcon/Index.vue";
 import StarButton from "@StarUI/StarButton.vue";
 import StarSpace from "@StarUI/StarSpace.vue";
@@ -211,7 +205,7 @@ const { t } = useI18n();
 const store = useStore();
 import Wallet from "../../wallet/index";
 import SettingDialog from "../SettingDialog.vue";
-import commonApi from "@api/common";
+// import commonApi from "@api/common";
 // import { ElTooltip } from "element-plus";
 
 const { connectWallet } = connectLogic(store);
@@ -234,6 +228,7 @@ let state = reactive({
   defaultItem: computed(() => store.state.StoreCommon.defaultCurrencyItem),
   addTimer: null,
   totalSwapList: computed(() => store.state.StoreSwap.totalSwapList),
+  currencyList: computed(() => store.state.StoreCommon.currencyList),
 });
 
 const formatFrom = computed(() => store.getters["StoreSwap/formatFrom"]);
@@ -314,11 +309,24 @@ const debounceFunc = debounce(
   }
 );
 
-onMounted(() => {
+onMounted(async () => {
   state.addTimer = setInterval(() => {
     transfromCurrencySelect(false);
   }, 5000);
+  if (state.currencyList && state.currencyList.length === 0) {
+    const data = await store.dispatch("StoreCommon/getCurrencyList");
+    if (data && data.length) {
+      setDefaultCurrency(data);
+    }
+  } else {
+    setDefaultCurrency(state.currencyList);
+  }
 });
+
+const setDefaultCurrency = (data) => {
+  let item = data.filter((i) => i.shortName === "STC")[0];
+  handleSelectCurrency(item);
+};
 
 const inputEvent = (val, type) => {
   // 币种选择时候也要去检查是否可以获取计算数据
@@ -457,13 +465,17 @@ const swapFunc = async (status) => {
   }
 };
 
-onBeforeMount(async () => {
-  let res = await commonApi.getCurrency();
-  if (res.code === 200) {
-    let item = res.data.filter((i) => i.shortName === "STC")[0];
-    handleSelectCurrency(item);
-  }
-});
+// onBeforeMount(async () => {
+//   if (state.currencyList.length === 0) {
+//     console.log("A");
+//     let res = await commonApi.getCurrency();
+//     if (res.code === 200) {
+//       state.currencyList = res.data;
+// let item = res.data.filter((i) => i.shortName === "STC")[0];
+// handleSelectCurrency(item);
+//     }
+//   }
+// });
 onUnmounted(() => {
   store.commit("StoreSwap/CLEAR_SWAP_DATA");
 });
