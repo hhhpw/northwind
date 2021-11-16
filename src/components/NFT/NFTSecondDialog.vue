@@ -103,7 +103,6 @@ watch(
 const emits = defineEmits(["handleClose", "handleCancel", "handleConfirm"]);
 
 const handleClose = () => {
-  console.log("===yes===");
   emits("handleClose");
 };
 </script>

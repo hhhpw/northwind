@@ -296,7 +296,6 @@ const StoreCollection = {
             data: resGroupList.value.data,
             resourceList,
           });
-          console.log("resNFT", resNFT);
           if (resNFT && resNFT.length > 0) {
             commit(types.SET_UNSOLD_NFT_DATA, resNFT.reverse());
             commit(types.SET_LOADING_STATUS, false);
@@ -322,7 +321,6 @@ const StoreCollection = {
               }
             });
           }
-          console.log("resBlindBox", resBlindBox);
           setTimeout(() => {
             commit(types.SET_LOADING_STATUS, false);
           }, 1500);
@@ -346,8 +344,6 @@ const StoreCollection = {
     async getSellingNftDetail({ commit }, infoId) {
       const res = await collectionApi.getSellingNftDetail(infoId);
       if (res.code === 200) {
-        // const t = Object.assign({}, res.data, { onSell: false });
-        // console.log("t", t);
         commit(types.SET_DETAIL_INFO, res.data);
         commit(types.SET_DETAIL_TYPE, "nft");
       }
@@ -428,7 +424,6 @@ const StoreCollection = {
     /* eslint-disable-next-line*/
     async getSellBoxIdByHash({}, payload) {
       const res = await collectionApi.getSellBoxIdByHash(payload.txnHash);
-      console.log("getBlindBoxIdByTxnHash", res);
       if (res.result && res.result.length > 0) {
         const k = res.result.filter((d) =>
           d.type_tag.includes(payload.boxToken)
@@ -523,8 +518,6 @@ const StoreCollection = {
           type: "SELL",
         }
       );
-      console.log("state", state.dialogParams);
-      console.log("sellContractsCall", params);
       let txnHash =
         type === "box"
           ? await Wallet.blindBoxContractCall(params)
@@ -570,7 +563,6 @@ const StoreCollection = {
         const nftStatus = await collectionApi.getSellingNftDetail(
           payload.infoId
         );
-        console.log("nftStatus", nftStatus);
         if (nftStatus.code === 200) {
           onSell = nftStatus.data.onSell;
         }
@@ -598,7 +590,6 @@ const StoreCollection = {
           type: "OFFLINE",
         }
       );
-      console.log("params", params);
       let txnHash =
         type === "box"
           ? await Wallet.blindBoxContractCall(params)
@@ -636,7 +627,6 @@ const StoreCollection = {
       }
     },
     async acceptBidContractsCall({ rootState, commit }, payload) {
-      console.log("==acceptBidContractsCall==", payload);
       let onSell;
       if (payload.type === "box") {
         const boxStatus = await collectionApi.getSellingBoxDetail(
@@ -677,7 +667,6 @@ const StoreCollection = {
           type: "ACCEPT_BID",
         }
       );
-      console.log("params", params);
       let txnHash =
         type === "box"
           ? await Wallet.blindBoxContractCall(params)

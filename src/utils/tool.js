@@ -41,7 +41,7 @@ const pollingTxnInfo = ({ txnHash, delay = 1000 } = {}) => {
   // 考虑一定次数后仍然拿不到信息直接reject？?
   return new Promise((resolve) => {
     commonApi.getTransactionInfo(txnHash).then((res) => {
-      console.log("====>pollingTxnInfo======>", res);
+      console.log("链上结果：", res);
       if (res.result) {
         if (res.result.status === "Executed") {
           resolve(res.result.status);

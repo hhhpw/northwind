@@ -274,10 +274,10 @@
     "farm-swap-pool-card-total-reward-item-1": "已分配獎勵",
     "farm-swap-pool-card-total-reward-item-2": "總交易額",
     "farm-swap-pool-card-total-reward-item-3": "當前交易額",
-    "farm-swap-pool-card-person-reward-item-1": "積累獎勵",
+    "farm-swap-pool-card-person-reward-item-1": "累積獎勵",
     "farm-swap-pool-card-person-reward-item-2": "我的交易額",
     "farm-swap-pool-card-person-reward-item-3": "未領取獎勵",
-    "farm-swap-draw-sure-title": "提前收益確認",
+    "farm-swap-draw-sure-title": "提取收益確認",
     "farm-swap-draw-sure-error": "本次操作將失去算力",
     "farm-swap-lock": "鎖倉",
     "farm-swap-draw-gas": "提取費用",
@@ -302,6 +302,8 @@
     "首页": "首頁",
     "交易": "交易",
     "流动性": "流動性",
-    "兑换": "兌換"
+    "兑换": "兌換",
+    "流动性挖矿": "流動性挖礦",
+    "交易挖矿": "交易挖礦"
   }
 }

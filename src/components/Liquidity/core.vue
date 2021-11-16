@@ -233,6 +233,7 @@ onMounted(() => {
     "StoreLiquidity/getAllPoolListByUser",
     state.accounts[0] || null
   );
+  store.dispatch("StoreCommon/getCurrencyList");
 });
 
 // 钱包链接

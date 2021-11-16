@@ -100,7 +100,6 @@ const StoreNftMarket = {
       state.listStatus = Object.assign({}, state.listStatus, payload);
     },
     [types.SET_MARKET_LIST_RULE](state, payload) {
-      console.log("payload", payload);
       state.marketListRule = payload;
       let open = "";
       if (payload[0] === true) {
@@ -153,14 +152,11 @@ const StoreNftMarket = {
     },
     // 获取市场列表
     async queryMarketList({ commit, state }, { type }) {
-      console.log("listParams", JSON.stringify(state.listParams));
-      console.error("type:", type);
       let res;
       if (type === "init") {
         res = await marketAPI.getMarketList(state.listParams);
       } else if (type === "scroll") {
         if (state.listStatus && !state.listStatus.hasMore) {
-          console.log("没数据了");
           return;
         } else {
           if (state.isScrollLoad) return;
@@ -262,7 +258,6 @@ const StoreNftMarket = {
           phase1: "success",
         });
         utilsTool.pollingTxnInfo({ txnHash }).then((res) => {
-          console.log("====res=====", res);
           if (res === "Executed") {
             commit(types.CHANGE_DIALOG_STATUS, {
               phase2: "success",
@@ -584,7 +579,6 @@ const StoreNftMarket = {
           type: "OFFLINE",
         });
       }
-      console.log("txnHash", txnHash);
       if (txnHash !== "error") {
         commit(types.CHANGE_DIALOG_STATUS, {
           phase1: "success",

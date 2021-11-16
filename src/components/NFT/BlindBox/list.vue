@@ -108,7 +108,6 @@ const playTimer = () => {
 };
 
 const loadMore = () => {
-  console.log("loadMore", loadMore);
   store.dispatch("StoreBlindBox/getOfferingList", { type: "scroll" });
 };
 

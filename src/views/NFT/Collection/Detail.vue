@@ -410,7 +410,6 @@ const secondDialogClose = () => {
 };
 
 const sencondDialogConfirm = () => {
-  console.log("state.action_call_type", state.action_call_type);
   if (!state.action_call_type) return;
   if (state.action_call_type === "AcceptBid") {
     state.dialogEvent = dialogEventMaps["AcceptBid"];

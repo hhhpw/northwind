@@ -201,9 +201,6 @@ import { useStore } from "vuex";
 const store = useStore();
 
 const num = ref(1);
-const handleChange = (value) => {
-  console.log(value);
-};
 
 let state = reactive({
   soldDialogParams: computed(() => store.state.StoreNftMarket.soldDialogParams),
@@ -319,7 +316,6 @@ const userAmount = computed(() => {
 
 const secondDialogConfirm = () => {
   if (!state.action_type) return;
-  console.log("state.action_type", state.action_type);
   if (state.action_type === "BidPrice") {
     secondDialogClose();
     state.dialogEvent = dialogEventMaps["Purchase"];
@@ -429,7 +425,6 @@ const actionsCall = (data) => {
     case "CancelSell":
       state.dialogEvent = dialogEventMaps["CancelSell"];
       state.contract_params.id = state.chainId;
-      console.log("state.contract_params", state.contract_params);
       store.dispatch(
         "StoreNftMarket/cancelSell",
         Object.assign({}, state.contract_params, {
@@ -539,16 +534,15 @@ const bidPrice = () => {
         setTimeout(() => state.quotation_inputVal, 1000);
         // state.quotation_inputVal = 1;
         // 大于售价二次弹窗确认购买，  后续走购买的流程
-        console.log(
-          "sellPrice",
-          sellPrice,
-          "state.bidOfferPrice",
-          state.bidOfferPrice,
-          "state.quotation_inputVal ",
-          state.quotation_inputVal
-        );
+        // console.log(
+        //   "sellPrice",
+        //   sellPrice,
+        //   "state.bidOfferPrice",
+        //   state.bidOfferPrice,
+        //   "state.quotation_inputVal ",
+        //   state.quotation_inputVal
+        // );
         if (utilsNumber.bigNum(state.bidOfferPrice).gte(sellPrice)) {
-          console.log("出价大于售价");
           state.secondDialogParams = Object.assign(
             {},
             NFT_CONSTANTS.INIT_SECOND_DIALOG_PARAMS,
@@ -565,7 +559,6 @@ const bidPrice = () => {
             }
           );
         } else {
-          console.log("出价小于售价");
           state.dialogEvent = dialogEventMaps["BidPrice"];
           store.dispatch(
             "StoreNftMarket/bidPrice",
