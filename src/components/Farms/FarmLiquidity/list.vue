@@ -33,7 +33,7 @@
           <star-amount
             :value="123123"
             :formatOptions="{
-              precision: 2,
+              precision: setPrecision(2),
               trailingZero: true,
               grouped: true,
               compact: true,
@@ -46,7 +46,7 @@
           <star-amount
             :value="1233"
             :formatOptions="{
-              precision: 2,
+              precision: setPrecision(2),
               trailingZero: false,
               percentStyle: true,
             }"
@@ -60,7 +60,7 @@
           <star-amount
             :value="666"
             :formatOptions="{
-              precision: 2,
+              precision: setPrecision(2),
               trailingZero: false,
               grouped: true,
               compact: true,
@@ -73,9 +73,9 @@
           :class="$style['container-farm-liquidity-list-body-item-perstake']"
         >
           <star-amount
-            :value="777"
+            :value="773213127"
             :formatOptions="{
-              precision: 2,
+              precision: setPrecision(2),
               trailingZero: false,
               grouped: true,
               compact: true,
@@ -88,9 +88,9 @@
           :class="$style['container-farm-liquidity-list-body-item-perreward']"
         >
           <star-amount
-            :value="888"
+            :value="88.3132148"
             :formatOptions="{
-              precision: 2,
+              precision: setPrecision(4),
               trailingZero: false,
               grouped: true,
               compact: true,
@@ -116,7 +116,33 @@ import ListToolTip from "./listtooltip";
 import utilsRouter from "@utils/router";
 import { useStore } from "vuex";
 const store = useStore();
-let state = reactive({});
+let state = reactive({
+  walletStatus: computed(() => store.state.StoreWallet.walletStatus),
+});
+
+const setValue = (value) =>
+  computed(() => {
+    if (state.walletStatus !== "connected") {
+      return "0.00";
+    } else {
+      return value;
+    }
+  }).value;
+
+const setPrecision = (precision) =>
+  computed(() => {
+    if (state.walletStatus !== "connected") {
+      return 2;
+    } else {
+      return precision;
+    }
+  }).value;
+
+// const defaultValue = computed(() => {
+//   if (state.walletStatus !== "connected") {
+//     return 0;
+//   }
+// });
 
 const pushPage = (lpToken) => {
   store.commit("StoreFarms/SET_CURR_LPTOKEN_INFO", {

@@ -1,7 +1,6 @@
 <template>
   <div>
     <div :class="$style['container-person-data']">
-      {{ state.secondDialogParams }}
       <div :class="$style['container-person-data-header']">
         <div
           :class="$style['container-person-data-header-item']"
