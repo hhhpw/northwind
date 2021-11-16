@@ -142,7 +142,6 @@ const StoreBuyBack = {
         res = await buyBackApi.getBuyBacklist(state.queryParams);
       } else if (type === "scroll") {
         if (state.listStatus && !state.listStatus.hasMore) {
-          console.log("没数据了");
           return;
         } else {
           commit(

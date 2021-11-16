@@ -4,7 +4,6 @@ export default {
   // 获取市场列表数据
   getMarketList(params) {
     const { groupId, currency, open, pageSize, pageNum, sort } = params;
-    console.error("==========", pageNum);
     return request({
       url:
         "/v1/nft/market/getALL?groupId=" +

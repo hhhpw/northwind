@@ -296,7 +296,6 @@ const StoreCollection = {
             data: resGroupList.value.data,
             resourceList,
           });
-          console.log("resNFT", resNFT);
           if (resNFT && resNFT.length > 0) {
             commit(types.SET_UNSOLD_NFT_DATA, resNFT.reverse());
             commit(types.SET_LOADING_STATUS, false);
@@ -322,7 +321,6 @@ const StoreCollection = {
               }
             });
           }
-          console.log("resBlindBox", resBlindBox);
           setTimeout(() => {
             commit(types.SET_LOADING_STATUS, false);
           }, 1500);
@@ -426,7 +424,6 @@ const StoreCollection = {
     /* eslint-disable-next-line*/
     async getSellBoxIdByHash({}, payload) {
       const res = await collectionApi.getSellBoxIdByHash(payload.txnHash);
-      console.log("getBlindBoxIdByTxnHash", res);
       if (res.result && res.result.length > 0) {
         const k = res.result.filter((d) =>
           d.type_tag.includes(payload.boxToken)
@@ -630,7 +627,6 @@ const StoreCollection = {
       }
     },
     async acceptBidContractsCall({ rootState, commit }, payload) {
-      console.log("==acceptBidContractsCall==", payload);
       let onSell;
       if (payload.type === "box") {
         const boxStatus = await collectionApi.getSellingBoxDetail(

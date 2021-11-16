@@ -723,7 +723,6 @@ const StoreLiquidity = {
               //   process.env.VUE_APP_CONTRACTS_ADDRESS
               // );
               const contracts = k.match(/Balance<(.*)::SwapPair/)[1];
-              console.log("contracts", contracts);
               if (contracts === process.env.VUE_APP_CONTRACTS_ADDRESS) {
                 const tokenString = k.match(/LPToken<(.*)>>/)[1]; // 匹配LPToken开头、>>结束
                 const tokenAddress = tokenString.split(", ");

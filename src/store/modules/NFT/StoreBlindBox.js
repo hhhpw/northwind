@@ -108,12 +108,10 @@ const StoreBlindBox = {
       { tyArgs, args, boxToken }
     ) {
       if (!boxToken) return;
-      console.log("boxToken", boxToken);
       const isExistedBox = await blindboxApi.getOfferingAmount(boxToken);
       if (isExistedBox.result && isExistedBox.result.value) {
         const amount =
           isExistedBox.result.value[0][1]["Struct"]["value"][0][1]["U128"];
-        console.log("amount", amount, "args[0]", args[0]);
         if (String(amount) === "0") {
           commit(
             "CHANGE_BUY_CB_MODAL_STATUS",
