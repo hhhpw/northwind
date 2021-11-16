@@ -4,7 +4,6 @@ export default {
   // 获取市场列表数据
   getMarketList(params) {
     const { groupId, currency, open, pageSize, pageNum, sort } = params;
-    console.error("==========", pageNum);
     return request({
       url:
         "/v1/nft/market/getALL?groupId=" +
@@ -49,21 +48,6 @@ export default {
       url: `/v1/nft/box/info/${params.groupId}`,
       method: "GET",
     });
-  },
-  // 购买NFT
-  purchase(params) {
-    console.log("params.id", params.id);
-    return true;
-  },
-  // 出价
-  bidPrice(params) {
-    console.log("params.id", params.id);
-    return true;
-  },
-  // 更改报价
-  updatePrice(params) {
-    console.log("params.id", params.id);
-    return true;
   },
   // 详情页轮询商品是否在售卖
   queryIsSelling(params) {

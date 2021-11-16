@@ -113,7 +113,6 @@ onMounted(() => {
 });
 
 const pageEvent = (type) => {
-  console.log("pageEvent", type);
   store.dispatch("StoreInfo/getAssetsList", { type });
 };
 </script>

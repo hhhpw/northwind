@@ -47,7 +47,6 @@ const setSlideAnimation = () => {
     }
   ).text;
   state.percentage = percentage;
-  // console.log("viewHeight", viewHeight, "scrollT", scrollTop, percentage);
 };
 onMounted(() => {
   nextTick(() => {

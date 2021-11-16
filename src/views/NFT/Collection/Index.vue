@@ -186,8 +186,6 @@ const pushMarket = () => {
   });
 };
 const actionsCall = async ({ action, baseData }) => {
-  // console.log("==actionsCall==");
-  console.log("action", action, "baseData", baseData);
   state.baseData = baseData;
   if (action === "CancelSell") {
     let params = {};

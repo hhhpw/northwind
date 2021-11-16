@@ -6,34 +6,21 @@ const StoreCommon = {
   moduleName: "StoreCommon",
   state: {
     currencyList: [],
-    filterData: [],
   },
   mutations: {
     [types.SET_CURRENCY_LIST](state, data) {
-      state.currencys = data;
+      state.currencyList = data;
     },
   },
   actions: {
-    async getCurrencyList({ commit }) {
+    async getCurrencyList({ commit, state }) {
+      if (state.currencyList.length !== 0) return;
       let res = await commonApi.getCurrency();
       if (res.code === 200) {
         commit(types.SET_CURRENCY_LIST, res.data);
+        return res.data;
       }
     },
-    /* eslint-disable-next-line */
-    // async pollingTxnInfo({}, { hash }) {
-    //   return new Promise((resolve) => {
-    //     commonApi.getTransactionInfo(hash).then((res) => {
-    //       if (res.result && res.result.status === "Executed") {
-    //         resolve(res.result.status);
-    //       } else {
-    //         setTimeout(() => {
-    //           resolve(pollingTxnInfo())
-    //         }, )
-    //       }
-    //     });
-    //   });
-    // },
   },
 };
 

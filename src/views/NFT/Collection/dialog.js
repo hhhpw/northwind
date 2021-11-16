@@ -34,7 +34,6 @@ export const dialogEventMaps = {
   // 出售
   Sell: {
     handleClose: (type) => {
-      console.log("type", type);
       if (type === "failed") {
         dialogEventMaps.Sell.handleFailed();
       } else if (type === "success") {

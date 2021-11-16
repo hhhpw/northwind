@@ -13,12 +13,12 @@ function proxyRule(key, targetUrl) {
 }
 
 function devServer() {
-  console.log(
-    "process.env.VUE_APP_CENTER_SERVE_URL",
-    process.env.VUE_APP_CENTER_SERVE_URL,
-    process.env.VUE_APP_ENV,
-    process.env.NODE_ENV
-  );
+  // console.log(
+  //   "process.env.VUE_APP_CENTER_SERVE_URL",
+  //   process.env.VUE_APP_CENTER_SERVE_URL,
+  //   process.env.VUE_APP_ENV,
+  //   process.env.NODE_ENV
+  // );
   return {
     compress: true,
     open: true,

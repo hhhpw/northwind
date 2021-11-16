@@ -1,8 +1,8 @@
 import commonApi from "@api/common";
 import dayjs from "dayjs";
 const JWT = require("jsonwebtoken");
-import NFT_CONSTANTS from "@constants/nft.js";
-import { findIndex } from "lodash";
+// import NFT_CONSTANTS from "@constants/nft.js";
+// import { findIndex } from "lodash";
 
 const openNewWindow = (url) => {
   window.open(url, "_blank");
@@ -41,27 +41,29 @@ const pollingTxnInfo = ({ txnHash, delay = 1000 } = {}) => {
   // 考虑一定次数后仍然拿不到信息直接reject？?
   return new Promise((resolve) => {
     commonApi.getTransactionInfo(txnHash).then((res) => {
-      console.log("链上轮询结果", res);
+      console.log("链上结果：", res);
       if (res.result) {
         if (res.result.status === "Executed") {
           resolve(res.result.status);
         } else {
-          const { MoveAbort } = res.result?.status;
-          const { address, name } = MoveAbort?.location?.Module;
-          console.log("MoveAbort", MoveAbort);
-          console.log("address", address, "name", name);
-          const index = findIndex(
-            NFT_CONSTANTS.NFT_ERROR_CODES,
-            (d) => String(d.code) === String(MoveAbort.abort_code)
-          );
-          console.log("===index-===", index);
-          if (
-            index > -1 &&
-            address === process.env.VUE_APP_NFT_ADDRESS &&
-            name === process.env.VUE_APP_NFT_MARKET_ID
-          ) {
-            resolve("NoExisted");
-          }
+          resolve("failed");
+          console.error("合约失败:", res.result);
+          // const { MoveAbort } = res.result?.status;
+          // const { address, name } = MoveAbort?.location?.Module;
+          // console.log("MoveAbort", MoveAbort);
+          // console.log("address", address, "name", name);
+          // const index = findIndex(
+          //   NFT_CONSTANTS.NFT_ERROR_CODES,
+          //   (d) => String(d.code) === String(MoveAbort.abort_code)
+          // );
+          // console.log("===index-===", index);
+          // if (
+          //   index > -1 &&
+          //   address === process.env.VUE_APP_NFT_ADDRESS &&
+          //   name === process.env.VUE_APP_NFT_MARKET_ID
+          // ) {
+          //   resolve("NoExisted");
+          // }
         }
       } else {
         setTimeout(() => {

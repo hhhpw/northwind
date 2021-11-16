@@ -114,6 +114,11 @@ const StoreBuyBack = {
                 }),
               });
             }, 5000);
+          } else {
+            commit(types.CHANGE_DIALOG_STATUS, {
+              dialogStatus: "failed",
+              dialogText: utilsFormat.computedLangCtx("获取收益失败"),
+            });
           }
         });
       } else {
@@ -142,7 +147,6 @@ const StoreBuyBack = {
         res = await buyBackApi.getBuyBacklist(state.queryParams);
       } else if (type === "scroll") {
         if (state.listStatus && !state.listStatus.hasMore) {
-          console.log("没数据了");
           return;
         } else {
           commit(

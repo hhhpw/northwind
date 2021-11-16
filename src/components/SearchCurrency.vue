@@ -3,6 +3,7 @@
     <star-dialog
       :title="$t('选择代币')"
       :dialogVisible="state.visible"
+      :isClickModal="false"
       @handleClose="handleClose"
     >
       <template #content>
@@ -40,6 +41,7 @@
 </template>
 
 <script setup>
+/* eslint-disable */
 import starDialog from "@StarUI/StarDialog.vue";
 import {
   reactive,
@@ -48,15 +50,17 @@ import {
   watch,
   defineEmits,
   onUpdated,
+  computed,
+  watchEffect,
 } from "vue";
-// import { ElInput } from "element-plus";
-// import { ElEmpty } from "element-plus";
-import commonApi from "@api/common";
+import { useStore } from "vuex";
+
+const store = useStore();
 
 let state = reactive({
   visible: props.dialogVisible,
   searchValue: "",
-  listData: [],
+  listData: computed(() => store.state.StoreCommon.currencyList),
   filterData: [],
 });
 const props = defineProps({
@@ -65,12 +69,9 @@ const props = defineProps({
     default: false,
   },
 });
-
-onMounted(async () => {
-  let res = await commonApi.getCurrency();
-  if (res.code === 200) {
-    state.listData = res.data;
-    state.filterData = res.data;
+watchEffect(() => {
+  if (state.listData && state.listData.length) {
+    state.filterData = state.listData;
   }
 });
 watch(
