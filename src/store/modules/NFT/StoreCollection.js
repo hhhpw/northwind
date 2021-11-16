@@ -451,6 +451,7 @@ const StoreCollection = {
         blindboxId: `${boxTokenArr[0]}::${boxTokenArr[1]}`,
         type: "OPEN",
       };
+      console.time("===盲盒开启===");
       const txnHash = await Wallet.openBlindBox(params);
       if (txnHash !== "error") {
         commit(types.CHANGE_DIALOG_STATUS, {
