@@ -55,7 +55,6 @@ const props = defineProps({
 const emits = defineEmits(["inputEvent"]);
 
 const inputEvent = (e) => {
-  console.log("e", e);
   if (String(e)) {
     // let val = String(e).replace(/^(0+)|[^\d]+/g, "");
     if (utilsNumber.bigNum(e).gt(props.max)) {

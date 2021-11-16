@@ -44,7 +44,6 @@ watch(
 );
 
 const inputEvent = (val) => {
-  console.log("inputEvent", val);
   val = val.toString();
   if (props.validateType === "decimal") {
     val = val

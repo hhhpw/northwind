@@ -150,7 +150,6 @@ let state = reactive({
 });
 //筛选点击效果
 let clickSelectJoint = (d, type) => {
-  console.log(d, type);
   if (type === "series") {
     state.series.map((item) => {
       item.active = item.groupId === d.groupId ? true : false;

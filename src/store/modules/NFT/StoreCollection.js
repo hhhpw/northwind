@@ -346,8 +346,6 @@ const StoreCollection = {
     async getSellingNftDetail({ commit }, infoId) {
       const res = await collectionApi.getSellingNftDetail(infoId);
       if (res.code === 200) {
-        // const t = Object.assign({}, res.data, { onSell: false });
-        // console.log("t", t);
         commit(types.SET_DETAIL_INFO, res.data);
         commit(types.SET_DETAIL_TYPE, "nft");
       }
@@ -523,8 +521,6 @@ const StoreCollection = {
           type: "SELL",
         }
       );
-      console.log("state", state.dialogParams);
-      console.log("sellContractsCall", params);
       let txnHash =
         type === "box"
           ? await Wallet.blindBoxContractCall(params)
@@ -570,7 +566,6 @@ const StoreCollection = {
         const nftStatus = await collectionApi.getSellingNftDetail(
           payload.infoId
         );
-        console.log("nftStatus", nftStatus);
         if (nftStatus.code === 200) {
           onSell = nftStatus.data.onSell;
         }
@@ -598,7 +593,6 @@ const StoreCollection = {
           type: "OFFLINE",
         }
       );
-      console.log("params", params);
       let txnHash =
         type === "box"
           ? await Wallet.blindBoxContractCall(params)
@@ -677,7 +671,6 @@ const StoreCollection = {
           type: "ACCEPT_BID",
         }
       );
-      console.log("params", params);
       let txnHash =
         type === "box"
           ? await Wallet.blindBoxContractCall(params)

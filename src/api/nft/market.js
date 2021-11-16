@@ -50,21 +50,6 @@ export default {
       method: "GET",
     });
   },
-  // 购买NFT
-  purchase(params) {
-    console.log("params.id", params.id);
-    return true;
-  },
-  // 出价
-  bidPrice(params) {
-    console.log("params.id", params.id);
-    return true;
-  },
-  // 更改报价
-  updatePrice(params) {
-    console.log("params.id", params.id);
-    return true;
-  },
   // 详情页轮询商品是否在售卖
   queryIsSelling(params) {
     return request({

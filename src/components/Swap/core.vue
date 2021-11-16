@@ -464,18 +464,6 @@ const swapFunc = async (status) => {
     }
   }
 };
-
-// onBeforeMount(async () => {
-//   if (state.currencyList.length === 0) {
-//     console.log("A");
-//     let res = await commonApi.getCurrency();
-//     if (res.code === 200) {
-//       state.currencyList = res.data;
-// let item = res.data.filter((i) => i.shortName === "STC")[0];
-// handleSelectCurrency(item);
-//     }
-//   }
-// });
 onUnmounted(() => {
   store.commit("StoreSwap/CLEAR_SWAP_DATA");
 });

@@ -61,7 +61,6 @@ onMounted(() => {
     state.netChainId &&
     state.netChainId !== CONSTANTS_STARMASK.MAIN_CHIA_ID
   ) {
-    console.log("A");
     state.showWalletNetDialog = true;
   }
 });

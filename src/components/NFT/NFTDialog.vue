@@ -176,8 +176,7 @@ const state = reactive({
 
 watch(
   () => props.dialogVisible,
-  (n, o) => {
-    console.log("n", n, "o,", o);
+  (n) => {
     state.visible = n;
   }
 );
