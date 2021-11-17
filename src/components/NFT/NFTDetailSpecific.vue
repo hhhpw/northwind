@@ -12,60 +12,41 @@
     </div>
   </div>
   <div class="rarevalue-table">
-    <div class="rarevalue-table-item" v-for="(r, i) in rarevalue_list" :key="i">
-      <span class="rarevalue-project">{{ r.title }}</span>
-      <span class="rarevalue-project-value">{{ r.value }}</span>
-      <span class="rarevalue-project-score">{{ r.score }}</span>
-    </div>
+    <template v-if="state.rarevalue_list && state.rarevalue_list.length > 0">
+      <div
+        class="rarevalue-table-item"
+        v-for="(r, i) in state.rarevalue_list"
+        :key="i"
+      >
+        <span class="rarevalue-project">{{ r.title }}</span>
+        <span class="rarevalue-project-value">{{ r.value }}</span>
+        <span class="rarevalue-project-score">{{ r.score }}</span>
+      </div></template
+    >
   </div>
 </template>
 <script setup>
-import { computed } from "vue";
-import { useI18n } from "vue-i18n";
-const { t } = useI18n();
+/* eslint-disable */
+import { computed, watchEffect, reactive, ref } from "vue";
+import nftProto from "./nftproto";
+let rarevalue_list = ref([]);
+let state = reactive({
+  rarevalue_list: [],
+});
 const props = defineProps({
   box_detail: Object,
 });
 
-const rarevalue_list = computed(() => {
-  return [
-    {
-      title: t("背景"),
-      value: props.box_detail.properties.background || "--",
-      score: props.box_detail.properties.backgroundScore || "--",
-    },
-    {
-      title: t("皮肤"),
-      value: props.box_detail.properties.fur || "--",
-      score: props.box_detail.properties.furScore || "--",
-    },
-    {
-      title: t("衣服"),
-      value: props.box_detail.properties.clothes || "--",
-      score: props.box_detail.properties.clothesScore || "--",
-    },
-    {
-      title: t("表情"),
-      value: props.box_detail.properties.facialExpression || "--",
-      score: props.box_detail.properties.facialExpressionScore || "--",
-    },
-    {
-      title: t("头部"),
-      value: props.box_detail.properties.head || "--",
-      score: props.box_detail.properties.headScore || "--",
-    },
-    {
-      title: t("配饰"),
-      value: props.box_detail.properties.accessories || "--",
-      score: props.box_detail.properties.accessoriesScore || "--",
-    },
-    {
-      title: t("眼部"),
-      value: props.box_detail.properties.eyes || "--",
-      score: props.box_detail.properties.eyesScore || "--",
-    },
-  ];
+watchEffect(() => {
+  if (props.box_detail && props.box_detail.properties) {
+    const protos = nftProto(props.box_detail);
+    if (protos.properties && protos.properties.value.length) {
+      rarevalue_list = protos.properties.value.filter((d) => d.value !== "--");
+      state.rarevalue_list = rarevalue_list;
+    }
+  }
 });
+
 // 稀有值分数
 const rarevalue_total_score = computed(() => {
   return props.box_detail.score;

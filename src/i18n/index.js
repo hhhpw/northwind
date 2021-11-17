@@ -19,7 +19,7 @@ function loadMessages() {
 const { messages } = loadMessages();
 
 const langs = Object.keys(messages);
-const namespaces = ["constants", "errors", "navs"];
+const namespaces = ["constants", "errors", "navs", "nftproperty"];
 langs.forEach((lang) => {
   namespaces.forEach((key) => {
     for (let i in messages[lang][key]) {
