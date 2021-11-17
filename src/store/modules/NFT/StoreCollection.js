@@ -422,8 +422,12 @@ const StoreCollection = {
       }
     },
     /* eslint-disable-next-line*/
-    async getSellBoxIdByHash({}, payload) {
-      const res = await collectionApi.getSellBoxIdByHash(payload.txnHash);
+    async getOpenBoxIdByHash({}, payload) {
+      const res = await utilsTools.getOpenBoxIdByHash({
+        txnHash: payload.txnHash,
+        boxToken: payload.boxToken,
+      });
+      console.log("====res===", res);
       if (res.result && res.result.length > 0) {
         const k = res.result.filter((d) =>
           d.type_tag.includes(payload.boxToken)
@@ -450,53 +454,104 @@ const StoreCollection = {
       console.time("===盲盒开启gas计算===");
       const txnHash = await Wallet.openBlindBox(params);
       console.timeEnd("===盲盒开启gas计算===");
+      console.time("===盲盒开启上链===");
       if (txnHash !== "error") {
         commit(types.CHANGE_DIALOG_STATUS, {
           phase1: "success",
         });
-        let timer = null;
-        timer = setInterval(async () => {
-          console.count("定时器查询次数");
-          console.time("===collection查询boxId===");
-          let id = await dispatch("getSellBoxIdByHash", {
-            txnHash,
-            boxToken: `${boxTokenArr[0]}::${boxTokenArr[1]}::BoxOpenEvent`,
-          });
-          console.timeEnd("===collection查询boxId===");
-          if (id) {
-            console.timeEnd("===获取ID===");
-            clearInterval(timer);
-            console.time("===查询NFT===");
-            const nftInfo = await collectionApi.getNftDetail(
-              payload.nftMeta,
-              payload.nftBody,
-              id
-            );
-            if (nftInfo.code === 200) {
-              console.log("nftInfo.data.", nftInfo.data);
-              commit(types.CHANGE_DIALOG_STATUS, {
-                phase2: "success",
+        utilsTools.pollingTxnInfo({ txnHash }).then((res) => {
+          if (res === "Executed") {
+            console.timeEnd("===盲盒开启上链===");
+            console.time("===盲盒开启ID===");
+            const boxToken = `${boxTokenArr[0]}::${boxTokenArr[1]}::BoxOpenEvent`;
+            utilsTools
+              .getOpenBoxIdByHash({ txnHash, boxToken })
+              .then(async (id) => {
+                console.timeEnd("===盲盒开启ID===");
+                console.time("===查询NFT===");
+                const nftInfo = await collectionApi.getNftDetail(
+                  payload.nftMeta,
+                  payload.nftBody,
+                  id
+                );
+                console.log("nftInfo", nftInfo.data);
+                if (nftInfo.code === 200) {
+                  commit(types.CHANGE_DIALOG_STATUS, {
+                    phase2: "success",
+                  });
+                  setTimeout(() => {
+                    commit(types.CHANGE_DIALOG_STATUS, {
+                      title:
+                        utilsFormat.computedLangCtx("获得").value +
+                        " " +
+                        nftInfo.data.name,
+                      // TODO
+                      // 图片load太慢,用个展位图
+                      customImgUrl: nftInfo.data.imageLink, //
+                      dialogStatus: "success",
+                      dialogText: "",
+                      successBtnText:
+                        utilsFormat.computedLangCtx("去我的NFT查看"),
+                      isBlindBox: false,
+                    });
+                  }, 500);
+                  console.timeEnd("===查询NFT===");
+                  console.timeEnd("===盲盒开启===");
+                }
               });
-              setTimeout(() => {
-                commit(types.CHANGE_DIALOG_STATUS, {
-                  title:
-                    utilsFormat.computedLangCtx("获得").value +
-                    " " +
-                    nftInfo.data.name,
-                  // TODO
-                  // 图片load太慢,用个展位图
-                  customImgUrl: nftInfo.data.imageLink, //
-                  dialogStatus: "success",
-                  dialogText: "",
-                  successBtnText: utilsFormat.computedLangCtx("去我的NFT查看"),
-                  isBlindBox: false,
-                });
-              }, 500);
-              console.timeEnd("===查询NFT===");
-              console.timeEnd("===盲盒开启===");
-            }
+          } else {
+            console.timeEnd("===盲盒开启===");
+            commit(types.CHANGE_DIALOG_STATUS, {
+              dialogStatus: "failed",
+              dialogText: utilsFormat.computedLangCtx("开启失败"),
+              customImgUrl: "",
+            });
           }
-        }, 1000);
+        });
+        // let timer = null;
+        // timer = setInterval(async () => {
+        //   console.count("定时器查询次数");
+        //   console.time("===collection查询boxId===");
+        //   let id = await dispatch("getOpenBoxIdByHash", {
+        //     txnHash,
+        //     boxToken: `${boxTokenArr[0]}::${boxTokenArr[1]}::BoxOpenEvent`,
+        //   });
+        //   console.log("id", id);
+        //   console.timeEnd("===collection查询boxId===");
+        //   if (id) {
+        //     console.timeEnd("===获取ID===");
+        //     clearInterval(timer);
+        //     console.time("===查询NFT===");
+        //     const nftInfo = await collectionApi.getNftDetail(
+        //       payload.nftMeta,
+        //       payload.nftBody,
+        //       id
+        //     );
+        //     if (nftInfo.code === 200) {
+        //       console.log("nftInfo.data.", nftInfo.data);
+        //       commit(types.CHANGE_DIALOG_STATUS, {
+        //         phase2: "success",
+        //       });
+        //       setTimeout(() => {
+        //         commit(types.CHANGE_DIALOG_STATUS, {
+        //           title:
+        //             utilsFormat.computedLangCtx("获得").value +
+        //             " " +
+        //             nftInfo.data.name,
+        //           // TODO
+        //           // 图片load太慢,用个展位图
+        //           customImgUrl: nftInfo.data.imageLink, //
+        //           dialogStatus: "success",
+        //           dialogText: "",
+        //           successBtnText: utilsFormat.computedLangCtx("去我的NFT查看"),
+        //           isBlindBox: false,
+        //         });
+        //       }, 500);
+        //       console.timeEnd("===查询NFT===");
+        //       console.timeEnd("===盲盒开启===");
+        //     }
+        //   }
+        // }, 1000);
       } else {
         console.timeEnd("===盲盒开启===");
         commit(types.CHANGE_DIALOG_STATUS, {

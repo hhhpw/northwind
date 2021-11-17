@@ -72,7 +72,14 @@
 </template>
 <script setup>
 /* eslint-disable */
-import { computed, onMounted, reactive, watch, watchEffect } from "vue";
+import {
+  computed,
+  onMounted,
+  onUnmounted,
+  reactive,
+  watch,
+  watchEffect,
+} from "vue";
 import LiquidityDetailCard from "./card";
 import InputDialog from "./inputdialog";
 import { useStore } from "vuex";
@@ -102,6 +109,8 @@ const handleCancelInputDialog = () => {
   );
 };
 
+store.dispatch("StoreFarms/getSwapMiningDrawGas");
+
 const onceWatch = watchEffect(() => {
   if (token) {
     store.commit("StoreFarms/SET_CURR_LPTOKEN_INFO", { token });
@@ -111,6 +120,10 @@ const onceWatch = watchEffect(() => {
     store.dispatch("StoreFarms/getLiquidityKikoReward", state.accounts[0]);
     onceWatch && onceWatch();
   }
+});
+
+onUnmounted(() => {
+  store.commit("StoreFarms/SET_CURR_LPTOKEN_INFO", { token: "", value: "" });
 });
 </script>
 <style lang="scss" module>

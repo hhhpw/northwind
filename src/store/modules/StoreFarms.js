@@ -22,8 +22,12 @@ const StoreFarms = {
     poolList: null,
     lpTokenInfo: {}, // {token: , value:}
     liquidityDrawData: null, // 可提取的kiko
+    totalStakeAmount: null,
   },
   mutations: {
+    [types.SET_LIQUIDITY_TOTAL_STAKE_AMOUNT](state, payload) {
+      state.totalStakeAmount = payload;
+    },
     [types.SET_LIQUIDITY_DRAW_DATA](state, payload) {
       state.liquidityDrawData = payload;
     },
@@ -300,7 +304,8 @@ const StoreFarms = {
         dialogStatus: "ongoing",
         dialogText: utilsFormat.computedLangCtx("提取中"),
       });
-      const txnHashData = await farmsAPI.getPersonLockedReward(params);
+      const txnHashData = await farmsAPI.drawLiquidityKIKOProfit(params);
+      console.log("txnHashData", txnHashData);
       if (txnHashData.code === 200) {
         let txnHash = txnHashData.data.transactionHash;
         commit(types.CHANGE_DIALOG_PARAMS, {
@@ -382,7 +387,26 @@ const StoreFarms = {
     async getLiquidityKikoReward({ commit }, payload) {
       const res = await farmsAPI.getLiquidityKikoReward(payload);
       if (res.code === 200) {
-        commit(types.SET_LIQUIDITY_DRAW_DATA, res.data.value);
+        commit(types.SET_LIQUIDITY_DRAW_DATA, res.data.currentReward);
+      }
+    },
+
+    // 流动性 总质押
+    async getLpTotalStakeAmount({ commit }) {
+      const res = await farmsAPI.getLpTotalStakeAmount();
+      if (res.code === 200) {
+        commit(
+          types.SET_LIQUIDITY_TOTAL_STAKE_AMOUNT,
+          res.data.totalStakingAmount
+        );
+      }
+    },
+
+    // 流动 矿池列表
+    async getLpPoolList({ commit }) {
+      const res = await farmsAPI.getLpPoolList();
+      if (res.code === 200) {
+        commit(types.SET_LIQUIDITY_POOLLIST, res.data);
       }
     },
 
@@ -402,8 +426,7 @@ const StoreFarms = {
               const tokenString = k.match(/LPToken<(.*)>>/)[1]; // 匹配LPToken开头、>>结束
               const tokenAddress = tokenString.split(", ");
               const tokens = tokenAddress.map((d) => d.split("::")[2]);
-              console.log("tokens", tokens);
-              const lpToken = `${tokens[0]}/${tokens[1]}`;
+              const lpToken = `${tokens[0]}_${tokens[1]}`;
               if (lpToken === state.lpTokenInfo.token) {
                 commit(types.SET_CURR_LPTOKEN_INFO, {
                   value: utilsNumber.formatNumberMeta(

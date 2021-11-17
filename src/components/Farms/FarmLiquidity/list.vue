@@ -9,29 +9,28 @@
         {{ $t(`farms.farm-liquidity-list-th-name-${i + 1}`) }}
       </div>
     </div>
-    <div :class="$style['container-farm-liquidity-list-body']">
+    <div
+      :class="$style['container-farm-liquidity-list-body']"
+      v-if="state.poolList && state.poolList.length > 0"
+    >
       <div
         :class="$style['container-farm-liquidity-list-body-item']"
-        v-for="(d, i) in new Array(7)"
+        v-for="(d, i) in state.poolList"
         :key="i"
-        @click="pushPage('BTC/ETH')"
+        @click="pushPage({ lpToken: d.pairName, id: d.id })"
       >
         <div :class="$style['container-farm-liquidity-list-body-item-symbol']">
           <span>
-            <img
-              src="https://imagedelivery.net/3mRLd_IbBrrQFSP57PNsVw/3bfe4edc-b91a-429a-eb5c-0a529fbb2200/public"
-            />
-            <img
-              src="https://imagedelivery.net/3mRLd_IbBrrQFSP57PNsVw/771fed83-9d98-4be2-162d-b8639dfa6800/public"
-            />
+            <img :src="d.tokenIconA" />
+            <img :src="d.tokenIconB" />
           </span>
-          <span>BTC/USDT</span>
+          <span>{{ d.pairName.replace("_", "/") }}</span>
         </div>
         <div
           :class="$style['container-farm-liquidity-list-body-item-dayamount']"
         >
           <star-amount
-            :value="123123"
+            :value="d.dailyTotalOutput"
             :formatOptions="{
               precision: setPrecision(2),
               trailingZero: true,
@@ -44,7 +43,7 @@
         </div>
         <div :class="$style['container-farm-liquidity-list-body-item-apr']">
           <star-amount
-            :value="1233"
+            :value="d.apy"
             :formatOptions="{
               precision: setPrecision(2),
               trailingZero: false,
@@ -58,7 +57,7 @@
           :class="$style['container-farm-liquidity-list-body-item-totalstake']"
         >
           <star-amount
-            :value="666"
+            :value="d.totalStakingAmount"
             :formatOptions="{
               precision: setPrecision(2),
               trailingZero: false,
@@ -73,7 +72,7 @@
           :class="$style['container-farm-liquidity-list-body-item-perstake']"
         >
           <star-amount
-            :value="773213127"
+            :value="d.userStakingAmount"
             :formatOptions="{
               precision: setPrecision(2),
               trailingZero: false,
@@ -88,7 +87,7 @@
           :class="$style['container-farm-liquidity-list-body-item-perreward']"
         >
           <star-amount
-            :value="88.3132148"
+            :value="d.userReward"
             :formatOptions="{
               precision: setPrecision(4),
               trailingZero: false,
@@ -118,7 +117,10 @@ import { useStore } from "vuex";
 const store = useStore();
 let state = reactive({
   walletStatus: computed(() => store.state.StoreWallet.walletStatus),
+  poolList: computed(() => store.state.StoreFarms.poolList),
 });
+
+store.dispatch("StoreFarms/getLpPoolList");
 
 const setValue = (value) =>
   computed(() => {
@@ -144,7 +146,7 @@ const setPrecision = (precision) =>
 //   }
 // });
 
-const pushPage = (lpToken) => {
+const pushPage = ({ lpToken, id }) => {
   store.commit("StoreFarms/SET_CURR_LPTOKEN_INFO", {
     token: lpToken,
   });
@@ -152,6 +154,7 @@ const pushPage = (lpToken) => {
     path: "/liquidityfarmsdetail",
     query: {
       token: lpToken,
+      id,
       // token: utilsRouter.encodePath(lpToken),
       // token: utilsRouter.encodePath(lpToken),
     },

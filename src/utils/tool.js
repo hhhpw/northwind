@@ -74,6 +74,25 @@ const pollingTxnInfo = ({ txnHash, delay = 1000 } = {}) => {
   });
 };
 
+const getOpenBoxIdByHash = ({ txnHash, boxToken } = {}) => {
+  return new Promise((resolve) => {
+    commonApi.getOpenBoxIdByHash(txnHash).then((res) => {
+      console.log("盲盒开启id查询", res);
+      if (res.result && res.result.length > 0) {
+        const k = res.result.filter((d) => d.type_tag.includes(boxToken));
+        if (k && k.length) {
+          const id = k[0].decode_event_data.id;
+          resolve(String(id));
+        }
+      } else {
+        setTimeout(() => {
+          resolve(getOpenBoxIdByHash({ txnHash, boxToken }));
+        }, 1000);
+      }
+    });
+  });
+};
+
 /**
  * 轮询查上链信息 上面的方法只针对NFT使用
  * @param {txnHash, delay}
@@ -133,4 +152,5 @@ export default {
   getImgTruePath,
   setJWT,
   pollingBlockHashInfo,
+  getOpenBoxIdByHash,
 };

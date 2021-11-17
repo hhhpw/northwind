@@ -123,23 +123,28 @@ function getPersonLockedReward(payload) {
 }
 // 提取费用
 function getSwapMiningDrawGas() {
+  // return request({
+  //   url: "/v1/mining/trading/fee",
+  //   method: "GET",
+  // });
   return {
     code: 200,
     msg: "ok",
     timeStamp: 1234567890123,
-    data: {
-      value: "0.0002",
-    },
+    data: 0.01, // 手续费(kiko)
   };
 }
 
+// ============================流动性挖矿============================
+
 // 获取流动性可提取kiko
-function getLiquidityKikoReward(payload) {
+function getLiquidityKikoReward({ userAddress, poolId }) {
   // return request({
   //   url: "/v1/mining/trading/reward",
   //   method: "GET",
   //   params: {
-  //     userAddress: payload,
+  //     userAddress,
+  //     poolId
   //   },
   // });
   return {
@@ -147,7 +152,69 @@ function getLiquidityKikoReward(payload) {
     msg: "ok",
     timeStamp: 1234567890123,
     data: {
-      value: 0.0006, // 待领取收益
+      currentReward: 0.0006, // 待领取收益
+    },
+  };
+}
+
+function getLpTotalStakeAmount() {
+  // return request({
+  //   url: "/v1/mining/lp/market",
+  //   method: "GET",
+  // });
+  return {
+    code: 200,
+    msg: "ok",
+    timeStamp: 1234567890123,
+    data: {
+      totalStakingAmount: 123456.123, // 总质押额
+    },
+  };
+}
+
+function getLpPoolList() {
+  // return request({
+  //   url: "/v1/mining/lp/pool/list",
+  //   method: "GET",
+  // });
+  return {
+    code: 200,
+    msg: "OK",
+    timeStamp: 1636424698607,
+    data: [
+      {
+        id: 10000,
+        pairName: "BTC_USDT",
+        tokenA: "0x1::BTC::BTC",
+        tokenB: "0x1::USDT::USDT",
+        tokenIconA: "https://photo.16pic.com/00/68/78/16pic_6878865_b.png",
+        tokenIconB: "https://photo.16pic.com/00/68/78/16pic_6878865_b.png",
+        dailyTotalOutput: 123.123, // 每日产出
+        apy: 999999, // 年化收益
+        totalStakingAmount: 10000.123, // 总质押
+        userStakingAmount: 1000.123, // 个人质押
+        userReward: 0.006092256, // 待领取收益
+      },
+    ],
+  };
+}
+
+// 提取 流动性收益
+
+function drawLiquidityKIKOProfit(userAddress) {
+  // return request({
+  //   url: "/v1/mining/lp/reward/harvest",
+  //   method: "POST",
+  //   data: {
+  //     userAddress,
+  //   },
+  // });
+  return {
+    code: 200,
+    msg: "ok",
+    timeStamp: 1234567890123,
+    data: {
+      transactionHash: "0xABCD1234", // 交易哈希
     },
   };
 }
@@ -159,5 +226,9 @@ export default {
   getPersonCurrReward,
   getSwapMiningDrawGas,
   getPersonLockedReward,
+  // 流动性
+  getLpTotalStakeAmount,
+  getLpPoolList,
   getLiquidityKikoReward,
+  drawLiquidityKIKOProfit,
 };
