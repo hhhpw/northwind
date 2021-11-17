@@ -69,24 +69,6 @@ function getSellingData(userAddress) {
   });
 }
 
-// 获取盲盒打开后hash
-function getSellBoxIdByHash(hash) {
-  let params = {
-    id: 101,
-    jsonrpc: "2.0",
-    method: "chain.get_events_by_txn_hash",
-    params: [hash, { decode: true }],
-  };
-  return request({
-    headers: {
-      "content-type": "application/json",
-    },
-    url: process.env.VUE_APP_CONTRACTS_SERVE_URL,
-    method: "post",
-    data: JSON.stringify(params),
-  });
-}
-
 function getPurchaseHistory(payload) {
   return request({
     url: "/v1/nft/store/records",
@@ -114,7 +96,6 @@ function getSalesHistory(payload) {
 }
 
 export default {
-  getSellBoxIdByHash,
   getBoxDetail, //盲盒详情
   getNftDetail, //nft详情
   getMySeries,
