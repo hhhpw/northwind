@@ -238,6 +238,8 @@ const StoreNftMarket = {
         dialogText: utilsFormat.computedLangCtx("购买中"),
       });
       let txnHash;
+      console.time("===market:买入合约===");
+      console.time("===market:买入合约gas计算===");
       if (params.contractType === "BLIND_BOX") {
         txnHash = await Wallet.blindBoxContractCall({
           provider: provider,
@@ -253,12 +255,14 @@ const StoreNftMarket = {
           type: "BUY",
         });
       }
+      console.timeEnd("===market:买入合约gas计算===");
       if (txnHash !== "error") {
         commit(types.CHANGE_DIALOG_STATUS, {
           phase1: "success",
         });
         utilsTool.pollingTxnInfo({ txnHash }).then((res) => {
           if (res === "Executed") {
+            console.timeEnd("===market:买入合约===");
             commit(types.CHANGE_DIALOG_STATUS, {
               phase2: "success",
             });
@@ -269,6 +273,7 @@ const StoreNftMarket = {
               });
             }, 5000);
           } else {
+            console.timeEnd("===market:买入合约===");
             commit(types.CHANGE_DIALOG_STATUS, {
               dialogStatus: "failed",
               dialogText: utilsFormat.computedLangCtx("购买失败"),
@@ -276,6 +281,7 @@ const StoreNftMarket = {
           }
         });
       } else {
+        console.timeEnd("===market:买入合约===");
         commit(types.CHANGE_DIALOG_STATUS, {
           dialogStatus: "failed",
           dialogText: utilsFormat.computedLangCtx("购买失败"),
@@ -315,6 +321,8 @@ const StoreNftMarket = {
         dialogText: utilsFormat.computedLangCtx("出价中"),
       });
       let txnHash;
+      console.time("===market:出价合约===");
+      console.time("===market:出价合约gas计算===");
       const price = utilsNumber
         .bigNum(params.offerPrice)
         .times(Math.pow(10, 9))
@@ -335,12 +343,14 @@ const StoreNftMarket = {
           type: "BID",
         });
       }
+      console.timeEnd("===market:出价合约gas计算===");
       if (txnHash !== "error") {
         commit(types.CHANGE_DIALOG_STATUS, {
           phase1: "success",
         });
         utilsTool.pollingTxnInfo({ txnHash }).then((res) => {
           if (res === "Executed") {
+            console.timeEnd("===market:出价合约===");
             commit(types.CHANGE_DIALOG_STATUS, {
               phase2: "success",
             });
@@ -351,6 +361,7 @@ const StoreNftMarket = {
               });
             }, 5000);
           } else {
+            console.timeEnd("===market:出价合约===");
             commit(types.CHANGE_DIALOG_STATUS, {
               dialogStatus: "failed",
               dialogText: utilsFormat.computedLangCtx("出价失败"),
@@ -358,6 +369,7 @@ const StoreNftMarket = {
           }
         });
       } else {
+        console.timeEnd("===market:出价合约===");
         commit(types.CHANGE_DIALOG_STATUS, {
           dialogStatus: "failed",
           dialogText: utilsFormat.computedLangCtx("出价失败"),
@@ -405,6 +417,8 @@ const StoreNftMarket = {
         dialogText: utilsFormat.computedLangCtx("更改售价中"),
       });
       let txnHash;
+      console.time("===market:更改报价合约===");
+      console.time("===market:更改报价合约gas计算===");
       if (params.contractType === "BLIND_BOX") {
         txnHash = await Wallet.blindBoxContractCall({
           provider,
@@ -420,12 +434,14 @@ const StoreNftMarket = {
           type: "CHANGE_PRICE",
         });
       }
+      console.timeEnd("===market:更改报价合约gas计算===");
       if (txnHash !== "error") {
         commit(types.CHANGE_DIALOG_STATUS, {
           phase1: "success",
         });
         utilsTool.pollingTxnInfo({ txnHash }).then((res) => {
           if (res === "Executed") {
+            console.timeEnd("===market:更改报价合约===");
             commit(types.CHANGE_DIALOG_STATUS, {
               phase2: "success",
             });
@@ -437,6 +453,7 @@ const StoreNftMarket = {
               });
             }, 5000);
           } else {
+            console.timeEnd("===market:更改报价合约===");
             commit(types.CHANGE_DIALOG_STATUS, {
               dialogStatus: "failed",
               dialogText: utilsFormat.computedLangCtx("售价更改失败"),
@@ -445,6 +462,7 @@ const StoreNftMarket = {
           }
         });
       } else {
+        console.timeEnd("===market:更改报价合约===");
         commit(types.CHANGE_DIALOG_STATUS, {
           dialogStatus: "failed",
           dialogText: utilsFormat.computedLangCtx("售价更改失败"),
@@ -484,6 +502,8 @@ const StoreNftMarket = {
         isShow: true,
         dialogText: utilsFormat.computedLangCtx("获取收益中"),
       });
+      console.time("===market:接受报价合约===");
+      console.time("===market:接受报价合约gas计算===");
       if (params.contractType === "BLIND_BOX") {
         txnHash = await Wallet.blindBoxContractCall({
           provider,
@@ -499,12 +519,14 @@ const StoreNftMarket = {
           type: "ACCEPT_BID",
         });
       }
+      console.timeEnd("===market:接受报价合约gas计算===");
       if (txnHash !== "error") {
         commit(types.CHANGE_DIALOG_STATUS, {
           phase1: "success",
         });
         utilsTool.pollingTxnInfo({ txnHash }).then((res) => {
           if (res === "Executed") {
+            console.timeEnd("===market:接受报价合约===");
             // 查询到信息
             commit(types.CHANGE_DIALOG_STATUS, {
               phase2: "success",
@@ -519,6 +541,7 @@ const StoreNftMarket = {
               });
             }, 5000);
           } else {
+            console.timeEnd("===market:接受报价合约===");
             commit(types.CHANGE_DIALOG_STATUS, {
               dialogStatus: "failed",
               dialogText: utilsFormat.computedLangCtx("获取收益失败"),
@@ -526,6 +549,7 @@ const StoreNftMarket = {
           }
         });
       } else {
+        console.timeEnd("===market:接受报价合约===");
         commit(types.CHANGE_DIALOG_STATUS, {
           dialogStatus: "failed",
           dialogText: utilsFormat.computedLangCtx("获取收益失败"),
@@ -564,6 +588,8 @@ const StoreNftMarket = {
         dialogText: utilsFormat.computedLangCtx("下架中"),
       });
       let txnHash;
+      console.time("===market:取消出售合约===");
+      console.time("===market:取消出售合约gas计算===");
       if (params.contractType === "BLIND_BOX") {
         txnHash = await Wallet.blindBoxContractCall({
           provider: provider,
@@ -579,12 +605,14 @@ const StoreNftMarket = {
           type: "OFFLINE",
         });
       }
+      console.timeEnd("===market:取消出售合约gas计算===");
       if (txnHash !== "error") {
         commit(types.CHANGE_DIALOG_STATUS, {
           phase1: "success",
         });
         utilsTool.pollingTxnInfo({ txnHash }).then((res) => {
           if (res === "Executed") {
+            console.timeEnd("===market:取消出售合约===");
             // 查询到信息
             commit(types.CHANGE_DIALOG_STATUS, {
               phase2: "success",
@@ -596,6 +624,7 @@ const StoreNftMarket = {
               });
             }, 5000);
           } else {
+            console.timeEnd("===market:取消出售合约===");
             commit(types.CHANGE_DIALOG_STATUS, {
               dialogStatus: "failed",
               dialogText: utilsFormat.computedLangCtx("商品下架失败"),
@@ -603,6 +632,7 @@ const StoreNftMarket = {
           }
         });
       } else {
+        console.timeEnd("===market:取消出售合约===");
         commit(types.CHANGE_DIALOG_STATUS, {
           dialogStatus: "failed",
           dialogText: utilsFormat.computedLangCtx("商品下架失败"),

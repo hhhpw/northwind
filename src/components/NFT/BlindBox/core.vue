@@ -117,7 +117,7 @@
             width="100%"
             :value="state.inputVal"
             @inputEvent="inputEvent"
-            :max="10"
+            :max="5"
           ></star-input-number>
           <star-space :size="10"></star-space>
           <div class="nft-blindbox-core-buy-dialog-content-details">
