@@ -62,6 +62,23 @@ function getTransactionInfo(txnHash) {
   });
 }
 
+function getOpenBoxIdByHash(hash) {
+  let params = {
+    id: 101,
+    jsonrpc: "2.0",
+    method: "chain.get_events_by_txn_hash",
+    params: [hash, { decode: true }],
+  };
+  return request({
+    headers: {
+      "content-type": "application/json",
+    },
+    url: process.env.VUE_APP_CONTRACTS_SERVE_URL,
+    method: "post",
+    data: JSON.stringify(params),
+  });
+}
+
 function getImgTruePath(url) {
   return request({
     url,
@@ -100,4 +117,5 @@ export default {
   getTransactionInfo,
   getImgTruePath,
   getVolumeData,
+  getOpenBoxIdByHash,
 };

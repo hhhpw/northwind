@@ -117,7 +117,6 @@
             width="100%"
             :value="state.inputVal"
             @inputEvent="inputEvent"
-            :max="5"
           ></star-input-number>
           <star-space :size="10"></star-space>
           <div class="nft-blindbox-core-buy-dialog-content-details">
@@ -130,6 +129,7 @@
             </p> -->
             <p v-if="!state.inputVal_isInteger">*{{ t("只能输入整数") }}</p>
             <p v-if="state.errors[1]">* {{ t("可用金额不足") }}</p>
+            <p v-if="state.errors[0]">* {{ t("超过单次最大购买数量5") }}</p>
           </div>
         </div>
       </template>
@@ -323,6 +323,11 @@ const buyBlindBox = async () => {
     return;
   }
   if (!validateVal(state.inputVal)) {
+    return;
+  }
+  console.log("inputVal", state.inputVal);
+  if (state.inputVal > 5) {
+    state.errors[0] = true;
     return;
   }
   store.commit("StoreBlindBox/CHANGE_BUY_MODAL_STATUS", false);
