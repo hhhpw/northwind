@@ -145,7 +145,10 @@ const StoreBlindBox = {
         tyArgs,
         args,
       };
+      console.time("===购买盲盒合约===");
+      console.time("===购买盲盒合约gas计算===");
       const txnHash = await Wallet.blindBoxContractCall(params);
+      console.timeEnd("===购买盲盒合约gas计算===");
       if (txnHash !== "error") {
         commit("CHANGE_BUY_CB_MODAL_STATUS", {
           phase1: "success",
@@ -160,13 +163,15 @@ const StoreBlindBox = {
             commit("CHANGE_BUY_CB_MODAL_STATUS", {
               phase2: "success",
             });
+            console.timeEnd("===购买盲盒合约===");
             setTimeout(() => {
               commit("CHANGE_BUY_CB_MODAL_STATUS", {
                 dialogStatus: "success",
                 dialogText: "购买成功",
               });
-            }, 5000);
+            }, 4000);
           } else {
+            console.timeEnd("===购买盲盒合约===");
             commit("CHANGE_BUY_CB_MODAL_STATUS", {
               dialogStatus: "failed",
               dialogText: utilsFormat.computedLangCtx("购买失败"),

@@ -95,7 +95,10 @@ const StoreBuyBack = {
         args: payload.args,
         type: "BUY_BACK_SELL",
       };
+      console.time("===回购合约===");
+      console.time("===回购合约gas计算===");
       const txnHash = await Wallet.nftContractCall(params);
+      console.timeEnd("===回购合约gas计算===");
       if (txnHash !== "error") {
         commit(types.CHANGE_DIALOG_STATUS, {
           phase1: "success",
@@ -105,6 +108,7 @@ const StoreBuyBack = {
             commit(types.CHANGE_DIALOG_STATUS, {
               phase2: "success",
             });
+            console.timeEnd("===回购合约===");
             setTimeout(() => {
               commit(types.CHANGE_DIALOG_STATUS, {
                 dialogStatus: "success",
@@ -115,6 +119,7 @@ const StoreBuyBack = {
               });
             }, 5000);
           } else {
+            console.timeEnd("===回购合约===");
             commit(types.CHANGE_DIALOG_STATUS, {
               dialogStatus: "failed",
               dialogText: utilsFormat.computedLangCtx("获取收益失败"),
@@ -122,6 +127,7 @@ const StoreBuyBack = {
           }
         });
       } else {
+        console.timeEnd("===回购合约===");
         commit(types.CHANGE_DIALOG_STATUS, {
           dialogStatus: "failed",
           dialogText: utilsFormat.computedLangCtx("获取收益失败"),

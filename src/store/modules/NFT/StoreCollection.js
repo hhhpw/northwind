@@ -447,7 +447,9 @@ const StoreCollection = {
         type: "OPEN",
       };
       console.time("===盲盒开启===");
+      console.time("===盲盒开启gas计算===");
       const txnHash = await Wallet.openBlindBox(params);
+      console.timeEnd("===盲盒开启gas计算===");
       if (txnHash !== "error") {
         commit(types.CHANGE_DIALOG_STATUS, {
           phase1: "success",
@@ -496,6 +498,7 @@ const StoreCollection = {
           }
         }, 1000);
       } else {
+        console.timeEnd("===盲盒开启===");
         commit(types.CHANGE_DIALOG_STATUS, {
           dialogStatus: "failed",
           dialogText: utilsFormat.computedLangCtx("开启失败"),
@@ -518,13 +521,15 @@ const StoreCollection = {
           type: "SELL",
         }
       );
+      console.time("===出售合约===");
+      console.time("===出售合约gas计算===");
       let txnHash =
         type === "box"
           ? await Wallet.blindBoxContractCall(params)
           : type === "nft"
           ? await Wallet.nftContractCall(params)
           : "";
-
+      console.timeEnd("===出售合约gas计算===");
       if (txnHash !== "error") {
         commit(types.CHANGE_DIALOG_STATUS, {
           phase1: "success",
@@ -534,6 +539,7 @@ const StoreCollection = {
             commit(types.CHANGE_DIALOG_STATUS, {
               phase2: "success",
             });
+            console.timeEnd("===出售合约===");
             setTimeout(() => {
               commit(types.CHANGE_DIALOG_STATUS, {
                 dialogStatus: "success",
@@ -541,6 +547,7 @@ const StoreCollection = {
               });
             }, 5000);
           } else {
+            console.timeEnd("===出售合约===");
             commit(types.CHANGE_DIALOG_STATUS, {
               dialogStatus: "failed",
               dialogText: utilsFormat.computedLangCtx("商品上架失败"),
@@ -548,6 +555,7 @@ const StoreCollection = {
           }
         });
       } else {
+        console.timeEnd("===出售合约===");
         commit(types.CHANGE_DIALOG_STATUS, {
           dialogStatus: "failed",
           dialogText: utilsFormat.computedLangCtx("商品上架失败"),
@@ -595,13 +603,15 @@ const StoreCollection = {
           type: "OFFLINE",
         }
       );
+      console.time("===collection:取消出售合约===");
+      console.time("===collection:取消出售合约gas计算===");
       let txnHash =
         type === "box"
           ? await Wallet.blindBoxContractCall(params)
           : type === "nft"
           ? await Wallet.nftContractCall(params)
           : "";
-
+      console.timeEnd("===collection:取消出售合约gas计算===");
       if (txnHash !== "error") {
         commit(types.CHANGE_DIALOG_STATUS, {
           phase1: "success",
@@ -611,6 +621,7 @@ const StoreCollection = {
             commit(types.CHANGE_DIALOG_STATUS, {
               phase2: "success",
             });
+            console.timeEnd("===collection:取消出售合约======");
             setTimeout(() => {
               commit(types.CHANGE_DIALOG_STATUS, {
                 dialogStatus: "success",
@@ -618,6 +629,7 @@ const StoreCollection = {
               });
             }, 5000);
           } else {
+            console.timeEnd("===collection:取消出售合约======");
             commit(types.CHANGE_DIALOG_STATUS, {
               dialogStatus: "failed",
               dialogText: utilsFormat.computedLangCtx("商品下架失败"),
@@ -625,6 +637,7 @@ const StoreCollection = {
           }
         });
       } else {
+        console.timeEnd("===collection:取消出售合约===");
         commit(types.CHANGE_DIALOG_STATUS, {
           dialogStatus: "failed",
           dialogText: utilsFormat.computedLangCtx("商品下架失败"),
@@ -672,19 +685,22 @@ const StoreCollection = {
           type: "ACCEPT_BID",
         }
       );
+      console.time("===collection:接受报价合约===");
+      console.time("===collection:接受报价合约gas计算===");
       let txnHash =
         type === "box"
           ? await Wallet.blindBoxContractCall(params)
           : type === "nft"
           ? await Wallet.nftContractCall(params)
           : "";
-
+      console.timeEnd("===collection:接受报价合约gas计算===");
       if (txnHash !== "error") {
         commit(types.CHANGE_DIALOG_STATUS, {
           phase1: "success",
         });
         utilsTools.pollingTxnInfo({ txnHash }).then((res) => {
           if (res === "Executed") {
+            console.timeEnd("===collection:接受报价合约===");
             commit(types.CHANGE_DIALOG_STATUS, {
               phase2: "success",
             });
@@ -700,6 +716,7 @@ const StoreCollection = {
               });
             }, 5000);
           } else {
+            console.timeEnd("===collection:接受报价合约===");
             commit(types.CHANGE_DIALOG_STATUS, {
               dialogStatus: "failed",
               dialogText: utilsFormat.computedLangCtx("获取收益失败"),
@@ -707,6 +724,7 @@ const StoreCollection = {
           }
         });
       } else {
+        console.timeEnd("===collection:接受报价合约===");
         commit(types.CHANGE_DIALOG_STATUS, {
           dialogStatus: "failed",
           dialogText: utilsFormat.computedLangCtx("获取收益失败"),
@@ -746,6 +764,8 @@ const StoreCollection = {
       });
       const { type, args, tyArgs } = payload;
       const provider = rootState.StoreWallet.stcProvider;
+      console.time("===collection:更改售价合约===");
+      console.time("===collection:更改售价合约gas计算===");
       const txnHash =
         type === "box"
           ? await Wallet.blindBoxContractCall({
@@ -762,12 +782,14 @@ const StoreCollection = {
               type: "CHANGE_PRICE",
             })
           : "";
+      console.timeEnd("===collection:更改售价合约gas计算===");
       if (txnHash !== "error") {
         commit(types.CHANGE_DIALOG_STATUS, {
           phase1: "success",
         });
         utilsTools.pollingTxnInfo({ txnHash }).then((res) => {
           if (res === "Executed") {
+            console.timeEnd("===collection:更改售价合约===");
             commit(types.CHANGE_DIALOG_STATUS, {
               phase2: "success",
             });
@@ -779,6 +801,7 @@ const StoreCollection = {
               });
             }, 5000);
           } else {
+            console.timeEnd("===collection:更改售价合约===");
             commit(types.CHANGE_DIALOG_STATUS, {
               dialogStatus: "failed",
               dialogText: utilsFormat.computedLangCtx("售价更改失败"),
@@ -786,6 +809,7 @@ const StoreCollection = {
           }
         });
       } else {
+        console.timeEnd("===collection:更改售价合约===");
         commit(types.CHANGE_DIALOG_STATUS, {
           dialogStatus: "failed",
           dialogText: utilsFormat.computedLangCtx("售价更改失败"),
