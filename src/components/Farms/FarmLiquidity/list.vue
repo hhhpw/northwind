@@ -153,8 +153,8 @@ const pushPage = ({ lpToken, id }) => {
   utilsRouter.push({
     path: "/liquidityfarmsdetail",
     query: {
-      token: lpToken,
       id,
+      token: lpToken,
       // token: utilsRouter.encodePath(lpToken),
       // token: utilsRouter.encodePath(lpToken),
     },

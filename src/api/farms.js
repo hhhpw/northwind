@@ -131,7 +131,7 @@ function getSwapMiningDrawGas() {
     code: 200,
     msg: "ok",
     timeStamp: 1234567890123,
-    data: 0.01, // 手续费(kiko)
+    data: 0.0001, // 手续费(kiko)
   };
 }
 

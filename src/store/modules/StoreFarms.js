@@ -101,7 +101,7 @@ const StoreFarms = {
       if (state.swapMiningDrawGas) return;
       const res = await farmsAPI.getSwapMiningDrawGas();
       if (res.code === 200) {
-        commit(types.SWAP_MINING_DRAW_GAS, res.data.value);
+        commit(types.SWAP_MINING_DRAW_GAS, res.data);
       }
     },
 
@@ -411,6 +411,7 @@ const StoreFarms = {
     },
 
     // 获取用户流动性记录
+    // 后端提供接口不需要自己读取
     async getLPDataByUser({ commit, state }, payload) {
       const res = await commonAPI.getAllPoolListByUser(payload);
       if (res.result && res.result.resources) {
