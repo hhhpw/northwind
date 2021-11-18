@@ -71,7 +71,7 @@ const rarevalue_total_rank = computed(() => {
     }
   }
   .rarevalue-table {
-    width: 411px;
+    max-width: 700px;
     .rarevalue-table-item {
       height: 48px;
       line-height: 48px;
