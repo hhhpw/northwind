@@ -366,6 +366,7 @@ onUnmounted(() => {
     "StoreBlindBox/CHANGE_BUY_CB_MODAL_STATUS",
     NFT_CONSTANTS.INIT_DIALOG_PARAMS
   );
+  store.commit("StoreBlindBox/SET_BLINDBOX_DATA", null);
   if (state.timer) {
     clearInterval(state.timer);
   }
