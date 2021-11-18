@@ -3,6 +3,7 @@
     <div class="nft-blindbox-core-header">
       <div class="nft-blindbox-core-header-left">
         <img :src="state.blindBoxData.boxTokenLogo" />
+        <!-- <img src="../../../assets/nft/box.gif" /> -->
       </div>
       <div class="nft-blindbox-core-header-right">
         <p class="nft-blindbox-core-header-right-title">
@@ -382,18 +383,24 @@ onUnmounted(() => {
     display: flex;
     .nft-blindbox-core-header-left {
       background: #ebebeb;
-      width: 376px;
-      height: 376px;
-      border-top: 48px solid #fff;
-      border-bottom: 48px solid #fff;
-      border-left: 24px solid #fff;
-      border-right: 24px solid #fff;
+      width: 424px;
+      height: 424px;
+      background: #ffffff;
+      border-radius: 14px;
+      font-size: 0;
+      overflow: hidden;
+      // border-top: 48px solid #fff;
+      // border-bottom: 48px solid #fff;
+      // border-left: 24px solid #fff;
+      // border-right: 24px solid #fff;
       display: flex;
       align-items: center;
       justify-content: center;
       img {
         width: 100%;
         height: 100%;
+        max-width: 424px;
+        max-height: 424px;
       }
     }
     .nft-blindbox-core-header-right {
