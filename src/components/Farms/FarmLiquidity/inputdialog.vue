@@ -10,8 +10,11 @@
       <template #core>
         <div :class="$style['dialog-container-core']">
           <div :class="$style['dialog-container-core-title']">
-            <span v-if="props.dataParams && props.dataParams.value">
-              {{ $t("余额") }}: {{ props.dataParams.value }}
+            <span v-if="props.dataParams">
+              {{ $t("余额") }}:
+              <span>
+                {{ props.dataParams?.value || 0 }}
+              </span>
             </span>
           </div>
           <div :class="$style['dialog-container-core-main']">
@@ -52,8 +55,7 @@
   </div>
 </template>
 <script setup>
-/* eslint-disable */
-import { computed, onMounted, reactive, watch, watchEffect } from "vue";
+import { computed, reactive, watch, watchEffect } from "vue";
 import StarInput from "@StarUI/StarInput";
 import StarConfirm from "@StarUI/StarConfirm";
 import StarButton from "@StarUI/StarButton";
@@ -95,12 +97,12 @@ const handleConfirm = (type) => {
 };
 
 const canConfirm = computed(() => {
-  return !!state.inputValue;
+  return !!state.inputValue && props.dataParams?.value > 0;
 });
 
 watch(
   () => props.dialogParams.dialogVisible,
-  (n, o) => {
+  (n) => {
     state.visible = n;
   }
 );

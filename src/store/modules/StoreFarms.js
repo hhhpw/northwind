@@ -352,7 +352,7 @@ const StoreFarms = {
     },
     // 流动性提取和质押LpToken
     async liquidityContracts({ commit, rootState }, { type }) {
-      console.log("liquidityContracts", liquidityContracts);
+      console.log("liquidityContracts");
       commit(
         types.CHANGE_INPUT_DIALOG_PARAMS,
         FARMS_CONSTANTS.LIQUIDITY_INPUT_DIALOG_PARAMS
