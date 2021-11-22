@@ -122,7 +122,7 @@
           <star-space :size="10"></star-space>
           <div class="nft-blindbox-core-buy-dialog-content-details">
             <span>{{ t("总价") }}：{{ totalCost }} STC</span>
-            <span>{{ t("可用") }}：{{ userAmount }} STC</span>
+            <span>{{ t("钱包余额") }}：{{ userAmount }} STC</span>
           </div>
           <div class="nft-blindbox-core-buy-dialog-content-errors">
             <!-- <p v-if="state.errors[0]">

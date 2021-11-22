@@ -12,7 +12,7 @@ const INIT_LIST_PARAMS = {
   currency: "",
   open: "all",
   sort: 0,
-  pageSize: 20,
+  pageSize: 30,
   pageNum: 1,
 };
 const INIT_LIST_STATUS = {

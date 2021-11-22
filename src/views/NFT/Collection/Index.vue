@@ -107,6 +107,7 @@ import sellRecord from "@components/NFT/Collection/sellRecord.vue";
 import purchaseRecord from "@components/NFT/Collection/purchaseRecord.vue";
 import { dialogEventMaps } from "./dialog";
 import NFT_CONSTANTS from "@constants/nft.js";
+import qs from "qs";
 const { t } = useI18n();
 const store = useStore();
 const router = useRouter();
@@ -321,10 +322,15 @@ const watchDetail = (d, sellType) => {
         payToken: d.payToken,
       };
     }
-    router.push({
-      path: "/nftcollectiondetail",
-      query,
-    });
+    const url = qs.stringify(query);
+    window.open(
+      `${window.location.origin}/nftcollectiondetail?${url}`,
+      "_blank"
+    );
+    // router.push({
+    //   path: "/nftcollectiondetail",
+    //   query,
+    // });
   }
   if (sellType === "selling") {
     let query = {};
@@ -341,10 +347,15 @@ const watchDetail = (d, sellType) => {
         chainId: d.chainId,
       };
     }
-    router.push({
-      path: "/nftcollectiondetail",
-      query,
-    });
+    const url = qs.stringify(query);
+    window.open(
+      `${window.location.origin}/nftcollectiondetail?${url}`,
+      "_blank"
+    );
+    // router.push({
+    //   path: "/nftcollectiondetail",
+    //   query,
+    // });
   }
 };
 const changeTab = (i) => {

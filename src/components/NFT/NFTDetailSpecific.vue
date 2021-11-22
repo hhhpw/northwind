@@ -53,7 +53,7 @@ const rarevalue_total_score = computed(() => {
 });
 // 稀有值排名
 const rarevalue_total_rank = computed(() => {
-  return props.box_detail.rank;
+  return `${props.box_detail?.rank}/${props.box_detail?.quantity}`;
 });
 </script>
 <style lang="scss" scoped>

@@ -146,6 +146,12 @@ let state = reactive({
       value: "2",
       active: false,
     },
+    {
+      name: "稀有值从高到低",
+      key: 7,
+      value: "3",
+      active: false,
+    },
   ],
 });
 //筛选点击效果

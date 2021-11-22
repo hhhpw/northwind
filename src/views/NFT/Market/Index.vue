@@ -66,6 +66,7 @@
   </div>
 </template>
 <script setup>
+/* eslint-disable */
 import StarNft from "@StarUI/StarNFT.vue";
 import { reactive, computed, onMounted, onUnmounted } from "vue";
 import NftNoConnectedWallet from "@components/NFT/NFTNoConnectedWallet.vue";
@@ -97,15 +98,18 @@ const market_data = computed(() => store.getters["StoreNftMarket/market_data"]);
 
 // 查看卡片详情
 const watchDetail = (detail) => {
-  router.push({
-    path: "/nftmarketdetail",
-    query: {
-      id: detail.nftBoxId,
-      groupId: detail.groupId,
-      type: detail.type,
-      chainId: detail.chainId,
-    },
-  });
+  const url = `${window.location.origin}/nftmarketdetail?id=${detail.nftBoxId}&groupId=${detail.groupId}&type${detail.type}&chainId=${detail.chainId}`;
+  window.open(url, "_blank");
+  // window.open("")
+  // router.push({
+  //   path: "/nftmarketdetail",
+  //   query: {
+  //     id: detail.nftBoxId,
+  //     groupId: detail.groupId,
+  //     type: detail.type,
+  //     chainId: detail.chainId,
+  //   },
+  // });
 };
 // 类型筛选
 const selectCallback = (item) => {
