@@ -5,12 +5,12 @@ import utilsNumber from "@utils/number";
 import NFT_CONSTANTS from "@constants/nft.js";
 import utilsTool from "@utils/tool.js";
 import utilsFormat from "@utils/format";
-import { cloneDeep } from "lodash";
+// import { cloneDeep } from "lodash";
 
 const INIT_LIST_PARAMS = {
   groupId: "",
   currency: "",
-  open: "all",
+  open: "all", // box // nft
   sort: 0,
   pageSize: 30,
   pageNum: 1,
@@ -34,7 +34,7 @@ const StoreNftMarket = {
     dialogParams: NFT_CONSTANTS.INIT_DIALOG_PARAMS,
     listParams: INIT_LIST_PARAMS,
     listStatus: INIT_LIST_STATUS,
-    marketListRule: [true, true],
+    // marketListRule: [true, true],
     soldDialogParams: NFT_CONSTANTS.INIT_SOLD_DIALOG_PARAMS,
     isScrollLoad: false, // 防止多次加载
   },
@@ -51,7 +51,7 @@ const StoreNftMarket = {
       state.marketList = null;
       state.listParams = INIT_LIST_PARAMS;
       state.firstLoading = true;
-      state.marketListRule = [true, true];
+      // state.marketListRule = [true, true];
       state.isScrollLoad = false;
     },
     [types.SET_INIT_STATUS](state) {
@@ -99,44 +99,44 @@ const StoreNftMarket = {
     [types.SET_LIST_STATUS](state, payload) {
       state.listStatus = Object.assign({}, state.listStatus, payload);
     },
-    [types.SET_MARKET_LIST_RULE](state, payload) {
-      state.marketListRule = payload;
-      let open = "";
-      if (payload[0] === true) {
-        open = "box";
-      }
-      if (payload[1] === true) {
-        open = "nft";
-      }
-      if (payload[0] && payload[1]) {
-        open = "all";
-      }
-      state.listParams = Object.assign({}, state.listParams, {
-        open,
-      });
-    },
+    // [types.SET_MARKET_LIST_RULE](state, payload) {
+    //   state.marketListRule = payload;
+    //   let open = "";
+    //   if (payload[0] === true) {
+    //     open = "box";
+    //   }
+    //   if (payload[1] === true) {
+    //     open = "nft";
+    //   }
+    //   if (payload[0] && payload[1]) {
+    //     open = "all";
+    //   }
+    //   state.listParams = Object.assign({}, state.listParams, {
+    //     open,
+    //   });
+    // },
     [types.SCROLLING_LOADED](state, payload) {
       state.isScrollLoad = payload;
     },
   },
   getters: {
-    market_data: (state) => {
-      if (!state.marketList) return;
-      let list = cloneDeep(state.marketList);
-      const rules = state.marketListRule;
-      if (rules[0] && !rules[1]) {
-        return list.filter((d) => d.type === "box");
-      }
-      if (!rules[0] && rules[1]) {
-        return list.filter((d) => d.type === "nft");
-      }
-      if (rules[0] && rules[1]) {
-        return list;
-      }
-      if (!rules[0] && !rules[1]) {
-        return null;
-      }
-    },
+    // market_data: (state) => {
+    //   if (!state.marketList) return;
+    //   let list = cloneDeep(state.marketList);
+    //   const rules = state.marketListRule;
+    //   if (rules[0] && !rules[1]) {
+    //     return list.filter((d) => d.type === "box");
+    //   }
+    //   if (!rules[0] && rules[1]) {
+    //     return list.filter((d) => d.type === "nft");
+    //   }
+    //   if (rules[0] && rules[1]) {
+    //     return list;
+    //   }
+    //   if (!rules[0] && !rules[1]) {
+    //     return null;
+    //   }
+    // },
   },
   actions: {
     async changeListQuery({ commit, state, dispatch }, payload) {
