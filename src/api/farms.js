@@ -185,8 +185,8 @@ function getLpPoolList() {
       {
         id: 10000,
         pairName: "BTC_USDT",
-        tokenA: "0x1::BTC::BTC",
-        tokenB: "0x1::USDT::USDT",
+        tokenA: "0x5b876a58b0e1cff855b6489cd8cf3bec::DummyToken::BTC",
+        tokenB: "0x5b876a58b0e1cff855b6489cd8cf3bec::DummyToken::USDT",
         tokenIconA: "https://photo.16pic.com/00/68/78/16pic_6878865_b.png",
         tokenIconB: "https://photo.16pic.com/00/68/78/16pic_6878865_b.png",
         dailyTotalOutput: 123.123, // 每日产出

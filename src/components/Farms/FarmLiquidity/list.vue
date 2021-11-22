@@ -17,7 +17,13 @@
         :class="$style['container-farm-liquidity-list-body-item']"
         v-for="(d, i) in state.poolList"
         :key="i"
-        @click="pushPage({ lpToken: d.pairName, id: d.id })"
+        @click="
+          pushPage({
+            lpToken: d.pairName,
+            id: d.id,
+            tokenAddress: [d.tokenA, d.tokenB],
+          })
+        "
       >
         <div :class="$style['container-farm-liquidity-list-body-item-symbol']">
           <span>
@@ -108,11 +114,12 @@
 </template>
 <script setup>
 /* eslint-disable */
-import { computed, onMounted, reactive } from "vue";
+import { computed, reactive } from "vue";
 import StarAmount from "@StarUI/StarAmount";
 import SvgIcon from "@components/SvgIcon/Index.vue";
 import ListToolTip from "./listtooltip";
 import utilsRouter from "@utils/router";
+import utilsTool from "@utils/tool";
 import { useStore } from "vuex";
 const store = useStore();
 let state = reactive({
@@ -140,23 +147,19 @@ const setPrecision = (precision) =>
     }
   }).value;
 
-// const defaultValue = computed(() => {
-//   if (state.walletStatus !== "connected") {
-//     return 0;
-//   }
-// });
-
-const pushPage = ({ lpToken, id }) => {
+const pushPage = ({ lpToken, id, tokenAddress }) => {
   store.commit("StoreFarms/SET_CURR_LPTOKEN_INFO", {
     token: lpToken,
+    tokenAddress: `${tokenAddress[0]}___${tokenAddress[1]}`,
   });
   utilsRouter.push({
     path: "/liquidityfarmsdetail",
     query: {
-      id,
-      token: lpToken,
-      // token: utilsRouter.encodePath(lpToken),
-      // token: utilsRouter.encodePath(lpToken),
+      id: utilsTool.encodeQueryURL(`${id}`),
+      token: utilsTool.encodeQueryURL(lpToken),
+      tokenAddress: utilsTool.encodeQueryURL(
+        `${tokenAddress[0]}___${tokenAddress[1]}`
+      ),
     },
   });
 };

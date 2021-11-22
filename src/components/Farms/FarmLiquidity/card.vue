@@ -31,7 +31,9 @@
         ></star-amount>
       </template>
       <template v-else>
-        <p v-if="props.params.token">{{ props.params.token }} LP</p>
+        <p v-if="props.params?.token">
+          {{ props.params.token?.replace("_", "/") }} LP
+        </p>
         <star-amount
           :class="$style['card-content-amount']"
           :value="

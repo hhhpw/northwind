@@ -297,7 +297,8 @@
     "farm-liquidity-list-apr-tip-comflexyear": "復利年化",
     "farm-liquidity-list-apr-desc": "每日將受益提取，進行手動復投：隨著時間的增加復利收益將會越來越多。",
     "farm-liquidity-detail-dialog-draw-title": "提取 LP {token}",
-    "farm-liquidity-detail-dialog-stake-title": "質押 LP {token}"
+    "farm-liquidity-detail-dialog-stake-title": "質押 LP {token}",
+    "farm-liquidity-detail-lp-text": "獲取 {token} LP"
   },
   "nftproperty": {
     "背景": "背景",

@@ -13,6 +13,7 @@ const app = createApp(App);
 _app_directive(app);
 _app_element_ui(app);
 
-app.use(animated);
+// 这里做一些全局公共的接口
+store.dispatch("StoreCommon/getCurrencyList");
 
-app.use(store).use(router).use(i18n).mount("#app");
+app.use(store).use(router).use(i18n).use(animated).mount("#app");

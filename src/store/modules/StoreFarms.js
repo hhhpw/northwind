@@ -20,7 +20,7 @@ const StoreFarms = {
     // 流动性挖矿
     inputDialogParams: FARMS_CONSTANTS.LIQUIDITY_INPUT_DIALOG_PARAMS,
     poolList: null,
-    lpTokenInfo: {}, // {token: , value:}
+    lpTokenInfo: {}, // {token: , value:, tokenAddress}
     liquidityDrawData: null, // 可提取的kiko
     totalStakeAmount: null,
   },
@@ -74,6 +74,7 @@ const StoreFarms = {
       );
     },
     [types.SET_CURR_LPTOKEN_INFO](state, payload) {
+      console.log("payload", payload);
       state.lpTokenInfo = Object.assign({}, state.lpTokenInfo, payload);
     },
   },

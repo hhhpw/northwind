@@ -298,7 +298,8 @@
     "farm-liquidity-list-apr-tip-comflexyear": " APY",
     "farm-liquidity-list-apr-desc": "Daily compound considered. If you manually deposit daily interest into the farm, the more rewards will be earned",
     "farm-liquidity-detail-dialog-draw-title": "Withdraw LP {token}",
-    "farm-liquidity-detail-dialog-stake-title": "Deposit LP {token}"
+    "farm-liquidity-detail-dialog-stake-title": "Deposit LP {token}",
+    "farm-liquidity-detail-lp-text": "獲取 {token} LP"
   },
   "nftproperty": {
     "背景": "Background",

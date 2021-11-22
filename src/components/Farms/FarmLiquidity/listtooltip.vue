@@ -31,7 +31,7 @@
         >
         </star-amount>
       </div>
-      <p :class="$style['tip-desc']">
+      <p :class="$style['tip-desc']" style="max-width: 400px">
         {{ $t("farms.farm-liquidity-list-apr-desc") }}
       </p>
     </template>
@@ -41,8 +41,6 @@
   </ElTooltip>
 </template>
 <script setup>
-/* eslint-disable */
-import { computed, onMounted, reactive, defineProps, defineEmits } from "vue";
 import SvgIcon from "@components/SvgIcon/Index.vue";
 import StarAmount from "@StarUI/StarAmount";
 </script>
