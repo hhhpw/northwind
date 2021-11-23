@@ -1,100 +1,97 @@
 <template>
-  <div class="nft-blindbox-core" v-if="state.blindBoxData">
-    <div class="nft-blindbox-core-header">
-      <div class="nft-blindbox-core-header-left">
-        <img :src="state.blindBoxData.boxTokenLogo" />
-        <!-- <img src="../../../assets/nft/box.gif" /> -->
+  <div>
+    <div class="nft-blindbox-core" v-if="state.blindBoxData">
+      <div class="nft-blindbox-core-header">
+        <div class="nft-blindbox-core-header-left">
+          <img :src="state.blindBoxData.boxTokenLogo" />
+          <!-- <img src="../../../assets/nft/box.gif" /> -->
+        </div>
+        <div class="nft-blindbox-core-header-right">
+          <p class="nft-blindbox-core-header-right-title">
+            {{ state.blindBoxData.name }}
+          </p>
+          <star-space :size="40"></star-space>
+          <p class="nft-blindbox-core-header-right-price">
+            <span>{{ $t("售价") }}</span>
+            <span> {{ state.blindBoxData.sellingPrice }} STC</span>
+          </p>
+          <star-space :size="10"></star-space>
+          <p
+            class="nft-blindbox-core-header-right-quantity"
+            v-if="state.remainQuantity"
+          >
+            <span>{{ $t("剩余数量") }}</span>
+            <span>{{ state.remainQuantity }}</span>
+          </p>
+          <star-space :size="60"></star-space>
+          <template v-if="state.walletStatus === 'unConnected'">
+            <star-button
+              type="light"
+              class="nft-blindbox-core-header-right-button light"
+              @click="connectWallet"
+            >
+              {{ $t("链接钱包") }}
+            </star-button>
+          </template>
+          <template v-if="state.walletStatus === 'connected'">
+            <star-button
+              type="brown"
+              class="nft-blindbox-core-header-right-button"
+              :style="{ cursor: 'default' }"
+              v-if="
+                productStatus === 'unopened' &&
+                state.sellingTime &&
+                state.loaded
+              "
+            >
+              <p>{{ t("即将到来") }}： {{ state.sellingTime }}</p>
+            </star-button>
+            <star-button
+              type="dark"
+              class="nft-blindbox-core-header-right-button"
+              @click="changeBuyModalStatus(true)"
+              v-if="
+                productStatus === 'ongoing' ||
+                (state.loaded &&
+                  !state.sellingTime &&
+                  productStatus !== 'sellout')
+              "
+            >
+              {{ $t("购买") }}
+            </star-button>
+            <star-button
+              type="disabled"
+              class="nft-blindbox-core-header-right-button"
+              v-if="productStatus === 'sellout'"
+              :style="{ cursor: 'default' }"
+            >
+              {{ $t("售罄") }}
+            </star-button>
+          </template>
+        </div>
       </div>
-      <div class="nft-blindbox-core-header-right">
-        <p class="nft-blindbox-core-header-right-title">
-          {{ state.blindBoxData.name }}
-        </p>
-        <star-space :size="40"></star-space>
-        <p class="nft-blindbox-core-header-right-price">
-          <span>{{ $t("售价") }}</span>
-          <span> {{ state.blindBoxData.sellingPrice }} STC</span>
-        </p>
-        <star-space :size="10"></star-space>
-        <p
-          class="nft-blindbox-core-header-right-quantity"
-          v-if="state.remainQuantity"
-        >
-          <span>{{ $t("剩余数量") }}</span>
-          <span>{{ state.remainQuantity }}</span>
-        </p>
-        <star-space :size="60"></star-space>
-        <template v-if="state.walletStatus === 'unConnected'">
-          <star-button
-            type="light"
-            class="nft-blindbox-core-header-right-button light"
-            @click="connectWallet"
-          >
-            {{ $t("链接钱包") }}
-          </star-button>
-        </template>
-        <template v-if="state.walletStatus === 'connected'">
-          <star-button
-            type="brown"
-            class="nft-blindbox-core-header-right-button"
-            :style="{ cursor: 'default' }"
-            v-if="
-              productStatus === 'unopened' && state.sellingTime && state.loaded
+      <star-space :size="40"></star-space>
+      <div class="nft-blindbox-core-introduces">
+        <div v-for="(d, i) in state.blindBoxData.introduces" :key="i">
+          <star-space :size="30" v-if="i !== 0"></star-space>
+          <p class="nft-blindbox-core-introduces-title">
+            {{ t(`${d.title}`) }}
+          </p>
+          <star-space :size="15"></star-space>
+          <p
+            class="nft-blindbox-core-introduces-desc"
+            v-html="
+              state.lang === 'en'
+                ? `${d.enDesc}`
+                : state.lang === 'zh'
+                ? `${d.cnDesc}`
+                : ''
             "
-          >
-            <p>{{ t("即将到来") }}： {{ state.sellingTime }}</p>
-          </star-button>
-          <star-button
-            type="dark"
-            class="nft-blindbox-core-header-right-button"
-            @click="changeBuyModalStatus(true)"
-            v-if="
-              productStatus === 'ongoing' ||
-              (state.loaded &&
-                !state.sellingTime &&
-                productStatus !== 'sellout')
-            "
-          >
-            {{ $t("购买") }}
-          </star-button>
-          <star-button
-            type="disabled"
-            class="nft-blindbox-core-header-right-button"
-            v-if="productStatus === 'sellout'"
-            :style="{ cursor: 'default' }"
-          >
-            {{ $t("售罄") }}
-          </star-button>
-        </template>
+          ></p>
+        </div>
       </div>
     </div>
-    <star-space :size="40"></star-space>
-    <div class="nft-blindbox-core-introduces">
-      <div v-for="(d, i) in state.blindBoxData.introduces" :key="i">
-        <star-space :size="30" v-if="i !== 0"></star-space>
-        <p class="nft-blindbox-core-introduces-title">{{ t(`${d.title}`) }}</p>
-        <star-space :size="15"></star-space>
-        <p
-          class="nft-blindbox-core-introduces-desc"
-          v-html="
-            state.lang === 'en'
-              ? `${d.enDesc}`
-              : state.lang === 'zh'
-              ? `${d.cnDesc}`
-              : ''
-          "
-        ></p>
-
-        <!-- <p class="nft-blindbox-core-introduces-desc">
-          {{
-            state.lang === "en"
-              ? `${d.enDesc}`
-              : state.lang === "zh"
-              ? `${d.cnDesc}`
-              : ""
-          }}
-        </p> -->
-      </div>
-    </div>
+    <star-loading-fish v-else></star-loading-fish>
     <star-confirm
       :title="t('购买盲盒')"
       :dialogVisible="state.isShowBuyModal"
@@ -188,6 +185,7 @@ import utilsFormat from "@utils/format";
 import connectLogic from "../../../mixins/wallet";
 import CONSTANTS_TOKENS from "@constants/token";
 import NftSoldOutDialog from "@components/NFT/NFTSoldOutDialog.vue";
+import StarLoadingFish from "@StarUI/StarLoadingFish.vue";
 import utilsRegexp from "@utils/regexp";
 const store = useStore();
 const router = useRouter();

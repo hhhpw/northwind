@@ -100,7 +100,7 @@ onUnmounted(() => {
 
 // 查看卡片详情
 const watchDetail = (detail) => {
-  const url = `${window.location.origin}/nftmarketdetail?id=${detail.nftBoxId}&groupId=${detail.groupId}&type${detail.type}&chainId=${detail.chainId}`;
+  const url = `${window.location.origin}/nftmarketdetail?id=${detail.nftBoxId}&groupId=${detail.groupId}&type=${detail.type}&chainId=${detail.chainId}`;
   window.open(url, "_blank");
 };
 // 类型筛选

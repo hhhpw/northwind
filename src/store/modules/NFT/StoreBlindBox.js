@@ -212,6 +212,18 @@ const StoreBlindBox = {
       }
       if (res.code === 200) {
         let data = res.data;
+        data = [data[0], data[0], data[0]].map((d, i) => {
+          if (i === 0) {
+            return {
+              ...d,
+              sellingTime: 1637720275000,
+            };
+          }
+          return {
+            ...d,
+          };
+        });
+        console.log("data", data);
         if (data && data.length) {
           const tokens = data.map((d) => d.boxToken);
           const amountArr = tokens.map(async (boxToken, index) => {

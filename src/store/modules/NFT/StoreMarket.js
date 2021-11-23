@@ -34,7 +34,6 @@ const StoreNftMarket = {
     dialogParams: NFT_CONSTANTS.INIT_DIALOG_PARAMS,
     listParams: INIT_LIST_PARAMS,
     listStatus: INIT_LIST_STATUS,
-    // marketListRule: [true, true],
     soldDialogParams: NFT_CONSTANTS.INIT_SOLD_DIALOG_PARAMS,
     isScrollLoad: false, // 防止多次加载
   },
@@ -51,7 +50,6 @@ const StoreNftMarket = {
       state.marketList = null;
       state.listParams = INIT_LIST_PARAMS;
       state.firstLoading = true;
-      // state.marketListRule = [true, true];
       state.isScrollLoad = false;
     },
     [types.SET_INIT_STATUS](state) {
@@ -118,25 +116,6 @@ const StoreNftMarket = {
     [types.SCROLLING_LOADED](state, payload) {
       state.isScrollLoad = payload;
     },
-  },
-  getters: {
-    // market_data: (state) => {
-    //   if (!state.marketList) return;
-    //   let list = cloneDeep(state.marketList);
-    //   const rules = state.marketListRule;
-    //   if (rules[0] && !rules[1]) {
-    //     return list.filter((d) => d.type === "box");
-    //   }
-    //   if (!rules[0] && rules[1]) {
-    //     return list.filter((d) => d.type === "nft");
-    //   }
-    //   if (rules[0] && rules[1]) {
-    //     return list;
-    //   }
-    //   if (!rules[0] && !rules[1]) {
-    //     return null;
-    //   }
-    // },
   },
   actions: {
     async changeListQuery({ commit, state, dispatch }, payload) {

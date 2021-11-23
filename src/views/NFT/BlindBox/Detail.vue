@@ -1,5 +1,9 @@
 <template>
-  <star-nft class="blind-box-container" coreType="card">
+  <star-nft
+    class="blind-box-container"
+    coreType="card"
+    :cardTypeParams="{ minHeight: '800px' }"
+  >
     <template #nft-card>
       <core></core>
     </template>

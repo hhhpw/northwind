@@ -33,7 +33,7 @@
               >
                 {{ $t(sellInfo.text) }}
               </p>
-              <star-space :size="50"></star-space>
+              <star-space :size="30"></star-space>
               <p class="nft-blindbox-list-item-right-countdown">
                 {{
                   (state.timers &&
@@ -43,8 +43,8 @@
                   ""
                 }}
               </p>
-              <star-space :size="10"></star-space>
               <p class="nft-blindbox-list-item-right-detail">
+                <span>{{ $t("发行数量") }}：{{ d.seriesQuantity }}</span>
                 <span>{{ $t("剩余数量") }}：{{ d.amount }}</span>
                 <span
                   >{{ $t("售价") }}：{{ d.sellingPrice }}
@@ -227,12 +227,18 @@ const sellStatus = (type, sellingTime) =>
         color: $text-gray4-color;
       }
     }
+
     .nft-blindbox-list-item-right-countdown,
     .nft-blindbox-list-item-right-detail {
       color: $text-brown-color;
       font-size: 14px;
     }
+    .nft-blindbox-list-item-right-countdown {
+      font-size: 24px;
+      height: 33px;
+    }
     .nft-blindbox-list-item-right-detail {
+      // margin-top: 33px;
       span + span {
         margin-left: 20px;
       }

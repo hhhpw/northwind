@@ -41,6 +41,19 @@
             <span class="base-info-color" v-if="!state.is_blind_open">{{
               props.box_detail.name
             }}</span>
+            <span class="base-info-title-rarity" v-if="state.is_blind_open">
+              <svg-icon
+                name="rarity"
+                class="base-info-title-rarity-icon"
+              ></svg-icon>
+              <star-amount
+                :value="12.312"
+                :formatOptions="{
+                  precision: 2,
+                }"
+              >
+              </star-amount>
+            </span>
           </div>
 
           <span class="base-info-color" v-if="state.is_blind_open">{{
@@ -62,19 +75,6 @@
                 }}</span
               >
             </div>
-            <!-- <div class="base-info-item" v-if="props.action_type !== 'RECOVERY'">
-              <span class="title">{{ $t("当前持有者") }}</span>
-              <span
-                class="value"
-                @click="pushPage(props.box_detail.owner || state.accounts[0])"
-                >{{
-                  stringFormat(
-                    (props.box_detail && props.box_detail.owner) ||
-                      state.accounts[0]
-                  )
-                }}</span
-              >
-            </div> -->
             <div
               class="base-info-item"
               v-if="props.box_detail && props.box_detail.owner"
@@ -158,6 +158,7 @@ const { t } = useI18n();
 import utilsTools from "@utils/tool";
 import NftDetailHistory from "./NFTDetailHistory.vue";
 import NftDetailTab from "./NFTDetailTab.vue";
+import StarAmount from "@StarUI/StarAmount";
 
 const store = useStore();
 let state = reactive({
@@ -322,6 +323,16 @@ const selectCrossTab = (name) => {
       .base-info-title {
         font-size: 32px;
         font-weight: 600;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .base-info-title-rarity {
+          font-size: 16px;
+          .base-info-title-rarity-icon {
+            margin-right: 5px;
+            cursor: default;
+          }
+        }
       }
       // .base-info-color {
       //   font-weight: 500;
