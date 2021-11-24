@@ -106,6 +106,7 @@ const watchDetail = (detail) => {
 // 类型筛选
 const selectCallback = (item) => {
   const { groupId, sort } = item;
+  // sort为3是稀有度
   store.dispatch("StoreNftMarket/changeListQuery", {
     groupId: groupId,
     sort: sort.value,

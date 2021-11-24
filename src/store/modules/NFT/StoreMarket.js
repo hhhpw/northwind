@@ -11,7 +11,7 @@ const INIT_LIST_PARAMS = {
   groupId: "",
   currency: "",
   open: "all", // box // nft
-  sort: 0,
+  sort: 0, // 3稀有度
   pageSize: 30,
   pageNum: 1,
 };

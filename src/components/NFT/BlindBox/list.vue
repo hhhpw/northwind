@@ -19,8 +19,7 @@
             :set="(sellInfo = sellStatus(d.type, d.sellingTime))"
             @click="pushDetailPage(d.id)"
           >
-            <!-- <img :src="d.boxTokenLogo" alt="" /> -->
-            <img src="./boxbg.png" />
+            <img :src="d.seriesLogo" alt="" />
             <div class="nft-blindbox-list-item-right">
               <star-space :size="15"></star-space>
               <p class="nft-blindbox-list-item-right-title">

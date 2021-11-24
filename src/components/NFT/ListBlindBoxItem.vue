@@ -21,7 +21,7 @@
           </span>
           <span
             class="nft-blind-text-name-rarity"
-            v-if="baseData.type === 'nft'"
+            v-if="baseData.type === 'nft' && baseData?.score"
           >
             <ElTooltip
               effect="light"
@@ -38,7 +38,7 @@
               </template>
             </ElTooltip>
             <star-amount
-              :value="12.312"
+              :value="baseData?.score"
               :formatOptions="{
                 precision: 2,
               }"

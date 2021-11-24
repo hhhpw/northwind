@@ -41,13 +41,16 @@
             <span class="base-info-color" v-if="!state.is_blind_open">{{
               props.box_detail.name
             }}</span>
-            <span class="base-info-title-rarity" v-if="state.is_blind_open">
+            <span
+              class="base-info-title-rarity"
+              v-if="state.is_blind_open && props.box_detail?.score"
+            >
               <svg-icon
                 name="rarity"
                 class="base-info-title-rarity-icon"
               ></svg-icon>
               <star-amount
-                :value="12.312"
+                :value="props.box_detail?.score"
                 :formatOptions="{
                   precision: 2,
                 }"

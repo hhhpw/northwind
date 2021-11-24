@@ -243,7 +243,10 @@
     "售价需大于当前最高出价": "Changed price must be greater than the current highest bid",
     "输入出售价格": "Enter selling price",
     "超过单次最大购买数量5": "Exceed the single maximum purchase quantity 5",
-    "钱包余额": "錢包余額"
+    "钱包余额": "Wallet balance",
+    "稀有值从高到低": "Rarity Score high to low",
+    "发行数量": "Total Amount",
+    "NFT稀有值": "Rarity Score"
   },
   "nftproperty": {
     "皮毛": "Fur",
