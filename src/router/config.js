@@ -104,6 +104,16 @@ const routes = [
         },
       },
       {
+        path: "/nftmining",
+        component: () => import("@views/NFT/Mining/Index.vue"),
+        name: "nftmining",
+        meta: {
+          title: "挖矿",
+          bg: "nft",
+          url: "/nftmining",
+        },
+      },
+      {
         path: "/info",
         component: () => import("@views/Info/Index.vue"),
         name: "info",

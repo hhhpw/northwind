@@ -11,6 +11,7 @@ import StoreCollection from "./modules/NFT/StoreCollection";
 import StoreBuyBack from "./modules/NFT/StoreBuyBack";
 import StoreInfo from "./modules/StoreInfo"; // 行情
 import StoreFarms from "./modules/StoreFarms"; // 农场
+import StoreNFTMining from "./modules/NFT/StoreNFTMining"; // NFtT挖矿
 const debug = process.env.NODE_ENV !== "production";
 export default createStore({
   modules: {
@@ -26,6 +27,7 @@ export default createStore({
     StoreBuyBack,
     StoreInfo,
     StoreFarms,
+    StoreNFTMining,
     strict: debug,
     plugins: debug ? [createLogger()] : [],
   },
