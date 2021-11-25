@@ -24,27 +24,18 @@
           ></svg-icon>
         </div>
       </template>
-
-      <empty class="nft-mining-selector-empty">
-        <template #content>
-          <p style="color: #8b8b8b">
-            {{ $t("nftmining.nft-selector-nodata") }}
-          </p>
-          <p
-            class="nft-mining-selector-empty-link"
-            @click="() => emits('pushMarket')"
-          >
-            {{ $t("去市场转转吧") }}
-          </p>
-        </template>
-      </empty>
+      <div>
+        <card-item></card-item>
+      </div>
+      <!-- <no-data v-if="!state.dialogParams.data"></no-data> -->
     </ElDialog>
   </div>
 </template>
 <script setup>
 /* eslint-disable */
 import { computed, onMounted, reactive, watchEffect } from "vue";
-import Empty from "@components/NFT/Empty.vue";
+import NoData from "./dialognodata";
+import CardItem from "./dialogcard";
 import SvgIcon from "@components/SvgIcon/Index";
 const state = reactive({
   visible: false,
@@ -86,6 +77,7 @@ const handleClose = () => {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
+    margin-bottom: 20px;
     .nft-mining-selector-dialog-header-text {
       p:first-child {
         font-weight: 500;
