@@ -6,8 +6,9 @@
       <span class="value">{{ rarevalue_total_score }}</span>
     </div>
     <div class="total-ranking">
-      <span class="title">{{ $t("得分排名") }}</span
-      ><br />
+      <span class="title">{{ $t("得分排名") }}</span>
+      <span>({{ props.box_detail?.seriesName }})</span>
+      <br />
       <span class="value">{{ rarevalue_total_rank }}</span>
     </div>
   </div>
