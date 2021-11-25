@@ -1,7 +1,5 @@
 <template>
   <div class="star-wallet-dialog">
-    <div>{{ props }}</div>
-
     <ElDialog
       v-model="state.visible"
       custom-class="star-dialog-el"
@@ -13,7 +11,14 @@
       :show-close="false"
     >
       <template #title>
-        <div class="star-wallet-dialog-header">
+        <div
+          class="star-wallet-dialog-header"
+          :style="{
+            'justify-content': props.dialogParams.hasTitle
+              ? 'space-between'
+              : 'flex-end',
+          }"
+        >
           <slot name="star-wallet-dialog-header-title"></slot>
           <svg-icon
             v-if="props.dialogParams.isShowClose"
@@ -23,7 +28,7 @@
           ></svg-icon>
         </div>
       </template>
-      <!--   <div class="star-wallet-dialog-content">
+      <div class="star-wallet-dialog-content">
         <div class="star-wallet-dialog-content-core">
           <img
             style="border-radius: 16px"
@@ -49,23 +54,7 @@
           :size="20"
           v-if="!props.dialogParams.customImgUrl"
         ></star-space>
-        <div class="star-wallet-dialog-content-mining-success">
-          <p v-if="props.dialogParams?.miningData?.draw">
-            {{
-              $t("farms.farm-swap-mining-success1", {
-                amount: formatAmount(props.dialogParams.miningData.draw),
-              })
-            }}
-          </p>
-          <p v-if="props.dialogParams?.miningData?.locked">
-            {{
-              $t("farms.farm-swap-mining-success2", {
-                amount: formatAmount(props.dialogParams.miningData.locked),
-              })
-            }}
-          </p>
-          <star-space :size="20"></star-space>
-        </div>
+        <slot name="tar-wallet-dialog-custom-content"></slot>
         <div
           class="star-wallet-dialog-content-feedback"
           :style="{ width: setDiaglogStyle.feedBackWith }"
@@ -104,7 +93,7 @@
           type="green"
           v-if="
             props.dialogParams.successBtnText &&
-            props.dialogParams.dialogStatus === 'success'
+            props.dialogParams.dialogStatus === 'succeed'
           "
         >
           {{ props.dialogParams.successBtnText }}
@@ -120,7 +109,7 @@
         >
           {{ props.dialogParams.failedBtnText }}
         </star-button>
-      </div> -->
+      </div>
     </ElDialog>
   </div>
 </template>
@@ -155,6 +144,13 @@ const props = defineProps({
       return {
         dialogVisible: false,
         isShowClose: false, // 弹窗关闭icon
+        hasTitle: false,
+        dialogStatus: "ongoing", //ongoing  failed  succeed
+        dialogText: "", // 购买中等
+        phase1: "", // loading succeed
+        phase2: "", // loading succeed
+        successBtnText: "",
+        failedBtnText: "",
       };
     },
   },
@@ -169,13 +165,6 @@ watchEffect(() => {
     state.visible = props.dialogParams.dialogVisible;
   }
 });
-// watch(
-//   () => props.dialogParams.dialogVisible,
-//   (n, o) => {
-//     console.log("n", n, "o,", o);
-//     state.visible = n;
-//   }
-// );
 
 const setDiaglogStyle = computed(() => {
   if (state.currLang === "en") {
@@ -194,7 +183,7 @@ const renderContentImg = (type) => {
   const obj = {
     ongoing: dialogOnGoingImg,
     failed: dialogFailedImg,
-    success: dialogSuccessImg,
+    succeed: dialogSuccessImg,
   };
   return obj[type];
 };
@@ -202,7 +191,7 @@ const renderContentImg = (type) => {
 const renderPhaseStatus = (type) => {
   const obj = {
     loading: dialogLoadingImg,
-    success: dialogPhaseSuccessImg,
+    succeed: dialogPhaseSuccessImg,
   };
   return obj[type];
 };

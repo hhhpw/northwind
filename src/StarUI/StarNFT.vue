@@ -56,6 +56,10 @@ let state = reactive({
       label: "平台回购",
       path: "/nftbuyback",
     },
+    {
+      label: "NFT挖矿",
+      path: "/nftmining",
+    },
   ],
   activeIndex: null,
 });

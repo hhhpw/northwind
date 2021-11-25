@@ -1,6 +1,5 @@
 <template>
   <div class="nft-mining-selector-dialog">
-    {{ state.visible }}
     <ElDialog
       v-model="state.visible"
       custom-class="star-dialog-el"

@@ -6,20 +6,11 @@ import Wallet from "@wallet";
 import utilsNumber from "@utils/number";
 import utilsTool from "@utils/tool.js";
 import utilsFormat from "@utils/format";
+import { WALLET_DIALOG_PARAMS } from "@constants/dialog.js";
 import { cloneDeep } from "lodash";
-
 const INIT_SELECTOR_DIALOG_PARAMS = {
   dialogVisible: false,
   data: [],
-};
-
-const INIT_WALLET_DIALOG_PARAMS = {
-  dialogVisible: true,
-  isShowClose: true,
-};
-const INIT_LIST_STATUS = {
-  hasMore: true,
-  isLoading: false,
 };
 
 const StoreNFTMining = {
@@ -27,7 +18,7 @@ const StoreNFTMining = {
   moduleName: "StoreNFTMining",
   state: {
     selectorDialogParams: cloneDeep(INIT_SELECTOR_DIALOG_PARAMS),
-    walletDialogParams: cloneDeep(INIT_WALLET_DIALOG_PARAMS),
+    walletDialogParams: cloneDeep(WALLET_DIALOG_PARAMS),
   },
   mutations: {
     [types.SET_SELECTOR_DIALOG_PARAMS](state, payload) {
