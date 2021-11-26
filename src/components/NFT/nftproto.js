@@ -9,9 +9,14 @@ export default function renderProperties(box_detail) {
         score: box_detail.properties?.backgroundScore || "--",
       },
       {
-        title: utilsFormat.computedLangCtx("nftproperty.皮肤"),
+        title: utilsFormat.computedLangCtx("nftproperty.皮毛"),
         value: box_detail.properties?.fur || "--",
         score: box_detail.properties?.furScore || "--",
+      },
+      {
+        title: utilsFormat.computedLangCtx("nftproperty.皮肤"),
+        value: box_detail.properties?.skin || "--",
+        score: box_detail.properties?.skinScore || "--",
       },
       {
         title: utilsFormat.computedLangCtx("nftproperty.衣服"),

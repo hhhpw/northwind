@@ -36,7 +36,7 @@
               :value="d.price"
               displayPreFix="$"
               :formatOptions="{
-                precision: 2,
+                precision: 4,
               }"
             >
             </star-amount>

@@ -16,7 +16,35 @@
     <div class="nft-blind-text">
       <div class="nft-blind-text-base">
         <div class="nft-blind-text-name">
-          {{ baseData.nftName || baseData.name || "" }}
+          <span>
+            {{ baseData.nftName || baseData.name || "" }}
+          </span>
+          <span
+            class="nft-blind-text-name-rarity"
+            v-if="baseData.type === 'nft' && baseData?.score"
+          >
+            <ElTooltip
+              effect="light"
+              placement="bottom"
+              :append-to-body="false"
+            >
+              <template #content>
+                <span class="nft-blind-text-name-rarity-tooltip">
+                  {{ $t("NFT稀有值") }}
+                </span>
+              </template>
+              <template #default>
+                <svg-icon name="rarity" class="rarity-icon"></svg-icon>
+              </template>
+            </ElTooltip>
+            <star-amount
+              :value="baseData?.score"
+              :formatOptions="{
+                precision: 2,
+              }"
+            >
+            </star-amount>
+          </span>
         </div>
         <div class="nft-blind-text-address">
           <span v-if="baseData.type === 'box'">
@@ -160,12 +188,14 @@
   </div>
 </template>
 <script setup>
+/* eslint-disable */
 import { defineProps, reactive, computed, defineEmits } from "vue";
 import { useStore } from "vuex";
 import StarButton from "@StarUI/StarButton.vue";
 import Confirm from "@components/NFT/Confirm";
 import utilsFormat from "@utils/format";
-
+import SvgIcon from "@components/SvgIcon/Index.vue";
+import StarAmount from "@StarUI/StarAmount";
 const store = useStore();
 const props = defineProps({
   cardType: {
@@ -288,6 +318,7 @@ const actionsCall = (action) => {
           display: block;
           justify-content: flex-start;
           text-align: center;
+          margin-top: 25px;
         }
       }
     }
@@ -341,5 +372,18 @@ const actionsCall = (action) => {
 }
 .cancel-btn {
   width: 30%;
+}
+.nft-blind-text-name {
+  display: flex;
+  justify-content: space-between;
+  .nft-blind-text-name-rarity {
+    color: #fb8000;
+    .nft-blind-text-name-rarity-tooltip {
+      color: #391b0f;
+    }
+  }
+  .rarity-icon {
+    margin-right: 5px;
+  }
 }
 </style>

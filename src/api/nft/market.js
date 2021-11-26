@@ -3,7 +3,7 @@ import request from "../../utils/request";
 export default {
   // 获取市场列表数据
   getMarketList(params) {
-    const { groupId, currency, open, pageSize, pageNum, sort } = params;
+    const { groupId, currency, open, pageSize, pageNum, sort, type } = params;
     return request({
       url:
         "/v1/nft/market/getALL?groupId=" +
@@ -17,7 +17,9 @@ export default {
         "&pageNum=" +
         pageNum +
         "&sort=" +
-        sort,
+        sort +
+        "&type=" +
+        type,
       method: "GET",
     });
   },

@@ -75,6 +75,7 @@ import dayjs from "dayjs";
 import utilsFormat from "@utils/format";
 import { useRouter } from "vue-router";
 const router = useRouter();
+import qs from "qs";
 const STATE = {
   ONE_PRICE: "一口价购买",
   HIGHEST_PRICE: "最高价",
@@ -121,15 +122,24 @@ const setTh = (type) => {
 };
 
 const pushPage = (detail) => {
-  router.push({
-    path: "/nftmarketdetail",
-    query: {
-      id: detail.nftBoxId,
-      groupId: detail.groupId,
-      type: detail.type,
-      chainId: detail.refId,
-    },
-  });
+  let query = {
+    id: detail.nftBoxId,
+    groupId: detail.groupId,
+    type: detail.type,
+    chainId: detail.refId,
+  };
+  window.open(
+    `${window.location.origin}/nftmarketdetail?${qs.stringify(query)}`
+  );
+  // router.push({
+  //   path: "/nftmarketdetail",
+  //   query: {
+  //     id: detail.nftBoxId,
+  //     groupId: detail.groupId,
+  //     type: detail.type,
+  //     chainId: detail.refId,
+  //   },
+  // });
 };
 </script>
 <style lang="scss" scoped>
