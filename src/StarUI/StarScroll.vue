@@ -6,7 +6,7 @@
   >
     <slot name="content"> </slot>
     <div v-if="state.isLoading" class="star-scroll-wrap-loading">
-      <star-space :size="20"></star-space>
+      <star-space :size="5"></star-space>
       <p v-if="props.textLoading" class="text">{{ $t("加载中") }}...</p>
       <star-loading-fish v-if="props.imgLoading" :gifType="props.gifType">
       </star-loading-fish>
@@ -139,6 +139,7 @@ onUnmounted(() => {
     transform: translate(-50%, 0);
     padding-bottom: 20px;
     text-align: center;
+    top: -30px;
     img {
       width: 90px;
     }

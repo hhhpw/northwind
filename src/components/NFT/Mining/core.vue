@@ -1,6 +1,7 @@
 <template>
   <div :class="$style['mining-core-container']">
     <total-power-card> </total-power-card>
+    <my-power-card></my-power-card>
     <div :class="$style['mining-core-container-slot-wrap']">
       <div
         v-for="(d, i) in state.slotArrays"
@@ -37,6 +38,7 @@
 import { computed, onMounted, reactive, defineProps, defineEmits } from "vue";
 import SelectorDialog from "./seletordialog.vue";
 import TotalPowerCard from "./totalpowercard.vue";
+import MyPowerCard from "./mypowercard.vue";
 import StarWalletDialog from "@StarUI/StarWalletDialog.vue";
 import changeSlotBgFunc from "./changeSlotBgFunc";
 

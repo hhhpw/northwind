@@ -6,8 +6,9 @@
       <span class="value">{{ rarevalue_total_score }}</span>
     </div>
     <div class="total-ranking">
-      <span class="title">{{ $t("得分排名") }}</span
-      ><br />
+      <span class="title">{{ $t("得分排名") }}</span>
+      <span>({{ props.box_detail?.seriesName }})</span>
+      <br />
       <span class="value">{{ rarevalue_total_rank }}</span>
     </div>
   </div>
@@ -53,7 +54,7 @@ const rarevalue_total_score = computed(() => {
 });
 // 稀有值排名
 const rarevalue_total_rank = computed(() => {
-  return props.box_detail.rank;
+  return `${props.box_detail?.rank}/${props.box_detail?.quantity}`;
 });
 </script>
 <style lang="scss" scoped>

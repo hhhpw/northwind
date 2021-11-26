@@ -4,14 +4,6 @@ export default [
     path: "/",
   },
   {
-    label: "兑换",
-    path: "/swap",
-  },
-  {
-    label: "流动性",
-    path: "/liquidity",
-  },
-  {
     label: "NFT",
     children: [
       {
@@ -23,6 +15,10 @@ export default [
         path: "/nftmarket",
       },
       {
+        label: "平台回购",
+        path: "/nftbuyback",
+      },
+      {
         label: "我的NFT",
         path: {
           name: "nftcollection",
@@ -32,15 +28,20 @@ export default [
         },
       },
       {
-        label: "平台回购",
-        path: "/nftbuyback",
-      },
-      {
         label: "NFT挖矿",
         path: "/nftmining",
       },
     ],
   },
+  {
+    label: "兑换",
+    path: "/swap",
+  },
+  {
+    label: "流动性",
+    path: "/liquidity",
+  },
+
   {
     label: "行情",
     path: "/info",

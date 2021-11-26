@@ -199,12 +199,16 @@ const StoreBuyBack = {
     async getSeriesList({ commit }) {
       let res = await buyBackApi.getSeriesList();
       if (res.code === 200) {
-        res.data.unshift({
+        let result = [];
+        for (let i = res.data.length - 1; i >= 0; i--) {
+          result.push(res.data[i]);
+        }
+        result.unshift({
           groupId: "",
           groupName: "默认",
           seriesName: "默认",
         });
-        commit(types.SET_SERIES_LIST, res.data);
+        commit(types.SET_SERIES_LIST, result);
       }
     },
 

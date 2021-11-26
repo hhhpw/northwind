@@ -22,12 +22,16 @@
             :textLoading="false"
             :imgLoading="true"
             :isShowMore="false"
-            v-if="market_data && market_data.length > 0 && !state.firstLoading"
+            v-if="
+              state.marketList &&
+              state.marketList.length > 0 &&
+              !state.firstLoading
+            "
           >
             <template #content>
               <div class="blind-box-list-content">
                 <list-blind-box-item
-                  v-for="(blind, i) in market_data"
+                  v-for="(blind, i) in state.marketList"
                   :key="i"
                   class="list-blind-box-item"
                   cardType="market"
@@ -43,7 +47,8 @@
           <empty
             v-if="
               !state.firstLoading &&
-              ((market_data && market_data.length === 0) || !market_data)
+              ((state.marketList && state.marketList.length === 0) ||
+                !state.marketList)
             "
           >
             <template #content>
@@ -74,8 +79,6 @@ import ListBlindBoxItem from "@components/NFT/ListBlindBoxItem.vue";
 import StarScroll from "@StarUI/StarScroll.vue";
 import Empty from "@components/NFT/Empty.vue";
 import StarLoadingFish from "@StarUI/StarLoadingFish.vue";
-import { useRouter } from "vue-router";
-const router = useRouter();
 import { useStore } from "vuex";
 const store = useStore();
 let state = reactive({
@@ -93,23 +96,17 @@ onUnmounted(() => {
   store.commit("StoreNftMarket/CLEAR_DATA");
 });
 
-const market_data = computed(() => store.getters["StoreNftMarket/market_data"]);
+// const state.marketList = computed(() => store.getters["StoreNftMarket/state.marketList"]);
 
 // 查看卡片详情
 const watchDetail = (detail) => {
-  router.push({
-    path: "/nftmarketdetail",
-    query: {
-      id: detail.nftBoxId,
-      groupId: detail.groupId,
-      type: detail.type,
-      chainId: detail.chainId,
-    },
-  });
+  const url = `${window.location.origin}/nftmarketdetail?id=${detail.nftBoxId}&groupId=${detail.groupId}&type=${detail.type}&chainId=${detail.chainId}`;
+  window.open(url, "_blank");
 };
 // 类型筛选
 const selectCallback = (item) => {
   const { groupId, sort } = item;
+  // sort为3是稀有度
   store.dispatch("StoreNftMarket/changeListQuery", {
     groupId: groupId,
     sort: sort.value,
@@ -118,7 +115,20 @@ const selectCallback = (item) => {
 
 const clickRadio = (data) => {
   const rules = data.map((d) => d.isOpen);
-  store.commit("StoreNftMarket/SET_MARKET_LIST_RULE", rules);
+  let open = "all";
+  if (rules[0]) {
+    open = "box";
+  }
+  if (rules[1]) {
+    open = "nft";
+  }
+  if (rules[0] && rules[1]) {
+    open = "all";
+  }
+  store.dispatch("StoreNftMarket/changeListQuery", {
+    open,
+  });
+  // store.commit("StoreNftMarket/SET_MARKET_LIST_RULE", rules);
 };
 // 加载数据
 const loadMore = () => {

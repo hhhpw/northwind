@@ -19,6 +19,11 @@ const StoreNFTMining = {
   state: {
     selectorDialogParams: cloneDeep(INIT_SELECTOR_DIALOG_PARAMS),
     walletDialogParams: cloneDeep(WALLET_DIALOG_PARAMS),
+    myNFTMiningData: {
+      power: 12321,
+      profit: 321321,
+      yearProfit: 55.5,
+    },
   },
   mutations: {
     [types.SET_SELECTOR_DIALOG_PARAMS](state, payload) {

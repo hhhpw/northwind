@@ -47,7 +47,7 @@
             ></star-input-number>
             <star-space :size="10"></star-space>
             <div style="text-align: right">
-              {{ t("可用") + " : " + userAmount }}
+              {{ t("钱包余额") + " : " + userAmount }}
               STC
             </div>
             <div v-if="!state.quotation_isInteger" class="error">

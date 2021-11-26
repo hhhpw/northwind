@@ -44,6 +44,10 @@ let state = reactive({
       path: "/nftmarket",
     },
     {
+      label: "平台回购",
+      path: "/nftbuyback",
+    },
+    {
       label: "我的NFT",
       path: {
         name: "nftcollection",
@@ -51,10 +55,6 @@ let state = reactive({
           tabIndex: "1",
         },
       },
-    },
-    {
-      label: "平台回购",
-      path: "/nftbuyback",
     },
     {
       label: "NFT挖矿",

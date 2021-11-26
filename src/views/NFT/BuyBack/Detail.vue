@@ -38,7 +38,7 @@
   </div>
 </template>
 <script setup>
-import { reactive, onMounted, ref, computed, watch } from "vue";
+import { reactive, onMounted, ref, computed, watch, onUnmounted } from "vue";
 import NFT_CONSTANTS from "@constants/nft.js";
 import StarNft from "@StarUI/StarNFT.vue";
 import detailCard from "@components/NFT/DetailCard.vue";
@@ -163,6 +163,10 @@ const handleSuccess = () => {
 const handleFailed = () => {
   window.location.reload();
 };
+
+onUnmounted(() => {
+  store.commit("StoreBuyBack/SET_BUYBACKINFO_DETAIL", null);
+});
 </script>
 <style lang="scss" scoped>
 .blind-box-container {

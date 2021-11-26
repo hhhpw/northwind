@@ -1,8 +1,8 @@
 <template>
   <div class="star-sidebar">
     <div class="star-sidebar-logo">
-      <img src="../assets/sidebar/logo.png" />
-      <img src="../assets/sidebar/logo-title.png" />
+      <img src="../assets/sidebar/logo.png" @click="pushIndex" />
+      <img src="../assets/sidebar/logo-title.png" @click="pushIndex" />
     </div>
     <ul class="star-sidebar-menu">
       <li v-for="(d, i) in menus" :key="i" @click="pushPage(d.path)">
@@ -79,8 +79,14 @@ const route = useRoute();
 const state = reactive({
   menus,
   currentRoute: computed(() => route.path),
-  collapseObj: {},
+  collapseObj: {
+    NFT: true,
+  },
 });
+
+const pushIndex = () => {
+  router.push("/");
+};
 const pushPage = (path) => {
   if (!path) return;
   if (isObject(path)) {
@@ -92,6 +98,7 @@ const pushPage = (path) => {
   }
 };
 const setCollapseStatus = (label) => {
+  console.log("label", label);
   if (has(state.collapseObj, label)) {
     state.collapseObj[label] = !state.collapseObj[label];
   } else {
@@ -125,6 +132,10 @@ const showRouterTag = (path, currentRoute) => {
     display: flex;
     align-items: center;
     padding: 0px 15px;
+    img {
+      cursor: pointer;
+    }
+
     .img {
       display: inline-block;
       width: 100%;
