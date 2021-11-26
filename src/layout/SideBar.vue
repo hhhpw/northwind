@@ -79,7 +79,9 @@ const route = useRoute();
 const state = reactive({
   menus,
   currentRoute: computed(() => route.path),
-  collapseObj: {},
+  collapseObj: {
+    NFT: true,
+  },
 });
 
 const pushIndex = () => {
@@ -96,6 +98,7 @@ const pushPage = (path) => {
   }
 };
 const setCollapseStatus = (label) => {
+  console.log("label", label);
   if (has(state.collapseObj, label)) {
     state.collapseObj[label] = !state.collapseObj[label];
   } else {

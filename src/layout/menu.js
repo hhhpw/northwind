@@ -4,14 +4,6 @@ export default [
     path: "/",
   },
   {
-    label: "兑换",
-    path: "/swap",
-  },
-  {
-    label: "流动性",
-    path: "/liquidity",
-  },
-  {
     label: "NFT",
     children: [
       {
@@ -37,6 +29,15 @@ export default [
       },
     ],
   },
+  {
+    label: "兑换",
+    path: "/swap",
+  },
+  {
+    label: "流动性",
+    path: "/liquidity",
+  },
+
   {
     label: "行情",
     path: "/info",
