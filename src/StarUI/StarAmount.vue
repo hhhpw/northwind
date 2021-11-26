@@ -31,34 +31,41 @@ const props = defineProps({
     type: Object,
     default() {
       return {
-        precision: {
-          type: [Number, String],
-          default: undefined,
-        },
-        grouped: {
-          type: Boolean,
-          default: true,
-        },
-        percentStyle: {
-          type: Boolean, // 百分比显示
-          default: false,
-        },
-        round: {
-          type: String,
-          default: "round", //round ceil floor
-        },
-        showSign: {
-          type: Boolean, // + -显示
-          default: false,
-        },
-        compact: {
-          type: Boolean,
-          default: false,
-        },
-        trailingZero: {
-          type: Boolean,
-          default: true,
-        },
+        precision: undefined,
+        grouped: true,
+        percentStyle: false,
+        round: "round",
+        showSign: false,
+        compact: false,
+        trailingZero: true,
+        // precision: {
+        //   type: [Number, String],
+        //   default: undefined,
+        // },
+        // grouped: {
+        //   type: Boolean,
+        //   default: true,
+        // },
+        // percentStyle: {
+        //   type: Boolean, // 百分比显示
+        //   default: false,
+        // },
+        // round: {
+        //   type: String,
+        //   default: "round", //round ceil floor
+        // },
+        // showSign: {
+        //   type: Boolean, // + -显示
+        //   default: false,
+        // },
+        // compact: {
+        //   type: Boolean,
+        //   default: false,
+        // },
+        // trailingZero: {
+        //   type: Boolean,
+        //   default: true,
+        // },
       };
     },
   },
