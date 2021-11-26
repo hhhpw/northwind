@@ -450,26 +450,7 @@ onUnmounted(() => {
       font-size: 24px;
     }
   }
-  .nft-blindbox-core-buy-dialog {
-    .nft-blindbox-core-buy-dialog-content-details {
-      display: flex;
-      justify-content: space-between;
-    }
-    .nft-blindbox-core-buy-dialog-content-errors {
-      margin-top: 3px;
-      font-size: 12px;
-      text-align: right;
-      color: $text-error-color;
-    }
 
-    .nft-blindbox-core-buy-dialog-footer {
-      display: flex;
-      justify-content: space-between;
-      .star-button {
-        width: 35%;
-      }
-    }
-  }
   .nft-blindbox-core-buycb-dialog {
     .nft-blindbox-core-buycb-dialog-text {
       margin-top: 10px;
@@ -481,6 +462,26 @@ onUnmounted(() => {
       margin-left: 10%;
       padding-left: 0px;
       padding-right: 0px;
+    }
+  }
+}
+.nft-blindbox-core-buy-dialog {
+  .nft-blindbox-core-buy-dialog-content-details {
+    display: flex;
+    justify-content: space-between;
+  }
+  .nft-blindbox-core-buy-dialog-content-errors {
+    margin-top: 3px;
+    font-size: 12px;
+    text-align: right;
+    color: $text-error-color;
+  }
+
+  .nft-blindbox-core-buy-dialog-footer {
+    display: flex;
+    justify-content: space-between;
+    .star-button {
+      width: 35%;
     }
   }
 }
