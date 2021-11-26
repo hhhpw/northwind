@@ -1,5 +1,6 @@
 <template>
   <div :class="$style['mining-core-container']">
+    <total-power-card> </total-power-card>
     <div :class="$style['mining-core-container-slot-wrap']">
       <div
         v-for="(d, i) in state.slotArrays"
@@ -34,11 +35,9 @@
 <script setup>
 /* eslint-disable */
 import { computed, onMounted, reactive, defineProps, defineEmits } from "vue";
-import SelectorDialog from "./seletordialog";
-import StarWalletDialog from "@StarUI/StarWalletDialog";
-import NORMAL_IMG from "../../../assets/nft/mining-nft-slot.png";
-import HOVER_IMG from "../../../assets/nft/mining-nft-slot-hover.png";
-import NFT_IMG from "../../../assets/nft/mining-nft-slot-hasnft.png";
+import SelectorDialog from "./seletordialog.vue";
+import TotalPowerCard from "./totalpowercard.vue";
+import StarWalletDialog from "@StarUI/StarWalletDialog.vue";
 import changeSlotBgFunc from "./changeSlotBgFunc";
 
 import { useStore } from "vuex";
@@ -70,8 +69,8 @@ const { enterNFTSlot, setSlotBg } = changeSlotBgFunc(state);
 .mining-core-container {
   background-image: url("../../../assets/nft/nft-mining.png");
   background-repeat: no-repeat;
-  // background-size: 100% 100%;
-  background-size: contain;
+  background-size: 100% 100%;
+  // background-size: cover;
   position: relative;
   // background-image: url("../../../assets/nft/nft-mining.png") center center
   //   no-repeat;

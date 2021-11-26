@@ -256,7 +256,9 @@
     "挖矿": "挖礦",
     "提取": "提取",
     "收益": "收益",
-    "算力": "算力"
+    "算力": "算力",
+    "平均年化收益": "平均年化收益",
+    "日产量": "日產量"
   },
   "farms": {
     "farm-swap-total-1": "總交易額",
@@ -305,7 +307,8 @@
     "nft-selector-title": "选择NFT",
     "nft-selector-rule": "正在出售中的NFT不能進行挖礦；NFT卡牌稀有值越高所對應的算力越高，能獲得的收益更多",
     "nft-selector-nodata": "暫無可用NFT",
-    "nft-selector-nodata-tomarket": "可在市場進行購買"
+    "nft-selector-nodata-tomarket": "可在市場進行購買",
+    "total-mining-power": "當前總算力"
   },
   "nftproperty": {
     "背景": "背景",
