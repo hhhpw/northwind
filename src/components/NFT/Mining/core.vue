@@ -2,13 +2,21 @@
   <div :class="$style['mining-core-container']">
     <div :class="$style['mining-core-container-slot-wrap']">
       <div
-        v-for="(d, i) in new Array(5)"
+        v-for="(d, i) in state.slotArrays"
         :key="i"
         :class="$style['mining-core-container-slot-item-wrap']"
-        @mouseenter="enterSlot(i, true)"
-        @mouseleave="enterSlot(i, false)"
+        @mouseenter.stop="enterNFTSlot(i, d.hasNFT, true)"
+        @mouseleave.stop="enterNFTSlot(i, d.hasNFT, false)"
       >
-        <div :class="$style['mining-core-container-slot-item']"></div>
+        <div
+          :ref="
+            (el) => {
+              if (el) state.slotDOMs[i] = el;
+            }
+          "
+          :style="setSlotBg(d.hasNFT)"
+          :class="$style['mining-core-container-slot-item']"
+        ></div>
       </div>
     </div>
   </div>
@@ -29,11 +37,25 @@ import { computed, onMounted, reactive, defineProps, defineEmits } from "vue";
 import SelectorDialog from "./seletordialog";
 import StarWalletDialog from "@StarUI/StarWalletDialog";
 import NORMAL_IMG from "../../../assets/nft/mining-nft-slot.png";
+import HOVER_IMG from "../../../assets/nft/mining-nft-slot-hover.png";
+import NFT_IMG from "../../../assets/nft/mining-nft-slot-hasnft.png";
+import changeSlotBgFunc from "./changeSlotBgFunc";
 
 import { useStore } from "vuex";
 const store = useStore();
 
 let state = reactive({
+  slotDOMs: [],
+  slotArrays: new Array(5).fill(1).map((d, i) => {
+    if (i === 2 || i === 4) {
+      return {
+        hasNFT: true,
+      };
+    }
+    return {
+      hasNFT: false,
+    };
+  }),
   selectorDialogParams: computed(
     () => store.state.StoreNFTMining.selectorDialogParams
   ),
@@ -42,8 +64,7 @@ let state = reactive({
   ),
 });
 
-const renderSlotBg = computed(() => {});
-const enterSlot = () => {};
+const { enterNFTSlot, setSlotBg } = changeSlotBgFunc(state);
 </script>
 <style lang="scss" module>
 .mining-core-container {
@@ -60,6 +81,9 @@ const enterSlot = () => {};
     position: absolute;
     bottom: 0px;
     .mining-core-container-slot-item-wrap {
+      :hover {
+        cursor: pointer;
+      }
       position: relative;
       float: left;
       height: 182px;
@@ -71,7 +95,7 @@ const enterSlot = () => {};
         width: 178px;
         position: relative;
         left: 50%;
-        background-image: url("../../../assets/nft/mining-nft-slot.png");
+        // background-image: url("../../../assets/nft/mining-nft-slot.png");
         background-repeat: no-repeat;
         background-size: 100% 100%;
         top: 50%;

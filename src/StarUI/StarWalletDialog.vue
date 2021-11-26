@@ -161,7 +161,6 @@ const state = reactive({
 });
 watchEffect(() => {
   if (props.dialogParams) {
-    console.log("A");
     state.visible = props.dialogParams.dialogVisible;
   }
 });
