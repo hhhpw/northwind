@@ -10,6 +10,21 @@ export const WALLET_DIALOG_PARAMS = {
   failedBtnText: "",
 };
 
+export const SECOND_DIALOG_PARAMS = {
+  dialogVisible: false,
+  isShowClose: true, //
+  title: "", // 标题
+  text: "", // 描述文案
+  imgParams: {
+    url: "",
+    height: "",
+    width: "",
+  },
+  confirmText: "A",
+  cancelText: "",
+};
+
 export default {
   WALLET_DIALOG_PARAMS,
+  SECOND_DIALOG_PARAMS,
 };

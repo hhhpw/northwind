@@ -1,19 +1,28 @@
+/* eslint-disable */
 import NORMAL_IMG from "../../../assets/nft/mining-nft-slot.png";
 import HOVER_IMG from "../../../assets/nft/mining-nft-slot-hover.png";
 import NFT_IMG from "../../../assets/nft/mining-nft-slot-hasnft.png";
 
 const changeSlotBgFunc = (state) => {
   const enterNFTSlot = (index, hasNFT, flag) => {
-    if (flag) {
+    if (hasNFT && flag) {
+      // 有nft移入
       state.slotDOMs[index].style.backgroundImage = `url(${HOVER_IMG})`;
+      state.shadowDOMs[index].style.display = "block";
+      // state.slotDOMs[index].style.opacity = `0.5`;
       return;
     }
+    // if (flag) {
+    //   state.slotDOMs[index].style.backgroundImage = `url(${HOVER_IMG})`;
+    //   return;
+    // }
     if (!hasNFT && !flag) {
       state.slotDOMs[index].style.backgroundImage = `url(${NORMAL_IMG})`;
       return;
     }
     if (hasNFT && !flag) {
       state.slotDOMs[index].style.backgroundImage = `url(${NFT_IMG})`;
+      state.shadowDOMs[index].style.display = "none";
       return;
     }
   };

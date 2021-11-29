@@ -22,7 +22,7 @@ export const SWAP_SECOND_DIALOG_PARAMS = {
   cancelText: "",
   dialogVisible: false,
   operateWaring: false,
-  // lockedVisible: false,
+  isShowClose: true,
   dataParams: null,
 };
 

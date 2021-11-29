@@ -10,9 +10,12 @@
       <img :src="d.img" />
       <p :class="$style['card-wrap-item-text']">{{ $t("算力") }}： 80</p>
       <div v-show="d.isShow">
-        <star-button type="dark" :class="$style['card-wrap-item-btn']">{{
-          $t("质押")
-        }}</star-button>
+        <star-button
+          type="dark"
+          :class="$style['card-wrap-item-btn']"
+          @click="store.dispatch('StoreNFTMining/stakeNFT')"
+          >{{ $t("质押") }}</star-button
+        >
       </div>
     </div>
   </div>
@@ -21,6 +24,8 @@
 /* eslint-disable */
 import { computed, onMounted, reactive, watch } from "vue";
 import StarButton from "@StarUI/StarButton";
+import { useStore } from "vuex";
+const store = useStore();
 
 let state = reactive({
   list: [

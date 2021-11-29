@@ -1,6 +1,33 @@
 <template>
   <div class="farm-dialog">
-    <ElDialog
+    {{ props.dialogParams }}
+    <star-wallet-dialog
+      :dialogParams="props.dialogParams"
+      @handleClose="emits('handleClose')"
+      @handleFailed="emits('handleFailed')"
+      @handleSucceed="emits('handleSucceed')"
+    >
+      <template #star-wallet-dialog-custom-content>
+        <div class="farm-dialog-content-mining-success">
+          <p v-if="props.dialogParams?.miningData?.draw">
+            {{
+              $t("farms.farm-swap-mining-success1", {
+                amount: formatAmount(props.dialogParams.miningData.draw),
+              })
+            }}
+          </p>
+          <p v-if="props.dialogParams?.miningData?.locked">
+            {{
+              $t("farms.farm-swap-mining-success2", {
+                amount: formatAmount(props.dialogParams.miningData.locked),
+              })
+            }}
+          </p>
+          <star-space :size="20"></star-space>
+        </div>
+      </template>
+    </star-wallet-dialog>
+    <!-- <ElDialog
       v-model="state.visible"
       custom-class="star-dialog-el"
       width="480px"
@@ -118,12 +145,13 @@
           {{ props.dialogParams.failedBtnText }}
         </star-button>
       </div>
-    </ElDialog>
+    </ElDialog> -->
   </div>
 </template>
 
 <script setup>
-import { defineProps, defineEmits, reactive, watch, computed } from "vue";
+/* eslint-disable */
+import { defineProps, defineEmits, reactive, computed } from "vue";
 import SvgIcon from "@components/SvgIcon/Index.vue";
 import StarSpace from "@StarUI/StarSpace.vue";
 import StarButton from "@StarUI/StarButton.vue";
@@ -134,6 +162,7 @@ import dialogSuccessImg from "../../assets/nft/dialog-ok.png";
 import dialogLoadingImg from "../../assets/nft/dialog-loading.png";
 import dialogPhaseSuccessImg from "../../assets/nft/dialog-success.png";
 import utilsNumber from "@utils/number";
+import StarWalletDialog from "@StarUI/StarWalletDialog.vue";
 
 const store = useStore();
 const props = defineProps({
@@ -153,90 +182,7 @@ const state = reactive({
   currLang: computed(() => store.state.StoreApp.currLang),
 });
 
-watch(
-  () => props.dialogParams.dialogVisible,
-  (n, o) => {
-    console.log("n", n, "o,", o);
-    state.visible = n;
-  }
-);
-
-// watch(
-//   () => props.isShowClose,
-//   (n) => {
-//     state.isShowClose = n;
-//   }
-// );
-
-const setDiaglogStyle = computed(() => {
-  if (state.currLang === "en") {
-    return {
-      dialogWidth: "500px",
-      feedBackWith: "440px",
-      loadingMarLeft: "20px",
-    };
-  }
-  return {
-    dialogWidth: "440px",
-  };
-});
-
-const renderContentImg = (type) => {
-  const obj = {
-    ongoing: dialogOnGoingImg,
-    failed: dialogFailedImg,
-    success: dialogSuccessImg,
-  };
-  return obj[type];
-};
-
-const renderPhaseStatus = (type) => {
-  const obj = {
-    loading: dialogLoadingImg,
-    success: dialogPhaseSuccessImg,
-  };
-  return obj[type];
-};
-
-const setWH = (type, customImgUrl, isBlindBox) => {
-  if (customImgUrl && isBlindBox) {
-    return {
-      width: "40%",
-      "margin-bottom": "10px",
-    };
-  }
-  if (customImgUrl) {
-    return {
-      width: "80%",
-      "margin-bottom": "10px",
-    };
-  }
-  if (type !== "ongoing") {
-    return {
-      width: "63px",
-      // height: "56px",
-    };
-  }
-  return {};
-};
-
-const rotateAni = (type) => {
-  if (type === "loading") {
-    return "loading-img";
-  }
-};
-
-const renderColorStyle = (type) => {
-  if (type === "loading") {
-    return "loading-div";
-  }
-};
-
-const emits = defineEmits(["handleClose", "handleSuccess", "handleFailed"]);
-
-const handleClose = () => {
-  emits("handleClose");
-};
+const emits = defineEmits(["handleClose", "handleSucceed", "handleFailed"]);
 
 const formatAmount = (amount) => {
   return utilsNumber.formatNumberMeta(utilsNumber.bigNum(amount), {
@@ -262,103 +208,9 @@ const formatAmount = (amount) => {
 }
 
 .farm-dialog {
-  ::v-deep(.el-dialog) {
-    border-radius: 34px;
-    .el-dialog__headerbtn:focus .el-dialog__close,
-    .el-dialog__headerbtn:hover .el-dialog__close {
-      color: $btn-orange-bgcolor;
-    }
-  }
-  ::v-deep(.el-dialog__body) {
-    padding-top: 10px !important;
-  }
-  .farm-dialog-header {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    font-weight: bold;
-    .svg {
-      width: 36px;
-      height: 36px;
-      &:hover {
-        opacity: 0.7;
-      }
-    }
-  }
-  .farm-dialog-content {
-    // background: red;
-    .farm-dialog-content-core {
-      text-align: center;
-      img {
-        display: inline-block;
-        width: 140px;
-        user-select: none;
-      }
-      .farm-dialog-content-core-text {
-        font-size: 20px;
-        color: $text-black-color;
-        font-weight: 600;
-      }
-    }
-  }
   .farm-dialog-content-mining-success {
     color: #8b8b8b;
     text-align: center;
-  }
-  .farm-dialog-content-feedback {
-    width: 323px;
-    height: 109px;
-    background: #fafafa;
-    border-radius: 16px;
-    margin: 0 auto;
-    margin-top: 20px;
-    overflow: hidden;
-    // display: flex;
-    // justify-content: center;
-    // flex-direction: column;
-    div {
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      color: #000928;
-      overflow: hidden;
-      &.loading-div {
-        color: #8b8b8b;
-      }
-      img {
-        width: 14px;
-        height: 14px;
-        margin-left: 60px;
-        display: inline-block;
-      }
-      span {
-        margin-left: 10px;
-        font-size: 16px;
-        font-weight: 600;
-      }
-    }
-    .loading-img {
-      transition: 0.5s;
-      animation: rotate 1s linear infinite;
-    }
-    .farm-dialog-content-feedback-phase1 {
-      margin-top: 30px;
-    }
-    .farm-dialog-content-feedback-phase2 {
-      margin-top: 10px;
-    }
-  }
-  .farm-dialog-footer {
-    width: 100%;
-    margin-top: 0px;
-    .farm-dialog-footer-button {
-      padding-right: 0px;
-      padding-left: 0px;
-      width: 70%;
-      margin-left: 15%;
-      font-size: 16px;
-      border-radius: 10px;
-    }
   }
 }
 </style>

@@ -60,8 +60,8 @@
           state.dialogParams && state.dialogParams.dialogStatus
         )
     "
-    @handleSuccess="
-      () => dialogEventMaps && dialogEventMaps.swapDialog.handleSuccess()
+    @handleSucceed="
+      () => dialogEventMaps && dialogEventMaps.swapDialog.handleSucceed()
     "
     @handleFailed="
       () => dialogEventMaps && dialogEventMaps.swapDialog.handleFailed()
@@ -80,7 +80,7 @@
     @handleConfirm="
       () =>
         dialogEventMaps &&
-        dialogEventMaps.swapSecondDialog.handleSuccess(
+        dialogEventMaps.swapSecondDialog.handleSucceed(
           state.secondDialogParams.type
         )
     "

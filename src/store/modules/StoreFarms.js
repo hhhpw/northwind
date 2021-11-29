@@ -107,7 +107,7 @@ const StoreFarms = {
     },
 
     // 提取挖矿收益
-    async drawMiningReward({ commit, state }) {
+    async drawMiningReward({ commit, state, rootState }) {
       commit(
         types.CHANGE_SECOND_DIALOG_PARAMS,
         FARMS_CONSTANTS.SWAP_SECOND_DIALOG_PARAMS
@@ -125,16 +125,16 @@ const StoreFarms = {
       if (txnHashData.code === 200) {
         let txnHash = txnHashData.data.transactionHash;
         commit(types.CHANGE_DIALOG_PARAMS, {
-          phase1: "success",
+          phase1: "succeed",
         });
         utilsTool.pollingBlockHashInfo({ txnHash }).then((res) => {
           if (res === "Executed") {
             commit(types.CHANGE_DIALOG_PARAMS, {
-              phase2: "success",
+              phase2: "succeed",
             });
             setTimeout(() => {
               commit(types.CHANGE_DIALOG_PARAMS, {
-                dialogStatus: "success",
+                dialogStatus: "succeed",
                 dialogText: utilsFormat.computedLangCtx("操作成功"),
                 successBtnText: utilsFormat.computedLangCtx("确认"),
                 isShowClose: true,
@@ -256,16 +256,16 @@ const StoreFarms = {
       if (txnHashData.code === 200) {
         let txnHash = txnHashData.data.transactionHash;
         commit(types.CHANGE_DIALOG_PARAMS, {
-          phase1: "success",
+          phase1: "succeed",
         });
         utilsTool.pollingBlockHashInfo({ txnHash }).then((res) => {
           if (res === "Executed") {
             commit(types.CHANGE_DIALOG_PARAMS, {
-              phase2: "success",
+              phase2: "succeed",
             });
             setTimeout(() => {
               commit(types.CHANGE_DIALOG_PARAMS, {
-                dialogStatus: "success",
+                dialogStatus: "succeed",
                 dialogText: utilsFormat.computedLangCtx("操作成功"),
                 successBtnText: utilsFormat.computedLangCtx("确认"),
                 isShowClose: true,
@@ -310,16 +310,16 @@ const StoreFarms = {
       if (txnHashData.code === 200) {
         let txnHash = txnHashData.data.transactionHash;
         commit(types.CHANGE_DIALOG_PARAMS, {
-          phase1: "success",
+          phase1: "succeed",
         });
         utilsTool.pollingBlockHashInfo({ txnHash }).then((res) => {
           if (res === "Executed") {
             commit(types.CHANGE_DIALOG_PARAMS, {
-              phase2: "success",
+              phase2: "succeed",
             });
             setTimeout(() => {
               commit(types.CHANGE_DIALOG_PARAMS, {
-                dialogStatus: "success",
+                dialogStatus: "succeed",
                 dialogText: utilsFormat.computedLangCtx("操作成功"),
                 successBtnText: utilsFormat.computedLangCtx("确认"),
                 isShowClose: true,

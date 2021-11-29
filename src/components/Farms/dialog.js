@@ -16,7 +16,7 @@ export const dialogEventMaps = {
       console.log("handleClose", type);
       swap_second_dialog_params_init();
     },
-    handleSuccess: (type) => {
+    handleSucceed: (type) => {
       if (type === "mining") {
         store.dispatch("StoreFarms/drawMiningReward");
       }
@@ -36,11 +36,11 @@ export const dialogEventMaps = {
       console.log("handleClose", type);
       if (type === "failed") {
         dialogEventMaps.swapDialog.handleFailed();
-      } else if (type === "success") {
-        dialogEventMaps.swapDialog.handleSuccess();
+      } else if (type === "succeed") {
+        dialogEventMaps.swapDialog.handleSucceed();
       }
     },
-    handleSuccess: () => {
+    handleSucceed: () => {
       console.log("=====");
       window.location.reload();
     },

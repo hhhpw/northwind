@@ -39,6 +39,7 @@
         <p v-if="state.walletStatus !== 'connected'">- -</p>
         <star-amount
           v-else
+          :class="$style['amount']"
           :value="55.5"
           :formatOptions="{
             precision: 0,
@@ -80,6 +81,10 @@ const enterBtn = (flag) => {
 };
 </script>
 <style lang="scss" module>
+.amount {
+  font-size: 24px;
+  font-weight: bolder;
+}
 .my-power {
   position: absolute;
   right: 25px;
@@ -109,15 +114,19 @@ const enterBtn = (flag) => {
     padding: 0px 25px;
     margin-top: 15px;
     .button {
-      width: 168px;
-      height: 60px;
-      line-height: 50px;
+      width: 190px;
+      height: 70px;
+      font-size: 20px;
+      line-height: 60px;
       background-image: url("../../../assets/nft/mining-nft-btn.png");
       background-size: 100% 100%;
       background-repeat: no-repeat;
       cursor: pointer;
       text-align: center;
       vertical-align: middle;
+      :hover {
+        opacity: 0.5;
+      }
     }
     .year-profit {
       margin-left: 20px;

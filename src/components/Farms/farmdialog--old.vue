@@ -1,39 +1,27 @@
 <template>
-  <div class="star-wallet-dialog">
+  <div class="farm-dialog">
     <ElDialog
       v-model="state.visible"
       custom-class="star-dialog-el"
       width="480px"
-      :before-close="() => emits('handleClose')"
+      :before-close="handleClose"
       :close-on-press-escape="false"
       :close-on-click-modal="false"
       :modal="true"
       :show-close="false"
     >
       <template #title>
-        <div
-          class="star-wallet-dialog-header"
-          :style="{
-            'justify-content': props.dialogParams.hasTitle
-              ? 'space-between'
-              : 'flex-end',
-          }"
-        >
-          <!-- 自定义标题 -->
-          <slot name="star-wallet-dialog-header-title"></slot>
-          <span v-if="props.dialogParams.hasTitle">
-            {{ props.dialogParams.title }}
-          </span>
+        <div class="farm-dialog-header">
           <svg-icon
             v-if="props.dialogParams.isShowClose"
             name="dialog-close"
-            class="star-wallet-dialog-header-svg"
-            @click.stop="() => emits('handleClose')"
+            class="svg"
+            @click.stop="handleClose"
           ></svg-icon>
         </div>
       </template>
-      <div class="star-wallet-dialog-content">
-        <div class="star-wallet-dialog-content-core">
+      <div class="farm-dialog-content">
+        <div class="farm-dialog-content-core">
           <img
             style="border-radius: 16px"
             :src="renderContentImg(props.dialogParams.dialogStatus)"
@@ -44,7 +32,7 @@
             v-if="props.dialogParams.dialogStatus !== 'ongoing'"
           ></star-space>
           <p
-            class="star-wallet-dialog-content-core-text"
+            class="farm-dialog-content-core-text"
             v-if="props.dialogParams.dialogText"
           >
             {{
@@ -58,15 +46,31 @@
           :size="20"
           v-if="!props.dialogParams.customImgUrl"
         ></star-space>
-        <slot name="star-wallet-dialog-custom-content"></slot>
+        <div class="farm-dialog-content-mining-success">
+          <p v-if="props.dialogParams?.miningData?.draw">
+            {{
+              $t("farms.farm-swap-mining-success1", {
+                amount: formatAmount(props.dialogParams.miningData.draw),
+              })
+            }}
+          </p>
+          <p v-if="props.dialogParams?.miningData?.locked">
+            {{
+              $t("farms.farm-swap-mining-success2", {
+                amount: formatAmount(props.dialogParams.miningData.locked),
+              })
+            }}
+          </p>
+          <star-space :size="20"></star-space>
+        </div>
         <div
-          class="star-wallet-dialog-content-feedback"
+          class="farm-dialog-content-feedback"
           :style="{ width: setDiaglogStyle.feedBackWith }"
           v-if="props.dialogParams.dialogStatus === 'ongoing'"
         >
           <div
             :class="renderColorStyle(props.dialogParams.phase1)"
-            class="star-wallet-dialog-content-feedback-phase1"
+            class="farm-dialog-content-feedback-phase1"
           >
             <img
               :src="renderPhaseStatus(props.dialogParams.phase1)"
@@ -77,7 +81,7 @@
             <span>{{ $t("在钱包确认操作") }}</span>
           </div>
           <div
-            class="star-wallet-dialog-content-feedback-phase2"
+            class="farm-dialog-content-feedback-phase2"
             :class="renderColorStyle(props.dialogParams.phase2)"
           >
             <img
@@ -90,22 +94,22 @@
           </div>
         </div>
       </div>
-      <div class="star-wallet-dialog-footer">
+      <div class="farm-dialog-footer">
         <star-button
-          @click="emits('handleSucceed')"
-          class="star-wallet-dialog-footer-button"
+          @click="() => emits('handleSuccess')"
+          class="farm-dialog-footer-button"
           type="green"
           v-if="
             props.dialogParams.successBtnText &&
-            props.dialogParams.dialogStatus === 'succeed'
+            props.dialogParams.dialogStatus === 'success'
           "
         >
           {{ props.dialogParams.successBtnText }}
         </star-button>
         <star-button
           type="red"
-          class="star-wallet-dialog-footer-button"
-          @click="emits('handleFailed')"
+          class="farm-dialog-footer-button"
+          @click="() => emits('handleFailed')"
           v-if="
             props.dialogParams.failedBtnText &&
             props.dialogParams.dialogStatus === 'failed'
@@ -119,46 +123,50 @@
 </template>
 
 <script setup>
-// 公共的钱包操作反馈
-import { defineProps, defineEmits, reactive, computed, watchEffect } from "vue";
+import { defineProps, defineEmits, reactive, watch, computed } from "vue";
 import SvgIcon from "@components/SvgIcon/Index.vue";
 import StarSpace from "@StarUI/StarSpace.vue";
 import StarButton from "@StarUI/StarButton.vue";
 import { useStore } from "vuex";
-import dialogOnGoingImg from "../assets/nft/confirm-logo.gif";
-import dialogFailedImg from "../assets/nft/dialog-error.png";
-import dialogSuccessImg from "../assets/nft/dialog-ok.png";
-import dialogLoadingImg from "../assets/nft/dialog-loading.png";
-import dialogPhaseSuccessImg from "../assets/nft/dialog-success.png";
+import dialogOnGoingImg from "../../assets/nft/confirm-logo.gif";
+import dialogFailedImg from "../../assets/nft/dialog-error.png";
+import dialogSuccessImg from "../../assets/nft/dialog-ok.png";
+import dialogLoadingImg from "../../assets/nft/dialog-loading.png";
+import dialogPhaseSuccessImg from "../../assets/nft/dialog-success.png";
+import utilsNumber from "@utils/number";
 
 const store = useStore();
 const props = defineProps({
+  title: {
+    type: String,
+    default: "",
+  },
+
+  width: {
+    type: Number,
+  },
   dialogParams: {
     type: Object,
-    default: () => {
-      return {
-        dialogVisible: false,
-        isShowClose: false, // 弹窗关闭icon
-        hasTitle: false,
-        dialogStatus: "ongoing", //ongoing  failed  succeed
-        dialogText: "", // 购买中等
-        phase1: "", // loading succeed
-        phase2: "", // loading succeed
-        successBtnText: "",
-        failedBtnText: "",
-      };
-    },
   },
 });
 const state = reactive({
   currLang: computed(() => store.state.StoreApp.currLang),
-  visible: false,
 });
-watchEffect(() => {
-  if (props.dialogParams) {
-    state.visible = props.dialogParams.dialogVisible;
+
+watch(
+  () => props.dialogParams.dialogVisible,
+  (n, o) => {
+    console.log("n", n, "o,", o);
+    state.visible = n;
   }
-});
+);
+
+// watch(
+//   () => props.isShowClose,
+//   (n) => {
+//     state.isShowClose = n;
+//   }
+// );
 
 const setDiaglogStyle = computed(() => {
   if (state.currLang === "en") {
@@ -177,7 +185,7 @@ const renderContentImg = (type) => {
   const obj = {
     ongoing: dialogOnGoingImg,
     failed: dialogFailedImg,
-    succeed: dialogSuccessImg,
+    success: dialogSuccessImg,
   };
   return obj[type];
 };
@@ -185,7 +193,7 @@ const renderContentImg = (type) => {
 const renderPhaseStatus = (type) => {
   const obj = {
     loading: dialogLoadingImg,
-    succeed: dialogPhaseSuccessImg,
+    success: dialogPhaseSuccessImg,
   };
   return obj[type];
 };
@@ -224,7 +232,19 @@ const renderColorStyle = (type) => {
   }
 };
 
-const emits = defineEmits(["handleClose", "handleSucceed", "handleFailed"]);
+const emits = defineEmits(["handleClose", "handleSuccess", "handleFailed"]);
+
+const handleClose = () => {
+  emits("handleClose");
+};
+
+const formatAmount = (amount) => {
+  return utilsNumber.formatNumberMeta(utilsNumber.bigNum(amount), {
+    precision: 4,
+    trailingZero: true,
+    round: "floor",
+  }).text;
+};
 </script>
 
 <style lang="scss" scoped>
@@ -241,7 +261,7 @@ const emits = defineEmits(["handleClose", "handleSucceed", "handleFailed"]);
   }
 }
 
-.star-wallet-dialog {
+.farm-dialog {
   ::v-deep(.el-dialog) {
     border-radius: 34px;
     .el-dialog__headerbtn:focus .el-dialog__close,
@@ -252,12 +272,12 @@ const emits = defineEmits(["handleClose", "handleSucceed", "handleFailed"]);
   ::v-deep(.el-dialog__body) {
     padding-top: 10px !important;
   }
-  .star-wallet-dialog-header {
+  .farm-dialog-header {
     display: flex;
     justify-content: flex-end;
     align-items: center;
     font-weight: bold;
-    .star-wallet-dialog-header-svg {
+    .svg {
       width: 36px;
       height: 36px;
       &:hover {
@@ -265,27 +285,27 @@ const emits = defineEmits(["handleClose", "handleSucceed", "handleFailed"]);
       }
     }
   }
-  .star-wallet-dialog-content {
+  .farm-dialog-content {
     // background: red;
-    .star-wallet-dialog-content-core {
+    .farm-dialog-content-core {
       text-align: center;
       img {
         display: inline-block;
         width: 140px;
         user-select: none;
       }
-      .star-wallet-dialog-content-core-text {
+      .farm-dialog-content-core-text {
         font-size: 20px;
         color: $text-black-color;
         font-weight: 600;
       }
     }
   }
-  .star-wallet-dialog-content-mining-success {
+  .farm-dialog-content-mining-success {
     color: #8b8b8b;
     text-align: center;
   }
-  .star-wallet-dialog-content-feedback {
+  .farm-dialog-content-feedback {
     width: 323px;
     height: 109px;
     background: #fafafa;
@@ -321,17 +341,17 @@ const emits = defineEmits(["handleClose", "handleSucceed", "handleFailed"]);
       transition: 0.5s;
       animation: rotate 1s linear infinite;
     }
-    .star-wallet-dialog-content-feedback-phase1 {
+    .farm-dialog-content-feedback-phase1 {
       margin-top: 30px;
     }
-    .star-wallet-dialog-content-feedback-phase2 {
+    .farm-dialog-content-feedback-phase2 {
       margin-top: 10px;
     }
   }
-  .star-wallet-dialog-footer {
+  .farm-dialog-footer {
     width: 100%;
     margin-top: 0px;
-    .star-wallet-dialog-footer-button {
+    .farm-dialog-footer-button {
       padding-right: 0px;
       padding-left: 0px;
       width: 70%;
