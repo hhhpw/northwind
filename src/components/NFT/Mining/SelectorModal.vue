@@ -24,7 +24,7 @@
         </div>
       </template>
       <div>
-        <card-item></card-item>
+        <user-nft-card></user-nft-card>
       </div>
       <!-- <no-data v-if="!state.dialogParams.data"></no-data> -->
     </ElDialog>
@@ -33,8 +33,8 @@
 <script setup>
 /* eslint-disable */
 import { computed, onMounted, reactive, watchEffect } from "vue";
-import NoData from "./dialognodata";
-import CardItem from "./dialogcard";
+import UserNoNft from "./UserNoNFT";
+import UserNftCard from "./UserNFTCard";
 import SvgIcon from "@components/SvgIcon/Index";
 const state = reactive({
   visible: false,

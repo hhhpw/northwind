@@ -3,11 +3,14 @@ export const WALLET_DIALOG_PARAMS = {
   isShowClose: true, // 弹窗关闭icon
   hasTitle: false,
   dialogStatus: "ongoing", //ongoing  failed  succeed
-  dialogText: "", // 购买中等
+  dialogText: "", // 购买中... 等类似文案
   phase1: "loading", // loading succeed
   phase2: "loading", // loading succeed
   successBtnText: "",
   failedBtnText: "",
+  handleFailed: null, // funciton
+  handleSucceed: null,
+  handleClose: null,
 };
 
 export const SECOND_DIALOG_PARAMS = {
@@ -20,8 +23,11 @@ export const SECOND_DIALOG_PARAMS = {
     height: "",
     width: "",
   },
-  confirmText: "A",
+  confirmText: "",
   cancelText: "",
+  handleCancel: null, // funciton
+  handleConfirm: null,
+  handleClose: null,
 };
 
 export default {

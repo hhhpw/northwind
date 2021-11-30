@@ -1,7 +1,7 @@
 <template>
   <div :class="$style['mining-core-container']">
     <total-power-card> </total-power-card>
-    <my-power-card></my-power-card>
+    <user-power-card></user-power-card>
     <div :class="$style['mining-core-container-slot-wrap']">
       <div
         v-for="(d, i) in state.slotArrays"
@@ -47,16 +47,9 @@
               type="dark"
               :class="$style['mining-core-container-slot-item-shadow-box-btn']"
               @click.stop.prevent="
-                store.commit('StoreNFTMining/SET_SECOND_DIALOG_PARAMS', {
-                  imgParams: {
-                    url: d.nft,
-                    width: '120px',
-                    height: '120px',
-                  },
-                  dialogVisible: true,
-                  text: $t('确认'),
-                  confirmText: $t('确认'),
-                  cancelText: $t('取消'),
+                store.dispatch('StoreNFTMining/removeNFT', {
+                  imageLink: d.imageLink,
+                  nftName: d.name,
                 })
               "
               >{{ $t("移除") }}</star-button
@@ -69,33 +62,16 @@
   <p :class="$style['mining-slot-desc']">
     {{ $t("nftmining.nft-slot-desc") }}
   </p>
-  <selector-dialog
+  <selector-modal
     :dialogParams="state.selectorDialogParams"
     @handleClose="
       store.commit('StoreNFTMining/SET_SELECTOR_DIALOG_PARAMS', {
         dialogVisible: false,
       })
     "
-  ></selector-dialog>
-  <star-wallet-dialog :dialogParams="state.walletDialogParams">
-  </star-wallet-dialog>
-
-  <star-second-dialog
-    :dialogParams="state.secondDialogParams"
-    @handleClose="
-      store.commit(
-        'StoreNFTMining/SET_SECOND_DIALOG_PARAMS',
-        CONSTANTS_DIALOG.SECOND_DIALOG_PARAMS
-      )
-    "
-    @handleConfirm="store.dispatch('StoreNFTMining/getNFTMiningProfit')"
-    @handleCancel="
-      store.commit(
-        'StoreNFTMining/SET_SECOND_DIALOG_PARAMS',
-        CONSTANTS_DIALOG.SECOND_DIALOG_PARAMS
-      )
-    "
-  ></star-second-dialog>
+  ></selector-modal>
+  <reward-dialog></reward-dialog>
+  <second-dialog></second-dialog>
 </template>
 <script setup>
 /* eslint-disable */
@@ -107,14 +83,14 @@ import {
   defineEmits,
   watchEffect,
 } from "vue";
-import SelectorDialog from "./seletordialog.vue";
-import TotalPowerCard from "./totalpowercard.vue";
-import MyPowerCard from "./mypowercard.vue";
-import StarWalletDialog from "@StarUI/StarWalletDialog.vue";
+import SelectorModal from "./SelectorModal.vue";
+import TotalPowerCard from "./TotalCard.vue";
+import UserPowerCard from "./UserPowerCard.vue";
 import changeSlotBgFunc from "./changeSlotBgFunc";
 import StarButton from "@StarUI/StarButton.vue";
-import StarSecondDialog from "@StarUI/StarSecondDialog.vue";
 import CONSTANTS_DIALOG from "@constants/dialog.js";
+import SecondDialog from "./SecondDialog.vue";
+import RewardDialog from "./RewardDialog.vue";
 import { useStore } from "vuex";
 const store = useStore();
 
@@ -125,12 +101,12 @@ let state = reactive({
   selectorDialogParams: computed(
     () => store.state.StoreNFTMining.selectorDialogParams
   ),
-  walletDialogParams: computed(
-    () => store.state.StoreNFTMining.walletDialogParams
-  ),
-  secondDialogParams: computed(
-    () => store.state.StoreNFTMining.secondDialogParams
-  ),
+  // walletDialogParams: computed(
+  //   () => store.state.StoreNFTMining.walletDialogParams
+  // ),
+  // secondDialogParams: computed(
+  //   () => store.state.StoreNFTMining.secondDialogParams
+  // ),
   accounts: computed(() => store.state.StoreWallet.accounts),
 });
 
@@ -144,6 +120,7 @@ const clickSlotEvent = (hasNFT) => {
 };
 
 watchEffect(() => {
+  store.dispatch("StoreNFTMining/getMiningData");
   if (state.accounts && state.accounts[0]) {
     store.dispatch("StoreNFTMining/getStakeNFTList", state.accounts[0]);
   }

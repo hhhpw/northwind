@@ -16,21 +16,49 @@ const INIT_SELECTOR_DIALOG_PARAMS = {
   data: [],
 };
 
+const MY_SECOND_DIALOG_PARAMS = Object.assign({}, SECOND_DIALOG_PARAMS, {
+  isShowTitle: true,
+  nftName: null,
+  dataParams: {
+    draw: 0,
+    gas: 0,
+  },
+});
+
+const handleWalletCloseEvent = (commit) => {
+  commit(types.SET_WALLET_DIALOG_PARAMS, {
+    dialogVisible: false,
+  });
+  setTimeout(
+    () => commit(types.SET_WALLET_DIALOG_PARAMS, WALLET_DIALOG_PARAMS),
+    200
+  );
+};
+
+const handleSecondCloseEvent = (commit) => {
+  commit(types.SET_SECOND_DIALOG_PARAMS, {
+    dialogVisible: false,
+  });
+  setTimeout(() => {
+    commit(types.SET_SECOND_DIALOG_PARAMS, MY_SECOND_DIALOG_PARAMS);
+  }, 300);
+};
+
 const StoreNFTMining = {
   namespaced: true,
   moduleName: "StoreNFTMining",
   state: {
     selectorDialogParams: INIT_SELECTOR_DIALOG_PARAMS,
     walletDialogParams: WALLET_DIALOG_PARAMS,
-    secondDialogParams: SECOND_DIALOG_PARAMS,
+    secondDialogParams: MY_SECOND_DIALOG_PARAMS,
     nftStakeList: null,
-    myNFTMiningData: {
-      power: 12321,
-      profit: 321321,
-      yearProfit: 55.5,
-    },
+    gasData: 12,
+    miningData: null,
   },
   mutations: {
+    [types.SET_MINING_DATA](state, payload) {
+      state.miningData = payload;
+    },
     [types.SET_SELECTOR_DIALOG_PARAMS](state, payload) {
       state.selectorDialogParams = Object.assign(
         {},
@@ -51,22 +79,180 @@ const StoreNFTMining = {
         state.secondDialogParams,
         payload
       );
-      console.log("  state.secondDialogParams ", state.secondDialogParams);
     },
     [types.SET_NFT_STAKE_LIST](state, list) {
       state.nftStakeList = list;
     },
   },
   actions: {
-    // handleSecondDialog({ commit }, payload) {},
-    async getNFTMiningProfit({ commit }) {
-      commit(types.SET_SECOND_DIALOG_PARAMS, SECOND_DIALOG_PARAMS);
-    },
-
-    async stakeNFT({ commit }) {
+    async drawMiningReward({ commit, state, rootState }, payload) {
       commit(types.SET_WALLET_DIALOG_PARAMS, {
         dialogVisible: true,
+        dialogText: utilsFormat.computedLangCtx("提取中"),
       });
+      const drawFailedEvent = () => {
+        commit(types.SET_WALLET_DIALOG_PARAMS, {
+          dialogStatus: "failed",
+          dialogText: utilsFormat.computedLangCtx("提取收益失败"),
+          failedBtnText: utilsFormat.computedLangCtx("确认"),
+          isShowClose: true,
+          handleFailed: () => handleWalletCloseEvent(commit),
+          handleClose: () => handleWalletCloseEvent(commit),
+        });
+      };
+      let params = {
+        provider: rootState.StoreWallet.stcProvider,
+        account: rootState.StoreWallet.accounts[0],
+      };
+      const res = await miningAPI.drawMiningReward(payload);
+      if (res.code === 200) {
+        const { transactionHash } = res.data;
+        commit(types.SET_WALLET_DIALOG_PARAMS, {
+          phase1: "succeed",
+        });
+        utilsTool
+          .pollingBlockHashInfo({ txnHash: transactionHash })
+          .then((res) => {
+            if (res === "Executed") {
+              commit(types.SET_WALLET_DIALOG_PARAMS, {
+                phase2: "succeed",
+              });
+              setTimeout(() => {
+                commit(types.SET_WALLET_DIALOG_PARAMS, {
+                  dialogStatus: "succeed",
+                  dialogText: utilsFormat.computedLangCtx("操作成功"),
+                  successBtnText: utilsFormat.computedLangCtx("确认"),
+                  isShowClose: true,
+                  miningData: {
+                    draw: utilsNumber
+                      .bigNum(state.miningData.currentReward)
+                      .minus(state.gasData)
+                      .toString(),
+                  },
+                });
+              }, 1500);
+            } else {
+              drawFailedEvent();
+            }
+          });
+      } else {
+        drawFailedEvent();
+      }
+    },
+    // 放置NFT卡片
+    async stakeNFT({ commit, rootState }, payload) {
+      commit(types.SET_WALLET_DIALOG_PARAMS, {
+        dialogVisible: true,
+        dialogText: utilsFormat.computedLangCtx("nftmining.add-nft"),
+      });
+      const addNFTFailed = () => {
+        commit(types.SET_WALLET_DIALOG_PARAMS, {
+          dialogStatus: "failed",
+          dialogText: utilsFormat.computedLangCtx("nftmining.add-nft-failed"),
+          failedBtnText: utilsFormat.computedLangCtx("确认"),
+          isShowClose: true,
+          handleFailed: () => handleWalletCloseEvent(commit),
+          handleClose: () => handleWalletCloseEvent(commit),
+        });
+      };
+      let params = {
+        provider: rootState.StoreWallet.stcProvider,
+        account: rootState.StoreWallet.accounts[0],
+      };
+      const res = await miningAPI.drawMiningReward(payload);
+      if (res.code === 200) {
+        const { transactionHash } = res.data;
+        commit(types.SET_WALLET_DIALOG_PARAMS, {
+          phase1: "succeed",
+        });
+        utilsTool
+          .pollingBlockHashInfo({ txnHash: transactionHash })
+          .then((res) => {
+            if (res === "Executed") {
+              commit(types.SET_WALLET_DIALOG_PARAMS, {
+                phase2: "succeed",
+              });
+              const handleSucceed = () => {
+                window.location.reload();
+              };
+              setTimeout(() => {
+                commit(types.SET_WALLET_DIALOG_PARAMS, {
+                  dialogStatus: "succeed",
+                  dialogText: utilsFormat.computedLangCtx(
+                    "nftmining.add-nft-ok"
+                  ),
+                  successBtnText: utilsFormat.computedLangCtx("确认"),
+                  isShowClose: true,
+                  handleSucceed: handleSucceed,
+                  handleClose: handleSucceed,
+                });
+              }, 1500);
+            } else {
+              addNFTFailed();
+            }
+          });
+      } else {
+        addNFTFailed();
+      }
+    },
+
+    // 解押NFT
+    async unStakeNFT({ commit, rootState }, payload) {
+      commit(types.SET_WALLET_DIALOG_PARAMS, {
+        dialogVisible: true,
+        dialogText: utilsFormat.computedLangCtx("nftmining.remove-nft"),
+      });
+      const removeNFTFailed = () => {
+        commit(types.SET_WALLET_DIALOG_PARAMS, {
+          dialogStatus: "failed",
+          dialogText: utilsFormat.computedLangCtx(
+            "nftmining.remove-nft-failed"
+          ),
+          failedBtnText: utilsFormat.computedLangCtx("确认"),
+          isShowClose: true,
+          handleFailed: () => handleWalletCloseEvent(commit),
+          handleClose: () => handleWalletCloseEvent(commit),
+        });
+      };
+      let params = {
+        provider: rootState.StoreWallet.stcProvider,
+        account: rootState.StoreWallet.accounts[0],
+      };
+      const res = await miningAPI.drawMiningReward(payload);
+      if (res.code === 200) {
+        const { transactionHash } = res.data;
+        commit(types.SET_WALLET_DIALOG_PARAMS, {
+          phase1: "succeed",
+        });
+        utilsTool
+          .pollingBlockHashInfo({ txnHash: transactionHash })
+          .then((res) => {
+            if (res === "Executed") {
+              commit(types.SET_WALLET_DIALOG_PARAMS, {
+                phase2: "succeed",
+              });
+              const handleSucceed = () => {
+                window.location.reload();
+              };
+              setTimeout(() => {
+                commit(types.SET_WALLET_DIALOG_PARAMS, {
+                  dialogStatus: "succeed",
+                  dialogText: utilsFormat.computedLangCtx(
+                    "nftmining.remove-nft-ok"
+                  ),
+                  successBtnText: utilsFormat.computedLangCtx("确认"),
+                  isShowClose: true,
+                  handleSucceed: handleSucceed,
+                  handleClose: handleSucceed,
+                });
+              }, 1500);
+            } else {
+              removeNFTFailed();
+            }
+          });
+      } else {
+        removeNFTFailed();
+      }
     },
 
     async getStakeNFTList({ commit }, payload) {
@@ -86,6 +272,69 @@ const StoreNFTMining = {
         commit(types.SET_NFT_STAKE_LIST, data);
       } else {
         commit(types.SET_NFT_STAKE_LIST, data);
+      }
+    },
+
+    // 移除NFT
+    removeNFT({ commit, dispatch }, payload) {
+      commit(types.SET_SECOND_DIALOG_PARAMS, {
+        imgParams: {
+          url: payload.imageLink,
+          width: "180px",
+          height: "180px",
+        },
+        dialogVisible: true,
+        confirmText: utilsFormat.computedLangCtx("确认"),
+        cancelText: utilsFormat.computedLangCtx("取消"),
+        isShowTitle: false,
+        nftName: payload.nftName,
+        handleClose: () => handleSecondCloseEvent(commit),
+        handleCancel: () => handleSecondCloseEvent(commit),
+        handleConfirm: () => {
+          handleSecondCloseEvent(commit);
+          dispatch("unStakeNFT");
+        },
+      });
+    },
+
+    // 是否可提取收益
+    canDrawReward({ commit, state, dispatch }) {
+      if (
+        state.miningData.currentReward &&
+        utilsNumber.bigNum(state.miningData.currentReward).gt(0) &&
+        state.gasData &&
+        utilsNumber.bigNum(state.miningData.currentReward).gt(state.gasData)
+      ) {
+        commit(types.SET_SECOND_DIALOG_PARAMS, {
+          dialogVisible: true,
+          confirmText: utilsFormat.computedLangCtx("确认"),
+          isShowClose: true,
+          dataParams: {
+            draw: state.miningData.currentReward,
+            gas: state.gasData,
+          },
+          handleClose: () => handleSecondCloseEvent(commit),
+          handleConfirm: () => {
+            dispatch("drawMiningReward");
+          },
+        });
+      } else {
+        commit(types.SET_WALLET_DIALOG_PARAMS, {
+          dialogVisible: true,
+          dialogStatus: "failed",
+          dialogText: utilsFormat.computedLangCtx("操作失败"),
+          failedBtnText: utilsFormat.computedLangCtx("确认"),
+          isShowClose: true,
+          handleFailed: () => handleWalletCloseEvent(commit),
+          handleClose: () => handleWalletCloseEvent(commit),
+        });
+      }
+    },
+
+    async getMiningData({ commit }, userAddress) {
+      const res = await miningAPI.getMiningData(userAddress);
+      if (res.code === 200) {
+        commit(types.SET_MINING_DATA, res.data);
       }
     },
   },

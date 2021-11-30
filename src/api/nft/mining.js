@@ -29,6 +29,51 @@ function getStakeNFTList(userAddress) {
   };
 }
 
+// 获取挖矿收益
+function drawMiningReward(userAddress) {
+  // return request({
+  //   url: "/v1/mining/nft/reward/harvest",
+  //   method: "POST",
+  //   data: {
+  //     userAddress,
+  //   },
+  // });
+  return {
+    code: 200,
+    msg: "ok",
+    timeStamp: 1234567890123,
+    data: {
+      transactionHash: "0xABCD1234", // 交易哈希
+    },
+  };
+}
+
+// 数据看板
+function getMiningData(userAddress) {
+  // return request({
+  //   url: "/v1/mining/nft/market",
+  //   method: "GET",
+  //   params: {
+  //     userAddress,
+  //   },
+  // });
+  return {
+    code: 200,
+    msg: "ok",
+    timeStamp: 1234567890123,
+    data: {
+      dailyTotalOutput: 100, // 每日产出
+      totalScore: 10000.0, // 总算力
+      userScore: 100.0, // 用户算力
+      currentReward: 123.123, // 待领取收益
+      avgApr: 12312, // 平均年化收益率
+      userApr: 512, // 用户年化收益率
+    },
+  };
+}
+
 export default {
   getStakeNFTList,
+  drawMiningReward,
+  getMiningData,
 };

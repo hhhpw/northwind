@@ -253,7 +253,9 @@
     "提取收益失败": "Harvest failed",
     "挖矿": "Mining",
     "提取": "Harvest",
-    "收益": "Yield"
+    "收益": "Yield",
+    "提取收益确认": "Confirm harvesting",
+    "提取{amount}{symbol}至钱包": "Harvested {amount} {symbol} to wallet"
   },
   "farms": {
     "farm-swap-total-1": "Total trading volume",
@@ -276,11 +278,10 @@
     "farm-swap-pool-card-person-reward-item-1": "My cumulative reward",
     "farm-swap-pool-card-person-reward-item-2": "My volume",
     "farm-swap-pool-card-person-reward-item-3": "Uncalimed rewards",
-    "farm-swap-draw-sure-title": "Confirm harvesting",
     "farm-swap-draw-sure-error": "Harvesting rewards will cause you lose mining power",
     "farm-swap-lock": "Lockup",
     "farm-swap-draw-gas": "Harvest fee",
-    "farm-swap-mining-success1": "Harvested {amount} to wallet",
+
     "farm-swap-mining-success2": "{amount} KIKO transfered to lockup pool",
     "farm-liquidity-title": "Stake LP tokens to earn. ",
     "farm-liquidity-stake-total": "Current staked {amount} USDT",

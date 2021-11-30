@@ -8,7 +8,7 @@
       <template #custom-content>
         <div class="farm-second-dialog-content">
           <p class="farm-second-dialog-content-title">
-            {{ $t("farms.farm-swap-draw-sure-title") }}
+            {{ $t("提取收益确认") }}
           </p>
           <p
             v-if="props.dialogParams.operateWaring"

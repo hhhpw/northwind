@@ -1,6 +1,5 @@
 <template>
   <div class="farm-dialog">
-    {{ props.dialogParams }}
     <star-wallet-dialog
       :dialogParams="props.dialogParams"
       @handleClose="emits('handleClose')"
@@ -11,8 +10,9 @@
         <div class="farm-dialog-content-mining-success">
           <p v-if="props.dialogParams?.miningData?.draw">
             {{
-              $t("farms.farm-swap-mining-success1", {
+              $t("提取{amount}{symbol}至钱包", {
                 amount: formatAmount(props.dialogParams.miningData.draw),
+                symbol: "KIKO",
               })
             }}
           </p>
@@ -76,7 +76,7 @@
         <div class="farm-dialog-content-mining-success">
           <p v-if="props.dialogParams?.miningData?.draw">
             {{
-              $t("farms.farm-swap-mining-success1", {
+              $t("提取{amount}{symbol}至钱包", {
                 amount: formatAmount(props.dialogParams.miningData.draw),
               })
             }}

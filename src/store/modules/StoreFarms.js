@@ -281,6 +281,7 @@ const StoreFarms = {
         });
       } else {
         commit(types.CHANGE_DIALOG_PARAMS, {
+          dialogVisible: true,
           dialogStatus: "failed",
           dialogText: utilsFormat.computedLangCtx("提取收益失败"),
           failedBtnText: utilsFormat.computedLangCtx("确认"),

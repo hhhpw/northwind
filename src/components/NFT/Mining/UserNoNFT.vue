@@ -10,8 +10,6 @@
   </div>
 </template>
 <script setup>
-/* eslint-disable */
-import { computed, onMounted, reactive, defineProps, defineEmits } from "vue";
 import utilsRouter from "@utils/router";
 const pushMarket = () => {
   utilsRouter.push({

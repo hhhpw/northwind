@@ -1,5 +1,5 @@
 <template>
-  <div :class="$style['my-power']">
+  <div :class="$style['my-power']" v-if="state.miningData">
     <div :class="$style['my-power-header']">
       <div :class="$style['my-power-item']">
         <p :class="$style['title']">{{ $t("nftmining.my-mining-power") }}</p>
@@ -7,7 +7,7 @@
         <star-amount
           :class="$style['amount']"
           v-else
-          :value="state.myNFTMiningData.power"
+          :value="state.miningData.userScore"
           :formatOptions="{ precision: 0, trailingZero: false }"
         ></star-amount>
       </div>
@@ -17,7 +17,7 @@
         <star-amount
           :class="$style['amount']"
           v-else
-          :value="state.myNFTMiningData.power"
+          :value="state.miningData.currentReward"
           :formatOptions="{ precision: 0, trailingZero: false }"
           displaySuffix="KIKO"
         ></star-amount>
@@ -29,6 +29,7 @@
         ref="buttonDOM"
         @mouseenter="enterBtn(true)"
         @mouseleave="enterBtn(false)"
+        @click="store.dispatch('StoreNFTMining/canDrawReward')"
       >
         {{ $t("收获") }}
       </div>
@@ -40,7 +41,7 @@
         <star-amount
           v-else
           :class="$style['amount']"
-          :value="55.5"
+          :value="state.miningData.userApr"
           :formatOptions="{
             precision: 0,
             trailingZero: false,
@@ -63,7 +64,7 @@ const store = useStore();
 let state = reactive({
   buttonDOM: null,
   walletStatus: computed(() => store.state.StoreWallet.walletStatus),
-  myNFTMiningData: computed(() => store.state.StoreNFTMining.myNFTMiningData),
+  miningData: computed(() => store.state.StoreNFTMining.miningData),
 });
 
 const enterBtn = (flag) => {
@@ -74,10 +75,6 @@ const enterBtn = (flag) => {
     }
     buttonDOM.value.style.backgroundImage = `url(${btnBg})`;
   });
-
-  // return {
-  //   "background-image": `url(${btnBg})`,
-  // };
 };
 </script>
 <style lang="scss" module>
@@ -100,7 +97,7 @@ const enterBtn = (flag) => {
   .my-power-header {
     display: flex;
     justify-content: space-between;
-    padding: 0px 25px;
+    padding: 0px 20px;
     margin-top: 20px;
     .my-power-item {
       .amount {
@@ -111,7 +108,7 @@ const enterBtn = (flag) => {
   }
   .my-power-content {
     display: flex;
-    padding: 0px 25px;
+    padding: 0px 20px;
     margin-top: 15px;
     .button {
       width: 190px;

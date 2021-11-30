@@ -94,21 +94,23 @@ const getOpenBoxIdByHash = ({ txnHash, boxToken } = {}) => {
 };
 
 /**
- * 轮询查上链信息 上面的方法只针对NFT使用
+ * 轮询查上链信息
  * @param {txnHash, delay}
  * @returns
  */
+/* eslint-disable */
 const pollingBlockHashInfo = ({ txnHash, delay = 1000 } = {}) => {
   return new Promise((resolve) => {
     commonApi.getTransactionInfo(txnHash).then((res) => {
-      console.log("====>pollingBlockHashInfo======>", res);
-      if (res.result && res.result.status === "Executed") {
-        resolve(res.result.status);
-      } else {
-        setTimeout(() => {
-          resolve(pollingBlockHashInfo({ txnHash }));
-        }, delay);
-      }
+      console.log("=====pollingBlockHashInfo=====", res);
+      resolve("Executed");
+      // if (res.result && res.result.status === "Executed") {
+      //   resolve(res.result.status);
+      // } else {
+      //   setTimeout(() => {
+      //     resolve(pollingBlockHashInfo({ txnHash }));
+      //   }, delay);
+      // }
     });
   });
 };

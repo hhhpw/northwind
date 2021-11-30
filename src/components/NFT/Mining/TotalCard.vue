@@ -1,11 +1,11 @@
 <template>
-  <div :class="$style['total-data-container']">
+  <div :class="$style['total-data-container']" v-if="state.miningData">
     <div :class="$style['header']">
       <p :class="$style['title']">
         {{ $t("nftmining.total-mining-power") }}
       </p>
       <star-amount
-        :value="312"
+        :value="state.miningData.totalScore"
         :formatOptions="{
           precision: 0,
           trailingZero: false,
@@ -16,7 +16,7 @@
       <div>
         <p :class="$style['title']">{{ $t("日产量") }}</p>
         <star-amount
-          :value="312"
+          :value="state.miningData.dailyTotalOutput"
           displaySuffix="KIKO"
           :formatOptions="{
             precision: 0,
@@ -29,7 +29,7 @@
           {{ $t("平均年化收益") }}
         </p>
         <star-amount
-          :value="312"
+          :value="state.miningData.avgApr"
           :formatOptions="{
             precision: 0,
             trailingZero: false,
@@ -44,6 +44,11 @@
 /* eslint-disable */
 import { computed, onMounted, reactive, watch } from "vue";
 import StarAmount from "@StarUI/StarAmount.vue";
+import { useStore } from "vuex";
+const store = useStore();
+let state = reactive({
+  miningData: computed(() => store.state.StoreNFTMining.miningData),
+});
 </script>
 <style lang="scss" module>
 .total-data-container {
