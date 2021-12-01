@@ -141,6 +141,9 @@ const StoreNFTMining = {
     },
     // 放置NFT卡片
     async stakeNFT({ commit, rootState }, payload) {
+      commit(types.SET_SELECTOR_DIALOG_PARAMS, {
+        dialogVisible: false,
+      });
       commit(types.SET_WALLET_DIALOG_PARAMS, {
         dialogVisible: true,
         dialogText: utilsFormat.computedLangCtx("nftmining.add-nft"),

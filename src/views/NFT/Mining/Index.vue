@@ -11,7 +11,7 @@
 /* eslint-disable */
 import StarNft from "@StarUI/StarNFT.vue";
 import { computed, onMounted, reactive, defineProps, defineEmits } from "vue";
-import MiningCore from "@components/NFT/Mining/Core.vue";
+import MiningCore from "@components/NFT/Mining/MainCore.vue";
 </script>
 
 <style lang="scss" scoped>
