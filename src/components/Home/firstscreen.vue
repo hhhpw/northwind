@@ -59,18 +59,49 @@
         </star-button>
       </div>
     </div>
+    <div :class="$style['video-mask']" v-if="state.isShowVideo">
+      <div :class="$style['video-container']">
+        <div :class="$style['video-container-close']" @click="closeVideo">
+          X
+        </div>
+        <iframe
+          height="550"
+          width="980"
+          src="https://iframe.videodelivery.net/1a9089480eb3bee5da60ab607bbc3078?preload=true&&autoplay=true&poster=https%3A%2F%2Fvideodelivery.net%2F1a9089480eb3bee5da60ab607bbc3078%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600"
+          style="border: none"
+          allow="accelerometer; gyroscope; autoplay; muted; encrypted-media; picture-in-picture;"
+          allowfullscreen="true"
+        ></iframe>
+      </div>
+    </div>
   </div>
 </template>
 <script setup>
-import { computed, onMounted, reactive } from "vue";
+/* eslint-disable */
+import {
+  computed,
+  nextTick,
+  onMounted,
+  onUnmounted,
+  reactive,
+  watch,
+  watchEffect,
+} from "vue";
 import StarButton from "@StarUI/StarButton.vue";
 import HOME_CONSTANTS from "@constants/home";
 import { useStore } from "vuex";
 import utilsRouter from "@utils/router";
+// import Hls from "hls.js";
 import connectLogic from "@mixins/wallet";
 const descZhPNG = require("../../assets/home/firstscreen-content-desc-zh.png");
 const descPNG = require("../../assets/home/firstscreen-content-desc.png");
 
+const bodyStyle = (type) => {
+  nextTick(() => {
+    const body = document.getElementsByTagName("body")[0];
+    body.style.overflow = type;
+  });
+};
 const store = useStore();
 
 const { connectWallet } = connectLogic(store);
@@ -80,6 +111,8 @@ let state = reactive({
   isShowSun: true,
   walletStatus: computed(() => store.state.StoreWallet.walletStatus),
   currLang: computed(() => store.state.StoreApp.currLang),
+  videoSrc: null,
+  isShowVideo: true,
 });
 
 onMounted(() => {
@@ -89,8 +122,32 @@ onMounted(() => {
   setTimeout(() => {
     state.isShowWinkCat = true;
   }, 3500);
+  setTimeout(() => {
+    state.isShowWinkCat = true;
+  });
+  nextTick(() => {
+    bodyStyle("hidden");
+  });
 });
 
+onUnmounted(() => {
+  bodyStyle("scroll");
+});
+
+watch(
+  () => state.isShowVideo,
+  () => {
+    if (state.isShowVideo) {
+      bodyStyle("hidden");
+    } else {
+      bodyStyle("scroll");
+    }
+  }
+);
+
+const closeVideo = () => {
+  state.isShowVideo = false;
+};
 const btnClick = () => {
   if (state.walletStatus === "connected") {
     utilsRouter.push({
@@ -103,6 +160,34 @@ const btnClick = () => {
 </script>
 <style lang="scss" module>
 @import "./animation.scss";
+.video-mask {
+  position: fixed;
+  top: 0;
+  height: 100vh;
+  background: rgba($color: #000000, $alpha: 0.5);
+  width: 100%;
+}
+.video-container {
+  position: absolute;
+  top: 53%;
+  left: 50%;
+  transform: translate(-60%, -52%);
+  .video-container-close {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background: black;
+    color: #fff;
+    text-align: center;
+    line-height: 60px;
+    font-size: 30px;
+    right: -65px;
+    &:hover {
+      opacity: 0.8;
+      cursor: pointer;
+    }
+  }
+}
 .screen-container {
   position: relative;
   width: 100%;
