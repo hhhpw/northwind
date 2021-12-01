@@ -147,6 +147,7 @@ const StoreNFTMining = {
       commit(types.SET_WALLET_DIALOG_PARAMS, {
         dialogVisible: true,
         dialogText: utilsFormat.computedLangCtx("nftmining.add-nft"),
+        isShowClose: false,
       });
       const addNFTFailed = () => {
         commit(types.SET_WALLET_DIALOG_PARAMS, {
@@ -203,6 +204,7 @@ const StoreNFTMining = {
     async unStakeNFT({ commit, rootState }, payload) {
       commit(types.SET_WALLET_DIALOG_PARAMS, {
         dialogVisible: true,
+        isShowClose: false,
         dialogText: utilsFormat.computedLangCtx("nftmining.remove-nft"),
       });
       const removeNFTFailed = () => {
