@@ -258,7 +258,8 @@
     "日产量": "日產量",
     "收获": "收獲",
     "提取收益确认": "提取收益確認",
-    "提取{amount}{symbol}至钱包": "已提取 {amount} {symbol}至錢包"
+    "提取{amount}{symbol}至钱包": "已提取 {amount} {symbol}至錢包",
+    "NFT挖矿": "NFT Mining"
   },
   "farms": {
     "farm-swap-total-1": "總交易額",
@@ -316,7 +317,8 @@
     "remove-nft": "正在移除卡牌",
     "remove-nft-ok": "移除成功",
     "remove-nft-failed": "移除失败",
-    "remove-nft-card-desc": "是否移除 {name}"
+    "remove-nft-card-desc": "是否移除 {name}",
+    "mining-power": "算力"
   },
   "nftproperty": {
     "皮毛": "皮毛",

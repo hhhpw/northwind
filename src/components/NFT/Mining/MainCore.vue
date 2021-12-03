@@ -101,13 +101,8 @@ let state = reactive({
   selectorDialogParams: computed(
     () => store.state.StoreNFTMining.selectorDialogParams
   ),
-  // walletDialogParams: computed(
-  //   () => store.state.StoreNFTMining.walletDialogParams
-  // ),
-  // secondDialogParams: computed(
-  //   () => store.state.StoreNFTMining.secondDialogParams
-  // ),
   accounts: computed(() => store.state.StoreWallet.accounts),
+  currLang: computed(() => store.state.StoreApp.currLang),
 });
 
 const { enterNFTSlot, setSlotBg } = changeSlotBgFunc(state);
@@ -119,7 +114,7 @@ const clickSlotEvent = (hasNFT) => {
   });
 };
 
-watchEffect(() => {
+watchEffect(async () => {
   store.dispatch("StoreNFTMining/getMiningData");
   if (state.accounts && state.accounts[0]) {
     store.dispatch("StoreNFTMining/getStakeNFTList", state.accounts[0]);
@@ -168,7 +163,6 @@ watchEffect(() => {
         width: 178px;
         position: relative;
         left: 50%;
-        border: 1px solid red;
         // background-image: url("../../../assets/nft/mining-nft-slot.png");
         background-repeat: no-repeat;
         background-size: 100% 100%;

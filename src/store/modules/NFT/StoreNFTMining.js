@@ -54,6 +54,7 @@ const StoreNFTMining = {
     nftStakeList: null,
     gasData: 12,
     miningData: null,
+    nftList: null,
   },
   mutations: {
     [types.SET_MINING_DATA](state, payload) {
@@ -83,58 +84,67 @@ const StoreNFTMining = {
     [types.SET_NFT_STAKE_LIST](state, list) {
       state.nftStakeList = list;
     },
+    [types.SET_USER_NFT_LIST](state, list) {
+      state.nftList = list;
+    },
   },
   actions: {
     async drawMiningReward({ commit, state, rootState }, payload) {
-      commit(types.SET_WALLET_DIALOG_PARAMS, {
-        dialogVisible: true,
-        dialogText: utilsFormat.computedLangCtx("提取中"),
-      });
-      const drawFailedEvent = () => {
+      const account = rootState.StoreWallet.accounts[0];
+      const sign = await Wallet.starMaskSign({ account: state.accounts[0] });
+      if (sign !== "error") {
         commit(types.SET_WALLET_DIALOG_PARAMS, {
-          dialogStatus: "failed",
-          dialogText: utilsFormat.computedLangCtx("提取收益失败"),
-          failedBtnText: utilsFormat.computedLangCtx("确认"),
-          isShowClose: true,
-          handleFailed: () => handleWalletCloseEvent(commit),
-          handleClose: () => handleWalletCloseEvent(commit),
+          dialogVisible: true,
+          dialogText: utilsFormat.computedLangCtx("提取中"),
         });
-      };
-      let params = {
-        provider: rootState.StoreWallet.stcProvider,
-        account: rootState.StoreWallet.accounts[0],
-      };
-      const res = await miningAPI.drawMiningReward(payload);
-      if (res.code === 200) {
-        const { transactionHash } = res.data;
-        commit(types.SET_WALLET_DIALOG_PARAMS, {
-          phase1: "succeed",
-        });
-        utilsTool
-          .pollingBlockHashInfo({ txnHash: transactionHash })
-          .then((res) => {
-            if (res === "Executed") {
-              commit(types.SET_WALLET_DIALOG_PARAMS, {
-                phase2: "succeed",
-              });
-              setTimeout(() => {
-                commit(types.SET_WALLET_DIALOG_PARAMS, {
-                  dialogStatus: "succeed",
-                  dialogText: utilsFormat.computedLangCtx("操作成功"),
-                  successBtnText: utilsFormat.computedLangCtx("确认"),
-                  isShowClose: true,
-                  miningData: {
-                    draw: utilsNumber
-                      .bigNum(state.miningData.currentReward)
-                      .minus(state.gasData)
-                      .toString(),
-                  },
-                });
-              }, 1500);
-            } else {
-              drawFailedEvent();
-            }
+        const drawFailedEvent = () => {
+          commit(types.SET_WALLET_DIALOG_PARAMS, {
+            dialogStatus: "failed",
+            dialogText: utilsFormat.computedLangCtx("提取收益失败"),
+            failedBtnText: utilsFormat.computedLangCtx("确认"),
+            isShowClose: true,
+            handleFailed: () => handleWalletCloseEvent(commit),
+            handleClose: () => handleWalletCloseEvent(commit),
           });
+        };
+        let params = {
+          provider: rootState.StoreWallet.stcProvider,
+          account: rootState.StoreWallet.accounts[0],
+        };
+        const res = await miningAPI.drawMiningReward(payload);
+        if (res.code === 200) {
+          const { transactionHash } = res.data;
+          commit(types.SET_WALLET_DIALOG_PARAMS, {
+            phase1: "succeed",
+          });
+          utilsTool
+            .pollingBlockHashInfo({ txnHash: transactionHash })
+            .then((res) => {
+              if (res === "Executed") {
+                commit(types.SET_WALLET_DIALOG_PARAMS, {
+                  phase2: "succeed",
+                });
+                setTimeout(() => {
+                  commit(types.SET_WALLET_DIALOG_PARAMS, {
+                    dialogStatus: "succeed",
+                    dialogText: utilsFormat.computedLangCtx("操作成功"),
+                    successBtnText: utilsFormat.computedLangCtx("确认"),
+                    isShowClose: true,
+                    miningData: {
+                      draw: utilsNumber
+                        .bigNum(state.miningData.currentReward)
+                        .minus(state.gasData)
+                        .toString(),
+                    },
+                  });
+                }, 1500);
+              } else {
+                drawFailedEvent();
+              }
+            });
+        } else {
+          drawFailedEvent();
+        }
       } else {
         drawFailedEvent();
       }
@@ -340,6 +350,13 @@ const StoreNFTMining = {
       const res = await miningAPI.getMiningData(userAddress);
       if (res.code === 200) {
         commit(types.SET_MINING_DATA, res.data);
+      }
+    },
+
+    async getUserNFTList({ commit }, userAddress) {
+      const res = await miningAPI.getUserNFTList(userAddress);
+      if (res.code === 200) {
+        commit(types.SET_USER_NFT_LIST, res.data);
       }
     },
   },

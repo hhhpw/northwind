@@ -7,13 +7,27 @@
       @mouseenter="changeBtnStatus(i, true)"
       @mouseleave="changeBtnStatus(i, false)"
     >
-      <img :src="d.img" />
-      <p :class="$style['card-wrap-item-text']">{{ $t("算力") }}： 80</p>
+      <img :src="d.imageLink" />
+      <p :class="$style['card-wrap-item-text']">
+        {{ $t("nftmining.mining-power") }}：
+        <star-amount
+          :value="d.score"
+          :formatOptions="{
+            precision: 2,
+            trailingZero: true,
+          }"
+        >
+        </star-amount>
+      </p>
       <div v-show="d.isShow">
         <star-button
           type="dark"
           :class="$style['card-wrap-item-btn']"
-          @click="store.dispatch('StoreNFTMining/stakeNFT')"
+          @click="
+            store.dispatch('StoreNFTMining/stakeNFT', {
+              imageLink: d.imageLink,
+            })
+          "
           >{{ $t("质押") }}</star-button
         >
       </div>
@@ -21,56 +35,24 @@
   </div>
 </template>
 <script setup>
-/* eslint-disable */
-import { computed, onMounted, reactive, watch } from "vue";
-import StarButton from "@StarUI/StarButton";
+import { computed, reactive, watchEffect } from "vue";
 import { useStore } from "vuex";
+import StarButton from "@StarUI/StarButton.vue";
+import StarAmount from "@StarUI/StarAmount.vue";
+
 const store = useStore();
 
 let state = reactive({
-  list: [
-    {
-      img: "https://imagedelivery.net/3mRLd_IbBrrQFSP57PNsVw/3feb0886-08d1-4dc3-cee5-897403a1a000/public",
-      isShow: false,
-    },
-    {
-      img: "https://imagedelivery.net/3mRLd_IbBrrQFSP57PNsVw/3feb0886-08d1-4dc3-cee5-897403a1a000/public",
-      isShow: false,
-    },
-    {
-      img: "https://imagedelivery.net/3mRLd_IbBrrQFSP57PNsVw/3feb0886-08d1-4dc3-cee5-897403a1a000/public",
-      isShow: false,
-    },
-    {
-      img: "https://imagedelivery.net/3mRLd_IbBrrQFSP57PNsVw/3feb0886-08d1-4dc3-cee5-897403a1a000/public",
-      isShow: false,
-    },
-    {
-      img: "https://imagedelivery.net/3mRLd_IbBrrQFSP57PNsVw/3feb0886-08d1-4dc3-cee5-897403a1a000/public",
-      isShow: false,
-    },
-    {
-      img: "https://imagedelivery.net/3mRLd_IbBrrQFSP57PNsVw/3feb0886-08d1-4dc3-cee5-897403a1a000/public",
-      isShow: false,
-    },
-    {
-      img: "https://imagedelivery.net/3mRLd_IbBrrQFSP57PNsVw/3feb0886-08d1-4dc3-cee5-897403a1a000/public",
-      isShow: false,
-    },
-    {
-      img: "https://imagedelivery.net/3mRLd_IbBrrQFSP57PNsVw/3feb0886-08d1-4dc3-cee5-897403a1a000/public",
-      isShow: false,
-    },
-    {
-      img: "https://imagedelivery.net/3mRLd_IbBrrQFSP57PNsVw/3feb0886-08d1-4dc3-cee5-897403a1a000/public",
-      isShow: false,
-    },
-    {
-      img: "https://imagedelivery.net/3mRLd_IbBrrQFSP57PNsVw/3feb0886-08d1-4dc3-cee5-897403a1a000/public",
-      isShow: false,
-    },
-  ],
+  list: computed(() => store.state.StoreNFTMining.nftList),
+  accounts: computed(() => store.state.StoreWallet.accounts),
 });
+
+watchEffect(() => {
+  if (state.accounts && state.accounts[0]) {
+    store.dispatch("StoreNFTMining/getUserNFTList", state.accounts[0]);
+  }
+});
+
 const changeBtnStatus = (i, flag) => {
   if (flag) {
     state.list[i].isShow = true;
@@ -110,7 +92,7 @@ const changeBtnStatus = (i, flag) => {
     }
     .card-wrap-item-btn {
       margin-top: 3px;
-      padding: 8px 50px;
+      padding: 8px 30px;
       border-radius: 6px;
       font-size: 14px;
     }

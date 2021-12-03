@@ -9,7 +9,7 @@
     "在充满阳光的去中心化平台，轻松交换、赚取加密货币": "Swap and earn crypto on a sunny decentralized platform",
     "连接钱包": "Connect Wallet",
     "立即交易": "Swap Now",
-    "质押": "staked",
+    "质押": "Staked",
     "Kiko令生态更加温暖": "Kiko makes our world warmer",
     "Kiko是基于Starcoin生态开发的一个价值流通套件（SET）：安全可靠、收益可观、操作简单。": "Kiko is a combination SET of various circulation values on blockchain based on Starcoin Ecosystem: safe, easy-to-earn and easy-to-use.",
     "现有超过USDT的资金委托在Kiko平台。": "More than {amount} USDT are entrusted on the platform.",
@@ -253,9 +253,14 @@
     "提取收益失败": "Harvest failed",
     "挖矿": "Mining",
     "提取": "Harvest",
-    "收益": "Yield",
+    "收益": "Rewards",
+    "算力": "Mining power",
+    "平均年化收益": "Average APR",
+    "日产量": "Daily rewards",
+    "收获": "Harvest",
     "提取收益确认": "Confirm harvesting",
-    "提取{amount}{symbol}至钱包": "Harvested {amount} {symbol} to wallet"
+    "提取{amount}{symbol}至钱包": "Harvested {amount} {symbol} to wallet",
+    "NFT挖矿": "NFT Mining"
   },
   "farms": {
     "farm-swap-total-1": "Total trading volume",
@@ -298,6 +303,24 @@
     "farm-liquidity-detail-dialog-draw-title": "Withdraw LP {token}",
     "farm-liquidity-detail-dialog-stake-title": "Deposit LP {token}",
     "farm-liquidity-detail-lp-text": "獲取 {token} LP"
+  },
+  "nftmining": {
+    "nft-selector-title": "Choose an NFT",
+    "nft-selector-rule": "NFTs on sale can not be used. NFT rarity score corresponds to the mining power (MP), the higher the mining power, the more rewards you get.",
+    "nft-selector-nodata": "No NFT available",
+    "nft-selector-nodata-tomarket": "Please go to Marketplace to purchase",
+    "total-mining-power": "Current total mining power",
+    "my-mining-power": "My mining power",
+    "my-mining-year-profit": "My APR",
+    "nft-slot-desc": "Please insert your NFT here. The higher the mining power, the more rewards you get.",
+    "add-nft": "Inserting NFT",
+    "add-nft-ok": "Inserting succeeded",
+    "add-nft-failed": "Inserting failed",
+    "remove-nft": "Removing NFT",
+    "remove-nft-ok": "Removing succeeded",
+    "remove-nft-failed": "Removing failed ",
+    "remove-nft-card-desc": "Removing {name}",
+    "mining-power": "MP"
   },
   "nftproperty": {
     "皮毛": "Fur",

@@ -20,7 +20,6 @@ import MiningCore from "@components/NFT/Mining/MainCore.vue";
     margin: 0 auto;
     padding-bottom: 30px;
     .nft-card-core {
-      background: red;
     }
   }
 }

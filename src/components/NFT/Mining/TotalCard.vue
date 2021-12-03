@@ -7,7 +7,7 @@
       <star-amount
         :value="state.miningData.totalScore"
         :formatOptions="{
-          precision: 0,
+          precision: 2,
           trailingZero: false,
         }"
       ></star-amount>

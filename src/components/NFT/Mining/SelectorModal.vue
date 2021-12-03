@@ -14,7 +14,9 @@
         <div class="nft-mining-selector-dialog-header">
           <div class="nft-mining-selector-dialog-header-text">
             <p>{{ $t("nftmining.nft-selector-title") }}</p>
-            <p>{{ $t("nftmining.nft-selector-rule") }}</p>
+            <p style="margin-top: 5px">
+              {{ $t("nftmining.nft-selector-rule") }}
+            </p>
           </div>
           <svg-icon
             name="dialog-close"
@@ -23,9 +25,7 @@
           ></svg-icon>
         </div>
       </template>
-      <div>
-        <user-nft-card></user-nft-card>
-      </div>
+      <user-nft-card></user-nft-card>
       <!-- <no-data v-if="!state.dialogParams.data"></no-data> -->
     </ElDialog>
   </div>
@@ -33,9 +33,10 @@
 <script setup>
 /* eslint-disable */
 import { computed, onMounted, reactive, watchEffect } from "vue";
-import UserNoNft from "./UserNoNFT";
-import UserNftCard from "./UserNFTCard";
-import SvgIcon from "@components/SvgIcon/Index";
+import UserNoNft from "./UserNoNFT.vue";
+import UserNftCard from "./UserNFTCard.vue";
+import SvgIcon from "@components/SvgIcon/Index.vue";
+
 const state = reactive({
   visible: false,
 });

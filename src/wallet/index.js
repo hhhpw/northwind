@@ -374,6 +374,21 @@ const openBlindBox = async ({ provider, blindboxId }) => {
   }
 };
 
+const starMaskSign = async ({ account }) => {
+  try {
+    const networkId = await getNetworkChainId();
+    const msg = `0x${Buffer.from("KiKoSwap", "utf8").toString("hex")}`;
+    const sign = await window.starcoin.request({
+      method: "personal_sign",
+      params: [msg, account, { networkId }],
+    });
+    return sign;
+  } catch (err) {
+    console.error(err);
+    return "error";
+  }
+};
+
 export default {
   createStcProvider,
   connect,
@@ -389,4 +404,5 @@ export default {
   nftContractCall,
   blindBoxContractCall,
   openBlindBox,
+  starMaskSign,
 };

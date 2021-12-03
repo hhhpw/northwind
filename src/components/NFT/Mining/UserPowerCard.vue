@@ -8,7 +8,7 @@
           :class="$style['amount']"
           v-else
           :value="state.miningData.userScore"
-          :formatOptions="{ precision: 0, trailingZero: false }"
+          :formatOptions="{ precision: 2, trailingZero: true }"
         ></star-amount>
       </div>
       <div :class="$style['my-power-item']">
@@ -18,7 +18,7 @@
           :class="$style['amount']"
           v-else
           :value="state.miningData.currentReward"
-          :formatOptions="{ precision: 0, trailingZero: false }"
+          :formatOptions="{ precision: 2, trailingZero: true }"
           displaySuffix="KIKO"
         ></star-amount>
       </div>
