@@ -20,7 +20,7 @@ function getStakeNFTList(userAddress) {
       {
         id: 10000,
         name: "kikocat #10",
-        score: 10000.0, // 算力
+        score: 123.0, // 算力
         imageLink:
           "https://imagedelivery.net/3mRLd_IbBrrQFSP57PNsVw/724fcf0b-42a2-47b3-31f7-1c2e6a150b00/public", // 图片
         order: 1, // 位置
@@ -50,26 +50,26 @@ function drawMiningReward(userAddress) {
 
 // 数据看板
 function getMiningData(userAddress) {
-  // return request({
-  //   url: "/v1/mining/nft/market",
-  //   method: "GET",
-  //   params: {
-  //     userAddress,
-  //   },
-  // });
-  return {
-    code: 200,
-    msg: "ok",
-    timeStamp: 1234567890123,
-    data: {
-      dailyTotalOutput: 100, // 每日产出
-      totalScore: 10000.0, // 总算力
-      userScore: 100.0, // 用户算力
-      currentReward: 123.123, // 待领取收益
-      avgApr: 12312, // 平均年化收益率
-      userApr: 512, // 用户年化收益率
+  return request({
+    url: "/v1/mining/nft/market",
+    method: "GET",
+    params: {
+      userAddress: "0x16D2E435CEBAb5eABbfd16402d4b22Ea",
     },
-  };
+  });
+  // return {
+  //   code: 200,
+  //   msg: "ok",
+  //   timeStamp: 1234567890123,
+  //   data: {
+  //     dailyTotalOutput: 100, // 每日产出
+  //     totalScore: 10000.0, // 总算力
+  //     userScore: 100.0, // 用户算力
+  //     currentReward: 123.123, // 待领取收益
+  //     avgApr: 12312, // 平均年化收益率
+  //     userApr: 512, // 用户年化收益率
+  //   },
+  // };
 }
 
 // 获取个人所有的nft

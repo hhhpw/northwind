@@ -171,9 +171,9 @@ const StoreNFTMining = {
       };
       let params = {
         provider: rootState.StoreWallet.stcProvider,
-        account: rootState.StoreWallet.accounts[0],
+        ...payload,
       };
-      const res = await miningAPI.drawMiningReward(payload);
+      const res = await miningAPI.drawMiningReward(params);
       if (res.code === 200) {
         const { transactionHash } = res.data;
         commit(types.SET_WALLET_DIALOG_PARAMS, {

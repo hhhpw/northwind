@@ -34,6 +34,17 @@
               :class="$style['mining-core-container-slot-item-img-box-br']"
             ></div>
             <img :src="d?.imageLink" v-if="d?.imageLink" />
+            <div
+              :class="$style['mining-core-container-slot-item-img-box-desc']"
+              v-if="d?.imageLink"
+            >
+              <svg-icon name="mininglight" style="margin-right: 5px"></svg-icon>
+              <!-- <span>{{ $t("算力") }}: </span> -->
+              <star-amount
+                :value="d.score"
+                :formatOptions="{ precision: 2, trailingZero: true }"
+              ></star-amount>
+            </div>
           </div>
           <div
             :ref="
@@ -92,6 +103,8 @@ import CONSTANTS_DIALOG from "@constants/dialog.js";
 import SecondDialog from "./SecondDialog.vue";
 import RewardDialog from "./RewardDialog.vue";
 import { useStore } from "vuex";
+import SvgIcon from "@components/SvgIcon/Index.vue";
+import StarAmount from "@StarUI/StarAmount.vue";
 const store = useStore();
 
 let state = reactive({
@@ -199,6 +212,21 @@ watchEffect(async () => {
             bottom: -10px;
             right: -10px;
           }
+          .mining-core-container-slot-item-img-box-desc {
+            background: linear-gradient(
+              180deg,
+              rgba(0, 0, 0, 0) 0%,
+              #000000 100%
+            );
+            opacity: 0.74;
+            width: 132px;
+            padding: 2px 0px;
+            color: #fff;
+            font-size: 12px;
+            position: absolute;
+            bottom: 0px;
+            // left: 6px;
+          }
           //   width: 120px;
           //   height: 150px;
           //   background: linear-gradient(-45deg, transparent 15px, aqua 0) bottom
@@ -212,8 +240,8 @@ watchEffect(async () => {
           //   border: 1px solid pink;
           //   background-image: url("https://imagedelivery.net/3mRLd_IbBrrQFSP57PNsVw/724fcf0b-42a2-47b3-31f7-1c2e6a150b00/public");
           img {
-            width: 122px;
-            height: 122px;
+            width: 132px;
+            height: 132px;
             border: none;
             position: relative;
             left: 50%;

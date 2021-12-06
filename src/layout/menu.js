@@ -46,17 +46,17 @@ export default [
     label: "行情",
     path: "/info",
   },
-  {
-    label: "Farms",
-    children: [
-      {
-        label: "交易挖矿",
-        path: "/swapfarms",
-      },
-      {
-        label: "流动性挖矿",
-        path: "/liquidityfarms",
-      },
-    ],
-  },
+  // {
+  //   label: "Farms",
+  //   children: [
+  //     {
+  //       label: "交易挖矿",
+  //       path: "/swapfarms",
+  //     },
+  //     {
+  //       label: "流动性挖矿",
+  //       path: "/liquidityfarms",
+  //     },
+  //   ],
+  // },
 ];

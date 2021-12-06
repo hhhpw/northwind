@@ -26,6 +26,10 @@
           @click="
             store.dispatch('StoreNFTMining/stakeNFT', {
               imageLink: d.imageLink,
+              id: d.id,
+              order: d.order,
+              meta: d.nftMeta,
+              body: d.nftBody,
             })
           "
           >{{ $t("质押") }}</star-button

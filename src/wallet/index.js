@@ -374,6 +374,11 @@ const openBlindBox = async ({ provider, blindboxId }) => {
   }
 };
 
+/**
+ * 签名
+ * @param {} param0
+ * @returns
+ */
 const starMaskSign = async ({ account }) => {
   try {
     const networkId = await getNetworkChainId();
@@ -389,6 +394,60 @@ const starMaskSign = async ({ account }) => {
   }
 };
 
+/**** NFT挖矿  ****/
+const stakeNFT = async ({ provider, order, meta, body, id }) => {
+  try {
+    const funcId = process.env.VUE_APP_NFT_MINING_STAKE_FUNCTION_ID;
+    const tyArgs = [meta, body];
+    const args = [id, order];
+    const scriptFunction = await utils.tx.encodeScriptFunctionByResolve(
+      funcId,
+      tyArgs,
+      args,
+      process.env.VUE_APP_STAR_COIN_URL
+    );
+    const payloadInHex = (function () {
+      const se = new bcs.BcsSerializer();
+      scriptFunction.serialize(se);
+      return hexlify(se.getBytes());
+    })();
+    const txhash = await provider.getSigner().sendUncheckedTransaction({
+      data: payloadInHex,
+    });
+    return txhash;
+  } catch (e) {
+    console.error("stakeNFT", e);
+    return "error";
+  }
+};
+
+const unStakeNFT = async ({ provider, order, meta, body, id }) => {
+  try {
+    const funcId = process.env.VUE_APP_NFT_MINING_UNSTAKE_FUNCTION_ID;
+    const tyArgs = [meta, body];
+    const args = [order];
+    const scriptFunction = await utils.tx.encodeScriptFunctionByResolve(
+      funcId,
+      tyArgs,
+      args,
+      process.env.VUE_APP_STAR_COIN_URL
+    );
+    const payloadInHex = (function () {
+      const se = new bcs.BcsSerializer();
+      scriptFunction.serialize(se);
+      return hexlify(se.getBytes());
+    })();
+    const txhash = await provider.getSigner().sendUncheckedTransaction({
+      data: payloadInHex,
+    });
+    return txhash;
+  } catch (e) {
+    console.error("unstakeNFT", e);
+    return "error";
+  }
+};
+
+/**** NFT挖矿  ****/
 export default {
   createStcProvider,
   connect,
@@ -405,4 +464,6 @@ export default {
   blindBoxContractCall,
   openBlindBox,
   starMaskSign,
+  stakeNFT,
+  unStakeNFT,
 };
