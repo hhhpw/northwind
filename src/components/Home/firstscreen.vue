@@ -67,7 +67,7 @@
         <iframe
           height="550"
           width="980"
-          src="https://iframe.videodelivery.net/1a9089480eb3bee5da60ab607bbc3078?preload=true&autoplay=true&poster=https%3A%2F%2Fvideodelivery.net%2F1a9089480eb3bee5da60ab607bbc3078%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600"
+          src="https://iframe.videodelivery.net/339e49985d51a81256fc4eeac3c8e0b8?preload=true&autoplay=true&poster=https%3A%2F%2Fvideodelivery.net%2F1a9089480eb3bee5da60ab607bbc3078%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600"
           style="border: none"
           allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
           allowfullscreen="true"
