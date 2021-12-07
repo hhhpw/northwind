@@ -9,7 +9,7 @@
         :class="$style['mining-core-container-slot-item-wrap']"
         @mouseenter.stop="enterNFTSlot(i, d.hasNFT, true)"
         @mouseleave.stop="enterNFTSlot(i, d.hasNFT, false)"
-        @click.stop="clickSlotEvent(d.hasNFT)"
+        @click.stop="clickSlotEvent(i + 1, d.hasNFT)"
       >
         <div
           :ref="
@@ -48,6 +48,9 @@
                 store.dispatch('StoreNFTMining/removeNFT', {
                   imageLink: d.imageLink,
                   nftName: d.name,
+                  order: d.order,
+                  meta: d.nftMeta,
+                  body: d.nftBody,
                 })
               "
               >{{ $t("移除") }}</star-button
@@ -57,7 +60,11 @@
       </div>
     </div>
   </div>
-  <p :class="$style['mining-slot-desc']" v-if="!state.isLoading">
+  <p
+    :class="$style['mining-slot-desc']"
+    v-if="!state.isLoading"
+    @click="Wallet.unStakeNFT({ provider: state.provider })"
+  >
     {{ $t("nftmining.nft-slot-desc") }}
   </p>
   <star-loading-fish v-if="state.isLoading"></star-loading-fish>
@@ -82,6 +89,7 @@ import {
   defineProps,
   defineEmits,
   watchEffect,
+  watch,
 } from "vue";
 import SelectorModal from "./SelectorModal.vue";
 import TotalPowerCard from "./TotalCard.vue";
@@ -94,6 +102,7 @@ import RewardDialog from "./RewardDialog.vue";
 import SvgIcon from "@components/SvgIcon/Index.vue";
 import StarAmount from "@StarUI/StarAmount.vue";
 import StarLoadingFish from "@StarUI/StarLoadingFish.vue";
+import Wallet from "@wallet";
 import { useStore } from "vuex";
 
 const store = useStore();
@@ -108,12 +117,14 @@ let state = reactive({
   ),
   accounts: computed(() => store.state.StoreWallet.accounts),
   currLang: computed(() => store.state.StoreApp.currLang),
+  provider: computed(() => store.state.StoreWallet.stcProvider),
 });
 
 const { enterNFTSlot, setSlotBg } = changeSlotBgFunc(state);
 
-const clickSlotEvent = (hasNFT) => {
+const clickSlotEvent = (index, hasNFT) => {
   if (hasNFT) return;
+  store.commit("StoreNFTMining/SET_CURRENT_NFT_ORDER", index);
   store.commit("StoreNFTMining/SET_SELECTOR_DIALOG_PARAMS", {
     dialogVisible: true,
   });
@@ -132,8 +143,7 @@ watchEffect(async () => {
       store.dispatch("StoreNFTMining/getStakeNFTList", state.accounts[0]),
       store.dispatch("StoreNFTMining/getMiningData", state.accounts[0]),
       store.dispatch("StoreNFTMining/getUserNFTList", state.accounts[0]),
-    ]).then((firstReslove) => {
-      console.log("firstReslove", firstReslove);
+    ]).then(() => {
       state.isLoading = false;
     });
   }

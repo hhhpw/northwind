@@ -74,7 +74,7 @@ function getUserNFTList(address) {
 function getNFTfee() {
   return request({
     url: "/v1/mining/nft/fee",
-    method: "POST",
+    method: "GET",
   });
 }
 

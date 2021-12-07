@@ -53,8 +53,12 @@ const StoreNFTMining = {
     gasData: null,
     miningData: null,
     nftList: null,
+    currOrder: null,
   },
   mutations: {
+    [types.SET_CURRENT_NFT_ORDER](state, payload) {
+      state.currOrder = payload;
+    },
     [types.SET_MINING_DATA](state, payload) {
       state.miningData = payload;
     },
@@ -93,21 +97,14 @@ const StoreNFTMining = {
     async drawMiningReward({ commit, state, rootState }, payload) {
       const account = rootState.StoreWallet.accounts[0];
       const sign = await Wallet.starMaskSign({ account: state.accounts[0] });
-      if (sign !== "error") {
+      try {
+        if (sign === "error") {
+          throw new Error("draw-error");
+        }
         commit(types.SET_WALLET_DIALOG_PARAMS, {
           dialogVisible: true,
           dialogText: utilsFormat.computedLangCtx("提取中"),
         });
-        const drawFailedEvent = () => {
-          commit(types.SET_WALLET_DIALOG_PARAMS, {
-            dialogStatus: "failed",
-            dialogText: utilsFormat.computedLangCtx("提取收益失败"),
-            failedBtnText: utilsFormat.computedLangCtx("确认"),
-            isShowClose: true,
-            handleFailed: () => handleWalletCloseEvent(commit),
-            handleClose: () => handleWalletCloseEvent(commit),
-          });
-        };
         let params = {
           provider: rootState.StoreWallet.stcProvider,
           account: rootState.StoreWallet.accounts[0],
@@ -140,18 +137,23 @@ const StoreNFTMining = {
                   });
                 }, 1500);
               } else {
-                drawFailedEvent();
+                throw new Error("draw-error");
               }
             });
-        } else {
-          drawFailedEvent();
         }
-      } else {
-        drawFailedEvent();
+      } catch {
+        commit(types.SET_WALLET_DIALOG_PARAMS, {
+          dialogStatus: "failed",
+          dialogText: utilsFormat.computedLangCtx("提取收益失败"),
+          failedBtnText: utilsFormat.computedLangCtx("确认"),
+          isShowClose: true,
+          handleFailed: () => handleWalletCloseEvent(commit),
+          handleClose: () => handleWalletCloseEvent(commit),
+        });
       }
     },
     // 放置NFT卡片
-    async stakeNFT({ commit, rootState }, payload) {
+    async stakeNFT({ commit, rootState, state }, payload) {
       commit(types.SET_SELECTOR_DIALOG_PARAMS, {
         dialogVisible: false,
       });
@@ -160,23 +162,16 @@ const StoreNFTMining = {
         dialogText: utilsFormat.computedLangCtx("nftmining.add-nft"),
         isShowClose: false,
       });
-      const addNFTFailed = () => {
-        commit(types.SET_WALLET_DIALOG_PARAMS, {
-          dialogStatus: "failed",
-          dialogText: utilsFormat.computedLangCtx("nftmining.add-nft-failed"),
-          failedBtnText: utilsFormat.computedLangCtx("确认"),
-          isShowClose: true,
-          handleFailed: () => handleWalletCloseEvent(commit),
-          handleClose: () => handleWalletCloseEvent(commit),
-        });
-      };
-      let params = {
+      const params = {
         provider: rootState.StoreWallet.stcProvider,
+        order: state.currOrder,
         ...payload,
       };
-      const res = await miningAPI.drawMiningReward(params);
-      if (res.code === 200) {
-        const { transactionHash } = res.data;
+      try {
+        const transactionHash = await Wallet.stakeNFT(params);
+        if (transactionHash === "error") {
+          throw new Error("stakeNFT-error");
+        }
         commit(types.SET_WALLET_DIALOG_PARAMS, {
           phase1: "succeed",
         });
@@ -203,11 +198,18 @@ const StoreNFTMining = {
                 });
               }, 1500);
             } else {
-              addNFTFailed();
+              throw new Error("stakeNFT-error");
             }
           });
-      } else {
-        addNFTFailed();
+      } catch {
+        commit(types.SET_WALLET_DIALOG_PARAMS, {
+          dialogStatus: "failed",
+          dialogText: utilsFormat.computedLangCtx("nftmining.add-nft-failed"),
+          failedBtnText: utilsFormat.computedLangCtx("确认"),
+          isShowClose: true,
+          handleFailed: () => handleWalletCloseEvent(commit),
+          handleClose: () => handleWalletCloseEvent(commit),
+        });
       }
     },
 
@@ -218,25 +220,15 @@ const StoreNFTMining = {
         isShowClose: false,
         dialogText: utilsFormat.computedLangCtx("nftmining.remove-nft"),
       });
-      const removeNFTFailed = () => {
-        commit(types.SET_WALLET_DIALOG_PARAMS, {
-          dialogStatus: "failed",
-          dialogText: utilsFormat.computedLangCtx(
-            "nftmining.remove-nft-failed"
-          ),
-          failedBtnText: utilsFormat.computedLangCtx("确认"),
-          isShowClose: true,
-          handleFailed: () => handleWalletCloseEvent(commit),
-          handleClose: () => handleWalletCloseEvent(commit),
-        });
-      };
       let params = {
         provider: rootState.StoreWallet.stcProvider,
         account: rootState.StoreWallet.accounts[0],
       };
-      const res = await miningAPI.drawMiningReward(payload);
-      if (res.code === 200) {
-        const { transactionHash } = res.data;
+      try {
+        const transactionHash = await Wallet.unStakeNFT(params);
+        if (transactionHash === "error") {
+          throw new Error("unStakeNFT-error");
+        }
         commit(types.SET_WALLET_DIALOG_PARAMS, {
           phase1: "succeed",
         });
@@ -263,11 +255,20 @@ const StoreNFTMining = {
                 });
               }, 1500);
             } else {
-              removeNFTFailed();
+              throw new Error("unStakeNFT-error");
             }
           });
-      } else {
-        removeNFTFailed();
+      } catch {
+        commit(types.SET_WALLET_DIALOG_PARAMS, {
+          dialogStatus: "failed",
+          dialogText: utilsFormat.computedLangCtx(
+            "nftmining.remove-nft-failed"
+          ),
+          failedBtnText: utilsFormat.computedLangCtx("确认"),
+          isShowClose: true,
+          handleFailed: () => handleWalletCloseEvent(commit),
+          handleClose: () => handleWalletCloseEvent(commit),
+        });
       }
     },
 
@@ -283,7 +284,11 @@ const StoreNFTMining = {
           if (res.data[i].imageLink) {
             res.data[i].hasNFT = true;
           }
-          data[i] = Object.assign({}, { ...data[i] }, { ...res.data[i] });
+          data[res.data[i].order - 1] = Object.assign(
+            {},
+            { ...data[i] },
+            { ...res.data[i] }
+          );
         }
         commit(types.SET_NFT_STAKE_LIST, data);
       } else {
@@ -308,7 +313,11 @@ const StoreNFTMining = {
         handleCancel: () => handleSecondCloseEvent(commit),
         handleConfirm: () => {
           handleSecondCloseEvent(commit);
-          dispatch("unStakeNFT");
+          dispatch("unStakeNFT", {
+            order: payload.order,
+            meta: payload.meta,
+            body: payload.body,
+          });
         },
       });
     },

@@ -26,8 +26,7 @@
           @click="
             store.dispatch('StoreNFTMining/stakeNFT', {
               imageLink: d.imageLink,
-              id: d.id,
-              order: d.order,
+              id: d.nftId,
               meta: d.nftMeta,
               body: d.nftBody,
             })

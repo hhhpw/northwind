@@ -102,15 +102,13 @@ const getOpenBoxIdByHash = ({ txnHash, boxToken } = {}) => {
 const pollingBlockHashInfo = ({ txnHash, delay = 1000 } = {}) => {
   return new Promise((resolve) => {
     commonApi.getTransactionInfo(txnHash).then((res) => {
-      console.log("=====pollingBlockHashInfo=====", res);
-      resolve("Executed");
-      // if (res.result && res.result.status === "Executed") {
-      //   resolve(res.result.status);
-      // } else {
-      //   setTimeout(() => {
-      //     resolve(pollingBlockHashInfo({ txnHash }));
-      //   }, delay);
-      // }
+      if (res.result && res.result.status === "Executed") {
+        resolve(res.result.status);
+      } else {
+        setTimeout(() => {
+          resolve(pollingBlockHashInfo({ txnHash }));
+        }, delay);
+      }
     });
   });
 };

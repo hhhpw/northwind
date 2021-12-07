@@ -29,9 +29,9 @@
         ref="buttonDOM"
         @mouseenter="enterBtn(true)"
         @mouseleave="enterBtn(false)"
-        @click="store.dispatch('StoreNFTMining/canDrawReward')"
+        @click="drawProfit"
       >
-        {{ $t("收获") }}
+        {{ state.walletStatus !== "connected" ? $t("链接钱包") : $t("收获") }}
       </div>
       <div :class="$style['year-profit']">
         <p :class="$style['title']">
@@ -57,6 +57,7 @@
 import { computed, onMounted, reactive, watch, nextTick, ref } from "vue";
 import StarAmount from "@StarUI/StarAmount.vue";
 import { useStore } from "vuex";
+import connectLogic from "../../../mixins/wallet";
 import btnBg from "../../../assets/nft/mining-nft-btn.png";
 import btnHoverBg from "../../../assets/nft/mining-nft-btn-hover.png";
 let buttonDOM = ref();
@@ -67,6 +68,8 @@ let state = reactive({
   miningData: computed(() => store.state.StoreNFTMining.miningData),
 });
 
+const { connectWallet } = connectLogic(store);
+
 const enterBtn = (flag) => {
   nextTick(() => {
     if (flag) {
@@ -75,6 +78,14 @@ const enterBtn = (flag) => {
     }
     buttonDOM.value.style.backgroundImage = `url(${btnBg})`;
   });
+};
+
+const drawProfit = () => {
+  if (state.walletStatus !== "connected") {
+    connectWallet();
+    return;
+  }
+  store.dispatch("StoreNFTMining/canDrawReward");
 };
 </script>
 <style lang="scss" module>
