@@ -26,14 +26,12 @@
         </div>
       </template>
       <user-nft-card></user-nft-card>
-      <!-- <no-data v-if="!state.dialogParams.data"></no-data> -->
     </ElDialog>
   </div>
 </template>
 <script setup>
 /* eslint-disable */
 import { computed, onMounted, reactive, watchEffect } from "vue";
-import UserNoNft from "./UserNoNFT.vue";
 import UserNftCard from "./UserNFTCard.vue";
 import SvgIcon from "@components/SvgIcon/Index.vue";
 

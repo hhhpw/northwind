@@ -97,10 +97,10 @@ onMounted(() => {
     state.activeIndex = 1;
   }
   if (path.indexOf("/nftcollection") > -1) {
-    state.activeIndex = 2;
+    state.activeIndex = 3;
   }
   if (path === "/nftbuybackdetail") {
-    state.activeIndex = 3;
+    state.activeIndex = 2;
   }
 });
 </script>

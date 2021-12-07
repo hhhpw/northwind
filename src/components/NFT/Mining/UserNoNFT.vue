@@ -11,7 +11,12 @@
 </template>
 <script setup>
 import utilsRouter from "@utils/router";
+import { useStore } from "vuex";
+const store = useStore();
 const pushMarket = () => {
+  store.commit("StoreNFTMining/SET_SELECTOR_DIALOG_PARAMS", {
+    dialogVisible: false,
+  });
   utilsRouter.push({
     path: "/nftmarket",
   });
@@ -28,6 +33,8 @@ const pushMarket = () => {
   img {
     display: inline-block;
     margin-bottom: 20px;
+    width: 110px;
+    height: 110px;
   }
   .mining-no-data-link {
     color: rgb(251, 128, 0);

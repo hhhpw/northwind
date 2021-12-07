@@ -1,5 +1,5 @@
 <template>
-  <div :class="$style['card-wrap']">
+  <div v-if="state.list && state.list.length > 0" :class="$style['card-wrap']">
     <div
       v-for="(d, i) in state.list"
       :key="i"
@@ -37,24 +37,19 @@
       </div>
     </div>
   </div>
+  <user-no-nft v-else></user-no-nft>
 </template>
 <script setup>
-import { computed, reactive, watchEffect } from "vue";
+import { computed, reactive } from "vue";
 import { useStore } from "vuex";
 import StarButton from "@StarUI/StarButton.vue";
 import StarAmount from "@StarUI/StarAmount.vue";
+import UserNoNft from "./UserNoNFT.vue";
 
 const store = useStore();
 
 let state = reactive({
   list: computed(() => store.state.StoreNFTMining.nftList),
-  accounts: computed(() => store.state.StoreWallet.accounts),
-});
-
-watchEffect(() => {
-  if (state.accounts && state.accounts[0]) {
-    store.dispatch("StoreNFTMining/getUserNFTList", state.accounts[0]);
-  }
 });
 
 const changeBtnStatus = (i, flag) => {

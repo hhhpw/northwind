@@ -11,7 +11,7 @@
           {{
             $t("提取{amount}{symbol}至钱包", {
               amount: formatAmount(state.walletDialogParams.miningData.draw),
-              symbol: "KIKO",
+              symbol: "STC",
             })
           }}
         </p>

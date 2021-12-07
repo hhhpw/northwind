@@ -1,5 +1,4 @@
 /* eslint-disable */
-
 import * as types from "../../types/NFT/mining";
 import miningAPI from "@api/nft/mining.js";
 import Wallet from "@wallet";
@@ -10,7 +9,6 @@ import {
   WALLET_DIALOG_PARAMS,
   SECOND_DIALOG_PARAMS,
 } from "@constants/dialog.js";
-import { cloneDeep } from "lodash";
 const INIT_SELECTOR_DIALOG_PARAMS = {
   dialogVisible: false,
   data: [],
@@ -52,7 +50,7 @@ const StoreNFTMining = {
     walletDialogParams: WALLET_DIALOG_PARAMS,
     secondDialogParams: MY_SECOND_DIALOG_PARAMS,
     nftStakeList: null,
-    gasData: 12,
+    gasData: null,
     miningData: null,
     nftList: null,
   },
@@ -86,6 +84,9 @@ const StoreNFTMining = {
     },
     [types.SET_USER_NFT_LIST](state, list) {
       state.nftList = list;
+    },
+    [types.SET_GAS_DATA](state, data) {
+      state.gasData = data;
     },
   },
   actions: {
@@ -350,11 +351,19 @@ const StoreNFTMining = {
       const res = await miningAPI.getMiningData(userAddress);
       if (res.code === 200) {
         commit(types.SET_MINING_DATA, res.data);
+        return "ok";
       }
     },
 
     async getUserNFTList({ commit }, userAddress) {
       const res = await miningAPI.getUserNFTList(userAddress);
+      if (res.code === 200) {
+        commit(types.SET_USER_NFT_LIST, res.data);
+      }
+    },
+
+    async getNFTfee({ commit }) {
+      const res = await miningAPI.getNFTfee();
       if (res.code === 200) {
         commit(types.SET_USER_NFT_LIST, res.data);
       }

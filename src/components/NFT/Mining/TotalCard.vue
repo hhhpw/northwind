@@ -17,7 +17,7 @@
         <p :class="$style['title']">{{ $t("日产量") }}</p>
         <star-amount
           :value="state.miningData.dailyTotalOutput"
-          displaySuffix="KIKO"
+          displaySuffix="STC"
           :formatOptions="{
             precision: 0,
             trailingZero: false,

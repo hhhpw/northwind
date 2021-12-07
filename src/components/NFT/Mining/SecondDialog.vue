@@ -26,7 +26,7 @@
                 class="mining-second-dialog-content-block-item-amount"
                 :value="state.secondDialogParams.dataParams.draw"
                 :formatOptions="{ precision: 4, trailingZero: true }"
-                displaySuffix="kiko"
+                displaySuffix="STC"
               ></star-amount>
             </div>
             <div
@@ -40,7 +40,7 @@
                 class="mining-second-dialog-content-block-item-amount"
                 :value="state.secondDialogParams.dataParams.gas"
                 :formatOptions="{ precision: 4, trailingZero: true }"
-                displaySuffix="kiko"
+                displaySuffix="STC"
               ></star-amount>
             </div>
           </div>

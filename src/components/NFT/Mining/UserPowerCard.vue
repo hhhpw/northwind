@@ -19,7 +19,7 @@
           v-else
           :value="state.miningData.currentReward"
           :formatOptions="{ precision: 2, trailingZero: true }"
-          displaySuffix="KIKO"
+          displaySuffix="STC"
         ></star-amount>
       </div>
     </div>

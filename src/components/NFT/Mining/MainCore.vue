@@ -1,5 +1,5 @@
 <template>
-  <div :class="$style['mining-core-container']">
+  <div :class="$style['mining-core-container']" v-if="!state.isLoading">
     <total-power-card> </total-power-card>
     <user-power-card></user-power-card>
     <div :class="$style['mining-core-container-slot-wrap']">
@@ -21,25 +21,12 @@
           :class="$style['mining-core-container-slot-item']"
         >
           <div :class="$style['mining-core-container-slot-item-img-box']">
-            <div
-              :class="$style['mining-core-container-slot-item-img-box-tl']"
-            ></div>
-            <div
-              :class="$style['mining-core-container-slot-item-img-box-tr']"
-            ></div>
-            <div
-              :class="$style['mining-core-container-slot-item-img-box-bl']"
-            ></div>
-            <div
-              :class="$style['mining-core-container-slot-item-img-box-br']"
-            ></div>
             <img :src="d?.imageLink" v-if="d?.imageLink" />
             <div
               :class="$style['mining-core-container-slot-item-img-box-desc']"
               v-if="d?.imageLink"
             >
               <svg-icon name="mininglight" style="margin-right: 5px"></svg-icon>
-              <!-- <span>{{ $t("算力") }}: </span> -->
               <star-amount
                 :value="d.score"
                 :formatOptions="{ precision: 2, trailingZero: true }"
@@ -70,9 +57,11 @@
       </div>
     </div>
   </div>
-  <p :class="$style['mining-slot-desc']">
+  <p :class="$style['mining-slot-desc']" v-if="!state.isLoading">
     {{ $t("nftmining.nft-slot-desc") }}
   </p>
+  <star-loading-fish v-if="state.isLoading"></star-loading-fish>
+
   <selector-modal
     :dialogParams="state.selectorDialogParams"
     @handleClose="
@@ -102,12 +91,15 @@ import StarButton from "@StarUI/StarButton.vue";
 import CONSTANTS_DIALOG from "@constants/dialog.js";
 import SecondDialog from "./SecondDialog.vue";
 import RewardDialog from "./RewardDialog.vue";
-import { useStore } from "vuex";
 import SvgIcon from "@components/SvgIcon/Index.vue";
 import StarAmount from "@StarUI/StarAmount.vue";
+import StarLoadingFish from "@StarUI/StarLoadingFish.vue";
+import { useStore } from "vuex";
+
 const store = useStore();
 
 let state = reactive({
+  isLoading: true,
   slotDOMs: [],
   shadowDOMs: [],
   slotArrays: computed(() => store.state.StoreNFTMining.nftStakeList),
@@ -127,19 +119,25 @@ const clickSlotEvent = (hasNFT) => {
   });
 };
 
+store.dispatch("StoreNFTMining/getNFTfee");
+
 watchEffect(async () => {
-  store.dispatch("StoreNFTMining/getMiningData");
+  store.dispatch("StoreNFTMining/getMiningData").then((res) => {
+    if (res === "ok") {
+      state.isLoading = false;
+    }
+  });
   if (state.accounts && state.accounts[0]) {
-    store.dispatch("StoreNFTMining/getStakeNFTList", state.accounts[0]);
+    Promise.any([
+      store.dispatch("StoreNFTMining/getStakeNFTList", state.accounts[0]),
+      store.dispatch("StoreNFTMining/getMiningData", state.accounts[0]),
+      store.dispatch("StoreNFTMining/getUserNFTList", state.accounts[0]),
+    ]).then((firstReslove) => {
+      console.log("firstReslove", firstReslove);
+      state.isLoading = false;
+    });
   }
 });
-
-// const removeNFT = (d) => {
-//   const { nft } = d;
-//   store.commit("StoreNFTMining/SET_SECOND_DIALOG_PARAMS", {
-//     imgUrl: d.nft,
-//   });
-// };
 </script>
 <style lang="scss" module>
 @mixin corner {
