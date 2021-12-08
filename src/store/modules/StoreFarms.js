@@ -127,7 +127,7 @@ const StoreFarms = {
         commit(types.CHANGE_DIALOG_PARAMS, {
           phase1: "succeed",
         });
-        utilsTool.pollingBlockHashInfo({ txnHash }).then((res) => {
+        utilsTool.getChainEventsByTxnHash({ txnHash }).then((res) => {
           if (res === "Executed") {
             commit(types.CHANGE_DIALOG_PARAMS, {
               phase2: "succeed",
@@ -258,7 +258,7 @@ const StoreFarms = {
         commit(types.CHANGE_DIALOG_PARAMS, {
           phase1: "succeed",
         });
-        utilsTool.pollingBlockHashInfo({ txnHash }).then((res) => {
+        utilsTool.getChainEventsByTxnHash({ txnHash }).then((res) => {
           if (res === "Executed") {
             commit(types.CHANGE_DIALOG_PARAMS, {
               phase2: "succeed",
@@ -313,7 +313,7 @@ const StoreFarms = {
         commit(types.CHANGE_DIALOG_PARAMS, {
           phase1: "succeed",
         });
-        utilsTool.pollingBlockHashInfo({ txnHash }).then((res) => {
+        utilsTool.getChainEventsByTxnHash({ txnHash }).then((res) => {
           if (res === "Executed") {
             commit(types.CHANGE_DIALOG_PARAMS, {
               phase2: "succeed",

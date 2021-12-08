@@ -61,12 +61,19 @@
         <slot name="star-wallet-dialog-custom-content"></slot>
         <div
           class="star-wallet-dialog-content-feedback"
-          :style="{ width: setDiaglogStyle.feedBackWith }"
+          :style="{
+            width: setDiaglogStyle.feedBackWith,
+            display:
+              !props.dialogParams.phase1 || !props.dialogParams.phase2
+                ? 'flex'
+                : '',
+          }"
           v-if="props.dialogParams.dialogStatus === 'ongoing'"
         >
           <div
             :class="renderColorStyle(props.dialogParams.phase1)"
             class="star-wallet-dialog-content-feedback-phase1"
+            v-if="props.dialogParams.phase1"
           >
             <img
               :src="renderPhaseStatus(props.dialogParams.phase1)"

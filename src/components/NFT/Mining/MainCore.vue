@@ -136,7 +136,6 @@ const getMiningData = () =>
 const init = async () => {
   store.dispatch("StoreNFTMining/getNFTfee");
   const data = await getMiningData();
-  console.log("data", data);
   if (data === "ok") {
     setTimeout(() => {
       state.isLoading = false;
@@ -251,7 +250,7 @@ onUnmounted(() => {
             background: linear-gradient(
               180deg,
               rgba(0, 0, 0, 0) 0%,
-              #000000 100%
+              rgba(0, 0, 0, 0.5) 100%
             );
             opacity: 0.74;
             width: 132px;
@@ -260,20 +259,7 @@ onUnmounted(() => {
             font-size: 12px;
             position: absolute;
             bottom: 0px;
-            // left: 6px;
           }
-          //   width: 120px;
-          //   height: 150px;
-          //   background: linear-gradient(-45deg, transparent 15px, aqua 0) bottom
-          //       right,
-          //     linear-gradient(45deg, transparent 15px, aqua 0) bottom left,
-          //     linear-gradient(135deg, transparent 15px, aqua 0) top left,
-          //     linear-gradient(-135deg, transparent 15px, aqua 0) top right;
-          //   background-size: 50% 50%;
-          //   background-repeat: no-repeat;
-          //   overflow: hidden;
-          //   border: 1px solid pink;
-          //   background-image: url("https://imagedelivery.net/3mRLd_IbBrrQFSP57PNsVw/724fcf0b-42a2-47b3-31f7-1c2e6a150b00/public");
           img {
             width: 132px;
             height: 132px;
@@ -290,7 +276,7 @@ onUnmounted(() => {
           position: absolute;
           left: 50%;
           top: 50%;
-          background-color: rgba(0, 0, 0, 0.8);
+          background-color: rgba(0, 0, 0, 0.5);
           transform: translate(-50%, -51%);
           display: none;
           .mining-core-container-slot-item-shadow-box-btn {
@@ -301,7 +287,9 @@ onUnmounted(() => {
             transform: translate(-50%, 0%);
             margin-top: 20px;
             font-weight: normal;
-            // margin: 10px auto;
+            &:hover {
+              opacity: 0.9 !important;
+            }
           }
         }
       }

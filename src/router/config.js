@@ -109,7 +109,6 @@ const routes = [
         name: "nftmining",
         meta: {
           title: "挖矿",
-          bg: "nft",
           url: "/nftmining",
         },
       },

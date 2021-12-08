@@ -110,24 +110,44 @@ const StoreNFTMining = {
     },
   },
   actions: {
-    async drawMiningReward({ commit, state, rootState }, payload) {
-      const account = rootState.StoreWallet.accounts[0];
+    async drawMiningReward({ commit, state, rootState }) {
+      const canDraw =
+        state.miningData.currentReward &&
+        utilsNumber.bigNum(state.miningData.currentReward).gt(0) &&
+        state.gasData &&
+        utilsNumber.bigNum(state.miningData.currentReward).gt(state.gasData);
+      if (!canDraw) {
+        commit(types.SET_WALLET_DIALOG_PARAMS, {
+          dialogVisible: true,
+          dialogStatus: "failed",
+          dialogText: utilsFormat.computedLangCtx("操作失败"),
+          failedBtnText: utilsFormat.computedLangCtx("确认"),
+          isShowClose: true,
+          handleFailed: () => handleWalletCloseEvent(commit),
+          handleClose: () => handleWalletCloseEvent(commit),
+        });
+        return;
+      }
       try {
+        const account = rootState.StoreWallet.accounts[0];
         commit(types.SET_WALLET_DIALOG_PARAMS, {
           dialogVisible: true,
           dialogText: utilsFormat.computedLangCtx("提取中"),
           isShowClose: false,
+          phase1: null,
         });
         const res = await miningAPI.drawMiningReward(account);
         if (res.code === 200) {
-          const { transactionHash } = res.data;
-          commit(types.SET_WALLET_DIALOG_PARAMS, {
-            phase1: "succeed",
-          });
+          const txnHash = res.data;
+          const resolveFunc = (list) => {
+            return list.filter(
+              (d) => d.type_tag.indexOf("NFTHarvestEvent") > -1
+            )[0].decode_event_data;
+          };
           utilsTool
-            .pollingBlockHashInfo({ txnHash: transactionHash })
+            .getChainEventsByTxnHash({ txnHash, resolveFunc })
             .then((res) => {
-              if (res === "Executed") {
+              if (res.status === "Executed") {
                 commit(types.SET_WALLET_DIALOG_PARAMS, {
                   phase2: "succeed",
                 });
@@ -139,10 +159,12 @@ const StoreNFTMining = {
                     isShowClose: true,
                     miningData: {
                       draw: utilsNumber
-                        .bigNum(state.miningData.currentReward)
-                        .minus(state.gasData)
+                        .bigNum(utilsFormat.formatBalance(res.data.amount, 9))
+                        .minus(utilsFormat.formatBalance(res.data.fee, 9))
                         .toString(),
                     },
+                    handleSucceed: () => handleWalletCloseEvent(commit),
+                    handleClose: () => handleWalletCloseEvent(commit),
                   });
                 }, 1500);
               } else {
@@ -185,7 +207,7 @@ const StoreNFTMining = {
           phase1: "succeed",
         });
         utilsTool
-          .pollingBlockHashInfo({ txnHash: transactionHash })
+          .getChainEventsByTxnHash({ txnHash: transactionHash })
           .then((res) => {
             if (res === "Executed") {
               commit(types.SET_WALLET_DIALOG_PARAMS, {
@@ -242,7 +264,7 @@ const StoreNFTMining = {
           phase1: "succeed",
         });
         utilsTool
-          .pollingBlockHashInfo({ txnHash: transactionHash })
+          .getChainEventsByTxnHash({ txnHash: transactionHash })
           .then((res) => {
             if (res === "Executed") {
               commit(types.SET_WALLET_DIALOG_PARAMS, {
@@ -333,37 +355,20 @@ const StoreNFTMining = {
 
     // 是否可提取收益
     canDrawReward({ commit, state, dispatch }) {
-      if (
-        state.miningData.currentReward &&
-        utilsNumber.bigNum(state.miningData.currentReward).gt(0) &&
-        state.gasData &&
-        utilsNumber.bigNum(state.miningData.currentReward).gt(state.gasData)
-      ) {
-        commit(types.SET_SECOND_DIALOG_PARAMS, {
-          dialogVisible: true,
-          confirmText: utilsFormat.computedLangCtx("确认"),
-          isShowClose: true,
-          dataParams: {
-            draw: state.miningData.currentReward,
-            gas: state.gasData,
-          },
-          handleClose: () => handleSecondCloseEvent(commit),
-          handleConfirm: () => {
-            handleSecondCloseEvent(commit);
-            dispatch("drawMiningReward");
-          },
-        });
-      } else {
-        commit(types.SET_WALLET_DIALOG_PARAMS, {
-          dialogVisible: true,
-          dialogStatus: "failed",
-          dialogText: utilsFormat.computedLangCtx("操作失败"),
-          failedBtnText: utilsFormat.computedLangCtx("确认"),
-          isShowClose: true,
-          handleFailed: () => handleWalletCloseEvent(commit),
-          handleClose: () => handleWalletCloseEvent(commit),
-        });
-      }
+      commit(types.SET_SECOND_DIALOG_PARAMS, {
+        dialogVisible: true,
+        confirmText: utilsFormat.computedLangCtx("确认"),
+        isShowClose: true,
+        dataParams: {
+          draw: state.miningData.currentReward,
+          gas: state.gasData,
+        },
+        handleClose: () => handleSecondCloseEvent(commit),
+        handleConfirm: () => {
+          handleSecondCloseEvent(commit);
+          dispatch("drawMiningReward");
+        },
+      });
     },
 
     async getMiningData({ commit }, userAddress) {
@@ -372,7 +377,7 @@ const StoreNFTMining = {
         if (!userAddress) {
           commit(types.SET_MINING_DATA, {
             totalScore: res.data.totalScore,
-            currentReward: res.data.currentReward,
+            avgApr: res.data.avgApr,
             dailyTotalOutput: res.data.dailyTotalOutput,
           });
         } else {

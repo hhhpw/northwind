@@ -397,7 +397,9 @@ const starMaskSign = async ({ account }) => {
 /**** NFT挖矿  ****/
 const stakeNFT = async ({ provider, order, meta, body, id }) => {
   try {
-    const funcId = process.env.VUE_APP_NFT_MINING_STAKE_FUNCTION_ID;
+    const funcId =
+      process.env.VUE_APP_NFT_MINING_ADDRESS +
+      process.env.VUE_APP_NFT_MINING_STAKE_FUNCTION_ID;
     const tyArgs = [meta, body];
     const args = [id, order];
 
@@ -425,7 +427,9 @@ const stakeNFT = async ({ provider, order, meta, body, id }) => {
 
 const unStakeNFT = async ({ provider, order, meta, body }) => {
   try {
-    const funcId = process.env.VUE_APP_NFT_MINING_UNSTAKE_FUNCTION_ID;
+    const funcId =
+      process.env.VUE_APP_NFT_MINING_ADDRESS +
+      process.env.VUE_APP_NFT_MINING_UNSTAKE_FUNCTION_ID;
     const tyArgs = [meta, body];
     const args = [order];
     console.log("funcId", funcId, "tyArgs", tyArgs, "args", args);

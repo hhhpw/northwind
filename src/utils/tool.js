@@ -94,19 +94,26 @@ const getOpenBoxIdByHash = ({ txnHash, boxToken } = {}) => {
 };
 
 /**
- * 轮询查上链信息
+ * 轮询查上链event信息
  * @param {txnHash, delay}
  * @returns
  */
 /* eslint-disable */
-const pollingBlockHashInfo = ({ txnHash, delay = 1000 } = {}) => {
+const getChainEventsByTxnHash = ({
+  txnHash,
+  resolveFunc,
+  delay = 1000,
+} = {}) => {
   return new Promise((resolve) => {
-    commonApi.getTransactionInfo(txnHash).then((res) => {
-      if (res.result && res.result.status === "Executed") {
-        resolve(res.result.status);
+    commonApi.getChainEventsByTxnHash(txnHash).then((res) => {
+      if (res.result && res.result.length > 0) {
+        if (typeof resolveFunc === "function") {
+          const data = resolveFunc(res.result);
+          resolve({ data, status: "Executed" });
+        }
       } else {
         setTimeout(() => {
-          resolve(pollingBlockHashInfo({ txnHash }));
+          resolve(getChainEventsByTxnHash({ txnHash, resolveFunc }));
         }, delay);
       }
     });
@@ -169,7 +176,7 @@ export default {
   pollingTxnInfo,
   getImgTruePath,
   setJWT,
-  pollingBlockHashInfo,
+  getChainEventsByTxnHash,
   getOpenBoxIdByHash,
   encodeQueryURL,
   decodeQueryURL,

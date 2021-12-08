@@ -2,6 +2,7 @@ import NORMAL_IMG from "../../../assets/nft/mining-nft-slot.png";
 import HOVER_IMG from "../../../assets/nft/mining-nft-slot-hover.png";
 import NFT_IMG from "../../../assets/nft/mining-nft-slot-hasnft.png";
 import NORMAL_IMG_EN from "../../../assets/nft/mining-nft-slot-en.png";
+import HOVER_IMG_EN from "../../../assets/nft/mining-nft-slot-hover-en.png";
 
 const changeSlotBgFunc = (state) => {
   const enterNFTSlot = (index, hasNFT, flag) => {
@@ -11,6 +12,10 @@ const changeSlotBgFunc = (state) => {
       return;
     }
     if (!hasNFT && flag) {
+      if (state.currLang === "en") {
+        state.slotDOMs[index].style.backgroundImage = `url(${HOVER_IMG_EN})`;
+        return;
+      }
       state.slotDOMs[index].style.backgroundImage = `url(${HOVER_IMG})`;
       return;
     }
