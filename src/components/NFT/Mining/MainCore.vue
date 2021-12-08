@@ -165,7 +165,7 @@ const polling = (fn) => {
     fn();
     setTimeout(() => {
       resolve(polling(fn));
-    }, 10000);
+    }, 5000);
   });
 };
 
