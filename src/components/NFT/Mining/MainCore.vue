@@ -90,6 +90,7 @@ import {
   defineEmits,
   watchEffect,
   watch,
+  onUnmounted,
 } from "vue";
 import SelectorModal from "./SelectorModal.vue";
 import TotalPowerCard from "./TotalCard.vue";
@@ -129,20 +130,50 @@ const clickSlotEvent = (index, hasNFT) => {
     dialogVisible: true,
   });
 };
+const getMiningData = () =>
+  store.dispatch("StoreNFTMining/getMiningData", state?.accounts[0] || null);
 
-store.dispatch("StoreNFTMining/getNFTfee");
-// store.dispatch("StoreNFTMining/getMiningData");
+const init = async () => {
+  store.dispatch("StoreNFTMining/getNFTfee");
+  const data = await getMiningData();
+  console.log("data", data);
+  if (data === "ok") {
+    setTimeout(() => {
+      state.isLoading = false;
+    }, 1500);
+  }
+};
 
-watchEffect(async () => {
+init();
+
+const onceWatch = watchEffect(() => {
   if (state.accounts && state.accounts[0]) {
     Promise.any([
       store.dispatch("StoreNFTMining/getStakeNFTList", state.accounts[0]),
-      store.dispatch("StoreNFTMining/getMiningData", state.accounts[0]),
+      getMiningData(),
       store.dispatch("StoreNFTMining/getUserNFTList", state.accounts[0]),
     ]).then(() => {
-      state.isLoading = false;
+      setTimeout(() => {
+        state.isLoading = false;
+      }, 1500);
+      onceWatch && onceWatch();
     });
   }
+});
+
+const polling = (fn) => {
+  return new Promise((resolve) => {
+    fn();
+    setTimeout(() => {
+      resolve(polling(fn));
+    }, 10000);
+  });
+};
+
+polling(getMiningData);
+
+onUnmounted(() => {
+  store.commit("StoreNFTMining/CLEAR_DATA");
 });
 </script>
 <style lang="scss" module>

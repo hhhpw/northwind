@@ -6,3 +6,4 @@ export const SET_MINING_DATA = "SET_MINING_DATA";
 export const SET_USER_NFT_LIST = "SET_USER_NFT_LIST";
 export const SET_GAS_DATA = "SET_GAS_DATA";
 export const SET_CURRENT_NFT_ORDER = "SET_CURRENT_NFT_ORDER";
+export const CLEAR_DATA = "CLEAR_DATA";

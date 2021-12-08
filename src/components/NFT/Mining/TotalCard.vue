@@ -19,8 +19,8 @@
           :value="state.miningData.dailyTotalOutput"
           displaySuffix="STC"
           :formatOptions="{
-            precision: 0,
-            trailingZero: false,
+            precision: 2,
+            trailingZero: true,
           }"
         ></star-amount>
       </div>
@@ -31,8 +31,8 @@
         <star-amount
           :value="state.miningData.avgApr"
           :formatOptions="{
-            precision: 0,
-            trailingZero: false,
+            precision: 2,
+            trailingZero: true,
             percentStyle: true,
           }"
         ></star-amount>
