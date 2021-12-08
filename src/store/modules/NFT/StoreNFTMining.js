@@ -112,56 +112,54 @@ const StoreNFTMining = {
   actions: {
     async drawMiningReward({ commit, state, rootState }, payload) {
       const account = rootState.StoreWallet.accounts[0];
-      // const sign = await Wallet.starMaskSign({ account: state.accounts[0] });
-      // try {
-      commit(types.SET_WALLET_DIALOG_PARAMS, {
-        dialogVisible: true,
-        dialogText: utilsFormat.computedLangCtx("提取中"),
-      });
-      const res = await miningAPI.drawMiningReward(account);
-      console.log("res", res, account);
-      if (res.code === 200) {
-        const { transactionHash } = res.data;
+      try {
         commit(types.SET_WALLET_DIALOG_PARAMS, {
-          phase1: "succeed",
+          dialogVisible: true,
+          dialogText: utilsFormat.computedLangCtx("提取中"),
+          isShowClose: false,
         });
-        utilsTool
-          .pollingBlockHashInfo({ txnHash: transactionHash })
-          .then((res) => {
-            if (res === "Executed") {
-              commit(types.SET_WALLET_DIALOG_PARAMS, {
-                phase2: "succeed",
-              });
-              setTimeout(() => {
-                commit(types.SET_WALLET_DIALOG_PARAMS, {
-                  dialogStatus: "succeed",
-                  dialogText: utilsFormat.computedLangCtx("操作成功"),
-                  successBtnText: utilsFormat.computedLangCtx("确认"),
-                  isShowClose: true,
-                  miningData: {
-                    draw: utilsNumber
-                      .bigNum(state.miningData.currentReward)
-                      .minus(state.gasData)
-                      .toString(),
-                  },
-                });
-              }, 1500);
-            } else {
-              throw new Error("draw-error");
-            }
+        const res = await miningAPI.drawMiningReward(account);
+        if (res.code === 200) {
+          const { transactionHash } = res.data;
+          commit(types.SET_WALLET_DIALOG_PARAMS, {
+            phase1: "succeed",
           });
+          utilsTool
+            .pollingBlockHashInfo({ txnHash: transactionHash })
+            .then((res) => {
+              if (res === "Executed") {
+                commit(types.SET_WALLET_DIALOG_PARAMS, {
+                  phase2: "succeed",
+                });
+                setTimeout(() => {
+                  commit(types.SET_WALLET_DIALOG_PARAMS, {
+                    dialogStatus: "succeed",
+                    dialogText: utilsFormat.computedLangCtx("操作成功"),
+                    successBtnText: utilsFormat.computedLangCtx("确认"),
+                    isShowClose: true,
+                    miningData: {
+                      draw: utilsNumber
+                        .bigNum(state.miningData.currentReward)
+                        .minus(state.gasData)
+                        .toString(),
+                    },
+                  });
+                }, 1500);
+              } else {
+                throw new Error("draw-error");
+              }
+            });
+        }
+      } catch {
+        commit(types.SET_WALLET_DIALOG_PARAMS, {
+          dialogStatus: "failed",
+          dialogText: utilsFormat.computedLangCtx("提取收益失败"),
+          failedBtnText: utilsFormat.computedLangCtx("确认"),
+          isShowClose: true,
+          handleFailed: () => handleWalletCloseEvent(commit),
+          handleClose: () => handleWalletCloseEvent(commit),
+        });
       }
-      // } catch {
-      //   console.log("====A======");
-      //   commit(types.SET_WALLET_DIALOG_PARAMS, {
-      //     dialogStatus: "failed",
-      //     dialogText: utilsFormat.computedLangCtx("提取收益失败"),
-      //     failedBtnText: utilsFormat.computedLangCtx("确认"),
-      //     isShowClose: true,
-      //     handleFailed: () => handleWalletCloseEvent(commit),
-      //     handleClose: () => handleWalletCloseEvent(commit),
-      //   });
-      // }
     },
     // 放置NFT卡片
     async stakeNFT({ commit, rootState, state }, payload) {
@@ -351,6 +349,7 @@ const StoreNFTMining = {
           },
           handleClose: () => handleSecondCloseEvent(commit),
           handleConfirm: () => {
+            handleSecondCloseEvent(commit);
             dispatch("drawMiningReward");
           },
         });

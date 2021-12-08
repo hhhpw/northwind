@@ -130,10 +130,13 @@ const clickSlotEvent = (index, hasNFT) => {
     dialogVisible: true,
   });
 };
+const getMiningData = () =>
+  store.dispatch("StoreNFTMining/getMiningData", state?.accounts[0] || null);
 
 const init = async () => {
   store.dispatch("StoreNFTMining/getNFTfee");
-  const data = await store.dispatch("StoreNFTMining/getMiningData");
+  const data = await getMiningData();
+  console.log("data", data);
   if (data === "ok") {
     setTimeout(() => {
       state.isLoading = false;
@@ -147,7 +150,7 @@ const onceWatch = watchEffect(() => {
   if (state.accounts && state.accounts[0]) {
     Promise.any([
       store.dispatch("StoreNFTMining/getStakeNFTList", state.accounts[0]),
-      store.dispatch("StoreNFTMining/getMiningData", state.accounts[0]),
+      getMiningData(),
       store.dispatch("StoreNFTMining/getUserNFTList", state.accounts[0]),
     ]).then(() => {
       setTimeout(() => {
@@ -158,8 +161,19 @@ const onceWatch = watchEffect(() => {
   }
 });
 
+const polling = (fn) => {
+  return new Promise((resolve) => {
+    fn();
+    setTimeout(() => {
+      resolve(polling(fn));
+    }, 10000);
+  });
+};
+
+polling(getMiningData);
+
 onUnmounted(() => {
-  store.commit(types.CLEAR_DATA);
+  store.commit("StoreNFTMining/CLEAR_DATA");
 });
 </script>
 <style lang="scss" module>

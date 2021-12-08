@@ -12,7 +12,7 @@
             class="mining-second-dialog-content-title"
             v-if="state.secondDialogParams?.isShowTitle"
           >
-            {{ $t("提前收益确认") }}
+            {{ $t("提取收益确认") }}
           </p>
           <div class="mining-second-dialog-content-block">
             <div

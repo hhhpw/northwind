@@ -310,7 +310,7 @@
     "total-mining-power": "當前總算力",
     "my-mining-power": "我的算力",
     "my-mining-year-profit": "我的年化收益率",
-    "nft-slot-desc": "放入NFT卡盤，獲得挖礦收益，卡牌越稀有算力值越大可獲得的收益更多。",
+    "nft-slot-desc": "放入NFT卡牌，獲得挖礦收益，卡牌越稀有算力值越大可獲得的收益更多。",
     "add-nft": "正在放置卡牌",
     "add-nft-ok": "放置成功",
     "add-nft-failed": "放置失败",

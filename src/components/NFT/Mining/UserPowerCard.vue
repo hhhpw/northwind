@@ -43,8 +43,8 @@
           :class="$style['amount']"
           :value="state.miningData.userApr"
           :formatOptions="{
-            precision: 0,
-            trailingZero: false,
+            precision: 2,
+            trailingZero: true,
             percentStyle: true,
           }"
         ></star-amount>
