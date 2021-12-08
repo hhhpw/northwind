@@ -98,7 +98,6 @@ const getOpenBoxIdByHash = ({ txnHash, boxToken } = {}) => {
  * @param {txnHash, delay}
  * @returns
  */
-/* eslint-disable */
 const getChainEventsByTxnHash = ({
   txnHash,
   resolveFunc,
@@ -120,6 +119,24 @@ const getChainEventsByTxnHash = ({
   });
 };
 
+/**
+ * 轮询查上链hash信息
+ * @param {txnHash, delay}
+ * @returns
+ */
+const getChainTransactionInfo = ({ txnHash, delay = 1000 } = {}) => {
+  return new Promise((resolve) => {
+    commonApi.getTransactionInfo(txnHash).then((res) => {
+      if (res.result && res.result.status === "Executed") {
+        resolve(res.result.status);
+      } else {
+        setTimeout(() => {
+          resolve(getChainTransactionInfo({ txnHash }));
+        }, delay);
+      }
+    });
+  });
+};
 /**
  * 隐藏nft-image地址
  * @param {*} path
@@ -180,4 +197,5 @@ export default {
   getOpenBoxIdByHash,
   encodeQueryURL,
   decodeQueryURL,
+  getChainTransactionInfo,
 };

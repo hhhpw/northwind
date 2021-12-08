@@ -207,7 +207,7 @@ const StoreNFTMining = {
           phase1: "succeed",
         });
         utilsTool
-          .getChainEventsByTxnHash({ txnHash: transactionHash })
+          .getChainTransactionInfo({ txnHash: transactionHash })
           .then((res) => {
             if (res === "Executed") {
               commit(types.SET_WALLET_DIALOG_PARAMS, {
@@ -264,7 +264,7 @@ const StoreNFTMining = {
           phase1: "succeed",
         });
         utilsTool
-          .getChainEventsByTxnHash({ txnHash: transactionHash })
+          .getChainTransactionInfo({ txnHash: transactionHash })
           .then((res) => {
             if (res === "Executed") {
               commit(types.SET_WALLET_DIALOG_PARAMS, {

@@ -45,7 +45,6 @@ function getBoxHistoryRecord(params) {
 
 // 查询上链信息
 function getTransactionInfo(txnHash) {
-  console.log("getTransactionInfo", txnHash);
   let params = {
     id: 101,
     jsonrpc: "2.0",
