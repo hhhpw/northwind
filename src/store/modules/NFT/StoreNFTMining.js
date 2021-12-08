@@ -163,8 +163,8 @@ const StoreNFTMining = {
                         .minus(utilsFormat.formatBalance(res.data.fee, 9))
                         .toString(),
                     },
-                    handleSucceed: () => handleWalletCloseEvent(commit),
-                    handleClose: () => handleWalletCloseEvent(commit),
+                    handleSucceed: () => window.location.reload(),
+                    handleClose: () => window.location.reload(),
                   });
                 }, 1500);
               } else {

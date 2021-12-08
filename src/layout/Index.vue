@@ -43,6 +43,7 @@ let state = reactive({
 });
 
 const setBg = (key) => {
+  console.log("keu", key);
   const bg = {
     swap: swapBg,
     liquidity: liquidityBg,
