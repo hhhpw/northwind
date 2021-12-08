@@ -426,12 +426,8 @@ const stakeNFT = async ({ provider, order, meta, body, id }) => {
 const unStakeNFT = async ({ provider, order, meta, body }) => {
   try {
     const funcId = process.env.VUE_APP_NFT_MINING_UNSTAKE_FUNCTION_ID;
-    // const tyArgs = [meta, body];
-    const tyArgs = [
-      "0x69f1e543a3bef043b63bed825fcd2cf6::KikoCat12::KikoCatMeta",
-      "0x69f1e543a3bef043b63bed825fcd2cf6::KikoCat12::KikoCatBody",
-    ];
-    const args = [5];
+    const tyArgs = [meta, body];
+    const args = [order];
     console.log("funcId", funcId, "tyArgs", tyArgs, "args", args);
     const scriptFunction = await utils.tx.encodeScriptFunctionByResolve(
       funcId,
@@ -453,35 +449,35 @@ const unStakeNFT = async ({ provider, order, meta, body }) => {
     return "error";
   }
 };
-const changeNFT = async ({ provider, order, meta, body, id }) => {
-  try {
-    const funcId = process.env.VUE_APP_NFT_MINING_CHANGE_FUNCTION_ID;
-    const tyArgs = [
-      "0x69f1e543a3bef043b63bed825fcd2cf6::KikoCat12::KikoCatMeta",
-      "0x69f1e543a3bef043b63bed825fcd2cf6::KikoCat12::KikoCatBody",
-    ];
-    const args = [id, order];
-    console.log("funcId", funcId, "tyArgs", tyArgs, "args", args);
-    const scriptFunction = await utils.tx.encodeScriptFunctionByResolve(
-      funcId,
-      tyArgs,
-      args,
-      process.env.VUE_APP_STAR_COIN_URL
-    );
-    const payloadInHex = (function () {
-      const se = new bcs.BcsSerializer();
-      scriptFunction.serialize(se);
-      return hexlify(se.getBytes());
-    })();
-    const txhash = await provider.getSigner().sendUncheckedTransaction({
-      data: payloadInHex,
-    });
-    return txhash;
-  } catch (e) {
-    console.error("changeNFT", e);
-    return "error";
-  }
-};
+// const changeNFT = async ({ provider, order, meta, body, id }) => {
+//   try {
+//     const funcId = process.env.VUE_APP_NFT_MINING_CHANGE_FUNCTION_ID;
+//     const tyArgs = [
+//       "0x69f1e543a3bef043b63bed825fcd2cf6::KikoCat12::KikoCatMeta",
+//       "0x69f1e543a3bef043b63bed825fcd2cf6::KikoCat12::KikoCatBody",
+//     ];
+//     const args = [id, order];
+//     console.log("funcId", funcId, "tyArgs", tyArgs, "args", args);
+//     const scriptFunction = await utils.tx.encodeScriptFunctionByResolve(
+//       funcId,
+//       tyArgs,
+//       args,
+//       process.env.VUE_APP_STAR_COIN_URL
+//     );
+//     const payloadInHex = (function () {
+//       const se = new bcs.BcsSerializer();
+//       scriptFunction.serialize(se);
+//       return hexlify(se.getBytes());
+//     })();
+//     const txhash = await provider.getSigner().sendUncheckedTransaction({
+//       data: payloadInHex,
+//     });
+//     return txhash;
+//   } catch (e) {
+//     console.error("changeNFT", e);
+//     return "error";
+//   }
+// };
 
 /**** NFT挖矿  ****/
 export default {

@@ -131,13 +131,9 @@ const clickSlotEvent = (index, hasNFT) => {
 };
 
 store.dispatch("StoreNFTMining/getNFTfee");
+// store.dispatch("StoreNFTMining/getMiningData");
 
 watchEffect(async () => {
-  store.dispatch("StoreNFTMining/getMiningData").then((res) => {
-    if (res === "ok") {
-      state.isLoading = false;
-    }
-  });
   if (state.accounts && state.accounts[0]) {
     Promise.any([
       store.dispatch("StoreNFTMining/getStakeNFTList", state.accounts[0]),

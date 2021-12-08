@@ -30,21 +30,22 @@ function getStakeNFTList(address) {
 
 // 获取挖矿收益
 function drawMiningReward(address) {
-  // return request({
-  //   url: "/v1/mining/nft/reward/harvest",
-  //   method: "POST",
-  //   data: {
-  //     userAddress,
-  //   },
-  // });
-  return {
-    code: 200,
-    msg: "ok",
-    timeStamp: 1234567890123,
+  console.log("address", address);
+  return request({
+    url: `/v1/mining/nft/reward/harvest?address=${address}`,
+    method: "POST",
     data: {
-      transactionHash: "0xABCD1234", // 交易哈希
+      address,
     },
-  };
+  });
+  // return {
+  //   code: 200,
+  //   msg: "ok",
+  //   timeStamp: 1234567890123,
+  //   data: {
+  //     transactionHash: "0xABCD1234", // 交易哈希
+  //   },
+  // };
 }
 
 // 数据看板
