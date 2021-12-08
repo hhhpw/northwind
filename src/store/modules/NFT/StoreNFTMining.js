@@ -42,6 +42,12 @@ const handleSecondCloseEvent = (commit) => {
   }, 300);
 };
 
+const listRender = new Array(5).fill("").map(() => {
+  return {
+    hasNFT: false,
+  };
+});
+
 const StoreNFTMining = {
   namespaced: true,
   moduleName: "StoreNFTMining",
@@ -49,18 +55,28 @@ const StoreNFTMining = {
     selectorDialogParams: INIT_SELECTOR_DIALOG_PARAMS,
     walletDialogParams: WALLET_DIALOG_PARAMS,
     secondDialogParams: MY_SECOND_DIALOG_PARAMS,
-    nftStakeList: null,
+    nftStakeList: listRender,
     gasData: null,
-    miningData: null,
+    miningData: {},
     nftList: null,
     currOrder: null,
   },
   mutations: {
+    [types.CLEAR_DATA](state) {
+      state.selectorDialogParams = INIT_SELECTOR_DIALOG_PARAMS;
+      state.walletDialogParams = WALLET_DIALOG_PARAMS;
+      state.secondDialogParams = MY_SECOND_DIALOG_PARAMS;
+      state.nftStakeList = listRender;
+      state.gasData = null;
+      state.miningData = {};
+      state.nftList = null;
+      state.currOrder = null;
+    },
     [types.SET_CURRENT_NFT_ORDER](state, payload) {
       state.currOrder = payload;
     },
     [types.SET_MINING_DATA](state, payload) {
-      state.miningData = payload;
+      state.miningData = Object.assign({}, state.miningData, payload);
     },
     [types.SET_SELECTOR_DIALOG_PARAMS](state, payload) {
       state.selectorDialogParams = Object.assign(
@@ -319,15 +335,6 @@ const StoreNFTMining = {
 
     // 是否可提取收益
     canDrawReward({ commit, state, dispatch }) {
-      console.log(
-        "    state.miningData.currentReward ",
-        state.miningData.currentReward,
-        state.miningData.currentReward &&
-          utilsNumber.bigNum(state.miningData.currentReward).gt(0),
-        state.gasData &&
-          utilsNumber.bigNum(state.miningData.currentReward).gt(state.gasData),
-        state.gasData
-      );
       if (
         state.miningData.currentReward &&
         utilsNumber.bigNum(state.miningData.currentReward).gt(0) &&
@@ -360,18 +367,18 @@ const StoreNFTMining = {
       }
     },
 
-    async getMiningData({ commit, state }, userAddress) {
-      console.log("userAddress", userAddress);
-      if (!userAddress) {
-        console.log("A", userAddress);
-        if (state.miningData?.userScore > 0) {
-          return;
-        }
-      }
+    async getMiningData({ commit }, userAddress) {
       const res = await miningAPI.getMiningData(userAddress);
       if (res.code === 200) {
-        console.log("getMiningData", res.data);
-        commit(types.SET_MINING_DATA, res.data);
+        if (!userAddress) {
+          commit(types.SET_MINING_DATA, {
+            totalScore: res.data.totalScore,
+            currentReward: res.data.currentReward,
+            dailyTotalOutput: res.data.dailyTotalOutput,
+          });
+        } else {
+          commit(types.SET_MINING_DATA, res.data);
+        }
         return "ok";
       }
     },

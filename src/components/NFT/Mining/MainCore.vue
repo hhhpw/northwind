@@ -90,6 +90,7 @@ import {
   defineEmits,
   watchEffect,
   watch,
+  onUnmounted,
 } from "vue";
 import SelectorModal from "./SelectorModal.vue";
 import TotalPowerCard from "./TotalCard.vue";
@@ -130,19 +131,35 @@ const clickSlotEvent = (index, hasNFT) => {
   });
 };
 
-store.dispatch("StoreNFTMining/getNFTfee");
-// store.dispatch("StoreNFTMining/getMiningData");
+const init = async () => {
+  store.dispatch("StoreNFTMining/getNFTfee");
+  const data = await store.dispatch("StoreNFTMining/getMiningData");
+  if (data === "ok") {
+    setTimeout(() => {
+      state.isLoading = false;
+    }, 1500);
+  }
+};
 
-watchEffect(async () => {
+init();
+
+const onceWatch = watchEffect(() => {
   if (state.accounts && state.accounts[0]) {
     Promise.any([
       store.dispatch("StoreNFTMining/getStakeNFTList", state.accounts[0]),
       store.dispatch("StoreNFTMining/getMiningData", state.accounts[0]),
       store.dispatch("StoreNFTMining/getUserNFTList", state.accounts[0]),
     ]).then(() => {
-      state.isLoading = false;
+      setTimeout(() => {
+        state.isLoading = false;
+      }, 1500);
+      onceWatch && onceWatch();
     });
   }
+});
+
+onUnmounted(() => {
+  store.commit(types.CLEAR_DATA);
 });
 </script>
 <style lang="scss" module>
