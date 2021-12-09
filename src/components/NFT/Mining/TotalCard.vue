@@ -6,6 +6,7 @@
       </p>
       <star-amount
         :value="state.miningData.totalScore"
+        :class="$style['amount']"
         :formatOptions="{
           precision: 2,
           trailingZero: false,
@@ -16,6 +17,7 @@
       <div>
         <p :class="$style['title']">{{ $t("日产量") }}</p>
         <star-amount
+          :class="$style['amount']"
           :value="state.miningData.dailyTotalOutput"
           displaySuffix="STC"
           :formatOptions="{
@@ -29,6 +31,7 @@
           {{ $t("平均年化收益") }}
         </p>
         <star-amount
+          :class="$style['amount']"
           :value="state.miningData.avgApr"
           :formatOptions="{
             precision: 2,
@@ -51,6 +54,10 @@ let state = reactive({
 });
 </script>
 <style lang="scss" module>
+.amount {
+  font-size: 24px;
+  font-weight: normal;
+}
 .total-data-container {
   // color: red;
   position: absolute;
@@ -70,10 +77,10 @@ let state = reactive({
   }
   .header {
     margin-left: 20px;
-    margin-top: 20px;
+    margin-top: 15px;
   }
   .footer {
-    margin-top: 30px;
+    margin-top: 20px;
     padding: 0px 20px;
     display: flex;
     justify-content: space-between;
