@@ -26,7 +26,10 @@
               :class="$style['mining-core-container-slot-item-img-box-desc']"
               v-if="d?.imageLink"
             >
-              <svg-icon name="mininglight" style="margin-right: 5px"></svg-icon>
+              <svg-icon
+                name="mininglight"
+                style="margin-right: 3px; margin-left: 5px"
+              ></svg-icon>
               <star-amount
                 :value="d.score"
                 :formatOptions="{ precision: 2, trailingZero: true }"
@@ -250,11 +253,11 @@ onUnmounted(() => {
             background: linear-gradient(
               180deg,
               rgba(0, 0, 0, 0) 0%,
-              rgba(0, 0, 0, 0.5) 100%
+              rgba(0, 0, 0, 0.9) 100%
             );
             opacity: 0.74;
             width: 132px;
-            padding: 2px 0px;
+            padding: 5px 0px;
             color: #fff;
             font-size: 12px;
             position: absolute;

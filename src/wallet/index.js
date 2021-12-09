@@ -382,7 +382,7 @@ const openBlindBox = async ({ provider, blindboxId }) => {
 const starMaskSign = async ({ account }) => {
   try {
     const networkId = await getNetworkChainId();
-    const msg = `0x${Buffer.from("KiKoSwap", "utf8").toString("hex")}`;
+    const msg = `0x${Buffer.from(String(Date.now()), "utf8").toString("hex")}`;
     const sign = await window.starcoin.request({
       method: "personal_sign",
       params: [msg, account, { networkId }],

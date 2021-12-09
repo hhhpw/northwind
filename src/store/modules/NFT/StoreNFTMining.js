@@ -129,14 +129,22 @@ const StoreNFTMining = {
         return;
       }
       try {
-        const account = rootState.StoreWallet.accounts[0];
         commit(types.SET_WALLET_DIALOG_PARAMS, {
           dialogVisible: true,
           dialogText: utilsFormat.computedLangCtx("提取中"),
           isShowClose: false,
-          phase1: null,
         });
-        const res = await miningAPI.drawMiningReward(account);
+        const account = rootState.StoreWallet.accounts[0];
+        const signHash = await Wallet.starMaskSign({
+          account,
+        });
+        if (signHash === "error") {
+          throw new Error("draw-error");
+        }
+        commit(types.SET_WALLET_DIALOG_PARAMS, {
+          phase1: "succeed",
+        });
+        const res = await miningAPI.drawMiningReward(signHash);
         if (res.code === 200) {
           const txnHash = res.data;
           const resolveFunc = (list) => {
@@ -182,6 +190,60 @@ const StoreNFTMining = {
           handleClose: () => handleWalletCloseEvent(commit),
         });
       }
+      // try {
+      //   const account = rootState.StoreWallet.accounts[0];
+      //   commit(types.SET_WALLET_DIALOG_PARAMS, {
+      //     dialogVisible: true,
+      //     dialogText: utilsFormat.computedLangCtx("提取中"),
+      //     isShowClose: false,
+      //     phase1: null,
+      //   });
+      //   const res = await miningAPI.drawMiningReward(account);
+      //   if (res.code === 200) {
+      //     const txnHash = res.data;
+      //     const resolveFunc = (list) => {
+      //       return list.filter(
+      //         (d) => d.type_tag.indexOf("NFTHarvestEvent") > -1
+      //       )[0].decode_event_data;
+      //     };
+      //     utilsTool
+      //       .getChainEventsByTxnHash({ txnHash, resolveFunc })
+      //       .then((res) => {
+      //         if (res.status === "Executed") {
+      //           commit(types.SET_WALLET_DIALOG_PARAMS, {
+      //             phase2: "succeed",
+      //           });
+      //           setTimeout(() => {
+      //             commit(types.SET_WALLET_DIALOG_PARAMS, {
+      //               dialogStatus: "succeed",
+      //               dialogText: utilsFormat.computedLangCtx("操作成功"),
+      //               successBtnText: utilsFormat.computedLangCtx("确认"),
+      //               isShowClose: true,
+      //               miningData: {
+      //                 draw: utilsNumber
+      //                   .bigNum(utilsFormat.formatBalance(res.data.amount, 9))
+      //                   .minus(utilsFormat.formatBalance(res.data.fee, 9))
+      //                   .toString(),
+      //               },
+      //               handleSucceed: () => window.location.reload(),
+      //               handleClose: () => window.location.reload(),
+      //             });
+      //           }, 1500);
+      //         } else {
+      //           throw new Error("draw-error");
+      //         }
+      //       });
+      //   }
+      // } catch {
+      // commit(types.SET_WALLET_DIALOG_PARAMS, {
+      //   dialogStatus: "failed",
+      //   dialogText: utilsFormat.computedLangCtx("提取收益失败"),
+      //   failedBtnText: utilsFormat.computedLangCtx("确认"),
+      //   isShowClose: true,
+      //   handleFailed: () => handleWalletCloseEvent(commit),
+      //   handleClose: () => handleWalletCloseEvent(commit),
+      // });
+      // }
     },
     // 放置NFT卡片
     async stakeNFT({ commit, rootState, state }, payload) {

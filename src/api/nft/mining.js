@@ -12,12 +12,12 @@ function getStakeNFTList(address) {
 }
 
 // 获取挖矿收益
-function drawMiningReward(address) {
+function drawMiningReward(signature) {
   return request({
-    url: `/v1/mining/nft/reward/harvest?address=${address}`,
+    url: `/v1/mining/nft/reward/harvest?signature=${signature}`,
     method: "POST",
     data: {
-      address,
+      signature,
     },
   });
 }
