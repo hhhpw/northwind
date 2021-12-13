@@ -72,7 +72,7 @@ const changeBtnStatus = (i, flag) => {
     border-radius: 8px;
   }
   .card-wrap-item {
-    padding: 15px 8px 15px;
+    padding: 24px 20px;
     margin-bottom: 15px;
     margin-left: 14px;
     text-align: center;
@@ -90,8 +90,9 @@ const changeBtnStatus = (i, flag) => {
     }
     .card-wrap-item-btn {
       margin-top: 3px;
-      padding: 8px 30px;
-      border-radius: 6px;
+      width: 120px;
+      padding: 8px;
+      border-radius: 5px;
       font-size: 14px;
     }
   }

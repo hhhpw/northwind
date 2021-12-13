@@ -5,7 +5,7 @@ import { ElNotification } from "element-plus";
 import utilsTool from "@utils/tool";
 import CONSTANTS_STAR_MASK from "@constants/starmask";
 import StarButton from "@StarUI/StarButton.vue";
-import utilsRouter from "@utils/router.js";
+// import utilsRouter from "@utils/router.js";
 import CONSTANTS_TOKENS from "@constants/token";
 import utilsFormat from "@utils/format";
 
@@ -25,10 +25,11 @@ export default function connectLogic(store) {
   const handleAccountsChange = (account) => {
     clearInterval(state.walletTimer);
     store.commit("StoreWallet/CHANGE_WALLET_TIMER_STATUS", null);
+    window.location.reload();
     // account为空数组则认为是断开链接
     if (account.length === 0) {
       store.commit("StoreWallet/SET_WALLET_CONNECT_STATUS", "unConnected");
-      utilsRouter.push("/");
+      // utilsRouter.push("/");
     } else {
       console.log("====handleAccountsChange====", state.accounts);
       store.dispatch("StoreWallet/setAccounts", []);
@@ -38,8 +39,7 @@ export default function connectLogic(store) {
       store.commit("StoreWallet/CHANGE_WALLET_TIMER_STATUS", timer);
       // 为啥不重刷页面
 
-      utilsRouter.push("/");
-      // window.location.reload();
+      // utilsRouter.push("/");
     }
   };
 

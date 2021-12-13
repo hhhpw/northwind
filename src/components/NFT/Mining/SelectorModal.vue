@@ -3,7 +3,7 @@
     <ElDialog
       v-model="state.visible"
       custom-class="star-dialog-el"
-      width="770px"
+      width="868px"
       :before-close="handleClose"
       :close-on-press-escape="false"
       :close-on-click-modal="false"

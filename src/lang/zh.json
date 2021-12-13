@@ -254,12 +254,13 @@
     "提取": "提取",
     "收益": "收益",
     "算力": "算力",
-    "平均年化收益": "平均年化收益",
+    "平均年化收益率": "平均年化收益率",
     "日产量": "日產量",
     "收获": "收獲",
     "提取收益确认": "提取收益確認",
     "提取{amount}{symbol}至钱包": "已提取 {amount} {symbol}至錢包",
-    "NFT挖矿": "NFT挖礦"
+    "NFT挖矿": "NFT挖礦",
+    "赎回": "贖回"
   },
   "farms": {
     "farm-swap-total-1": "總交易額",
@@ -314,10 +315,10 @@
     "add-nft": "正在放置卡牌",
     "add-nft-ok": "放置成功",
     "add-nft-failed": "放置失败",
-    "remove-nft": "正在移除卡牌",
-    "remove-nft-ok": "移除成功",
-    "remove-nft-failed": "移除失败",
-    "remove-nft-card-desc": "是否移除 {name}",
+    "remove-nft": "正在贖回卡牌",
+    "remove-nft-ok": "贖回成功",
+    "remove-nft-failed": "贖回失败",
+    "remove-nft-card-desc": "是否贖回 {name}",
     "mining-power": "算力"
   },
   "nftproperty": {

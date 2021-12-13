@@ -56,7 +56,7 @@
                   body: d.nftBody,
                 })
               "
-              >{{ $t("移除") }}</star-button
+              >{{ $t("赎回") }}</star-button
             >
           </div>
         </div>
@@ -284,6 +284,7 @@ onUnmounted(() => {
           display: none;
           .mining-core-container-slot-item-shadow-box-btn {
             padding: 5px 15px;
+            width: 60px;
             font-size: 16px;
             left: 50%;
             position: relative;

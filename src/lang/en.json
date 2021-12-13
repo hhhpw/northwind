@@ -255,12 +255,13 @@
     "提取": "Harvest",
     "收益": "Rewards",
     "算力": "Mining power",
-    "平均年化收益": "Average APR",
+    "平均年化收益率": "Average APR",
     "日产量": "Daily rewards",
     "收获": "Harvest",
     "提取收益确认": "Confirm harvesting",
     "提取{amount}{symbol}至钱包": "Harvested {amount} {symbol} to wallet",
-    "NFT挖矿": "NFT Mining"
+    "NFT挖矿": "NFT Mining",
+    "赎回": "Redeem"
   },
   "farms": {
     "farm-swap-total-1": "Total trading volume",
@@ -316,10 +317,10 @@
     "add-nft": "Inserting NFT",
     "add-nft-ok": "Inserting succeeded",
     "add-nft-failed": "Inserting failed",
-    "remove-nft": "Removing NFT",
-    "remove-nft-ok": "Removing succeeded",
-    "remove-nft-failed": "Removing failed ",
-    "remove-nft-card-desc": "Removing {name}",
+    "remove-nft": "Redeeming NFT",
+    "remove-nft-ok": "Redeeming succeeded",
+    "remove-nft-failed": "Redeeming failed ",
+    "remove-nft-card-desc": "Redeeming {name}",
     "mining-power": "MP"
   },
   "nftproperty": {

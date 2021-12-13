@@ -28,10 +28,11 @@
       </div>
       <div :class="$style['year-profit']">
         <p :class="$style[('title', 'year-profit-title')]">
-          {{ $t("平均年化收益") }}
+          {{ $t("平均年化收益率") }}
         </p>
+
         <star-amount
-          :class="$style['amount']"
+          :class="[$style['amount'], $style['amount-color']]"
           :value="state.miningData.avgApr"
           :formatOptions="{
             precision: 2,
@@ -57,6 +58,9 @@ let state = reactive({
 .amount {
   font-size: 24px;
   font-weight: normal;
+}
+.amount-color {
+  color: #fb8000;
 }
 .total-data-container {
   // color: red;
