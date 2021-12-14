@@ -4,6 +4,10 @@ export default [
     path: "/",
   },
   {
+    label: "KgStarter",
+    path: "/kgstarter",
+  },
+  {
     label: "NFT",
     children: [
       {

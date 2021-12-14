@@ -132,6 +132,15 @@ const routes = [
           url: "/swapfarms",
         },
       },
+      {
+        path: "/kgstarter",
+        component: () => import("@views/KgStarter/Index.vue"),
+        name: "kgstarter",
+        meta: {
+          title: "kgstarter",
+          url: "/kgstarter",
+        },
+      },
       // {
       //   path: "/liquidityfarms",
       //   component: () => import("@views/Farms/FarmLiquidity.vue"),

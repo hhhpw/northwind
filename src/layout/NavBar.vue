@@ -83,8 +83,8 @@ const changeSettingVisible = (type) => {
   display: flex;
   position: absolute;
   align-items: center;
-  // z-index: 4;
-  height: 72px;
+  height: 70px;
+  z-index: 999;
   // background: #f9efe4;
   // width: calc(100% - 230px);
   justify-content: flex-end;
