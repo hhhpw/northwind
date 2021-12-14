@@ -43,11 +43,11 @@ let state = reactive({
 });
 
 const setBg = (key) => {
-  console.log("keu", key);
   const bg = {
     swap: swapBg,
     liquidity: liquidityBg,
     nft: nftBg,
+    none: "",
   };
   state.bg = bg[key];
 };
@@ -55,8 +55,7 @@ const setBg = (key) => {
 const store = useStore();
 
 onMounted(() => {
-  let bgValue = ref(route.meta.bg).value;
-  if (!bgValue) return;
+  let bgValue = ref(route.meta.bg).value || "none";
   setBg(bgValue);
   if (
     state.netChainId &&
@@ -69,8 +68,7 @@ onMounted(() => {
 watch(
   () => route.meta,
   (n) => {
-    let bgValue = n.bg;
-    if (!bgValue) return;
+    let bgValue = n.bg || "none";
     setBg(bgValue);
   }
 );
