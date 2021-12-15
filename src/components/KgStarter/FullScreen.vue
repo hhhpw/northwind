@@ -6,13 +6,15 @@
     <div :class="$style['full-screen-container-content']">
       <div :class="$style['full-screen-container-content-mask']">
         <div :class="$style['full-screen-container-content-main']">
-          <img src="../../assets/igo/logo-B.png" :class="$style['logo']" />
-          <p :class="$style['full-screen-container-content-main-desc']">
-            同样的代码，如何判断谁的代码是优秀的代码？可读性，可扩展性，健壮性可能都可以用来判定，
-            然而这些东西我觉得并不能直接体现出你代码的优秀，因为对用户而言，访问你的代码响应速度快那就是优秀的代码，
-            相反，动辄响应几秒甚至更长时间的接口，恐怕就算你可读性再好，再健壮也称不上是好代码。
-          </p>
-          <screen-data></screen-data>
+          <div :class="$style['full-screen-container-content-main-core']">
+            <img src="../../assets/igo/logo-B.png" :class="$style['logo']" />
+            <p :class="$style['full-screen-container-content-main-desc']">
+              同样的代码，如何判断谁的代码是优秀的代码？可读性，可扩展性，健壮性可能都可以用来判定，
+              然而这些东西我觉得并不能直接体现出你代码的优秀，因为对用户而言，访问你的代码响应速度快那就是优秀的代码，
+              相反，动辄响应几秒甚至更长时间的接口，恐怕就算你可读性再好，再健壮也称不上是好代码。
+            </p>
+            <screen-data></screen-data>
+          </div>
         </div>
       </div>
     </div>
@@ -33,6 +35,8 @@ import ScreenData from "./ScreenData.vue";
   width: calc(100vw - 200px);
   .full-screen-container-header {
     padding: 20px;
+    padding-bottom: 10px;
+    margin-top: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -42,7 +46,8 @@ import ScreenData from "./ScreenData.vue";
     }
   }
   .full-screen-container-content {
-    min-height: 550px;
+    // min-height: 550px;
+    height: calc(100% - 200px);
     width: 1000px;
     margin: 0 auto;
     margin-top: 10px;
@@ -78,27 +83,40 @@ import ScreenData from "./ScreenData.vue";
       left: 0;
     }
     .full-screen-container-content-main {
-      border: 1px solid red;
+      // border: 2px solid red;
       background-image: url("../../assets/igo/kg-content-header.png");
       background-repeat: no-repeat;
       background-size: 100% 100%;
       width: calc(100% - 50px);
       margin: 0 auto;
-      height: 500px;
+      margin-top: 20px;
+      height: calc(100% - 50px);
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      // border: 1px solid red;
+      // height: 500px;
       // display: flex;
       text-align: center;
       // justify-content: center;
       // align-items: center;
-      .logo {
-        width: 200px;
-        margin-top: 30px;
-      }
-      .full-screen-container-content-main-desc {
-        font-size: 15px;
-        color: #fff;
-        text-align: left;
-        padding: 10px 40px;
-        opacity: 0.8;
+      .full-screen-container-content-main-core {
+        border: 3px solid green;
+        height: 93%;
+        width: 90%;
+        margin-bottom: 15px;
+        overflow: scroll;
+        .logo {
+          width: 200px;
+          margin-top: 10px;
+        }
+        .full-screen-container-content-main-desc {
+          font-size: 15px;
+          color: #fff;
+          text-align: left;
+          padding: 10px 40px;
+          opacity: 0.8;
+        }
       }
     }
   }

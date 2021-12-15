@@ -2,8 +2,8 @@ function proxyRule(key, targetUrl) {
   return {
     target: targetUrl,
     changeOrigin: true,
-    secure: true, // https
-    logLevel: "debug", // 开启代理日志
+    secure: true,
+    logLevel: "debug",
     ws: true,
     port: 8866,
     pathRewrite: {
@@ -22,7 +22,7 @@ function devServer() {
   return {
     compress: true,
     open: true,
-    hot: true, // 热更新
+    hot: true,
     overlay: {
       warnings: false,
       errors: true,
