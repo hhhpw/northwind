@@ -44,7 +44,7 @@
             ></svg-icon>
           </div>
         </div>
-        <div :class="$style['data-info-detail-right']" v-if="state.timer">
+        <div :class="$style['data-info-detail-right']" v-if="state.countdown">
           <p :class="$style['data-info-detail-right-title']">
             {{ $t("kgstarter.开始倒计时") }}
           </p>
@@ -106,7 +106,7 @@ watch(
 );
 
 const pushPage = (i) => {
-  const typeText = ["", "tw", "telegram", "medium"];
+  const typeText = ["website", "tw", "telegram", "medium"];
   const map = new Map();
   state.igoList[state.activeIndex].links.forEach((d) => {
     map.set(d.name, d.url);
@@ -128,6 +128,10 @@ const setActiveItem = (i) => {
     state.countdown = formateDate(
       utilsDate.countdown(state.igoList[state.activeIndex].startTime)
     );
+    if (!state.countdown) {
+      clearTimeout(state.timer);
+      return;
+    }
 
     state.timer = setTimeout(() => setCountDown(), 1000);
   };
