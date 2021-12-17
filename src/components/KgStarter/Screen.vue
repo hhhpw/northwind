@@ -35,6 +35,7 @@
 <script setup>
 /* eslint-disable */
 import { computed, onMounted, reactive, watch, nextTick, ref } from "vue";
+const emits = defineEmits(["loadEnd"]);
 let tvDOM = ref(null);
 let state = reactive({
   loadingDOMs: [],
@@ -52,19 +53,8 @@ nextTick(() => {
       }, 120 * i);
     }
   }).then(() => {
-    state.isLoading = false;
+    emits("loadEnd");
   });
-  // init().then((aaa) => {
-  //   console.log("sss", aaa);
-  //   state.isLoading = false;
-  // });
-
-  // Array.from(state.loadingDOMs).forEach((d) => {
-  //   setTimeout(() => {
-  //     d.style.opacity = "0.3";
-  //   }, 2000);
-  // });
-  // for (let i = 0; i < state.loadingDOMs)
 });
 </script>
 <style lang="scss" module>

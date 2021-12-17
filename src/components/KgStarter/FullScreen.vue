@@ -101,7 +101,7 @@ import ScreenData from "./ScreenData.vue";
       // justify-content: center;
       // align-items: center;
       .full-screen-container-content-main-core {
-        border: 3px solid green;
+        // border: 3px solid green;
         height: 93%;
         width: 90%;
         margin-bottom: 15px;
