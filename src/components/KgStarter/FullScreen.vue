@@ -9,7 +9,6 @@
           <div :class="$style['full-screen-container-content-main-core']">
             <img src="../../assets/igo/logo-B.png" :class="$style['logo']" />
             <div :class="$style['full-screen-container-content-main-desc']">
-              <p>{{ $t("kgstarter.title") }}</p>
               <p>{{ $t("kgstarter.content") }}</p>
               <p>{{ $t("kgstarter.footer") }}</p>
             </div>
@@ -25,7 +24,29 @@
 import { computed, onMounted, reactive, watch } from "vue";
 import ScreenData from "./ScreenData.vue";
 </script>
+<style scoped>
+::-webkit-scrollbar {
+  width: 3px;
+  height: 3px;
+  background: none !important;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0);
+  background: none !important;
+}
+</style>
 <style lang="scss" module>
+// ::-webkit-scrollbar-track {
+//   border-radius: 10px;
+//   box-shadow: inset 0 0 6px rgba(0, 0, 0, 0);
+// }
+// ::-webkit-scrollbar-thumb {
+//   border-radius: 10px;
+//   box-shadow: inset 0 0 6px rgba(0, 0, 0, 0);
+//   background: rgba(0, 0, 0, 0.7);
+// }
 .full-screen-container {
   position: fixed;
   top: 0px;
@@ -55,6 +76,7 @@ import ScreenData from "./ScreenData.vue";
     background-image: url("../../assets/igo/kg-bg.png");
     background-repeat: no-repeat;
     background-size: cover;
+    background-position: center center;
     border: 15px solid #283037;
     border-radius: 5px;
     position: relative;
@@ -77,7 +99,10 @@ import ScreenData from "./ScreenData.vue";
     .full-screen-container-content-mask {
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.5);
+      // background: rgba(0, 0, 0, 0.5);
+      background-image: url("../../assets/igo/bg-mask.png");
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
       position: absolute;
       top: 0;
       left: 0;
@@ -116,6 +141,7 @@ import ScreenData from "./ScreenData.vue";
           text-align: left;
           padding: 10px 40px;
           opacity: 0.8;
+          // width: 90%;
           p {
             margin-top: 10px;
           }

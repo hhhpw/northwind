@@ -13,12 +13,13 @@
           @click="setActiveItem(i)"
           v-for="(d, i) in state.igoList"
           :key="i"
+          :style="`background-image: url(${d.prdImg})`"
           :class="[
             $style['data-block-item'],
             state.activeIndex === i ? $style['data-block-item-active'] : '',
           ]"
         >
-          <img :src="d.prdImg" />
+          <!-- <img :src="d.prdImg" /> -->
           <div
             :class="$style['data-block-item-bottom']"
             v-if="state.activeIndex === i"
@@ -33,7 +34,7 @@
       <div :class="$style['data-info-detail']">
         <div :class="$style['data-info-detail-left']">
           <div :class="$style['data-info-detail-btn']">
-            {{ state.countdown ? $t("了解更多") : $t("kgstarter.敬请期待") }}
+            {{ state.countdown ? $t("kgstarter.敬请期待") : $t("了解更多") }}
           </div>
           <div :class="$style['data-info-detail-contact']">
             <svg-icon
@@ -109,9 +110,13 @@ const pushPage = (i) => {
   const typeText = ["website", "tw", "telegram", "medium"];
   const map = new Map();
   state.igoList[state.activeIndex].links.forEach((d) => {
-    map.set(d.name, d.url);
+    map.set(d.name, d.url || "");
   });
-  utilsTool.openNewWindow(map.get(typeText[i]));
+  if (!map.get(typeText[i])) {
+    return;
+  } else {
+    utilsTool.openNewWindow(map.get(typeText[i]));
+  }
 };
 
 const setActiveItem = (i) => {
@@ -162,7 +167,7 @@ const renderFlag = (i) => {
 .screen-data-container {
   background-image: url("../../assets/igo/kg-content-main.png");
   background-repeat: no-repeat;
-  background-size: 100% 100%;
+  background-size: contain;
   width: 90%;
   margin: 0 auto;
   overflow: hidden;
@@ -177,29 +182,29 @@ const renderFlag = (i) => {
     margin: 0 auto;
     width: calc(100% - 60px);
     overflow-x: scroll;
-
     .data-block {
       display: flex;
+      padding-bottom: 10px;
       .data-block-item {
         &:not(:first-child) {
           margin-left: 20px;
         }
         cursor: pointer;
-        overflow: hidden;
+        // overflow: hidden;
         width: 220px;
         height: 155px;
         float: left;
-        img {
-          width: 100%;
-          height: 135px;
-          display: block;
-          border-radius: 15px;
-        }
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        position: relative;
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
         .data-block-item-bottom {
-          margin-top: 10px;
           width: 100%;
-          height: 5px;
+          height: 3px;
+          position: absolute;
           background: #fec944;
+          bottom: -5px;
         }
       }
       .data-block-item-active {

@@ -50,7 +50,7 @@ nextTick(() => {
         if (i === 11) {
           return resolve("done");
         }
-      }, 120 * i);
+      }, 220 * i);
     }
   }).then(() => {
     emits("loadEnd");

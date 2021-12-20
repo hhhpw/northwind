@@ -47,10 +47,9 @@ onUnmounted(() => {
 ::-webkit-scrollbar-thumb {
   border-radius: 10px;
   box-shadow: inset 0 0 6px rgba(0, 0, 0, 0);
+  background: rgba(0, 0, 0, 0.7);
 }
 .game-container {
-  // background: #f3d789;
-  // height: calc(100vh -72px);
   width: 100%;
 }
 </style>
