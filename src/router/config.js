@@ -103,15 +103,15 @@ const routes = [
           url: "/nftbuybackdetail",
         },
       },
-      {
-        path: "/nftmining",
-        component: () => import("@views/NFT/Mining/Index.vue"),
-        name: "nftmining",
-        meta: {
-          title: "挖矿",
-          url: "/nftmining",
-        },
-      },
+      // {
+      //   path: "/nftmining",
+      //   component: () => import("@views/NFT/Mining/Index.vue"),
+      //   name: "nftmining",
+      //   meta: {
+      //     title: "挖矿",
+      //     url: "/nftmining",
+      //   },
+      // },
       {
         path: "/info",
         component: () => import("@views/Info/Index.vue"),
@@ -130,6 +130,15 @@ const routes = [
           title: "交易挖矿",
           bg: "nft",
           url: "/swapfarms",
+        },
+      },
+      {
+        path: "/kgstarter",
+        component: () => import("@views/KgStarter/Index.vue"),
+        name: "kgstarter",
+        meta: {
+          title: "kgstarter",
+          url: "/kgstarter",
         },
       },
       // {

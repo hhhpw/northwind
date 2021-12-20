@@ -4,6 +4,10 @@ export default [
     path: "/",
   },
   {
+    label: "KgStarter",
+    path: "/kgstarter",
+  },
+  {
     label: "NFT",
     children: [
       {
@@ -27,10 +31,10 @@ export default [
           },
         },
       },
-      {
-        label: "NFT挖矿",
-        path: "/nftmining",
-      },
+      // {
+      //   label: "NFT挖矿",
+      //   path: "/nftmining",
+      // },
     ],
   },
   {

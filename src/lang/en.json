@@ -365,6 +365,13 @@
     "季节": "Season",
     "搭配": "Outfit"
   },
+  "kgstarter": {
+    "开始倒计时": "countdown",
+    "敬请期待": "Coming soon",
+    "title": "Welcome to KGStarter!",
+    "content": "KGStarter is a parallel universe of Kikoverse. In this universe, there are prosperous cities, barren deserts, lively stadiums, and players with different images and brilliance. Characters in games of different dimensions and universe can also gather here. You can travel through different scenes in any style.",
+    "footer": "Are you ready for your voyage here?"
+  },
   "navs": {
     "首页": "Home",
     "交易": "Trade",

@@ -6,8 +6,9 @@
       :class="$style['star-layout-main']"
       :style="`background-image: url(${state.bg})`"
     >
-      <nav-bar :class="$style['star-layout-home-navbar']"></nav-bar>
-      <app-main :class="$style['star-layout-content']"> </app-main>
+      <app-main :class="$style['star-layout-content']">
+        <nav-bar :class="$style['star-layout-home-navbar']"></nav-bar>
+      </app-main>
     </div>
     <!-- 首页 -->
     <div v-else :class="$style['star-layout-home']">
@@ -99,6 +100,7 @@ watch(
     // background: #f9efe4;
   }
   .star-layout-main {
+    position: relative;
     margin-left: 200px;
     min-height: 100vh;
     max-width: calc(100% - 200px);
@@ -109,6 +111,8 @@ watch(
     .star-layout-content {
       padding-top: 64px;
       padding-bottom: 50px;
+      // position: relative;
+      // background: red;
     }
   }
   .star-layout-home {
