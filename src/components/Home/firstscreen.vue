@@ -59,7 +59,7 @@
         </star-button>
       </div>
     </div>
-    <div :class="$style['video-mask']" v-if="state.isShowVideo">
+    <!-- <div :class="$style['video-mask']" v-if="state.isShowVideo">
       <div :class="$style['video-container']">
         <div :class="$style['video-container-close']" @click="closeVideo">
           X
@@ -73,7 +73,7 @@
           allowfullscreen="true"
         ></iframe>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 <script setup>
@@ -96,12 +96,12 @@ import connectLogic from "@mixins/wallet";
 const descZhPNG = require("../../assets/home/firstscreen-content-desc-zh.png");
 const descPNG = require("../../assets/home/firstscreen-content-desc.png");
 
-const bodyStyle = (type) => {
-  nextTick(() => {
-    const body = document.getElementsByTagName("body")[0];
-    body.style.overflow = type;
-  });
-};
+// const bodyStyle = (type) => {
+//   nextTick(() => {
+//     const body = document.getElementsByTagName("body")[0];
+//     body.style.overflow = type;
+//   });
+// };
 const store = useStore();
 
 const { connectWallet } = connectLogic(store);
@@ -112,7 +112,7 @@ let state = reactive({
   walletStatus: computed(() => store.state.StoreWallet.walletStatus),
   currLang: computed(() => store.state.StoreApp.currLang),
   videoSrc: null,
-  isShowVideo: true,
+  // isShowVideo: true,
 });
 
 onMounted(() => {
@@ -125,29 +125,29 @@ onMounted(() => {
   setTimeout(() => {
     state.isShowWinkCat = true;
   });
-  nextTick(() => {
-    bodyStyle("hidden");
-  });
+  // nextTick(() => {
+  //   bodyStyle("hidden");
+  // });
 });
 
-onUnmounted(() => {
-  bodyStyle("scroll");
-});
+// onUnmounted(() => {
+//   bodyStyle("scroll");
+// });
 
-watch(
-  () => state.isShowVideo,
-  () => {
-    if (state.isShowVideo) {
-      bodyStyle("hidden");
-    } else {
-      bodyStyle("scroll");
-    }
-  }
-);
+// watch(
+//   () => state.isShowVideo,
+//   () => {
+//     if (state.isShowVideo) {
+//       bodyStyle("hidden");
+//     } else {
+//       bodyStyle("scroll");
+//     }
+//   }
+// );
 
-const closeVideo = () => {
-  state.isShowVideo = false;
-};
+// const closeVideo = () => {
+//   state.isShowVideo = false;
+// };
 const btnClick = () => {
   if (state.walletStatus === "connected") {
     utilsRouter.push({
