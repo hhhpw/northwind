@@ -96,12 +96,12 @@ import connectLogic from "@mixins/wallet";
 const descZhPNG = require("../../assets/home/firstscreen-content-desc-zh.png");
 const descPNG = require("../../assets/home/firstscreen-content-desc.png");
 
-const bodyStyle = (type) => {
-  nextTick(() => {
-    const body = document.getElementsByTagName("body")[0];
-    body.style.overflow = type;
-  });
-};
+// const bodyStyle = (type) => {
+//   nextTick(() => {
+//     const body = document.getElementsByTagName("body")[0];
+//     body.style.overflow = type;
+//   });
+// };
 const store = useStore();
 
 const { connectWallet } = connectLogic(store);
@@ -125,14 +125,14 @@ onMounted(() => {
   setTimeout(() => {
     state.isShowWinkCat = true;
   });
-  nextTick(() => {
-    bodyStyle("hidden");
-  });
+  // nextTick(() => {
+  //   bodyStyle("hidden");
+  // });
 });
 
-onUnmounted(() => {
-  bodyStyle("scroll");
-});
+// onUnmounted(() => {
+//   bodyStyle("scroll");
+// });
 
 // watch(
 //   () => state.isShowVideo,
