@@ -137,7 +137,7 @@ const routes = [
         component: () => import("@views/KgStarter/Index.vue"),
         name: "kgstarter",
         meta: {
-          title: "kgstarter",
+          title: "KGStarter",
           url: "/kgstarter",
         },
       },

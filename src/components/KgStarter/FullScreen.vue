@@ -3,7 +3,7 @@
     <div :class="$style['full-screen-container-header']">
       <img src="../../assets/igo/header.png" />
     </div>
-    <div :class="$style['full-screen-container-content']">
+    <div :class="$style['full-screen-container-content']" ref="bgDOM">
       <div :class="$style['full-screen-container-content-mask']">
         <div :class="$style['full-screen-container-content-main']">
           <div :class="$style['full-screen-container-content-main-core']">
@@ -17,15 +17,30 @@
         </div>
       </div>
     </div>
+    <!-- 预加载防止闪烁，后续写个方法 -->
+    <img src="../../assets/igo/kg-bg-1.jpeg" style="display: none" />
+    <img src="../../assets/igo/kg-bg-2.jpeg" style="display: none" />
   </div>
 </template>
 <script setup>
 /* eslint-disable */
 import { computed, onMounted, reactive, watch } from "vue";
 import ScreenData from "./ScreenData.vue";
+import { ref, nextTick } from "vue";
+import { random } from "lodash";
+let bgDOM = ref(null);
+nextTick(() => {
+  const randomBg = (num) => {
+    bgDOM.value.style["background-image"] =
+      "url(" + require(`../../assets/igo/kg-bg-${num}.jpeg`) + ")";
+    num = num === 2 ? 1 : num + 1;
+    setTimeout(() => randomBg(num), num === 2 ? 50 : random(1000, 2000));
+  };
+  randomBg(1);
+});
 </script>
 <style scoped>
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
   width: 3px;
   height: 3px;
   background: none !important;
@@ -35,7 +50,7 @@ import ScreenData from "./ScreenData.vue";
   border-radius: 10px;
   box-shadow: inset 0 0 6px rgba(0, 0, 0, 0);
   background: none !important;
-}
+} */
 </style>
 <style lang="scss" module>
 // ::-webkit-scrollbar-track {
@@ -72,8 +87,6 @@ import ScreenData from "./ScreenData.vue";
     width: 1000px;
     margin: 0 auto;
     margin-top: 10px;
-    // background: #000000;
-    background-image: url("../../assets/igo/kg-bg.png");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
@@ -139,9 +152,12 @@ import ScreenData from "./ScreenData.vue";
           font-size: 15px;
           color: #fff;
           text-align: left;
-          padding: 10px 40px;
+          padding: 10px 28px;
           opacity: 0.8;
-          // width: 90%;
+          width: 90%;
+          margin: 0 auto;
+          margin-bottom: 20px;
+          box-sizing: border-box;
           p {
             margin-top: 10px;
           }

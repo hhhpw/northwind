@@ -177,6 +177,7 @@ const renderFlag = (i) => {
     font-weight: bolder;
     margin-top: 25px;
     margin-bottom: 15px;
+    font-family: DenmarkRegular;
   }
   .data {
     margin: 0 auto;
@@ -195,7 +196,8 @@ const renderFlag = (i) => {
         height: 155px;
         float: left;
         background-repeat: no-repeat;
-        background-size: 100% 100%;
+        background-size: cover;
+        background-position: center center;
         position: relative;
         border-top-left-radius: 4px;
         border-top-right-radius: 4px;
@@ -204,7 +206,7 @@ const renderFlag = (i) => {
           height: 3px;
           position: absolute;
           background: #fec944;
-          bottom: -5px;
+          bottom: -10px;
         }
       }
       .data-block-item-active {
@@ -222,9 +224,11 @@ const renderFlag = (i) => {
       text-align: left;
       color: #fff;
       font-size: 24px;
+      font-family: DenmarkRegular;
+      margin-top: 20px;
     }
     .data-info-detail {
-      margin-top: 10px;
+      height: 70px;
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
@@ -297,7 +301,7 @@ const renderFlag = (i) => {
     }
     .data-info-desc {
       text-align: left;
-      margin-top: 20px;
+      margin-top: 30px;
       color: #fff;
       font-size: 14px;
     }

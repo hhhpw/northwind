@@ -4,7 +4,7 @@ export default [
     path: "/",
   },
   {
-    label: "KgStarter",
+    label: "KGStarter",
     path: "/kgstarter",
   },
   {
