@@ -34,7 +34,7 @@
       <div :class="$style['data-info-detail']">
         <div :class="$style['data-info-detail-left']">
           <div :class="$style['data-info-detail-btn']">
-            {{ state.countdown ? $t("kgstarter.敬请期待") : $t("了解更多") }}
+            {{ state.countdown ? $t("了解更多") : $t("kgstarter.敬请期待") }}
           </div>
           <div :class="$style['data-info-detail-contact']">
             <svg-icon
@@ -71,13 +71,14 @@
           </div>
         </div>
       </div>
-      <p :class="$style['data-info-desc']">
-        {{
-          state.currLang === "en"
+      <p
+        :class="$style['data-info-desc']"
+        v-html="
+          state.currLang === 'en'
             ? state.igoList[state.activeIndex].prdDescEn
             : state.igoList[state.activeIndex].prdDesc
-        }}
-      </p>
+        "
+      ></p>
     </div>
   </div>
 </template>
@@ -210,7 +211,7 @@ const renderFlag = (i) => {
         }
       }
       .data-block-item-active {
-        width: 320px !important;
+        width: 286px !important;
       }
     }
   }
