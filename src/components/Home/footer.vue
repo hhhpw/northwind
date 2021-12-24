@@ -33,7 +33,7 @@ const state = reactive({
     {
       title: "Medium",
       img: require("../../assets/home/med.png"),
-      url: "https://medium.com/@kikoverse",
+      url: "https://medium.com/@KikoResearch",
     },
   ],
 });
