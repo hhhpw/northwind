@@ -103,15 +103,15 @@ const routes = [
           url: "/nftbuybackdetail",
         },
       },
-      // {
-      //   path: "/nftmining",
-      //   component: () => import("@views/NFT/Mining/Index.vue"),
-      //   name: "nftmining",
-      //   meta: {
-      //     title: "挖矿",
-      //     url: "/nftmining",
-      //   },
-      // },
+      {
+        path: "/nftmining",
+        component: () => import("@views/NFT/Mining/Index.vue"),
+        name: "nftmining",
+        meta: {
+          title: "挖矿",
+          url: "/nftmining",
+        },
+      },
       {
         path: "/info",
         component: () => import("@views/Info/Index.vue"),

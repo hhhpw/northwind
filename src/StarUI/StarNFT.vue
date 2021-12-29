@@ -56,10 +56,10 @@ let state = reactive({
         },
       },
     },
-    // {
-    //   label: "NFT挖矿",
-    //   path: "/nftmining",
-    // },
+    {
+      label: "NFT挖矿",
+      path: "/nftmining",
+    },
   ],
   activeIndex: null,
 });
