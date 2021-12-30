@@ -148,7 +148,6 @@ const StoreNFTMining = {
         if (res.code === 200) {
           const txnHash = res.data;
           const handlerFunc = (list) => {
-            console.log("====c====", list);
             return {
               data: list.filter(
                 (d) => d.type_tag.indexOf("NFTHarvestEvent") > -1
