@@ -127,7 +127,7 @@
             </p> -->
             <p v-if="!state.inputVal_isInteger">*{{ t("只能输入整数") }}</p>
             <p v-if="state.errors[1]">* {{ t("可用金额不足") }}</p>
-            <p v-if="state.errors[0]">* {{ t("超过单次最大购买数量2") }}</p>
+            <p v-if="state.errors[0]">* {{ t("超过单次最大购买数量5") }}</p>
           </div>
         </div>
       </template>

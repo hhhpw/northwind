@@ -148,9 +148,12 @@ const StoreNFTMining = {
         if (res.code === 200) {
           const txnHash = res.data;
           const resolveFunc = (list) => {
-            return list.filter(
-              (d) => d.type_tag.indexOf("NFTHarvestEvent") > -1
-            )[0].decode_event_data;
+            return {
+              data: list.filter(
+                (d) => d.type_tag.indexOf("NFTHarvestEvent") > -1
+              )[0].decode_event_data,
+              status: "Executed",
+            };
           };
           utilsTool
             .getChainEventsByTxnHash({ txnHash, resolveFunc })
@@ -179,6 +182,8 @@ const StoreNFTMining = {
                 throw new Error("draw-error");
               }
             });
+        } else {
+          throw new Error("draw-error");
         }
       } catch {
         commit(types.SET_WALLET_DIALOG_PARAMS, {
@@ -271,7 +276,7 @@ const StoreNFTMining = {
         utilsTool
           .getChainTransactionInfo({ txnHash: transactionHash })
           .then((res) => {
-            if (res === "Executed") {
+            if (res?.status === "Executed") {
               commit(types.SET_WALLET_DIALOG_PARAMS, {
                 phase2: "succeed",
               });
@@ -328,7 +333,7 @@ const StoreNFTMining = {
         utilsTool
           .getChainTransactionInfo({ txnHash: transactionHash })
           .then((res) => {
-            if (res === "Executed") {
+            if (res?.status === "Executed") {
               commit(types.SET_WALLET_DIALOG_PARAMS, {
                 phase2: "succeed",
               });

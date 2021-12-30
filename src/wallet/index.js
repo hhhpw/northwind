@@ -288,7 +288,7 @@ const delLiquidity = async ({ provider, tokens, amounts }) => {
 const nftContractCall = async ({ provider, tyArgs, args, type }) => {
   try {
     const funcId = process.env[`VUE_APP_NFT_${type}_FUNCTION_ID`];
-    console.log("funcId", funcId, "tyArgs", tyArgs, "args", args);
+    console.log(funcId, tyArgs, args);
     const scriptFunction = await utils.tx.encodeScriptFunctionByResolve(
       funcId,
       tyArgs,
@@ -319,13 +319,7 @@ const blindBoxContractCall = async ({
   try {
     console.log("type", type);
     const funcId = process.env[`VUE_APP_BLIND_BOX_${type}_FUNCTION_ID`];
-    console.log(
-      "funcId",
-      `VUE_APP_BLIND_BOX_${type}_FUNCTION_ID`,
-      funcId,
-      tyArgs,
-      args
-    );
+    console.log(funcId, tyArgs, args);
     const scriptFunction = await utils.tx.encodeScriptFunctionByResolve(
       funcId,
       tyArgs,

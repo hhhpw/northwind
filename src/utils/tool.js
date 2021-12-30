@@ -100,19 +100,20 @@ const getOpenBoxIdByHash = ({ txnHash, boxToken } = {}) => {
  */
 const getChainEventsByTxnHash = ({
   txnHash,
-  resolveFunc,
+  handlerFunc = null,
   delay = 1000,
 } = {}) => {
   return new Promise((resolve) => {
     commonApi.getChainEventsByTxnHash(txnHash).then((res) => {
       if (res.result && res.result.length > 0) {
-        if (typeof resolveFunc === "function") {
-          const data = resolveFunc(res.result);
-          resolve({ data, status: "Executed" });
+        if (typeof handlerFunc === "function") {
+          // data => { data:  ,status: 'Executed'}
+          const data = handlerFunc(res.result);
+          resolve(data);
         }
       } else {
         setTimeout(() => {
-          resolve(getChainEventsByTxnHash({ txnHash, resolveFunc }));
+          resolve(getChainEventsByTxnHash({ txnHash, handlerFunc }));
         }, delay);
       }
     });
@@ -124,11 +125,22 @@ const getChainEventsByTxnHash = ({
  * @param {txnHash, delay}
  * @returns
  */
-const getChainTransactionInfo = ({ txnHash, delay = 1000 } = {}) => {
+const getChainTransactionInfo = ({
+  txnHash,
+  handlerFunc = null,
+  delay = 1000,
+} = {}) => {
   return new Promise((resolve) => {
     commonApi.getTransactionInfo(txnHash).then((res) => {
+      console.log("=======getChainTransactionInfo=======", res);
       if (res.result && res.result.status === "Executed") {
-        resolve(res.result.status);
+        if (typeof handlerFunc === "function") {
+          const data = handlerFunc(res.result);
+          // data => { data:  ,status: 'Executed'}
+          resolve(data);
+        } else {
+          resolve({ status: "Executed" });
+        }
       } else {
         setTimeout(() => {
           resolve(getChainTransactionInfo({ txnHash }));
