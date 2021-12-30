@@ -147,7 +147,8 @@ const StoreNFTMining = {
         const res = await miningAPI.drawMiningReward(signHash);
         if (res.code === 200) {
           const txnHash = res.data;
-          const resolveFunc = (list) => {
+          const handlerFunc = (list) => {
+            console.log("====c====", list);
             return {
               data: list.filter(
                 (d) => d.type_tag.indexOf("NFTHarvestEvent") > -1
@@ -156,8 +157,9 @@ const StoreNFTMining = {
             };
           };
           utilsTool
-            .getChainEventsByTxnHash({ txnHash, resolveFunc })
+            .getChainEventsByTxnHash({ txnHash, handlerFunc })
             .then((res) => {
+              console.log("====res=====", res);
               if (res.status === "Executed") {
                 commit(types.SET_WALLET_DIALOG_PARAMS, {
                   phase2: "succeed",
