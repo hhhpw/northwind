@@ -363,7 +363,17 @@
     "音乐": "Music",
     "电影": "Movies",
     "季节": "Season",
-    "搭配": "Outfit"
+    "搭配": "Outfit",
+    "五官": "Face",
+    "手臂": "Arm",
+    "腿部": "Leg",
+    "脚": "Foot",
+    "武器": "Weapon",
+    "头盔": "Helmet",
+    "盔甲": "Armor",
+    "机甲": "Mecha",
+    "裤子": "Pants",
+    "裙子": "Skirt"
   },
   "kgstarter": {
     "开始倒计时": "countdown",
