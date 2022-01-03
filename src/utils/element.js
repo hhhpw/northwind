@@ -12,6 +12,8 @@ import {
   ElRadioGroup,
   ElRadioButton,
   ElInfiniteScroll,
+  ElSelect,
+  ElOption,
 } from "element-plus";
 
 const EleUI = [
@@ -28,6 +30,8 @@ const EleUI = [
   ElRadioGroup,
   ElRadioButton,
   ElInfiniteScroll,
+  ElSelect,
+  ElOption,
 ];
 
 export default (app) => {

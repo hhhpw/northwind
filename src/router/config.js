@@ -141,6 +141,15 @@ const routes = [
           url: "/kgstarter",
         },
       },
+      {
+        path: "/metaverse",
+        component: () => import("@views/Metaverse/Index.vue"),
+        name: "metaverse",
+        meta: {
+          title: "MetaVerse",
+          url: "/metaverse",
+        },
+      },
       // {
       //   path: "/liquidityfarms",
       //   component: () => import("@views/Farms/FarmLiquidity.vue"),

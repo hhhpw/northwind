@@ -910,10 +910,15 @@
     "@babel/helper-validator-identifier" "^7.14.9"
     to-fast-properties "^2.0.0"
 
-"@element-plus/icons@^0.0.11":
-  version "0.0.11"
-  resolved "https://registry.yarnpkg.com/@element-plus/icons/-/icons-0.0.11.tgz#9b187c002774548b911850d17fa5fc2f9a515f57"
-  integrity sha512-iKQXSxXu131Ai+I9Ymtcof9WId7kaXvB1+WRfAfpQCW7UiAMYgdNDqb/u0hgTo2Yq3MwC4MWJnNuTBEpG8r7+A==
+"@ctrl/tinycolor@^3.4.0":
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/@ctrl/tinycolor/-/tinycolor-3.4.0.tgz#c3c5ae543c897caa9c2a68630bed355be5f9990f"
+  integrity sha512-JZButFdZ1+/xAfpguQHoabIXkcqRRKpMrWKBkpEZZyxfY9C1DpADFB8PEqGSTeFr135SaTRfKqGKx5xSCLI7ZQ==
+
+"@element-plus/icons-vue@^0.2.4":
+  version "0.2.4"
+  resolved "https://registry.yarnpkg.com/@element-plus/icons-vue/-/icons-vue-0.2.4.tgz#dadcf72f0cea53dc83b7b7db80e1418716d7b02c"
+  integrity sha512-RsJNyL58rwxtsjeMy34o8txkL6UlME1stWsUlRpTac6UE9Bx9gdJvnDXbIKhOJqBLX17fBjmposdrn6VTqim2w==
 
 "@ethersproject/abstract-provider@^5.5.0":
   version "5.5.1"
@@ -1955,18 +1960,18 @@
   resolved "https://registry.yarnpkg.com/@vue/web-component-wrapper/-/web-component-wrapper-1.3.0.tgz#b6b40a7625429d2bd7c2281ddba601ed05dc7f1a"
   integrity sha512-Iu8Tbg3f+emIIMmI2ycSI8QcEuAUgPTgHwesDU1eKMLE4YC/c/sFbGc70QgMq31ijRftV0R7vCm9co6rldCeOA==
 
-"@vueuse/core@^6.7.3":
-  version "6.7.6"
-  resolved "https://registry.yarnpkg.com/@vueuse/core/-/core-6.7.6.tgz#4eb402a60bf5c40e04ebab3f183f0486faa140e9"
-  integrity sha512-oVyqARXnTvhf4m6xf/sHw+SNJWcRYJn8+L4TZTFBU9POf9GIzBN7iHD2Oc4K4rTWXGQzXfoFHgbrXyeMFCRoqA==
+"@vueuse/core@^7.3.0":
+  version "7.5.1"
+  resolved "https://registry.yarnpkg.com/@vueuse/core/-/core-7.5.1.tgz#3038a0ca6e16f6885d2457778260712180422526"
+  integrity sha512-GczfdTWqH483zkUHdDYiLm0Tn51OtsQXYc+eBKKIeolh0mgn682KbSYmkrjNytaF7qGc74YxMDAYjkPBW6V2Pg==
   dependencies:
-    "@vueuse/shared" "6.7.6"
+    "@vueuse/shared" "7.5.1"
     vue-demi "*"
 
-"@vueuse/shared@6.7.6":
-  version "6.7.6"
-  resolved "https://registry.yarnpkg.com/@vueuse/shared/-/shared-6.7.6.tgz#52a1aa8a6335a004bde31367ddbed82ddf8bfa53"
-  integrity sha512-MfzTKkFK63PcjDdTpJRuJqylpyUdXpic9ueTRcgpPizqFpoYIuI6DkdYjub2Ch5+OYYhVnCqe8ynW6WzYo7DGQ==
+"@vueuse/shared@7.5.1":
+  version "7.5.1"
+  resolved "https://registry.yarnpkg.com/@vueuse/shared/-/shared-7.5.1.tgz#d88a8d8a4799c30e7dd4f965808e78b3793c3da6"
+  integrity sha512-zMQEuYJyTmr5Hj2rYgSbb4H/cSI8mdaa9dUuw20j6rPV+xLV11y7vCyIkxo31uODDr0p77FMlProKzNDiK9rAA==
   dependencies:
     vue-demi "*"
 
@@ -4477,19 +4482,20 @@ elegant-spinner@^1.0.1:
   resolved "https://registry.yarnpkg.com/elegant-spinner/-/elegant-spinner-1.0.1.tgz#db043521c95d7e303fd8f345bedc3349cfb0729e"
   integrity sha1-2wQ1IcldfjA/2PNFvtwzSc+wcp4=
 
-element-plus@1.2.0-beta.2:
-  version "1.2.0-beta.2"
-  resolved "https://registry.yarnpkg.com/element-plus/-/element-plus-1.2.0-beta.2.tgz#f6c6093405cce55fad45f08d15b8a92dfa72e9c3"
-  integrity sha512-A5HpcpgcpoZZgVpAm1fy7sLb5zQj/tafhcJqD7avc4v3NgWDqSa58CNp5B7fpvVhXihRGWssqQjnTh2VczGGfw==
+element-plus@^1.3.0-beta.1:
+  version "1.3.0-beta.1"
+  resolved "https://registry.yarnpkg.com/element-plus/-/element-plus-1.3.0-beta.1.tgz#4df67fcedb0c13d14c9f54eea7b739109f5df49f"
+  integrity sha512-q3vMaKElPpuSTeIF7kuDmMOE+N1YVCCIG3fshXpz6qgjnxPbgZumVM0qGfhr8DTu9JxRbBoDok49dqtX/BWn3w==
   dependencies:
-    "@element-plus/icons" "^0.0.11"
+    "@ctrl/tinycolor" "^3.4.0"
+    "@element-plus/icons-vue" "^0.2.4"
     "@popperjs/core" "^2.10.2"
-    "@vueuse/core" "^6.7.3"
+    "@vueuse/core" "^7.3.0"
     async-validator "^4.0.7"
     dayjs "^1.10.7"
     lodash "^4.17.21"
     memoize-one "^6.0.0"
-    normalize-wheel-es "^1.1.0"
+    normalize-wheel-es "^1.1.1"
 
 elliptic@6.5.4, elliptic@^6.5.2, elliptic@^6.5.3:
   version "6.5.4"
@@ -8258,7 +8264,7 @@ normalize-url@^3.0.0:
   resolved "https://registry.yarnpkg.com/normalize-url/-/normalize-url-3.3.0.tgz#b2e1c4dc4f7c6d57743df733a4f5978d18650559"
   integrity sha512-U+JJi7duF1o+u2pynbp2zXDW2/PADgC30f0GsHZtRh+HOcXHnw137TrNlyxxRvWW5fjKd3bcLHPxofWuCjaeZg==
 
-normalize-wheel-es@^1.1.0:
+normalize-wheel-es@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/normalize-wheel-es/-/normalize-wheel-es-1.1.1.tgz#a8096db6a56f94332d884fd8ebeda88f2fc79569"
   integrity sha512-157VNH4CngrcsvF8xOVOe22cwniIR3nxSltdctvQeHZj8JttEeOXffK28jucWfWBXs0QNetAumjc1GiInnwX4w==

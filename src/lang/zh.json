@@ -321,6 +321,16 @@
     "remove-nft-card-desc": "是否贖回 {name}",
     "mining-power": "算力"
   },
+  "metaverse": {
+    "character card making": "角色卡牌制作",
+    "character card not obtained": "还未获得任何角色卡牌",
+    "break down nft": "分解NFT",
+    "break down nft rule": "* 仅针对HERO系列的NFT，且正在出售中的NFT不能进行分解；分解后100%获得该卡牌所有元素部件",
+    "break down": "分解",
+    "get element": "获取元素",
+    "break down nft detail description": "可以通过分解HERO系列获得元素进行新角",
+    "generate NFT character cards": "生成NFT角色卡牌"
+  },
   "nftproperty": {
     "皮毛": "皮毛",
     "背景": "背景",

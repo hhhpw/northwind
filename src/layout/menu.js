@@ -45,10 +45,13 @@ export default [
     label: "流动性",
     path: "/liquidity",
   },
-
   {
     label: "行情",
     path: "/info",
+  },
+  {
+    label: "metaverse",
+    path: "/metaverse",
   },
   // {
   //   label: "Farms",

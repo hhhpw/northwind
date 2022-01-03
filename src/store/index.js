@@ -13,6 +13,7 @@ import StoreInfo from "./modules/StoreInfo"; // 行情
 import StoreFarms from "./modules/StoreFarms"; // 农场
 import StoreNFTMining from "./modules/NFT/StoreNFTMining"; // NFtT挖矿
 import StoreIGO from "./modules/StoreIGO";
+import StoreMeta from "./modules/StoreMeta";
 const debug = process.env.NODE_ENV !== "production";
 export default createStore({
   modules: {
@@ -30,6 +31,7 @@ export default createStore({
     StoreFarms,
     StoreNFTMining,
     StoreIGO,
+    StoreMeta,
     strict: debug,
     plugins: debug ? [createLogger()] : [],
   },

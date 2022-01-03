@@ -1,0 +1,34 @@
+<template>
+  <div :class="$style.box">
+    <svg-icon name="clothes" :class="$style['svg']"></svg-icon>
+    <p>{{ $t("metaverse.get element") }}</p>
+  </div>
+</template>
+<script setup>
+/* eslint-disable */
+import { computed, onMounted, reactive, watch } from "vue";
+import SvgIcon from "@components/SvgIcon/Index.vue";
+</script>
+<style lang="scss" module>
+.box {
+  width: 102px;
+  height: 102px;
+  background: rgba(251, 128, 0, 0.06);
+  border-radius: 4px;
+  opacity: 0.98;
+  border: 1px dashed rgba(251, 128, 0, 0.52);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  .svg {
+    width: 40px;
+    height: 40px;
+  }
+  p {
+    font-size: 14px;
+    color: #fb8000;
+    cursor: pointer;
+  }
+}
+</style>
