@@ -47,10 +47,14 @@
         </div>
         <no-element-item style="margin-top: 20px"></no-element-item>
       </template>
-      <template v-else>
+      <div :class="$style['main-no-data']" v-else>
+        <no-element-item style="margin-top: 160px"></no-element-item>
+        <span>{{ $t("metaverse.break down nft detail description") }}</span>
+      </div>
+      <!-- <template v-else>
         <no-element-item :class="$style['main-no-data']"></no-element-item>
         <span>{{ $t("metaverse.break down nft detail description") }}</span>
-      </template>
+      </template> -->
     </div>
   </div>
 </template>
@@ -112,6 +116,7 @@ const selectElement = (index) => {
 @mixin activeBtnStyle {
   background: #ad865c;
   color: #fff;
+  transition: all ease 0.2s;
 }
 .container {
   // background: red;
@@ -163,18 +168,21 @@ const selectElement = (index) => {
   .main {
     display: flex;
     min-height: 500px;
-    // width: 100%;
     flex-wrap: wrap;
     border: 1px solid red;
-    // padding-left: 10px;
-    // align-items: center;
-    // flex-direction: column;
-    // align-items: center;
-    // justify-content: center;
     align-content: flex-start;
     .main-no-data {
-      margin: 0 auto;
-      align-self: center;
+      // align-self: center;
+      width: 100%;
+      height: 500px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      span {
+        color: #a89587;
+        font-size: 14px;
+        margin-top: 200px;
+      }
     }
     .main-item {
       cursor: pointer;
