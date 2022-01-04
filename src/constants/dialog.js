@@ -11,6 +11,8 @@ export const WALLET_DIALOG_PARAMS = {
   handleFailed: null, // funciton
   handleSucceed: null,
   handleClose: null,
+  isUseStatusImg: true, // 是否使用自带的三种状态img
+  isUseCustomContent: false, // 是否使用自定义内容
 };
 
 export const SECOND_DIALOG_PARAMS = {

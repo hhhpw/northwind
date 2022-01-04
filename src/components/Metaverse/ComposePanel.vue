@@ -6,7 +6,11 @@
     </div>
     <star-space :size="20"></star-space>
     <div :class="$style['info-box']">
-      <ElInput placeholder="输入名字" v-model="state.nameValue"> </ElInput>
+      <ElInput
+        :placeholder="$t('metaverse.enter the name (0-10 English characters)')"
+        v-model="state.nameValue"
+      >
+      </ElInput>
       <star-space :size="20"></star-space>
       <div :class="$style['detail-info']" class="detail-info">
         <div :class="$style['role-gender']">
@@ -37,36 +41,56 @@
         </ElSelect>
       </div>
       <star-space :size="20"></star-space>
-      <star-button :class="$style['create-btn']" type="dark">{{
-        $t("metaverse.generate NFT character cards")
-      }}</star-button>
+      <star-button
+        v-if="state.walletStatus === 'connected'"
+        :class="$style['create-btn']"
+        :type="state.canGenerated ? 'dark' : 'disabled'"
+        @click="validateParams(state.canGenerated)"
+        >{{ $t("metaverse.generate NFT character cards") }}</star-button
+      >
+      <star-button
+        v-if="state.walletStatus !== 'connected'"
+        :class="$style['create-btn']"
+        type="dark"
+        @click="connectWallet"
+        >{{ $t("链接钱包") }}</star-button
+      >
     </div>
   </div>
+  <validate-error-modal></validate-error-modal>
 </template>
 <script setup>
 /* eslint-disable */
-import { computed, onMounted, reactive, watch } from "vue";
+import { computed, reactive } from "vue";
 import StarButton from "@StarUI/StarButton.vue";
 import SvgIcon from "@components/SvgIcon/Index.vue";
 import StarSpace from "@StarUI/StarSpace.vue";
-import test from "./test.vue";
 import { useStore } from "vuex";
+import connectLogic from "@mixins/wallet";
+import utilsRegExp from "@utils/regexp.js";
+import ValidateErrorModal from "./ValidateErrorModal.vue";
+import utilsFormat from "@utils/format";
+// import { useI18n } from "vue-i18n";
+// const { t } = useI18n();
 const store = useStore();
+const { connectWallet } = connectLogic(store);
 
 const state = reactive({
+  walletStatus: computed(() => store.state.StoreWallet.walletStatus),
   currLang: computed(() => store.state.StoreApp.currLang),
+  canGenerated: computed(() => store.getters["StoreMeta/canGenerated"]),
   svgNames: ["male", "female"],
   gender: "male",
   nameValue: "",
   professionValue: 1,
   professionOpts: computed(() => [
-    { value: 1, label: "战士" },
-    { value: 2, label: "法师" },
-    { value: 3, label: "刺客" },
-    { value: 4, label: "猎人" },
-    { value: 5, label: "牧师" },
-    { value: 6, label: "圣骑士" },
-    { value: 7, label: "德鲁伊" },
+    { value: 1, label: "冒险家" },
+    { value: 2, label: "极限玩家" },
+    { value: 3, label: "运动员" },
+    { value: 4, label: "无" },
+    // { value: 5, label: "牧师" },
+    // { value: 6, label: "圣骑士" },
+    // { value: 7, label: "德鲁伊" },
   ]),
 });
 
@@ -75,7 +99,32 @@ const selectGender = (gender) => {
 };
 
 const selectSuffixIcon = () => {
-  return <SvgIcon name="male"></SvgIcon>;
+  return <SvgIcon name="arrow-up-show"></SvgIcon>;
+};
+
+const validateParams = (flag) => {
+  if (!flag) return;
+  try {
+    if (
+      utilsRegExp.isChinese(state.nameValue) ||
+      (state.nameValue && state.nameValue.length > 10) ||
+      (state.nameValue && state.nameValue.length < 1) ||
+      !state.nameValue
+    ) {
+      throw new Error("error");
+    }
+    store.dispatch("StoreMeta/generateNFTRole");
+  } catch (e) {
+    store.commit("StoreMeta/SET_CALLBACK_DIALOG_PARAMS_STATUS", {
+      dialogVisible: true,
+      text: utilsFormat.computedLangCtx(
+        "the role card name is 0-10 English characters or special symbols"
+      ),
+    });
+  }
+};
+const handleValidateClose = () => {
+  // state.errorDialogVisible = false;
 };
 </script>
 
@@ -84,6 +133,7 @@ $bgColor: rgba(235, 213, 189, 1);
 $borderColor: #ebd5bd;
 $fontColor: #391b0f;
 $bgColor2: #fcf7f1;
+
 .compose-container {
   ::v-deep(.el-input) {
     border: none;
@@ -129,7 +179,6 @@ $bgColor2: #fcf7f1;
     background-color: $bgColor2;
   }
   ::v-deep(.el-input__inner:focus) {
-    // border: 1px solid #ebd5bd;
   }
   ::v-deep(.el-input__inner::placeholder) {
     color: $fontColor;
@@ -147,7 +196,7 @@ $bgColor2: #fcf7f1;
     .el-select-dropdown__item.hover,
     .el-select-dropdown__item:hover {
       color: $fontColor;
-      background-color: $borderColor;
+      background-color: rgba(235, 213, 189, 0.6);
     }
   }
   ::v-deep(.el-popper.is-light .el-popper__arrow::before) {
@@ -164,7 +213,8 @@ $bgColor2: #fcf7f1;
   background-image: url("../../assets/metaverse/right-bg.png");
   background-repeat: no-repeat;
   background-size: 100% 100%;
-  width: 540px;
+  width: 400px;
+  margin-left: 30px;
   padding: 30px 45px;
   box-sizing: border-box;
   .role-box {
@@ -179,7 +229,6 @@ $bgColor2: #fcf7f1;
     }
   }
   .info-box {
-    // margin: 0 auto;
     display: flex;
     flex-direction: column;
     align-items: center;

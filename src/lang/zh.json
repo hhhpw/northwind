@@ -329,7 +329,17 @@
     "break down": "分解",
     "get element": "获取元素",
     "break down nft detail description": "可以通过分解HERO系列获得元素进行新角",
-    "generate NFT character cards": "生成NFT角色卡牌"
+    "generate NFT character cards": "生成NFT角色卡牌",
+    "generating character cards": "正在生成角色卡牌",
+    "generated character cards succeed": "角色卡牌创建成功",
+    "generated character cards failed": "角色卡牌创建成功",
+    "breaking down character cards": "正在分解角色卡牌",
+    "decomposed character cards succeed": "卡片分解成功",
+    "decomposed character cards failed": "卡片分解失败",
+    "no NFT available": "暂无可用NFT",
+    "please go to the market": "请前往市场逛逛",
+    "the role card name is 0-10 English characters or special symbols": "角色卡牌名称为0-10个英文字符或特殊符号",
+    "enter the name (0-10 English characters)": "输入名字（0-10英文字符）"
   },
   "nftproperty": {
     "皮毛": "皮毛",

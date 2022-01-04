@@ -1,7 +1,7 @@
 <template>
   <div class="meta-nft-selector-modal">
     <ElDialog
-      v-model="state.visible"
+      v-model="state.selectorDialogParams.dialogVisible"
       custom-class="star-dialog-el"
       width="868px"
       :before-close="handleClose"
@@ -41,20 +41,34 @@
                 name="white-rarity"
                 class="card-wrap-item-box-svg"
               ></svg-icon>
-              <span>20</span>
+              <star-amount
+                :value="d.amount"
+                :formatOptions="{ precision: 0, trailingZero: false }"
+              ></star-amount>
             </div>
           </div>
           <p class="card-wrap-item-text">
             {{ d.name }}
           </p>
           <div v-show="d.isShow">
-            <star-button type="dark" class="card-wrap-item-btn">{{
-              $t("metaverse.break down")
-            }}</star-button>
+            <star-button
+              type="dark"
+              class="card-wrap-item-btn"
+              @click="brakeDownNFT"
+              >{{ $t("metaverse.break down") }}</star-button
+            >
           </div>
         </div>
       </div>
-      <div v-else>没有数据啊</div>
+      <div class="no-nft-data" v-else>
+        <img src="../../assets/metaverse/no-nft-data.png" />
+        <p style="color: #8b8b8b">
+          {{ $t("metaverse.no NFT available") }}
+        </p>
+        <p class="no-nft-data-link" @click="pushMarket">
+          {{ $t("metaverse.please go to the market") }}
+        </p>
+      </div>
     </ElDialog>
   </div>
 </template>
@@ -63,32 +77,37 @@
 import { computed, onMounted, reactive, watchEffect } from "vue";
 import SvgIcon from "@components/SvgIcon/Index.vue";
 import StarButton from "@StarUI/StarButton.vue";
+import StarAmount from "@StarUI/StarAmount.vue";
 import { useStore } from "vuex";
 const store = useStore();
+
 const state = reactive({
   visible: true,
+  selectorDialogParams: computed(
+    () => store.state.StoreMeta.selectorDialogParams
+  ),
   list: [
     {
       imageLink:
         "https://imagedelivery.net/3mRLd_IbBrrQFSP57PNsVw/9d7e33c7-6627-4ad3-35a6-f3d4e120a800/public",
       name: "哈咯 baby",
       isShow: false,
+      amount: "121.22",
     },
   ],
 });
 const emits = defineEmits(["handleClose", "handleSuccess", "handleFailed"]);
-const props = defineProps({
-  dialogParams: Object,
-});
 
-watchEffect(() => {
-  if (props.dialogParams) {
-    state.visible = props.dialogParams.dialogVisible;
-  }
-});
 const handleClose = () => {
-  emits("handleClose");
+  store.commit("StoreMeta/SET_SELECTOR_DIALOG_PARAMS", {
+    dialogVisible: false,
+  });
 };
+
+const brakeDownNFT = () => {
+  store.dispatch("StoreMeta/breakDownNFTRole");
+};
+brakeDownNFT();
 
 const changeBtnStatus = (index, flag) => {
   state.list[index].isShow = flag;
@@ -199,6 +218,25 @@ const changeBtnStatus = (index, flag) => {
         border-radius: 5px;
         font-size: 14px;
       }
+    }
+  }
+  .no-nft-data {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    height: 60vh;
+    img {
+      display: inline-block;
+      margin-bottom: 20px;
+      width: 110px;
+      height: 110px;
+    }
+    .no-nft-data-link {
+      color: rgb(251, 128, 0);
+      border-bottom: 1px dashed rgb(251, 128, 0);
+      cursor: pointer;
     }
   }
 }

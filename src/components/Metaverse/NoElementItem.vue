@@ -1,5 +1,12 @@
 <template>
-  <div :class="$style.box">
+  <div
+    :class="$style.box"
+    @click="
+      store.commit('StoreMeta/SET_SELECTOR_DIALOG_PARAMS', {
+        dialogVisible: true,
+      })
+    "
+  >
     <svg-icon name="clothes" :class="$style['svg']"></svg-icon>
     <p>{{ $t("metaverse.get element") }}</p>
   </div>
@@ -8,6 +15,8 @@
 /* eslint-disable */
 import { computed, onMounted, reactive, watch } from "vue";
 import SvgIcon from "@components/SvgIcon/Index.vue";
+import { useStore } from "vuex";
+const store = useStore();
 </script>
 <style lang="scss" module>
 .box {

@@ -12,15 +12,21 @@
         >
           {{ d }}
         </div>
-        <span :class="$style['header-tip']">{{
-          $t("metaverse.get element")
-        }}</span>
+        <span
+          :class="$style['header-tip']"
+          @click="
+            store.commit('StoreMeta/SET_SELECTOR_DIALOG_PARAMS', {
+              dialogVisible: true,
+            })
+          "
+          >{{ $t("metaverse.get element") }}</span
+        >
       </div>
     </div>
     <div :class="$style['main']">
-      <template v-if="state.hasData">
+      <template v-if="!state.hasData">
         <div
-          :class="$style['main-item']"
+          :class="[$style['main-item'], $style['main-item-pos']]"
           v-for="(d, i) in state.list"
           :key="i"
           @click="selectElement(i)"
@@ -45,7 +51,10 @@
             </span>
           </div>
         </div>
-        <no-element-item style="margin-top: 20px"></no-element-item>
+        <no-element-item
+          style="margin-top: 20px"
+          :class="$style['main-item-pos']"
+        ></no-element-item>
       </template>
       <div :class="$style['main-no-data']" v-else>
         <no-element-item style="margin-top: 160px"></no-element-item>
@@ -63,11 +72,18 @@
 import { computed, onMounted, reactive, watch } from "vue";
 import SvgIcon from "@components/SvgIcon/Index.vue";
 import NoElementItem from "./NoElementItem.vue";
+import { useStore } from "vuex";
+const store = useStore();
 const state = reactive({
   elements: ["身体", "发型", "发饰", "衣服", "裤子"],
   activeIndex: 0,
   activeElement: null,
   list: [
+    {
+      img: "https://imagedelivery.net/3mRLd_IbBrrQFSP57PNsVw/9d7e33c7-6627-4ad3-35a6-f3d4e120a800/public",
+      amount: 12,
+      rarity: 13,
+    },
     {
       img: "https://imagedelivery.net/3mRLd_IbBrrQFSP57PNsVw/9d7e33c7-6627-4ad3-35a6-f3d4e120a800/public",
       amount: 12,
@@ -107,6 +123,10 @@ const state = reactive({
   ],
 });
 const selectElement = (index) => {
+  if (index === state.activeElement) {
+    state.activeElement = null;
+    return;
+  }
   state.activeElement = index;
 
   // state.list[index].isShow = true;
@@ -135,7 +155,7 @@ const selectElement = (index) => {
       font-size: 14px;
       line-height: 32px;
       position: absolute;
-      right: 20px;
+      right: 0px;
       &:hover {
         cursor: pointer;
       }
@@ -184,9 +204,13 @@ const selectElement = (index) => {
         margin-top: 200px;
       }
     }
+    .main-item-pos {
+      &:not(:nth-child(4n + 1)) {
+        margin-left: 33px;
+      }
+    }
     .main-item {
       cursor: pointer;
-      flex-basis: 25%;
       height: 100%;
       margin-top: 20px;
       .main-item-img {

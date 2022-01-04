@@ -37,12 +37,14 @@
           <img
             style="border-radius: 16px"
             :src="renderContentImg(props.dialogParams.dialogStatus)"
-            :style="setWH(props.dialogParams.dialogStatus)"
+            :style="
+              Object.assign({}, setWH(props.dialogParams.dialogStatus), {
+                'margin-bottom':
+                  props.dialogParams.dialogStatus !== 'ongoing' ? '20px' : '',
+              })
+            "
+            v-if="props.dialogParams.isUseStatusImg"
           />
-          <star-space
-            :size="15"
-            v-if="props.dialogParams.dialogStatus !== 'ongoing'"
-          ></star-space>
           <p
             class="star-wallet-dialog-content-core-text"
             v-if="props.dialogParams.dialogText"
@@ -54,10 +56,6 @@
             }}
           </p>
         </div>
-        <star-space
-          :size="20"
-          v-if="!props.dialogParams.customImgUrl"
-        ></star-space>
         <slot name="star-wallet-dialog-custom-content"></slot>
         <div
           class="star-wallet-dialog-content-feedback"
@@ -129,7 +127,6 @@
 // 公共的钱包操作反馈
 import { defineProps, defineEmits, reactive, computed, watchEffect } from "vue";
 import SvgIcon from "@components/SvgIcon/Index.vue";
-import StarSpace from "@StarUI/StarSpace.vue";
 import StarButton from "@StarUI/StarButton.vue";
 import { useStore } from "vuex";
 import dialogOnGoingImg from "../assets/nft/confirm-logo.gif";
@@ -197,19 +194,13 @@ const renderPhaseStatus = (type) => {
   return obj[type];
 };
 
-const setWH = (type, customImgUrl, isBlindBox) => {
-  if (customImgUrl && isBlindBox) {
-    return {
-      width: "40%",
-      "margin-bottom": "10px",
-    };
-  }
-  if (customImgUrl) {
-    return {
-      width: "80%",
-      "margin-bottom": "10px",
-    };
-  }
+const setWH = (type) => {
+  // if (customImgUrl) {
+  //   return {
+  //     width: "80%",
+  //     "margin-bottom": "10px",
+  //   };
+  // }
   if (type !== "ongoing") {
     return {
       width: "63px",
@@ -285,6 +276,7 @@ const emits = defineEmits(["handleClose", "handleSucceed", "handleFailed"]);
         font-size: 20px;
         color: $text-black-color;
         font-weight: 600;
+        margin-bottom: 20px;
       }
     }
   }

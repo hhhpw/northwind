@@ -2,37 +2,47 @@
   <div :class="$style.wrap">
     <role></role>
     <div :class="$style.main">
-      <element-panel></element-panel>
-      <compose-panel></compose-panel>
+      <template v-if="state.type === 'not-generated'">
+        <element-panel></element-panel>
+        <compose-panel></compose-panel
+      ></template>
+      <template v-if="state.type === 'generated'">
+        <user-hero-card></user-hero-card>
+        <hero-info></hero-info>
+      </template>
     </div>
   </div>
 
-  <selector-modal :dialogParams="state.selectorDialogParams"></selector-modal>
+  <selector-modal></selector-modal>
+  <wallet-operate-modal></wallet-operate-modal>
 </template>
 <script setup>
+/* eslint-disable*/
 import { computed, reactive } from "vue";
 import Role from "@components/Metaverse/Role.vue";
 import ElementPanel from "./ElementPanel.vue";
 import ComposePanel from "./ComposePanel.vue";
 import SelectorModal from "@components/Metaverse/SelectorModal.vue";
+import WalletOperateModal from "./WalletOperateModal.vue";
+import HeroInfo from "@components/Metaverse/HeroInfo.vue";
+import UserHeroCard from "@components/Metaverse/UserHeroCard.vue";
 import { useStore } from "vuex";
 const store = useStore();
 
 const state = reactive({
-  selectorDialogParams: computed(
-    () => store.state.StoreMeta.selectorDialogParams
-  ),
+  type: computed(() => store.state.StoreMeta.type),
 });
 </script>
 <style lang="scss" module>
 .wrap {
-  width: 1100px;
+  width: 1000px;
   overflow: hidden;
   margin: 0 auto;
   margin-top: 20px;
   border: 1px solid red;
   .main {
     display: flex;
+    margin-top: 30px;
   }
 }
 </style>
