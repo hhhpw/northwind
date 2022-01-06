@@ -15,6 +15,15 @@ const INIT_LIST_PARAMS = {
   pageSize: 30,
   pageNum: 1,
 };
+
+// const INIT_LIST_PARAMS = {
+//   sortRule: "ctime",
+//   groupId: "",
+//   sort: 1, // 3稀有度
+//   pageSize: 30,
+//   pageNum: 1,
+// };
+
 const INIT_LIST_STATUS = {
   hasMore: true,
   isLoading: false,

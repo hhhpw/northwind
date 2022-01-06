@@ -33,12 +33,17 @@
         >
           <div :class="$style['main-item-img']">
             <img :src="d.img" />
-            <div
+            <!-- <div
               :class="$style['main-item-img-active']"
               v-show="i === state.activeElement"
-            >
-              <svg-icon name="arrow"></svg-icon>
-            </div>
+            > -->
+            <img
+              :class="$style['main-item-img-active']"
+              src="../../assets/metaverse/selected.png"
+              v-show="i === state.activeElement"
+            />
+            <svg-icon name="arrow"></svg-icon>
+            <!-- </div> -->
           </div>
           <div :class="$style['main-item-info']">
             <span>
@@ -229,9 +234,6 @@ const selectElement = (index) => {
           right: 10px;
           width: 32px;
           height: 17px;
-          background: #fb8000;
-          border-radius: 9px;
-          border: 2px solid #ffffff;
         }
       }
       .main-item-info {

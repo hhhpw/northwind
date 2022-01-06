@@ -112,7 +112,8 @@ onMounted(() => {
     width: auto;
   }
   .nft-card-core {
-    background-color: $nft-card-bgcolor;
+    // background-color: $nft-card-bgcolor;
+    background: #ffffff;
     width: 100%;
     // height: 400px;
     height: auto;

@@ -41,7 +41,7 @@
             <span class="base-info-color" v-if="!state.is_blind_open">{{
               props.box_detail.name
             }}</span>
-            <span
+            <!-- <span
               class="base-info-title-rarity"
               v-if="state.is_blind_open && props.box_detail?.score"
             >
@@ -56,13 +56,46 @@
                 }"
               >
               </star-amount>
-            </span>
+            </span> -->
           </div>
 
           <span class="base-info-color" v-if="state.is_blind_open">{{
             props.box_detail.name
           }}</span>
           <div class="base-info-list">
+            <!-- 素材 -->
+            <div
+              class="base-info-item"
+              v-if="state.is_blind_open && props.box_detail?.score"
+            >
+              <span class="title">{{ $t("素材") }}</span>
+              <span class="value">
+                <star-amount
+                  :value="props.box_detail?.score"
+                  :formatOptions="{
+                    precision: 2,
+                  }"
+                >
+                </star-amount>
+              </span>
+            </div>
+            <!-- 稀有值 -->
+            <div
+              class="base-info-item"
+              v-if="state.is_blind_open && props.box_detail?.score"
+            >
+              <span class="title">{{ $t("稀有值") }}</span>
+              <span class="value">
+                <star-amount
+                  :value="props.box_detail?.score"
+                  :formatOptions="{
+                    precision: 2,
+                  }"
+                >
+                </star-amount>
+              </span>
+            </div>
+            <star-space :size="20"></star-space>
             <div class="base-info-item">
               <span class="title">{{ $t("创建者") }}</span>
               <span
@@ -161,7 +194,8 @@ const { t } = useI18n();
 import utilsTools from "@utils/tool";
 import NftDetailHistory from "./NFTDetailHistory.vue";
 import NftDetailTab from "./NFTDetailTab.vue";
-import StarAmount from "@StarUI/StarAmount";
+import StarAmount from "@StarUI/StarAmount.vue";
+import StarSpace from "@StarUI/StarSpace.vue";
 
 const store = useStore();
 let state = reactive({
@@ -346,14 +380,19 @@ const selectCrossTab = (name) => {
         .base-info-item {
           display: flex;
           justify-content: space-between;
+          font-size: 14px;
           margin-bottom: 8px;
+          .title {
+            color: #7f7f7f;
+          }
           .value {
             cursor: pointer;
+            color: #3f1c09;
           }
         }
       }
       .detail-actions {
-        margin-top: 24px;
+        margin-top: 20px;
       }
     }
   }

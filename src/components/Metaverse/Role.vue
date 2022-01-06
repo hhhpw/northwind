@@ -31,7 +31,7 @@
         </div>
         <img :src="d" />
       </div>
-      <div :class="$style['role-character-add']">
+      <div :class="$style['role-character-add']" @click="changeMainType">
         <img src="../../assets/metaverse/add-role.png" />
       </div>
     </div>
@@ -40,8 +40,12 @@
 <script setup>
 /* eslint-disable */
 import { computed, onMounted, reactive, watch, nextTick } from "vue";
+import { useStore } from "vuex";
+const store = useStore();
+
 const state = reactive({
   maskDOMs: [],
+  type: computed(() => store.state.StoreMeta.type),
   roleLists: [
     "https://imagedelivery.net/3mRLd_IbBrrQFSP57PNsVw/9d7e33c7-6627-4ad3-35a6-f3d4e120a800/public",
     "https://imagedelivery.net/3mRLd_IbBrrQFSP57PNsVw/a514fbd5-36c0-47a3-9f7e-819541c03300/public",
@@ -62,6 +66,15 @@ const hoverEvent = (index, flag) => {
     }
     state.maskDOMs[index].style.display = "none";
   });
+};
+const changeMainType = () => {
+  console.log("state.type", state.type);
+  if (state.type === "not-generated") {
+    // 清空所有元素
+  }
+  if (state.type === "generated") {
+    store.commit("StoreMeta/CHANGE_MAIN_STATUS", "not-generated");
+  }
 };
 </script>
 <style lang="scss" module>

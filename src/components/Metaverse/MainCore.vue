@@ -15,6 +15,7 @@
 
   <selector-modal></selector-modal>
   <wallet-operate-modal></wallet-operate-modal>
+  <second-confirm-modal></second-confirm-modal>
 </template>
 <script setup>
 /* eslint-disable*/
@@ -24,6 +25,7 @@ import ElementPanel from "./ElementPanel.vue";
 import ComposePanel from "./ComposePanel.vue";
 import SelectorModal from "@components/Metaverse/SelectorModal.vue";
 import WalletOperateModal from "./WalletOperateModal.vue";
+import SecondConfirmModal from "./SecondConfirmModal.vue";
 import HeroInfo from "@components/Metaverse/HeroInfo.vue";
 import UserHeroCard from "@components/Metaverse/UserHeroCard.vue";
 import { useStore } from "vuex";

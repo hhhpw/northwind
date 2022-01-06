@@ -46,7 +46,9 @@
         :class="$style['create-btn']"
         :type="state.canGenerated ? 'dark' : 'disabled'"
         @click="validateParams(state.canGenerated)"
-        >{{ $t("metaverse.generate NFT character cards") }}</star-button
+        >{{
+          $t("metaverse.generate NFT character cards") + ` (29STC)`
+        }}</star-button
       >
       <star-button
         v-if="state.walletStatus !== 'connected'"
@@ -113,7 +115,7 @@ const validateParams = (flag) => {
     ) {
       throw new Error("error");
     }
-    store.dispatch("StoreMeta/generateNFTRole");
+    store.dispatch("StoreMeta/canCreateNFT");
   } catch (e) {
     store.commit("StoreMeta/SET_CALLBACK_DIALOG_PARAMS_STATUS", {
       dialogVisible: true,

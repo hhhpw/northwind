@@ -19,31 +19,52 @@
           <span>
             {{ baseData.nftName || baseData.name || "" }}
           </span>
-          <span
-            class="nft-blind-text-name-rarity"
-            v-if="baseData.type === 'nft' && baseData?.score"
-          >
-            <ElTooltip
-              effect="light"
-              placement="bottom"
-              :append-to-body="false"
+
+          <span class="nft-blind-text-name-tips">
+            <!-- 可分解NFT -->
+            <span class="nft-blind-text-name-rarity">
+              <ElTooltip
+                effect="light"
+                placement="bottom"
+                :append-to-body="false"
+              >
+                <template #content>
+                  <span class="nft-blind-text-name-rarity-tooltip">
+                    {{ $t("metaverse.can remake") }}
+                  </span>
+                </template>
+                <template #default>
+                  <svg-icon name="clothes" class="canremake-icon"></svg-icon>
+                </template>
+              </ElTooltip>
+            </span>
+            <!-- 稀有值 -->
+            <span
+              class="nft-blind-text-name-rarity"
+              v-if="baseData.type === 'nft' && baseData?.score"
             >
-              <template #content>
-                <span class="nft-blind-text-name-rarity-tooltip">
-                  {{ $t("NFT稀有值") }}
-                </span>
-              </template>
-              <template #default>
-                <svg-icon name="rarity" class="rarity-icon"></svg-icon>
-              </template>
-            </ElTooltip>
-            <star-amount
-              :value="baseData?.score"
-              :formatOptions="{
-                precision: 2,
-              }"
-            >
-            </star-amount>
+              <ElTooltip
+                effect="light"
+                placement="bottom"
+                :append-to-body="false"
+              >
+                <template #content>
+                  <span class="nft-blind-text-name-rarity-tooltip">
+                    {{ $t("NFT稀有值") }}
+                  </span>
+                </template>
+                <template #default>
+                  <svg-icon name="rarity" class="rarity-icon"></svg-icon>
+                </template>
+              </ElTooltip>
+              <star-amount
+                :value="baseData?.score"
+                :formatOptions="{
+                  precision: 2,
+                }"
+              >
+              </star-amount>
+            </span>
           </span>
         </div>
         <div class="nft-blind-text-address">
@@ -378,6 +399,14 @@ const actionsCall = (action) => {
 .nft-blind-text-name {
   display: flex;
   justify-content: space-between;
+  .nft-blind-text-name-tips {
+    display: flex;
+    align-items: center;
+  }
+  .canremake-icon {
+    transform: scale(1.5);
+    margin-right: 8px;
+  }
   .nft-blind-text-name-rarity {
     color: #fb8000;
     .nft-blind-text-name-rarity-tooltip {

@@ -30,6 +30,7 @@ const store = useStore();
   .hero-info-mask {
     position: absolute;
     background-color: rgba(0, 0, 0, 0.5);
+    cursor: pointer;
     top: 0;
     bottom: 0;
     left: 0;

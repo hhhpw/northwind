@@ -289,11 +289,12 @@ const handleCloseQuotation = () => {
   flex: 1;
 }
 .sell-blind {
-  height: calc(100% - 50px);
+  // border: 1px solid red;
   display: flex;
   flex-flow: column;
+  height: 100%;
   justify-content: space-between;
-  padding-top: 50px;
+  // padding-top: 30px;
 }
 .trade-input {
   width: 100%;
@@ -344,6 +345,7 @@ const handleCloseQuotation = () => {
   cursor: pointer;
   background-color: #f88000;
   color: #fff;
+  // margin-top: 20px;
 }
 .blind-buttons {
   display: flex;

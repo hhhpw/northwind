@@ -1,6 +1,10 @@
+/* eslint-disable */
 import * as types from "../types/meta.js";
 import utilsFormat from "@utils/format";
-import { WALLET_DIALOG_PARAMS } from "@constants/dialog.js";
+import {
+  WALLET_DIALOG_PARAMS,
+  SECOND_DIALOG_PARAMS,
+} from "@constants/dialog.js";
 const INIT_SELECTOR_DIALOG_PARAMS = {
   dialogVisible: false,
   data: [],
@@ -15,6 +19,7 @@ const StoreMeta = {
   namespaced: true,
   moduleName: "StoreMeta",
   state: {
+    secondDialogParams: SECOND_DIALOG_PARAMS,
     selectorDialogParams: INIT_SELECTOR_DIALOG_PARAMS,
     dialogParams: WALLET_DIALOG_PARAMS,
     callBackDialogParams: INIT_CALL_BACK_DIALOG_PARAMS,
@@ -30,6 +35,17 @@ const StoreMeta = {
     },
   },
   mutations: {
+    [types.CHANGE_MAIN_STATUS](state, payload) {
+      console.log("Payload", payload);
+      state.type = payload;
+    },
+    [types.SET_SECOND_DIALOG_PARAMS_STATUS](state, payload) {
+      state.secondDialogParams = Object.assign(
+        {},
+        state.secondDialogParams,
+        payload
+      );
+    },
     [types.CHANGE_OPERATE_STATUS](state, payload) {
       state.type = payload;
     },
@@ -44,7 +60,6 @@ const StoreMeta = {
       state.dialogParams = Object.assign({}, state.dialogParams, payload);
     },
     [types.SET_CALLBACK_DIALOG_PARAMS_STATUS](state, payload) {
-      // console.log("dsadas", payload);
       state.callBackDialogParams = Object.assign(
         {},
         state.callBackDialogParams,
@@ -89,30 +104,45 @@ const StoreMeta = {
       //   failedBtnText: utilsFormat.computedLangCtx("确认"),
       // });
     },
-
     // 生成
-    generateNFTRole({ commit }) {
-      commit(types.SET_WALLET_DIALOG_PARAMS_STATUS, {
+    generateNFTRole({}) {
+      // commit(types.SET_WALLET_DIALOG_PARAMS_STATUS, {
+      //   dialogVisible: true,
+      //   dialogText: utilsFormat.computedLangCtx(
+      //     "metaverse.generating character cards"
+      //   ),
+      // });
+      // // 成功
+      // commit(types.SET_WALLET_DIALOG_PARAMS_STATUS, {
+      //   dialogText: utilsFormat.computedLangCtx(
+      //     "metaverse.generated character cards succeed"
+      //   ),
+      //   successBtnText: utilsFormat.computedLangCtx("确认"),
+      // });
+      // // 失败
+      // commit(types.SET_WALLET_DIALOG_PARAMS_STATUS, {
+      //   dialogText: utilsFormat.computedLangCtx(
+      //     "metaverse.generated character cards failed"
+      //   ),
+      //   failedBtnText: utilsFormat.computedLangCtx("确认"),
+      // });
+    },
+
+    canCreateNFT({ commit, dispatch }) {
+      const handleClose = () => {
+        commit(types.SET_SECOND_DIALOG_PARAMS_STATUS, {
+          dialogVisible: false,
+        });
+      };
+      commit(types.SET_SECOND_DIALOG_PARAMS_STATUS, {
         dialogVisible: true,
-        dialogText: utilsFormat.computedLangCtx(
-          "metaverse.generating character cards"
-        ),
-      });
-
-      // 成功
-      commit(types.SET_WALLET_DIALOG_PARAMS_STATUS, {
-        dialogText: utilsFormat.computedLangCtx(
-          "metaverse.generated character cards succeed"
-        ),
-        successBtnText: utilsFormat.computedLangCtx("确认"),
-      });
-
-      // 失败
-      commit(types.SET_WALLET_DIALOG_PARAMS_STATUS, {
-        dialogText: utilsFormat.computedLangCtx(
-          "metaverse.generated character cards failed"
-        ),
-        failedBtnText: utilsFormat.computedLangCtx("确认"),
+        confirmText: utilsFormat.computedLangCtx("确认"),
+        cancelText: utilsFormat.computedLangCtx("取消"),
+        handleCancel: handleClose,
+        handleClose: handleClose,
+        handleConfirm: () => {
+          dispatch("generateNFTRole");
+        },
       });
     },
   },

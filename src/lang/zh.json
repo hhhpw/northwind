@@ -339,7 +339,10 @@
     "no NFT available": "暂无可用NFT",
     "please go to the market": "请前往市场逛逛",
     "the role card name is 0-10 English characters or special symbols": "角色卡牌名称为0-10个英文字符或特殊符号",
-    "enter the name (0-10 English characters)": "输入名字（0-10英文字符）"
+    "enter the name (0-10 English characters)": "输入名字（0-10英文字符）",
+    "can remake": "可重组",
+    "casting cost": "铸造费用:{amount} {currency}",
+    "whether to generate NFT character cards": "是否生成NFT角色卡牌"
   },
   "nftproperty": {
     "皮毛": "皮毛",

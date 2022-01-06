@@ -144,6 +144,14 @@ function getAllPoolListByUser(account) {
   });
 }
 
+// 获取nft系列
+function getNFTSeriesList() {
+  return request({
+    url: "/v1/nft/series/list",
+    method: "GET",
+  });
+}
+
 export default {
   getCurrency,
   getUserResourceList,
@@ -154,4 +162,5 @@ export default {
   getAllPoolListByUser,
   getOpenBoxIdByHash,
   getChainEventsByTxnHash,
+  getNFTSeriesList,
 };

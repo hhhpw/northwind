@@ -5,6 +5,8 @@
       v-if="state.walletStatus === 'connected'"
     >
       <template #nft-header v-if="state.coreType !== 'card'">
+        <nft-selector></nft-selector>
+
         <list-screen
           @clickSelectJoint="clickSelectJoint"
           :showTips="false"
@@ -71,6 +73,7 @@ import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 import Empty from "@components/NFT/Empty.vue";
 import StarScroll from "@StarUI/StarScroll.vue";
+import NftSelector from "@components/NFT/NFTSelector.vue";
 import StarLoadingFish from "@StarUI/StarLoadingFish.vue";
 
 const router = useRouter();

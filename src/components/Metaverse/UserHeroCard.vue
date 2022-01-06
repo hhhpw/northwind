@@ -9,7 +9,7 @@ import { computed, onMounted, reactive, watch } from "vue";
 .hero-card {
   width: 600px;
   height: 600px;
-  border: 1px solid red;
+  // border: 1px solid red;
   background-image: url("../../assets/metaverse/left-bg.png");
   background-repeat: no-repeat;
   background-size: 100% 100%;
