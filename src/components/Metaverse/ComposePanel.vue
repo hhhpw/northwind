@@ -2,7 +2,25 @@
   <div :class="$style['compose-container']" class="compose-container">
     <star-space :size="15"></star-space>
     <div :class="$style['role-box']">
-      <img src="../../assets/metaverse/right-empty-box.png" />
+      <div :class="$style['role-box-score']">
+        <svg-icon name="white-rarity" style="margin-right: 3px"></svg-icon>
+        <star-amount
+          :value="state.totalScore"
+          :formatOptions="{ precision: 0, trailingZero: true }"
+        >
+        </star-amount>
+      </div>
+      <!-- <img src="../../assets/metaverse/right-empty-box.png" /> -->
+      <template
+        v-if="state.selectedElementList && state.selectedElementList.length > 0"
+      >
+        <img
+          v-for="(d, i) in state.selectedElementList"
+          :src="d.img"
+          :key="i"
+          :style="{ zIndex: d.zIndex }"
+        />
+      </template>
     </div>
     <star-space :size="20"></star-space>
     <div :class="$style['info-box']">
@@ -72,6 +90,7 @@ import connectLogic from "@mixins/wallet";
 import utilsRegExp from "@utils/regexp.js";
 import ValidateErrorModal from "./ValidateErrorModal.vue";
 import utilsFormat from "@utils/format";
+import StarAmount from "@StarUI/StarAmount.vue";
 // import { useI18n } from "vue-i18n";
 // const { t } = useI18n();
 const store = useStore();
@@ -81,8 +100,12 @@ const state = reactive({
   walletStatus: computed(() => store.state.StoreWallet.walletStatus),
   currLang: computed(() => store.state.StoreApp.currLang),
   canGenerated: computed(() => store.getters["StoreMeta/canGenerated"]),
+  totalScore: computed(() => store.getters["StoreMeta/totalScore"]),
+  selectedElementList: computed(
+    () => store.state.StoreMeta.selectedElementList
+  ),
   svgNames: ["male", "female"],
-  gender: "male",
+  genderValue: "male",
   nameValue: "",
   professionValue: 1,
   professionOpts: computed(() => [
@@ -97,7 +120,7 @@ const state = reactive({
 });
 
 const selectGender = (gender) => {
-  state.gender = gender;
+  state.genderValue = gender;
 };
 
 const selectSuffixIcon = () => {
@@ -115,7 +138,10 @@ const validateParams = (flag) => {
     ) {
       throw new Error("error");
     }
-    store.dispatch("StoreMeta/canCreateNFT");
+    store.dispatch("StoreMeta/canCreateNFT", {
+      customName: state.nameValue,
+      gender: state.genderValue,
+    });
   } catch (e) {
     store.commit("StoreMeta/SET_CALLBACK_DIALOG_PARAMS_STATUS", {
       dialogVisible: true,
@@ -225,9 +251,30 @@ $bgColor2: #fcf7f1;
     text-align: center;
     height: 304px;
     margin: 0 auto;
+    border: 1px solid red;
+    .role-box-score {
+      z-index: 99;
+      min-width: 62px;
+      height: 24px;
+      box-sizing: border-box;
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 16px;
+      position: absolute;
+      padding: 0px 5px;
+      right: 5px;
+      top: 5px;
+      line-height: 24px;
+      color: #fff;
+      font-size: 14px;
+    }
     img {
       width: 100%;
       height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
     }
   }
   .info-box {

@@ -66,6 +66,7 @@ import commonApi from "@api/common";
 import { useI18n } from "vue-i18n";
 const { t } = useI18n();
 const store = useStore();
+import SvgIcon from "@components/SvgIcon/Index.vue";
 import { nftTypesList, sortList } from "./selector.js";
 
 const emits = defineEmits(["filterEvent"]);

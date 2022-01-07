@@ -3,14 +3,15 @@
     <div :class="$style['header']">
       <div :class="$style['header-btn-wrap']">
         <div
-          v-for="(d, i) in state.elements"
+          v-for="(d, i) in state?.metaData?.property"
+          @click="changeProperty(d, i)"
           :key="i"
           :class="[
             $style['header-btn'],
-            { [$style['header-btn-active']]: i === state.activeIndex },
+            { [$style['header-btn-active']]: i === state.activeProperty },
           ]"
         >
-          {{ d }}
+          {{ $t(`nftproperty.${d.desc}`) }}
         </div>
         <span
           :class="$style['header-tip']"
@@ -27,9 +28,9 @@
       <template v-if="!state.hasData">
         <div
           :class="[$style['main-item'], $style['main-item-pos']]"
-          v-for="(d, i) in state.list"
+          v-for="(d, i) in state.elementList"
           :key="i"
-          @click="selectElement(i)"
+          @click="selectElement(d, i)"
         >
           <div :class="$style['main-item-img']">
             <img :src="d.img" />
@@ -52,7 +53,9 @@
             </span>
             <span :class="$style['main-item-info-amount']">
               <span>&times;</span>
-              <span style="margin-left: 3px">{{ d.amount }}</span>
+              <span style="margin-left: 3px">{{
+                calcAmount(d.amount, i)
+              }}</span>
             </span>
           </div>
         </div>
@@ -80,61 +83,41 @@ import NoElementItem from "./NoElementItem.vue";
 import { useStore } from "vuex";
 const store = useStore();
 const state = reactive({
-  elements: ["身体", "发型", "发饰", "衣服", "裤子"],
-  activeIndex: 0,
+  property: ["身体", "发型", "发饰", "衣服", "裤子"],
+  activeProperty: 0,
   activeElement: null,
-  list: [
-    {
-      img: "https://imagedelivery.net/3mRLd_IbBrrQFSP57PNsVw/9d7e33c7-6627-4ad3-35a6-f3d4e120a800/public",
-      amount: 12,
-      rarity: 13,
-    },
-    {
-      img: "https://imagedelivery.net/3mRLd_IbBrrQFSP57PNsVw/9d7e33c7-6627-4ad3-35a6-f3d4e120a800/public",
-      amount: 12,
-      rarity: 13,
-    },
-    {
-      img: "https://imagedelivery.net/3mRLd_IbBrrQFSP57PNsVw/9d7e33c7-6627-4ad3-35a6-f3d4e120a800/public",
-      amount: 12,
-      rarity: 13,
-      isShow: false,
-    },
-    {
-      img: "https://imagedelivery.net/3mRLd_IbBrrQFSP57PNsVw/9d7e33c7-6627-4ad3-35a6-f3d4e120a800/public",
-      amount: 12,
-      rarity: 13,
-    },
-    {
-      img: "https://imagedelivery.net/3mRLd_IbBrrQFSP57PNsVw/9d7e33c7-6627-4ad3-35a6-f3d4e120a800/public",
-      amount: 12,
-      rarity: 13,
-    },
-    {
-      img: "https://imagedelivery.net/3mRLd_IbBrrQFSP57PNsVw/9d7e33c7-6627-4ad3-35a6-f3d4e120a800/public",
-      amount: 12,
-      rarity: 13,
-    },
-    {
-      img: "https://imagedelivery.net/3mRLd_IbBrrQFSP57PNsVw/9d7e33c7-6627-4ad3-35a6-f3d4e120a800/public",
-      amount: 12,
-      rarity: 13,
-    },
-    {
-      img: "https://imagedelivery.net/3mRLd_IbBrrQFSP57PNsVw/9d7e33c7-6627-4ad3-35a6-f3d4e120a800/public",
-      amount: 12,
-      rarity: 13,
-    },
-  ],
+  metaData: computed(() => store.state.StoreMeta.metaData),
+  elementList: computed(() => store.state.StoreMeta.elementList),
 });
-const selectElement = (index) => {
+
+store.dispatch("StoreMeta/getNFTMeatInfo");
+
+const selectElement = (ele, index) => {
   if (index === state.activeElement) {
+    store.dispatch("StoreMeta/setSelectedElementList", {
+      type: "delete",
+      data: ele,
+    });
     state.activeElement = null;
     return;
   }
   state.activeElement = index;
+  store.dispatch("StoreMeta/setSelectedElementList", {
+    type: "add",
+    data: ele,
+  });
+};
 
-  // state.list[index].isShow = true;
+const calcAmount = (amount, index) =>
+  computed(() => {
+    if (state.activeElement === index) {
+      return Math.max(amount - 1, 0);
+    }
+    return Math.max(amount, 0);
+  }).value;
+
+const changeProperty = (d, i) => {
+  state.activeProperty = i;
 };
 </script>
 <style lang="scss" module>

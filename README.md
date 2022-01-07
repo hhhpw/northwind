@@ -59,3 +59,6 @@ router.onError((error) => {
 // config.plugin("loadshReplace").use(new LodashModuleReplacementPlugin());
 // 使用lodash-webpack-plugin会出问题
 ```
+
+- 中英文问题
+  目前 NFT 的 property 在前端也维护了一份字典，一旦有更新前段也要更改，会导致以下问题。 1.维护成本过大，链路太长。 2.也不符合规范，动态配置的项，应该都由接口去处理。 3.这些属性也用在 NFT 秀里面，接口的 key 匹配也很繁琐
