@@ -33,12 +33,15 @@
       </p>
       <div :class="$style['data-info-detail']">
         <div :class="$style['data-info-detail-left']">
-          <div :class="$style['data-info-detail-btn']">
+          <div
+            :class="$style['data-info-detail-btn']"
+            @click="pushIgo(state.countdown, state.igoList[state.activeIndex])"
+          >
             {{ state.countdown ? $t("了解更多") : $t("kgstarter.敬请期待") }}
           </div>
           <div :class="$style['data-info-detail-contact']">
             <svg-icon
-              v-for="(d, i) in ['igo-a', 'igo-b', 'igo-c', 'igo-d']"
+              v-for="(d, i) in ['igo-a', 'igo-b', 'igo-c']"
               :key="i"
               :name="d"
               @click="pushPage(i)"
@@ -100,15 +103,14 @@ let state = reactive({
   timer: null,
 });
 
-watch(
-  () => state.igoList,
-  () => {
-    setActiveItem(0);
-  }
-);
+const pushIgo = (flag, data) => {
+  if (!flag) return;
+  utilsTool.openNewWindow(`https://kgstarter.com/prodetail?pid=${data.id}`);
+};
 
 const pushPage = (i) => {
-  const typeText = ["website", "tw", "telegram", "medium"];
+  // const typeText = ["website", "tw", "telegram", "medium"];
+  const typeText = ["website", "tw", "telegram"];
   const map = new Map();
   state.igoList[state.activeIndex].links.forEach((d) => {
     map.set(d.name, d.url || "");
@@ -161,6 +163,17 @@ const renderFlag = (i) => {
   const text = ["days", "hours", "minutes", "seconds"];
   return text[i];
 };
+
+watch(
+  () => state.igoList,
+  () => {
+    setActiveItem(0);
+  },
+  {
+    deep: true,
+    immediate: true,
+  }
+);
 </script>
 <style lang="scss" module>
 @import "~@/styles/mixin.scss";
@@ -245,6 +258,7 @@ const renderFlag = (i) => {
           text-align: center;
           line-height: 35px;
           font-size: 15px;
+          cursor: pointer;
         }
         .data-info-detail-contact {
           margin-left: 15px;
