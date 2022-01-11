@@ -12,7 +12,7 @@
     <!-- 角色卡片 -->
     <div :class="$style['role-character']">
       <div
-        v-for="(d, i) in state.roleLists"
+        v-for="(d, i) in state.composeNFT"
         :key="i"
         :class="$style['role-character-item']"
         @mouseenter.stop="hoverEvent(i, true)"
@@ -26,10 +26,10 @@
             }
           "
         >
-          <p>tony W</p>
-          <p># 6...12</p>
+          <p>{{ d.customName }}</p>
+          <p>{{ d.nftId }}</p>
         </div>
-        <img :src="d" />
+        <img :src="d.image" />
       </div>
       <div :class="$style['role-character-add']" @click="changeMainType">
         <img src="../../assets/metaverse/add-role.png" />
@@ -46,6 +46,7 @@ const store = useStore();
 const state = reactive({
   maskDOMs: [],
   type: computed(() => store.state.StoreMeta.type),
+  composeNFT: computed(() => store.state.StoreMeta.composeNFT),
   roleLists: [
     "https://imagedelivery.net/3mRLd_IbBrrQFSP57PNsVw/9d7e33c7-6627-4ad3-35a6-f3d4e120a800/public",
     "https://imagedelivery.net/3mRLd_IbBrrQFSP57PNsVw/a514fbd5-36c0-47a3-9f7e-819541c03300/public",

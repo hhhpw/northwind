@@ -1,5 +1,10 @@
 <template>
-  <star-wallet-dialog :dialogParams="state.dialogParams">
+  <star-wallet-dialog
+    :dialogParams="state.dialogParams"
+    @handleFailed="state.dialogParams?.handleFailed"
+    @handleClose="state.dialogParams?.handleClose"
+    @handleSucceed="state.dialogParams?.handleSucceed"
+  >
     <template
       #star-wallet-dialog-custom-content
       v-if="state.dialogParams.isUseCustomContent"

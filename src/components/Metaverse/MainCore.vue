@@ -19,7 +19,7 @@
 </template>
 <script setup>
 /* eslint-disable*/
-import { computed, reactive } from "vue";
+import { computed, reactive, watchEffect } from "vue";
 import Role from "@components/Metaverse/Role.vue";
 import ElementPanel from "./ElementPanel.vue";
 import ComposePanel from "./ComposePanel.vue";
@@ -33,6 +33,16 @@ const store = useStore();
 
 const state = reactive({
   type: computed(() => store.state.StoreMeta.type),
+  accounts: computed(() => store.state.StoreWallet.accounts),
+});
+
+watchEffect(() => {
+  if (state.accounts && state.accounts[0]) {
+    store.dispatch("StoreMeta/getNFTDataByType", {
+      userAddress: state.accounts[0],
+      nftType: "split",
+    });
+  }
 });
 </script>
 <style lang="scss" module>

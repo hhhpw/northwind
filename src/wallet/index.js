@@ -447,37 +447,84 @@ const unStakeNFT = async ({ provider, order, meta, body }) => {
     return "error";
   }
 };
-// const changeNFT = async ({ provider, order, meta, body, id }) => {
-//   try {
-//     const funcId = process.env.VUE_APP_NFT_MINING_CHANGE_FUNCTION_ID;
-//     const tyArgs = [
-//       "0x69f1e543a3bef043b63bed825fcd2cf6::KikoCat12::KikoCatMeta",
-//       "0x69f1e543a3bef043b63bed825fcd2cf6::KikoCat12::KikoCatBody",
-//     ];
-//     const args = [id, order];
-//     console.log("funcId", funcId, "tyArgs", tyArgs, "args", args);
-//     const scriptFunction = await utils.tx.encodeScriptFunctionByResolve(
-//       funcId,
-//       tyArgs,
-//       args,
-//       process.env.VUE_APP_STAR_COIN_URL
-//     );
-//     const payloadInHex = (function () {
-//       const se = new bcs.BcsSerializer();
-//       scriptFunction.serialize(se);
-//       return hexlify(se.getBytes());
-//     })();
-//     const txhash = await provider.getSigner().sendUncheckedTransaction({
-//       data: payloadInHex,
-//     });
-//     return txhash;
-//   } catch (e) {
-//     console.error("changeNFT", e);
-//     return "error";
-//   }
-// };
-
 /**** NFT挖矿  ****/
+
+/**** NFT META  ****/
+// 分解NFT
+const breakDownNFT = async ({ provider, nftId }) => {
+  try {
+    const funcId =
+      process.env.VUE_APP_NFT_META_ADDRESS +
+      process.env.VUE_APP_NFT_META_BREAK_DOWN_FUNCTION_ID;
+    const tyArgs = [];
+    const args = [nftId];
+    console.log(
+      "funcId",
+      funcId,
+      "tyArgs",
+      tyArgs,
+      "args",
+      args,
+      process.env.VUE_APP_STAR_COIN_URL
+    );
+    const scriptFunction = await utils.tx.encodeScriptFunctionByResolve(
+      funcId,
+      tyArgs,
+      args,
+      process.env.VUE_APP_STAR_COIN_URL
+    );
+    const payloadInHex = (function () {
+      const se = new bcs.BcsSerializer();
+      scriptFunction.serialize(se);
+      return hexlify(se.getBytes());
+    })();
+    const txhash = await provider.getSigner().sendUncheckedTransaction({
+      data: payloadInHex,
+    });
+    return txhash;
+  } catch (e) {
+    console.error("unstakeNFT", e);
+    return "error";
+  }
+};
+
+const composeNFT = async ({ provider, nftId }) => {
+  try {
+    const funcId =
+      process.env.VUE_APP_NFT_META_ADDRESS +
+      process.env.VUE_APP_NFT_MEAT_COMPOSE_CUSTOM_FUNCTION_ID;
+    const tyArgs = [];
+    const args = [nftId];
+    console.log(
+      "funcId",
+      funcId,
+      "tyArgs",
+      tyArgs,
+      "args",
+      args,
+      process.env.VUE_APP_STAR_COIN_URL
+    );
+    const scriptFunction = await utils.tx.encodeScriptFunctionByResolve(
+      funcId,
+      tyArgs,
+      args,
+      process.env.VUE_APP_STAR_COIN_URL
+    );
+    const payloadInHex = (function () {
+      const se = new bcs.BcsSerializer();
+      scriptFunction.serialize(se);
+      return hexlify(se.getBytes());
+    })();
+    const txhash = await provider.getSigner().sendUncheckedTransaction({
+      data: payloadInHex,
+    });
+    return txhash;
+  } catch (e) {
+    console.error("unstakeNFT", e);
+    return "error";
+  }
+};
+/**** NFT META  ****/
 export default {
   createStcProvider,
   connect,
@@ -496,4 +543,6 @@ export default {
   starMaskSign,
   stakeNFT,
   unStakeNFT,
+  breakDownNFT,
+  composeNFT,
 };

@@ -63,6 +63,7 @@ const emitClick = (value) => {
   width: 166px !important;
   border-radius: 16px;
   color: $text-brown-color;
+  overflow: hidden;
   .star-dropdown-menu-item {
     display: flex;
     align-items: center;

@@ -210,10 +210,10 @@ const StoreCollection = {
       if (payload.resourceList) {
         for (const [k, v] of Object.entries(payload.resourceList)) {
           payload.data.map((item) => {
-            // 这里大小写问题
-            // 下一期需要把大小写匹配忽略
-            let matchString = item.boxToken.replace("::KikoCatBox", "");
-            let boxToken = k.match(matchString);
+            let matchString = item.boxToken
+              .replace("::KikoCatBox", "")
+              .toUpperCase();
+            let boxToken = k.toUpperCase().match(matchString);
             if (boxToken) {
               if (v.json.token) {
                 list.push({
@@ -235,8 +235,8 @@ const StoreCollection = {
       if (payload.resourceList) {
         for (let [k, v] of Object.entries(payload.resourceList)) {
           payload.data.map((item) => {
-            let matchString = `${item.nftMeta}, ${item.nftBody}`;
-            if (k.includes(matchString)) {
+            let matchString = `${item.nftMeta}, ${item.nftBody}`.toUpperCase();
+            if (k.toUpperCase().includes(matchString)) {
               const items = v.json.items;
               items.map(async (d) => {
                 let obj = {

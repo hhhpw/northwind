@@ -1,5 +1,9 @@
 <template>
-  <div :class="$style['compose-container']" class="compose-container">
+  <div
+    :class="$style['compose-container']"
+    class="compose-container"
+    v-if="state.metaData"
+  >
     <star-space :size="15"></star-space>
     <div :class="$style['role-box']">
       <div :class="$style['role-box-score']">
@@ -16,9 +20,9 @@
       >
         <img
           v-for="(d, i) in state.selectedElementList"
-          :src="d.img"
+          :src="d.image"
           :key="i"
-          :style="{ zIndex: d.zIndex }"
+          :style="{ zIndex: d.maskOrder }"
         />
       </template>
     </div>
@@ -33,13 +37,13 @@
       <div :class="$style['detail-info']" class="detail-info">
         <div :class="$style['role-gender']">
           <div
-            v-for="(d, i) in state.svgNames"
+            v-for="(d, i) in state.genderLabels"
             :key="i"
             @click="selectGender(d)"
             :class="[
               $style['role-gender-item'],
               $style[`role-gender-${d}`],
-              $style[state.gender === d ? 'selected-gender' : ''],
+              $style[state.genderValue === d ? 'selected-gender' : ''],
             ]"
           >
             <svg-icon :name="d"></svg-icon>
@@ -51,9 +55,9 @@
           :popper-append-to-body="false"
         >
           <ElOption
-            v-for="d in state.professionOpts"
+            v-for="d in state.metaData.occupations"
             :key="d.value"
-            :label="d.label"
+            :label="state.currLang === 'zh' ? d.cnDesc : d.desc"
             :value="d.value"
           ></ElOption>
         </ElSelect>
@@ -83,20 +87,22 @@
 /* eslint-disable */
 import { computed, reactive } from "vue";
 import StarButton from "@StarUI/StarButton.vue";
+import StarAmount from "@StarUI/StarAmount.vue";
+import utilsFormat from "@utils/format";
 import SvgIcon from "@components/SvgIcon/Index.vue";
 import StarSpace from "@StarUI/StarSpace.vue";
 import { useStore } from "vuex";
 import connectLogic from "@mixins/wallet";
 import utilsRegExp from "@utils/regexp.js";
 import ValidateErrorModal from "./ValidateErrorModal.vue";
-import utilsFormat from "@utils/format";
-import StarAmount from "@StarUI/StarAmount.vue";
+
 // import { useI18n } from "vue-i18n";
 // const { t } = useI18n();
 const store = useStore();
 const { connectWallet } = connectLogic(store);
 
 const state = reactive({
+  metaData: computed(() => store.state.StoreMeta.metaData),
   walletStatus: computed(() => store.state.StoreWallet.walletStatus),
   currLang: computed(() => store.state.StoreApp.currLang),
   canGenerated: computed(() => store.getters["StoreMeta/canGenerated"]),
@@ -104,7 +110,7 @@ const state = reactive({
   selectedElementList: computed(
     () => store.state.StoreMeta.selectedElementList
   ),
-  svgNames: ["male", "female"],
+  genderLabels: ["male", "female"],
   genderValue: "male",
   nameValue: "",
   professionValue: 1,
@@ -112,7 +118,6 @@ const state = reactive({
     { value: 1, label: "冒险家" },
     { value: 2, label: "极限玩家" },
     { value: 3, label: "运动员" },
-    { value: 4, label: "无" },
     // { value: 5, label: "牧师" },
     // { value: 6, label: "圣骑士" },
     // { value: 7, label: "德鲁伊" },

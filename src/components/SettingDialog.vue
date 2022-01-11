@@ -237,13 +237,13 @@ const handleBlurSlipppage = () => {
         }
       }
       ::v-deep(.el-input__inner) {
-        height: 31px;
+        height: 33px;
+        line-height: 33px;
         border-color: #fff;
         position: relative;
-        top: -3px;
       }
       &:focus-within {
-        border-color: $btn-orange-bgcolor;
+        border-color: $btn-orange-bgcolor !important;
       }
     }
     .unit-input {

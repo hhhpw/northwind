@@ -26,16 +26,19 @@
         </div>
       </template>
 
-      <div v-if="state.list && state.list.length > 0" class="card-wrap">
+      <div
+        v-if="state.allSplitNFT && state.allSplitNFT.length > 0"
+        class="card-wrap"
+      >
         <div
-          v-for="(d, i) in state.list"
+          v-for="(d, i) in state.allSplitNFT"
           :key="i"
           class="card-wrap-item"
           @mouseenter="changeBtnStatus(i, true)"
           @mouseleave="changeBtnStatus(i, false)"
         >
           <div class="card-wrap-item-box">
-            <img :src="d.imageLink" />
+            <img :src="d.image" />
             <div class="card-wrap-item-box-shadow">
               <svg-icon
                 name="white-rarity"
@@ -48,13 +51,13 @@
             </div>
           </div>
           <p class="card-wrap-item-text">
-            {{ d.name }}
+            {{ d.customName }}
           </p>
           <div v-show="d.isShow">
             <star-button
               type="dark"
               class="card-wrap-item-btn"
-              @click="brakeDownNFT"
+              @click="brakeDownNFT(d)"
               >{{ $t("metaverse.break down") }}</star-button
             >
           </div>
@@ -86,15 +89,7 @@ const state = reactive({
   selectorDialogParams: computed(
     () => store.state.StoreMeta.selectorDialogParams
   ),
-  list: [
-    {
-      imageLink:
-        "https://imagedelivery.net/3mRLd_IbBrrQFSP57PNsVw/9d7e33c7-6627-4ad3-35a6-f3d4e120a800/public",
-      name: "哈咯 baby",
-      isShow: false,
-      amount: "121.22",
-    },
-  ],
+  allSplitNFT: computed(() => store.state.StoreMeta.allSplitNFT),
 });
 const emits = defineEmits(["handleClose", "handleSuccess", "handleFailed"]);
 
@@ -104,13 +99,12 @@ const handleClose = () => {
   });
 };
 
-const brakeDownNFT = () => {
-  store.dispatch("StoreMeta/breakDownNFTRole");
+const brakeDownNFT = (data) => {
+  store.dispatch("StoreMeta/breakDownNFTRole", data);
 };
-brakeDownNFT();
 
 const changeBtnStatus = (index, flag) => {
-  state.list[index].isShow = flag;
+  state.allSplitNFT[index].isShow = flag;
 };
 </script>
 <style lang="scss" scoped>

@@ -25,7 +25,7 @@
       </div>
     </div>
     <div :class="$style['main']">
-      <template v-if="!state.hasData">
+      <template v-if="state.elementList && state.elementList.length > 0">
         <div
           :class="[$style['main-item'], $style['main-item-pos']]"
           v-for="(d, i) in state.elementList"
@@ -33,7 +33,7 @@
           @click="selectElement(d, i)"
         >
           <div :class="$style['main-item-img']">
-            <img :src="d.img" />
+            <img :src="d.image" />
             <!-- <div
               :class="$style['main-item-img-active']"
               v-show="i === state.activeElement"
@@ -49,13 +49,11 @@
           <div :class="$style['main-item-info']">
             <span>
               <svg-icon name="rarity"></svg-icon>
-              <span>{{ d.rarity }}</span>
+              <span>{{ d.score }}</span>
             </span>
             <span :class="$style['main-item-info-amount']">
               <span>&times;</span>
-              <span style="margin-left: 3px">{{
-                calcAmount(d.amount, i)
-              }}</span>
+              <span style="margin-left: 3px">{{ calcAmount(d.sum, i) }}</span>
             </span>
           </div>
         </div>
@@ -87,7 +85,7 @@ const state = reactive({
   activeProperty: 0,
   activeElement: null,
   metaData: computed(() => store.state.StoreMeta.metaData),
-  elementList: computed(() => store.state.StoreMeta.elementList),
+  elementList: computed(() => store.getters["StoreMeta/elementList"]),
 });
 
 store.dispatch("StoreMeta/getNFTMeatInfo");
@@ -117,10 +115,12 @@ const calcAmount = (amount, index) =>
   }).value;
 
 const changeProperty = (d, i) => {
+  store.commit("StoreMeta/SET_CURR_NFT_PROPERTY", d);
   state.activeProperty = i;
 };
 </script>
 <style lang="scss" module>
+$mainHeight: 460px;
 @mixin activeBtnStyle {
   background: #ad865c;
   color: #fff;
@@ -149,19 +149,24 @@ const changeProperty = (d, i) => {
       }
     }
     .header-btn-wrap {
-      display: flex;
+      overflow: hidden;
+      width: 440px;
       .header-btn {
-        width: 64px;
+        min-width: 64px;
+        float: left;
         height: 32px;
+        padding: 0px 10px;
         border-radius: 8px;
         line-height: 32px;
         border: 1px solid #ad865c;
         box-sizing: border-box;
         color: #ad865c;
         font-size: 16px;
+        margin: 4px 0px;
+        margin-right: 6px;
         text-align: center;
         &:not(:first-child) {
-          margin-left: 10px;
+          // margin-left: 10px;
         }
         &:hover {
           cursor: pointer;
@@ -174,13 +179,13 @@ const changeProperty = (d, i) => {
     }
   }
   .main {
-    display: flex;
-    min-height: 500px;
+    height: $mainHeight;
     flex-wrap: wrap;
-    border: 1px solid red;
     align-content: flex-start;
+    overflow: scroll;
+    // background: red;
     .main-no-data {
-      // align-self: center;
+      align-self: center;
       width: 100%;
       height: 500px;
       display: flex;
@@ -193,14 +198,16 @@ const changeProperty = (d, i) => {
       }
     }
     .main-item-pos {
+      float: left;
       &:not(:nth-child(4n + 1)) {
         margin-left: 33px;
       }
     }
     .main-item {
       cursor: pointer;
-      height: 100%;
+      // height: 100%;
       margin-top: 20px;
+      float: left;
       .main-item-img {
         width: 102px;
         height: 102px;
