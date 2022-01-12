@@ -5,14 +5,14 @@
       v-if="state.walletStatus === 'connected'"
     >
       <template #nft-header v-if="state.coreType !== 'card'">
-        <nft-selector></nft-selector>
+        <nft-selector @filterEvent="changeListQuery"></nft-selector>
 
-        <list-screen
+        <!-- <list-screen
           @clickSelectJoint="clickSelectJoint"
           :showTips="false"
           :isShowSeries="true"
           :isShowSort="true"
-        ></list-screen>
+        ></list-screen> -->
 
         <div class="blind-box-list">
           <star-scroll
@@ -66,7 +66,6 @@
 <script setup>
 import { reactive, computed, onMounted, onUnmounted } from "vue";
 import StarNft from "@StarUI/StarNFT.vue";
-import ListScreen from "@components/NFT/ListScreen.vue";
 import NftNoConnectedWallet from "@components/NFT/NFTNoConnectedWallet.vue";
 import ListBlindBoxItem from "@components/NFT/ListBlindBoxItem.vue";
 import { useStore } from "vuex";
@@ -93,17 +92,11 @@ onUnmounted(() => {
   store.commit("StoreBuyBack/CLEAR_PARAMS_DATA");
 });
 
-const clickSelectJoint = (item) => {
-  // store.dispatch("StoreBuyBack/getBuyBacklist", {
-  //   sort: item.sort.value,
-  //   groupId: item.groupId,
-  // });
-
-  //   const { groupId, sort } = item;
-  store.dispatch("StoreBuyBack/changeListQuery", {
-    sort: item.sort.value,
-    groupId: item.groupId,
-  });
+const changeListQuery = (params) => {
+  store.dispatch(
+    "StoreNftMarket/changeListQuery",
+    Object.assign({}, params, { type: "init" })
+  );
 };
 
 // 查看卡片详情

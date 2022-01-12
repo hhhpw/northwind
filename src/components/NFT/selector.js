@@ -14,11 +14,11 @@ export const nftTypesList = [
   },
   {
     label: utilsFormat.computedLangCtx("重组NFT"),
-    value: "recombine_nft",
+    value: "composite_card ",
   },
   {
     label: utilsFormat.computedLangCtx("素材"),
-    value: "element",
+    value: "composite_element",
   },
 ];
 

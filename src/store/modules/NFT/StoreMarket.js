@@ -7,22 +7,23 @@ import utilsTool from "@utils/tool.js";
 import utilsFormat from "@utils/format";
 // import { cloneDeep } from "lodash";
 
-const INIT_LIST_PARAMS = {
-  groupId: "",
-  currency: "",
-  open: "all", // box // nft
-  sort: 0, // 3稀有度
-  pageSize: 30,
-  pageNum: 1,
-};
-
 // const INIT_LIST_PARAMS = {
-//   sortRule: "ctime",
 //   groupId: "",
-//   sort: 1, // 3稀有度
+//   currency: "",
+//   open: "all", // box // nft
+//   sort: 0, // 3稀有度
 //   pageSize: 30,
 //   pageNum: 1,
 // };
+
+const INIT_LIST_PARAMS = {
+  sortRule: "ctime", // price ctime rarity
+  groupId: 0,
+  nftType: "", //nft 原生nft/ box盲盒/ recombine组合nft/ element素材/元素
+  sort: 0, // 稀有度 1按照sortRule 字段，降序  2按照sortRule 字段，升序
+  pageSize: 4,
+  pageNum: 1,
+};
 
 const INIT_LIST_STATUS = {
   hasMore: true,
@@ -144,6 +145,7 @@ const StoreNftMarket = {
       if (type === "init") {
         res = await marketAPI.getMarketList(state.listParams);
       } else if (type === "scroll") {
+        console.log("=======yes====");
         if (state.listStatus && !state.listStatus.hasMore) {
           return;
         } else {

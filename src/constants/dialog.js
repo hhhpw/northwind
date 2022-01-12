@@ -13,6 +13,7 @@ export const WALLET_DIALOG_PARAMS = {
   handleClose: null,
   isUseStatusImg: true, // 是否使用自带的三种状态img
   isUseCustomContent: false, // 是否使用自定义内容
+  customContent: null, // 自定义数据
 };
 
 export const SECOND_DIALOG_PARAMS = {

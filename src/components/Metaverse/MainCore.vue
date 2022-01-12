@@ -36,11 +36,19 @@ const state = reactive({
   accounts: computed(() => store.state.StoreWallet.accounts),
 });
 
+store.dispatch("StoreMeta/getNFTMeatInfo");
+
 watchEffect(() => {
   if (state.accounts && state.accounts[0]) {
     store.dispatch("StoreMeta/getNFTDataByType", {
       userAddress: state.accounts[0],
       nftType: "split",
+    });
+  }
+  if (state.accounts && state.accounts[0]) {
+    store.dispatch("StoreMeta/getNFTDataByType", {
+      userAddress: state.accounts[0],
+      nftType: "element",
     });
   }
 });

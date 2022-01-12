@@ -9,9 +9,12 @@
       #star-wallet-dialog-custom-content
       v-if="state.dialogParams.isUseCustomContent"
     >
-      <div>
-        <p>{{ $t("metaverse.decomposed character cards succeed") }}</p>
-        <p>{{ $t("获得") }}</p>
+      <div class="break-down-nft-content">
+        <p style="positive: relative; top: -15px">{{ $t("获得") }}</p>
+        <div v-for="(d, i) in state.dialogParams.customContent" :key="i">
+          <span>{{ d.key }}</span>
+          <span>{{ d.value }}</span>
+        </div>
       </div>
     </template>
   </star-wallet-dialog>
@@ -26,4 +29,25 @@ const state = reactive({
   dialogParams: computed(() => store.state.StoreMeta.dialogParams),
 });
 </script>
-<style lang="scss" module></style>
+<style lang="scss" scoped>
+.break-down-nft-content {
+  padding: 0px 60px;
+  p,
+  span {
+    text-align: center;
+    color: #969696;
+    font-size: 16px;
+  }
+  div {
+    display: flex;
+    margin-bottom: 10px;
+    justify-content: space-between;
+    span + span {
+      color: #000;
+    }
+  }
+  div:last-child {
+    margin-bottom: 20px;
+  }
+}
+</style>

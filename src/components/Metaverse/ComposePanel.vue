@@ -85,7 +85,7 @@
 </template>
 <script setup>
 /* eslint-disable */
-import { computed, reactive } from "vue";
+import { computed, reactive, watch } from "vue";
 import StarButton from "@StarUI/StarButton.vue";
 import StarAmount from "@StarUI/StarAmount.vue";
 import utilsFormat from "@utils/format";
@@ -96,8 +96,6 @@ import connectLogic from "@mixins/wallet";
 import utilsRegExp from "@utils/regexp.js";
 import ValidateErrorModal from "./ValidateErrorModal.vue";
 
-// import { useI18n } from "vue-i18n";
-// const { t } = useI18n();
 const store = useStore();
 const { connectWallet } = connectLogic(store);
 
@@ -107,21 +105,14 @@ const state = reactive({
   currLang: computed(() => store.state.StoreApp.currLang),
   canGenerated: computed(() => store.getters["StoreMeta/canGenerated"]),
   totalScore: computed(() => store.getters["StoreMeta/totalScore"]),
+  accounts: computed(() => store.state.StoreWallet.accounts),
   selectedElementList: computed(
     () => store.state.StoreMeta.selectedElementList
   ),
   genderLabels: ["male", "female"],
   genderValue: "male",
   nameValue: "",
-  professionValue: 1,
-  professionOpts: computed(() => [
-    { value: 1, label: "冒险家" },
-    { value: 2, label: "极限玩家" },
-    { value: 3, label: "运动员" },
-    // { value: 5, label: "牧师" },
-    // { value: 6, label: "圣骑士" },
-    // { value: 7, label: "德鲁伊" },
-  ]),
+  professionValue: "Adventurer",
 });
 
 const selectGender = (gender) => {
@@ -143,9 +134,20 @@ const validateParams = (flag) => {
     ) {
       throw new Error("error");
     }
+    const queryElementList = state.selectedElementList.map((d) => {
+      const id = Object.values(d.chainNftIds)[0];
+      return {
+        id,
+        eleName: d.name,
+      };
+    });
     store.dispatch("StoreMeta/canCreateNFT", {
+      userAddress: state.accounts[0],
       customName: state.nameValue,
-      gender: state.genderValue,
+      sex: state.genderValue === "male" ? 1 : 0,
+      occupation: state.professionValue,
+      groupId: state.selectedElementList[0].groupId,
+      elementList: queryElementList,
     });
   } catch (e) {
     store.commit("StoreMeta/SET_CALLBACK_DIALOG_PARAMS_STATUS", {

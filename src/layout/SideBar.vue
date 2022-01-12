@@ -4,64 +4,73 @@
       <img src="../assets/sidebar/logo.png" @click="pushIndex" />
       <img src="../assets/sidebar/logo-title.png" @click="pushIndex" />
     </div>
-    <ul class="star-sidebar-menu">
-      <li v-for="(d, i) in menus" :key="i" @click="pushPage(d.path)">
-        <template v-if="!d.children">
-          <div class="star-sidebar-menu-item">
-            <star-light-block
-              v-if="d.path === state.currentRoute"
-            ></star-light-block>
-            <span class="star-sidebar-menu-item-label">{{ $t(d.label) }}</span>
-          </div>
-        </template>
-        <template v-if="d.children && d.children.length">
-          <div class="star-sidebar-submenu" @click="setCollapseStatus(d.label)">
-            <span>
-              {{ $t(d.label) }}
-            </span>
-            <svg-icon
-              :name="
-                !state.collapseObj[d.label]
-                  ? 'slider-arrow-down'
-                  : 'slider-arrow-up'
-              "
-              class="icon"
-            ></svg-icon>
-          </div>
-          <div
-            :style="{
-              height: state.collapseObj[d.label]
-                ? `${46 * d.children.length}px`
-                : '0px',
-            }"
-            class="star-sidebar-submenu-item-wrap"
-            :class="{ isActive: state.collapseObj[d.label] }"
-          >
-            <div
-              v-for="dd in d.children"
-              :key="dd"
-              class="star-sidebar-submenu-item"
-              @click.prevent="pushPage(dd.path)"
-            >
+    <div class="star-sidebar-h-wrap">
+      <ul class="star-sidebar-menu">
+        <li v-for="(d, i) in menus" :key="i" @click="pushPage(d.path)">
+          <template v-if="!d.children">
+            <div class="star-sidebar-menu-item">
               <star-light-block
-                v-if="showRouterTag(dd.path, state.currentRoute)"
+                v-if="d.path === state.currentRoute"
               ></star-light-block>
-              <span class="star-sidebar-submenu-label">{{ $t(dd.label) }}</span>
+              <span class="star-sidebar-menu-item-label">{{
+                $t(d.label)
+              }}</span>
             </div>
-          </div>
-        </template>
-      </li>
-    </ul>
-    <div class="star-sidebar-icons">
-      <a href="https://twitter.com/Kiko_verse" target="_blank"
-        ><img src="../assets/sidebar/twitter.png" alt=""
-      /></a>
-      <a href="https://t.me/kikoswap" target="_blank"
-        ><img src="../assets/sidebar/telegram.png" alt=""
-      /></a>
-      <a href="https://medium.com/@KikoResearch" target="_blank"
-        ><img src="../assets/sidebar/medium.png" alt=""
-      /></a>
+          </template>
+          <template v-if="d.children && d.children.length">
+            <div
+              class="star-sidebar-submenu"
+              @click="setCollapseStatus(d.label)"
+            >
+              <span>
+                {{ $t(d.label) }}
+              </span>
+              <svg-icon
+                :name="
+                  !state.collapseObj[d.label]
+                    ? 'slider-arrow-down'
+                    : 'slider-arrow-up'
+                "
+                class="icon"
+              ></svg-icon>
+            </div>
+            <div
+              :style="{
+                height: state.collapseObj[d.label]
+                  ? `${46 * d.children.length}px`
+                  : '0px',
+              }"
+              class="star-sidebar-submenu-item-wrap"
+              :class="{ isActive: state.collapseObj[d.label] }"
+            >
+              <div
+                v-for="dd in d.children"
+                :key="dd"
+                class="star-sidebar-submenu-item"
+                @click.prevent="pushPage(dd.path)"
+              >
+                <star-light-block
+                  v-if="showRouterTag(dd.path, state.currentRoute)"
+                ></star-light-block>
+                <span class="star-sidebar-submenu-label">{{
+                  $t(dd.label)
+                }}</span>
+              </div>
+            </div>
+          </template>
+        </li>
+      </ul>
+      <div class="star-sidebar-icons">
+        <a href="https://twitter.com/Kiko_verse" target="_blank"
+          ><img src="../assets/sidebar/twitter.png" alt=""
+        /></a>
+        <a href="https://t.me/kikoswap" target="_blank"
+          ><img src="../assets/sidebar/telegram.png" alt=""
+        /></a>
+        <a href="https://medium.com/@KikoResearch" target="_blank"
+          ><img src="../assets/sidebar/medium.png" alt=""
+        /></a>
+      </div>
     </div>
   </div>
 </template>
@@ -119,6 +128,12 @@ const showRouterTag = (path, currentRoute) => {
 <style lang="scss" scoped>
 @import "~@/styles/variables.scss";
 @import "~@/styles/mixin.scss";
+.star-sidebar-h-wrap {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 150px);
+  justify-content: space-between;
+}
 .star-sidebar {
   user-select: none;
   width: 200px;
@@ -155,6 +170,8 @@ const showRouterTag = (path, currentRoute) => {
     color: $text-brown-color;
     font-size: 16px;
     font-weight: 600;
+    min-height: 550px;
+    overflow-y: scroll;
     .star-sidebar-menu-item {
       display: flex;
       align-items: center;
@@ -211,7 +228,7 @@ const showRouterTag = (path, currentRoute) => {
   }
   .star-sidebar-icons {
     width: 160px;
-    position: fixed;
+    // position: fixed;
     bottom: 33px;
     display: inline-flex;
     margin-left: 18px;

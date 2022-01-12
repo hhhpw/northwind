@@ -6,14 +6,14 @@
     >
       <template #nft-header>
         <nft-selector @filterEvent="changeListQuery"></nft-selector>
-        <list-screen
+        <!-- <list-screen
           @clickSelectJoint="selectCallback"
           @clickRadio="clickRadio"
           :isShowOpenStatus="true"
           :showTips="false"
           :isShowSeries="true"
           :isShowSort="true"
-        ></list-screen>
+        ></list-screen> -->
         <div class="blind-box-list">
           <!-- <div :class="{ 'blind-box-list-wrap': state.loading }"> -->
           <star-scroll
@@ -73,9 +73,9 @@
 </template>
 <script setup>
 import StarNft from "@StarUI/StarNFT.vue";
-import { reactive, computed, onMounted, onUnmounted } from "vue";
+import { reactive, computed, onUnmounted } from "vue";
 import NftNoConnectedWallet from "@components/NFT/NFTNoConnectedWallet.vue";
-import ListScreen from "@components/NFT/ListScreen.vue";
+// import ListScreen from "@components/NFT/ListScreen.vue";
 import NftSelector from "@components/NFT/NFTSelector.vue";
 import ListBlindBoxItem from "@components/NFT/ListBlindBoxItem.vue";
 import StarScroll from "@StarUI/StarScroll.vue";
@@ -90,9 +90,9 @@ let state = reactive({
   listStatus: computed(() => store.state.StoreNftMarket.listStatus),
 });
 
-onMounted(() => {
-  store.dispatch("StoreNftMarket/queryMarketList", { type: "init" });
-});
+// onMounted(() => {
+//   store.dispatch("StoreNftMarket/queryMarketList", { type: "init" });
+// });
 
 onUnmounted(() => {
   store.commit("StoreNftMarket/CLEAR_DATA");
@@ -108,6 +108,10 @@ const watchDetail = (detail) => {
 
 const changeListQuery = (params) => {
   console.log("===changeListQuery====changeListQuery", params);
+  store.dispatch(
+    "StoreNftMarket/changeListQuery",
+    Object.assign({}, params, { type: "init" })
+  );
 };
 // 类型筛选
 // const selectCallback = (item) => {

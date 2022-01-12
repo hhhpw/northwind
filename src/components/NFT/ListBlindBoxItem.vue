@@ -41,7 +41,10 @@
             <!-- 稀有值 -->
             <span
               class="nft-blind-text-name-rarity"
-              v-if="baseData.type === 'nft' && baseData?.score"
+              v-if="
+                (baseData.type === 'nft' && baseData?.score) ||
+                (baseData.type === 'composite_card' && baseData?.score)
+              "
             >
               <ElTooltip
                 effect="light"
@@ -75,7 +78,9 @@
               baseData.boxToken.slice(-4)
             }}
           </span>
-          <span v-if="baseData.type === 'nft'">
+          <span
+            v-if="baseData.type === 'nft' || baseData.type === 'composite_card'"
+          >
             {{
               baseData.nftMeta.slice(0, 6) + "..." + baseData.nftMeta.slice(-4)
             }}

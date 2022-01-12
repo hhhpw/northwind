@@ -34,17 +34,12 @@
         >
           <div :class="$style['main-item-img']">
             <img :src="d.image" />
-            <!-- <div
-              :class="$style['main-item-img-active']"
-              v-show="i === state.activeElement"
-            > -->
             <img
               :class="$style['main-item-img-active']"
               src="../../assets/metaverse/selected.png"
               v-show="i === state.activeElement"
             />
             <svg-icon name="arrow"></svg-icon>
-            <!-- </div> -->
           </div>
           <div :class="$style['main-item-info']">
             <span>
@@ -64,7 +59,14 @@
       </template>
       <div :class="$style['main-no-data']" v-else>
         <no-element-item style="margin-top: 160px"></no-element-item>
-        <span>{{ $t("metaverse.break down nft detail description") }}</span>
+        <div>
+          <span>{{
+            $t("metaverse.break down nft detail description one")
+          }}</span>
+          <span>{{
+            $t("metaverse.break down nft detail description two")
+          }}</span>
+        </div>
       </div>
       <!-- <template v-else>
         <no-element-item :class="$style['main-no-data']"></no-element-item>
@@ -88,7 +90,7 @@ const state = reactive({
   elementList: computed(() => store.getters["StoreMeta/elementList"]),
 });
 
-store.dispatch("StoreMeta/getNFTMeatInfo");
+const activeMap = new Map();
 
 const selectElement = (ele, index) => {
   if (index === state.activeElement) {
@@ -97,9 +99,13 @@ const selectElement = (ele, index) => {
       data: ele,
     });
     state.activeElement = null;
+    activeMap.delete(state.activeProperty);
     return;
   }
   state.activeElement = index;
+  if (!activeMap.has(state.activeProperty)) {
+    activeMap.set(state.activeProperty, state.activeElement);
+  }
   store.dispatch("StoreMeta/setSelectedElementList", {
     type: "add",
     data: ele,
@@ -117,6 +123,11 @@ const calcAmount = (amount, index) =>
 const changeProperty = (d, i) => {
   store.commit("StoreMeta/SET_CURR_NFT_PROPERTY", d);
   state.activeProperty = i;
+  if (activeMap.has(state.activeProperty)) {
+    state.activeElement = activeMap.get(state.activeProperty);
+  } else {
+    state.activeElement = null;
+  }
 };
 </script>
 <style lang="scss" module>
@@ -191,10 +202,13 @@ $mainHeight: 460px;
       display: flex;
       flex-direction: column;
       align-items: center;
+      div {
+        margin-top: 60px;
+      }
       span {
         color: #a89587;
         font-size: 14px;
-        margin-top: 200px;
+        display: inline-block;
       }
     }
     .main-item-pos {

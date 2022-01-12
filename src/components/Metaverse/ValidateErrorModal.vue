@@ -45,7 +45,7 @@ const handleClose = () => {
 <style lang="scss" scoped>
 .meta-error-validate-modal {
   ::v-deep(.el-dialog) {
-    border-radius: 8px;
+    border-radius: 34px;
     .el-dialog__headerbtn:focus .el-dialog__close,
     .el-dialog__headerbtn:hover .el-dialog__close {
       color: $btn-orange-bgcolor;

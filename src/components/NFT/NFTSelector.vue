@@ -1,5 +1,5 @@
 <template>
-  <div class="nft-selector">
+  <div class="nft-selector" v-if="state.nftSeriesList">
     <div>
       <!-- 系列 -->
       <ElSelect
@@ -78,8 +78,7 @@ const state = reactive({
   sortList: sortList,
   sortRule: "ctime",
   sortDirValue: "asc",
-  // 1按照sortRule 字段，降序
-  // 2按照sortRule 字段，升序
+  initLoad: true,
 });
 
 if (!state.nftSeriesList) {
@@ -106,16 +105,39 @@ if (!state.nftSeriesList) {
   });
 }
 
-watchEffect(() => {
-  const params = {
-    sortRule: state.sortRule,
-    sort: state.sortDirValue === "asc" ? 1 : 2,
-    nftType: state.nftTypeValue,
-    groupId: state.nftSeriesValue,
-  };
-  console.log("params", params);
-  emits("filterEvent", params);
-});
+watch(
+  () => [
+    state.sortRule,
+    state.sortDirValue,
+    state.nftTypeValue,
+    state.nftSeriesValue,
+  ],
+  (newValues) => {
+    const params = {
+      sortRule: newValues[0],
+      sort: newValues[1] === "asc" ? 1 : 2,
+      nftType: newValues[2],
+      groupId: newValues[3],
+    };
+    emits("filterEvent", params);
+  },
+  {
+    deep: true,
+    immediate: true,
+    flush: "sync",
+  }
+);
+
+// watchEffect(() => {
+// const params = {
+//   sortRule: state.sortRule,
+//   sort: state.sortDirValue === "asc" ? 1 : 2,
+//   nftType: state.nftTypeValue,
+//   groupId: state.nftSeriesValue,
+// };
+//   console.log("params", params);
+//   emits("filterEvent", params);
+// });
 
 const selectSuffixIcon = () => {
   return <SvgIcon name="arrow-up-show"></SvgIcon>;
