@@ -35,9 +35,18 @@
         <div :class="$style['data-info-detail-left']">
           <div
             :class="$style['data-info-detail-btn']"
-            @click="pushIgo(state.countdown, state.igoList[state.activeIndex])"
+            @click="
+              pushIgo(
+                state.igoList[state.activeIndex].state,
+                state.igoList[state.activeIndex]
+              )
+            "
           >
-            {{ state.countdown ? $t("了解更多") : $t("kgstarter.敬请期待") }}
+            {{
+              state.igoList[state.activeIndex].state !== "preview"
+                ? $t("了解更多")
+                : $t("kgstarter.敬请期待")
+            }}
           </div>
           <div :class="$style['data-info-detail-contact']">
             <svg-icon
@@ -104,7 +113,7 @@ let state = reactive({
 });
 
 const pushIgo = (flag, data) => {
-  if (!flag) return;
+  if (flag === "preview") return;
   utilsTool.openNewWindow(`https://kgstarter.com/prodetail?pid=${data.id}`);
 };
 
@@ -127,7 +136,7 @@ const setActiveItem = (i) => {
   clearTimeout(state.timer);
   state.timer = null;
   state.countdown = null;
-  const timestamp = state.igoList[state.activeIndex].startTime;
+  const timestamp = state.igoList && state.igoList[state.activeIndex].startTime;
   if (!timestamp) return;
   if (!dayjs().isBefore(state.igoList[state.activeIndex].startTime)) {
     return;
