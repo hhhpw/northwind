@@ -12,11 +12,7 @@
     >
       <div class="content">
         <p>
-          {{
-            $t(
-              "the role card name is 0-10 English characters or special symbols"
-            )
-          }}
+          {{ state.callBackDialogParams.text }}
         </p>
         <star-button class="button" type="red" @click="handleClose">
           {{ $t("确认") }}

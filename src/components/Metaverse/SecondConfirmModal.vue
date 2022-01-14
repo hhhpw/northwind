@@ -12,7 +12,7 @@
           <p style="margin-top: 10px">
             {{
               $t("metaverse.casting cost", {
-                amount: 28,
+                amount: state.metaData.compositeFee,
                 currency: "STC",
               })
             }}
@@ -31,6 +31,7 @@ const store = useStore();
 
 const state = reactive({
   secondDialogParams: computed(() => store.state.StoreMeta.secondDialogParams),
+  metaData: computed(() => store.state.StoreMeta.metaData),
 });
 </script>
 <style lang="scss" module>

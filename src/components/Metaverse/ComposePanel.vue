@@ -51,7 +51,7 @@
         </div>
         <ElSelect
           v-model="state.professionValue"
-          :suffix-icon="selectSuffixIcon"
+          :suffix-icon="selectSuffixIcon()"
           :popper-append-to-body="false"
         >
           <ElOption
@@ -69,7 +69,8 @@
         :type="state.canGenerated ? 'dark' : 'disabled'"
         @click="validateParams(state.canGenerated)"
         >{{
-          $t("metaverse.generate NFT character cards") + ` (29STC)`
+          $t("metaverse.generate NFT character cards") +
+          ` (${state.metaData.compositeFee})STC`
         }}</star-button
       >
       <star-button
@@ -138,7 +139,7 @@ const validateParams = (flag) => {
       const id = Object.values(d.chainNftIds)[0];
       return {
         id,
-        eleName: d.name,
+        eleName: d.eleName,
       };
     });
     store.dispatch("StoreMeta/canCreateNFT", {

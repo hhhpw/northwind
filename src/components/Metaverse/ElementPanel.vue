@@ -33,7 +33,7 @@
           @click="selectElement(d, i)"
         >
           <div :class="$style['main-item-img']">
-            <img :src="d.image" />
+            <img :src="d.image" :class="$style['main-item-img-element']" />
             <img
               :class="$style['main-item-img-active']"
               src="../../assets/metaverse/selected.png"
@@ -228,6 +228,8 @@ $mainHeight: 460px;
         border-radius: 4px;
         position: relative;
         overflow: hidden;
+        box-sizing: border-box;
+        border: 1px solid rgba(251, 128, 0, 0.52);
         img {
           width: 100%;
           height: 100%;

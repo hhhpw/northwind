@@ -333,7 +333,7 @@
     "generate NFT character cards": "生成NFT角色卡牌",
     "generating character cards": "正在生成角色卡牌",
     "generated character cards succeed": "角色卡牌创建成功",
-    "generated character cards failed": "角色卡牌创建成功",
+    "generated character cards failed": "角色卡牌创建失败",
     "breaking down character cards": "正在分解角色卡牌",
     "decomposed character cards succeed": "卡片分解成功",
     "decomposed character cards failed": "卡片分解失败",

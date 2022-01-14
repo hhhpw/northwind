@@ -163,7 +163,7 @@ const onceWatch = watchEffect(() => {
   }
 });
 
-const polling = (fn) => {
+let polling = (fn) => {
   return new Promise((resolve) => {
     fn();
     setTimeout(() => {
@@ -175,6 +175,7 @@ const polling = (fn) => {
 polling(getMiningData);
 
 onUnmounted(() => {
+  polling = null;
   store.commit("StoreNFTMining/CLEAR_DATA");
 });
 </script>
@@ -183,10 +184,7 @@ onUnmounted(() => {
   position: absolute;
   height: 20px;
   width: 20px;
-  // background: red;
-  // background: #ecdfce;
   transform: rotate(45deg);
-  // border: transparent;
 }
 .mining-core-container {
   background-image: url("../../../assets/nft/nft-mining.png");

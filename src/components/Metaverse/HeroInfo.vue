@@ -8,7 +8,9 @@
           text: $t('不可点击'),
         })
       "
-    ></div>
+    >
+      <p>COMING SOON..</p>
+    </div>
   </div>
   <validate-error-modal></validate-error-modal>
 </template>
@@ -38,6 +40,14 @@ const store = useStore();
     border-radius: 16px;
     transform: scale(0.925, 0.95);
     z-index: 9;
+    p {
+      color: #fff;
+      text-align: center;
+      position: absolute;
+      bottom: 20px;
+      left: 0;
+      right: 0;
+    }
   }
 }
 </style>

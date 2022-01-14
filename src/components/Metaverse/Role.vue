@@ -74,7 +74,9 @@ const changeMainType = () => {
     // 清空所有元素
   }
   if (state.type === "generated") {
-    store.commit("StoreMeta/CHANGE_MAIN_STATUS", "not-generated");
+    store.commit("StoreMeta/CHANGE_MAIN_STATUS", {
+      type: "not-generated",
+    });
   }
 };
 </script>

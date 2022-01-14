@@ -4,8 +4,9 @@ import metaApi from "@api/meta.js";
 import utilsFormat from "@utils/format";
 import utilsNumber from "@utils/number";
 import utilsTool from "@utils/tool.js";
-import Wallet from "@wallet";
+import Wallet from "@wallet/meta";
 import collectionApi from "@api/nft/collection.js";
+import CONSTANTS_TOKEN from "@constants/token.js";
 import {
   WALLET_DIALOG_PARAMS,
   SECOND_DIALOG_PARAMS,
@@ -30,19 +31,22 @@ const handleWalletCloseEvent = (commit) => {
     200
   );
 };
+const handleReload = () => {
+  window.location.reload();
+};
+
 const StoreMeta = {
   namespaced: true,
   moduleName: "StoreMeta",
   state: {
+    heroInfo: null,
     metaData: null,
     secondDialogParams: SECOND_DIALOG_PARAMS,
     selectorDialogParams: INIT_SELECTOR_DIALOG_PARAMS,
     dialogParams: WALLET_DIALOG_PARAMS,
     callBackDialogParams: INIT_CALL_BACK_DIALOG_PARAMS,
     selectedElementList: [],
-    // 元素列表
     type: "not-generated", // generated not-generated
-
     composeNFT: [],
     allSplitNFT: [],
     allElements: null,
@@ -70,7 +74,6 @@ const StoreMeta = {
   },
   mutations: {
     [types.SET_CURR_NFT_PROPERTY](state, payload) {
-      // const property = payload.desc.toLowerCase();
       state.currProto = payload;
     },
     [types.SET_USER_DATA](state, payload) {
@@ -83,7 +86,13 @@ const StoreMeta = {
       state.selectedElementList = payload;
     },
     [types.CHANGE_MAIN_STATUS](state, payload) {
-      state.type = payload;
+      const { type, data } = payload;
+      state.type = type;
+      if (payload === "generated") {
+        state.heroInfo = data;
+      } else {
+        state.heroInfo = null;
+      }
     },
     [types.SET_SECOND_DIALOG_PARAMS_STATUS](state, payload) {
       state.secondDialogParams = Object.assign(
@@ -139,7 +148,7 @@ const StoreMeta = {
     async getNFTMeatInfo({ commit }) {
       const res = await metaApi.getNFTMeatInfo();
       if (res.code === 200) {
-        let { elements, occupations } = res.data;
+        let { elements, occupations, compositeFee } = res.data;
         occupations = occupations[0].map((d, i) => {
           return {
             ...d,
@@ -149,6 +158,7 @@ const StoreMeta = {
         commit(types.SET_META_DATA, {
           occupations,
           property: elements,
+          compositeFee,
         });
         commit(types.SET_CURR_NFT_PROPERTY, elements[0]);
       }
@@ -158,47 +168,136 @@ const StoreMeta = {
     },
 
     // 生成
-    generateNFTRole({ rootState, commit }) {
+    async generateNFTRole({ rootState, commit, state }, payload) {
+      commit(types.SET_SECOND_DIALOG_PARAMS_STATUS, SECOND_DIALOG_PARAMS);
       commit(types.SET_WALLET_DIALOG_PARAMS_STATUS, {
         dialogVisible: true,
+        isShowClose: false,
         dialogText: utilsFormat.computedLangCtx(
           "metaverse.generating character cards"
         ),
       });
       // 钱包账户不够
-      // const balances = rootState.StoreWallet.balances;
-      // console.log("balances", balances);
-      // if (
-      //   !balances?.["0x1::STC::ST"] ||
-      //   utilsNumber
-      //     .bigNum(utilsFormat.formatBalance(balances["0x1::STC::ST"], 9))
-      //     .lte(25)
-      // ) {
-      //   commit(types.SET_WALLET_DIALOG_PARAMS_STATUS, {
-      //     dialogText: utilsFormat.computedLangCtx(
-      //       "metaverse.generated character cards failed"
-      //     ),
-      //     failedBtnText: utilsFormat.computedLangCtx("确认"),
-      //   });
-      // }
-      // if (balances[])
-      // // 成功
-      // commit(types.SET_WALLET_DIALOG_PARAMS_STATUS, {
-      //   dialogText: utilsFormat.computedLangCtx(
-      //     "metaverse.generated character cards succeed"
-      //   ),
-      //   successBtnText: utilsFormat.computedLangCtx("确认"),
-      // });
-      // // 失败
-      // commit(types.SET_WALLET_DIALOG_PARAMS_STATUS, {
-      //   dialogText: utilsFormat.computedLangCtx(
-      //     "metaverse.generated character cards failed"
-      //   ),
-      //   failedBtnText: utilsFormat.computedLangCtx("确认"),
-      // });
+      const balances = rootState.StoreWallet.balances;
+      if (
+        !balances?.[CONSTANTS_TOKEN.STC] ||
+        utilsNumber
+          .bigNum(utilsFormat.formatBalance(balances[CONSTANTS_TOKEN.STC], 9))
+          .lte(state.metaData.compositeFee)
+      ) {
+        commit(types.SET_WALLET_DIALOG_PARAMS_STATUS, {
+          dialogText: utilsFormat.computedLangCtx(
+            "metaverse.generated character cards failed"
+          ),
+          dialogStatus: "failed",
+          failedBtnText: utilsFormat.computedLangCtx("确认"),
+          handleFailed: () => handleWalletCloseEvent(commit),
+          handleClose: () => handleWalletCloseEvent(commit),
+        });
+      }
+      try {
+        const composeData = await metaApi.compositeCard(payload);
+        if (composeData.code === 200) {
+          const { nftInfoId, image, description, name } = composeData.data;
+          const { elementList, occupation, sex, customName } = payload;
+          const { property } = state.metaData;
+          // 在所有的元素里过滤到未选择的
+          // 并获取到位置key
+          // 在从个人elementmap里获取chaind，value
+          // {index:key, chainId: value}
+          let filterElements = [];
+          for (let i = 0; i < elementList.length; i++) {
+            // 挑选所选择素材的id
+            const t = property.filter(
+              (d) => d.desc === elementList[i].eleName
+            )[0];
+            filterElements.push(t);
+          }
+          const allElements = state.allElements;
+          const values = Object.values(allElements);
+          for (let i = 0; i < filterElements.length; i++) {
+            for (let k = 0; k < values.length; k++) {
+              if (filterElements[i].desc === values[k][0].eleName) {
+                const chainId = Object.keys(values[k][0].chainNftIds);
+                filterElements[i].chainId = chainId[0];
+              }
+            }
+          }
+          const selectedIds = filterElements.map((d) => {
+            return {
+              chainId: d.chainId,
+              index: d.id,
+            };
+          });
+          const provider = rootState.StoreWallet.stcProvider;
+          const params = {
+            provider,
+            info: {
+              name,
+              image,
+              description,
+              occupation,
+              custom_name: customName,
+              sex,
+              selectedIds,
+            },
+          };
+          const txnHash = await Wallet.composeNFT(params);
+          if (txnHash === "error") {
+            throw new Error();
+          }
+          commit(types.SET_WALLET_DIALOG_PARAMS_STATUS, {
+            phase1: "succeed",
+          });
+          utilsTool.getChainTransactionInfo({ txnHash }).then((res) => {
+            if (res?.status === "Executed") {
+              commit(types.SET_WALLET_DIALOG_PARAMS_STATUS, {
+                phase2: "succeed",
+              });
+              const handleSucceed = () => {
+                commit(
+                  types.SET_WALLET_DIALOG_PARAMS_STATUS,
+                  WALLET_DIALOG_PARAMS
+                );
+                commit(types.CHANGE_MAIN_STATUS, {
+                  data: Object.assign({}, payload, {
+                    imageUrl: image,
+                  }),
+                  type: "generated",
+                });
+              };
+              setTimeout(() => {
+                commit(types.SET_WALLET_DIALOG_PARAMS_STATUS, {
+                  dialogStatus: "succeed",
+                  successBtnText: utilsFormat.computedLangCtx("确认"),
+                  dialogText: utilsFormat.computedLangCtx(
+                    "metaverse.generated character cards succeed"
+                  ),
+                  handleSucceed: handleSucceed,
+                  handleClose: handleSucceed,
+                  isUseCustomContent: false,
+                });
+              }, 1500);
+            } else {
+              throw new Error();
+            }
+          });
+        }
+      } catch {
+        commit(types.SET_WALLET_DIALOG_PARAMS_STATUS, {
+          dialogStatus: "failed",
+          dialogText: utilsFormat.computedLangCtx(
+            "metaverse.generated character cards failed"
+          ),
+          isUseCustomContent: false,
+          failedBtnText: utilsFormat.computedLangCtx("确认"),
+          handleFailed: () => handleWalletCloseEvent(commit),
+          handleClose: () => handleWalletCloseEvent(commit),
+        });
+      }
     },
 
-    canCreateNFT({ commit, dispatch }) {
+    canCreateNFT({ commit, dispatch }, payload) {
       const handleClose = () => {
         commit(types.SET_SECOND_DIALOG_PARAMS_STATUS, {
           dialogVisible: false,
@@ -211,13 +310,13 @@ const StoreMeta = {
         handleCancel: handleClose,
         handleClose: handleClose,
         handleConfirm: () => {
-          dispatch("generateNFTRole");
+          dispatch("generateNFTRole", payload);
         },
       });
     },
 
     // 获取NFT
-    async getNFTDataByType({ rootState, commit }, payload) {
+    async getNFTDataByType({ commit }, payload) {
       const res = await metaApi.getNFTDataByType(payload);
       if (res.code === 200) {
         const { cardList, elementMap } = res.data;
@@ -256,13 +355,11 @@ const StoreMeta = {
       commit(types.SET_SELECTOR_DIALOG_PARAMS, { dialogVisible: false });
       commit(types.SET_WALLET_DIALOG_PARAMS_STATUS, {
         dialogVisible: true,
+        isShowClose: false,
         dialogText: utilsFormat.computedLangCtx(
           "metaverse.breaking down character cards"
         ),
       });
-      const handleReload = () => {
-        window.location.reload();
-      };
       try {
         const nftDetail = await collectionApi.getNftDetail(
           payload.nftMeta,
@@ -313,7 +410,7 @@ const StoreMeta = {
                 });
               }, 1500);
             } else {
-              throw new Error("stakeNFT-error");
+              throw new Error();
             }
           });
         }

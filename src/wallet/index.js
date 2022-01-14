@@ -3,6 +3,8 @@ import StarMaskOnboarding from "@starcoin/starmask-onboarding";
 import utilsNumber from "@utils/number.js";
 import { providers, utils, bcs } from "@starcoin/starcoin";
 import { arrayify, hexlify } from "@ethersproject/bytes";
+import nftproto from "./nftproto.js";
+import { cloneDeep } from "lodash";
 
 /**
  *  StarMaskOnboarding 实例化
@@ -449,82 +451,6 @@ const unStakeNFT = async ({ provider, order, meta, body }) => {
 };
 /**** NFT挖矿  ****/
 
-/**** NFT META  ****/
-// 分解NFT
-const breakDownNFT = async ({ provider, nftId }) => {
-  try {
-    const funcId =
-      process.env.VUE_APP_NFT_META_ADDRESS +
-      process.env.VUE_APP_NFT_META_BREAK_DOWN_FUNCTION_ID;
-    const tyArgs = [];
-    const args = [nftId];
-    console.log(
-      "funcId",
-      funcId,
-      "tyArgs",
-      tyArgs,
-      "args",
-      args,
-      process.env.VUE_APP_STAR_COIN_URL
-    );
-    const scriptFunction = await utils.tx.encodeScriptFunctionByResolve(
-      funcId,
-      tyArgs,
-      args,
-      process.env.VUE_APP_STAR_COIN_URL
-    );
-    const payloadInHex = (function () {
-      const se = new bcs.BcsSerializer();
-      scriptFunction.serialize(se);
-      return hexlify(se.getBytes());
-    })();
-    const txhash = await provider.getSigner().sendUncheckedTransaction({
-      data: payloadInHex,
-    });
-    return txhash;
-  } catch (e) {
-    console.error("unstakeNFT", e);
-    return "error";
-  }
-};
-
-const composeNFT = async ({ provider, nftId }) => {
-  try {
-    const funcId =
-      process.env.VUE_APP_NFT_META_ADDRESS +
-      process.env.VUE_APP_NFT_MEAT_COMPOSE_CUSTOM_FUNCTION_ID;
-    const tyArgs = [];
-    const args = [nftId];
-    console.log(
-      "funcId",
-      funcId,
-      "tyArgs",
-      tyArgs,
-      "args",
-      args,
-      process.env.VUE_APP_STAR_COIN_URL
-    );
-    const scriptFunction = await utils.tx.encodeScriptFunctionByResolve(
-      funcId,
-      tyArgs,
-      args,
-      process.env.VUE_APP_STAR_COIN_URL
-    );
-    const payloadInHex = (function () {
-      const se = new bcs.BcsSerializer();
-      scriptFunction.serialize(se);
-      return hexlify(se.getBytes());
-    })();
-    const txhash = await provider.getSigner().sendUncheckedTransaction({
-      data: payloadInHex,
-    });
-    return txhash;
-  } catch (e) {
-    console.error("unstakeNFT", e);
-    return "error";
-  }
-};
-/**** NFT META  ****/
 export default {
   createStcProvider,
   connect,
@@ -543,6 +469,4 @@ export default {
   starMaskSign,
   stakeNFT,
   unStakeNFT,
-  breakDownNFT,
-  composeNFT,
 };
