@@ -22,6 +22,18 @@ const INIT_CALL_BACK_DIALOG_PARAMS = {
   text: "",
 };
 
+// const a = {
+//   customName: "h4",
+//   // id: 28560, eleName: 'Background',
+//   // id: 28561, eleName: 'Clothes',
+//   // id: 28562, eleName: 'Facial Expression'
+//   groupId: 10011,
+//   imageUrl:
+//     "https://imagedelivery.net/3mRLd_IbBrrQFSP57PNsVw/1e229281-561b-4c11-72c3-6a45bb682200/public",
+//   occupation: "Athletes",
+//   sex: 1,
+//   userAddress: "0x16d2e435cebab5eabbfd16402d4b22ea",
+// };
 const handleWalletCloseEvent = (commit) => {
   commit(types.SET_WALLET_DIALOG_PARAMS_STATUS, {
     dialogVisible: false,
@@ -86,9 +98,12 @@ const StoreMeta = {
       state.selectedElementList = payload;
     },
     [types.CHANGE_MAIN_STATUS](state, payload) {
+      console.log("payload", payload);
       const { type, data } = payload;
       state.type = type;
-      if (payload === "generated") {
+      if (payload.type === "generated") {
+        console.log("===data====", data);
+
         state.heroInfo = data;
       } else {
         state.heroInfo = null;
@@ -259,6 +274,12 @@ const StoreMeta = {
                   types.SET_WALLET_DIALOG_PARAMS_STATUS,
                   WALLET_DIALOG_PARAMS
                 );
+                console.log(
+                  "====[[]]]]]===",
+                  Object.assign({}, payload, {
+                    imageUrl: image,
+                  })
+                );
                 commit(types.CHANGE_MAIN_STATUS, {
                   data: Object.assign({}, payload, {
                     imageUrl: image,
@@ -276,6 +297,7 @@ const StoreMeta = {
                   handleSucceed: handleSucceed,
                   handleClose: handleSucceed,
                   isUseCustomContent: false,
+                  isShowClose: true,
                 });
               }, 1500);
             } else {
@@ -285,6 +307,7 @@ const StoreMeta = {
         }
       } catch {
         commit(types.SET_WALLET_DIALOG_PARAMS_STATUS, {
+          isShowClose: true,
           dialogStatus: "failed",
           dialogText: utilsFormat.computedLangCtx(
             "metaverse.generated character cards failed"
@@ -367,53 +390,53 @@ const StoreMeta = {
           payload.chainId,
           payload.payToken
         );
-        if (nftDetail.code === 200) {
-          console.log("====nftDetail=====", nftDetail.data);
-          let { compositeElements } = nftDetail.data;
-          compositeElements = compositeElements.map((d) => {
-            return {
-              key: utilsFormat.computedLangCtx(`nftproperty.${d.type}`),
-              value: d.property,
-            };
-          });
-          const params = {
-            provider: rootState.StoreWallet.stcProvider,
-            nftId: payload.chainId,
-          };
+        // if (nftDetail.code === 200) {
+        // console.log("====nftDetail=====", nftDetail.data);
+        // let { compositeElements } = nftDetail.data;
+        // compositeElements = compositeElements.map((d) => {
+        //   return {
+        //     key: utilsFormat.computedLangCtx(`nftproperty.${d.type}`),
+        //     value: d.property,
+        //   };
+        // });
+        const params = {
+          provider: rootState.StoreWallet.stcProvider,
+          nftId: payload.chainId,
+        };
 
-          const txnHash = await Wallet.breakDownNFT(params);
-          if (txnHash === "error") {
+        const txnHash = await Wallet.breakDownNFT(params);
+        if (txnHash === "error") {
+          throw new Error();
+        }
+        commit(types.SET_WALLET_DIALOG_PARAMS_STATUS, {
+          phase1: "succeed",
+        });
+        utilsTool.getChainTransactionInfo({ txnHash }).then((res) => {
+          if (res?.status === "Executed") {
+            commit(types.SET_WALLET_DIALOG_PARAMS_STATUS, {
+              phase2: "succeed",
+            });
+
+            setTimeout(() => {
+              commit(types.SET_WALLET_DIALOG_PARAMS_STATUS, {
+                dialogStatus: "succeed",
+                successBtnText: utilsFormat.computedLangCtx("确认"),
+                isShowClose: true,
+                dialogText: utilsFormat.computedLangCtx(
+                  "metaverse.decomposed character cards succeed"
+                ),
+                handleSucceed: handleReload,
+                handleClose: handleReload,
+                isUseCustomContent: true,
+                isUseStatusImg: false,
+                // customContent: compositeElements,
+              });
+            }, 1500);
+          } else {
             throw new Error();
           }
-          commit(types.SET_WALLET_DIALOG_PARAMS_STATUS, {
-            phase1: "succeed",
-          });
-          utilsTool.getChainTransactionInfo({ txnHash }).then((res) => {
-            if (res?.status === "Executed") {
-              commit(types.SET_WALLET_DIALOG_PARAMS_STATUS, {
-                phase2: "succeed",
-              });
-
-              setTimeout(() => {
-                commit(types.SET_WALLET_DIALOG_PARAMS_STATUS, {
-                  dialogStatus: "succeed",
-                  successBtnText: utilsFormat.computedLangCtx("确认"),
-                  isShowClose: true,
-                  dialogText: utilsFormat.computedLangCtx(
-                    "metaverse.decomposed character cards succeed"
-                  ),
-                  handleSucceed: handleReload,
-                  handleClose: handleReload,
-                  isUseCustomContent: true,
-                  isUseStatusImg: false,
-                  customContent: compositeElements,
-                });
-              }, 1500);
-            } else {
-              throw new Error();
-            }
-          });
-        }
+        });
+        // }
       } catch {
         commit(types.SET_WALLET_DIALOG_PARAMS_STATUS, {
           dialogVisible: true,

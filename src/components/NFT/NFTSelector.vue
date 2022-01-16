@@ -4,7 +4,7 @@
       <!-- 系列 -->
       <ElSelect
         v-model="state.nftSeriesValue"
-        :suffix-icon="selectSuffixIcon"
+        :suffix-icon="SelectSuffix"
         :popper-append-to-body="false"
       >
         <ElOption
@@ -18,7 +18,7 @@
       <ElSelect
         class="type-select"
         v-model="state.nftTypeValue"
-        :suffix-icon="selectSuffixIcon"
+        :suffix-icon="SelectSuffix"
         :popper-append-to-body="false"
       >
         <ElOption
@@ -45,7 +45,7 @@
       <ElSelect
         class="sort-select"
         v-model="state.sortRule"
-        :suffix-icon="selectSuffixIcon"
+        :suffix-icon="SelectSuffix"
         :popper-append-to-body="false"
       >
         <ElOption
@@ -64,6 +64,7 @@ import { computed, onMounted, reactive, watch, watchEffect } from "vue";
 import { useStore } from "vuex";
 import commonApi from "@api/common";
 import { useI18n } from "vue-i18n";
+import SelectSuffix from "@components/SelectSuffix.vue";
 const { t } = useI18n();
 const store = useStore();
 import SvgIcon from "@components/SvgIcon/Index.vue";
@@ -138,10 +139,6 @@ watch(
 //   console.log("params", params);
 //   emits("filterEvent", params);
 // });
-
-const selectSuffixIcon = () => {
-  return <SvgIcon name="arrow-up-show"></SvgIcon>;
-};
 
 const changeSortDir = () => {
   // if (state.sortDirValue) {}

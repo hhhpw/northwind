@@ -141,7 +141,6 @@ $mainHeight: 460px;
   // background: red;
   width: 600px;
   height: 600px;
-  border: 1px solid red;
   background-image: url("../../assets/metaverse/left-bg.png");
   background-repeat: no-repeat;
   background-size: 100% 100%;

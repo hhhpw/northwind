@@ -59,7 +59,6 @@ watchEffect(() => {
   overflow: hidden;
   margin: 0 auto;
   margin-top: 20px;
-  border: 1px solid red;
   .main {
     display: flex;
     margin-top: 30px;

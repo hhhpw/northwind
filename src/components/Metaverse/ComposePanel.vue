@@ -51,7 +51,7 @@
         </div>
         <ElSelect
           v-model="state.professionValue"
-          :suffix-icon="selectSuffixIcon()"
+          :suffix-icon="SelectSuffix"
           :popper-append-to-body="false"
         >
           <ElOption
@@ -96,7 +96,7 @@ import { useStore } from "vuex";
 import connectLogic from "@mixins/wallet";
 import utilsRegExp from "@utils/regexp.js";
 import ValidateErrorModal from "./ValidateErrorModal.vue";
-
+import SelectSuffix from "@components/SelectSuffix.vue";
 const store = useStore();
 const { connectWallet } = connectLogic(store);
 
@@ -118,10 +118,6 @@ const state = reactive({
 
 const selectGender = (gender) => {
   state.genderValue = gender;
-};
-
-const selectSuffixIcon = () => {
-  return <SvgIcon name="arrow-up-show"></SvgIcon>;
 };
 
 const validateParams = (flag) => {
@@ -229,10 +225,13 @@ $bgColor2: #fcf7f1;
       color: $fontColor;
       background-color: $borderColor;
     }
-    .el-select-dropdown__item.hover,
+    .el-select-dropdown__item.hover {
+      color: $fontColor;
+      background-color: rgba(235, 213, 189, 0.6) !important;
+    }
     .el-select-dropdown__item:hover {
       color: $fontColor;
-      background-color: rgba(235, 213, 189, 0.6);
+      background-color: rgba(235, 213, 189, 0.3);
     }
   }
   ::v-deep(.el-popper.is-light .el-popper__arrow::before) {
@@ -259,7 +258,7 @@ $bgColor2: #fcf7f1;
     text-align: center;
     height: 304px;
     margin: 0 auto;
-    border: 1px solid red;
+    border: 1px dashed rgba(251, 128, 0, 0.52);
     .role-box-score {
       z-index: 99;
       min-width: 62px;
