@@ -35,12 +35,12 @@
       <div class="right-info">
         <div class="right-top-bae-info">
           <div class="base-info-title">
-            <span class="base-info-color" v-if="state.is_blind_open">{{
-              props.box_detail.seriesName
+            <span class="base-info-color">{{
+              state.is_blind_open
+                ? props.box_detail.seriesName
+                : props.box_detail.name
             }}</span>
-            <span class="base-info-color" v-if="!state.is_blind_open">{{
-              props.box_detail.name
-            }}</span>
+
             <!-- <span
               class="base-info-title-rarity"
               v-if="state.is_blind_open && props.box_detail?.score"
@@ -66,17 +66,19 @@
             <!-- 素材 -->
             <div
               class="base-info-item"
-              v-if="state.is_blind_open && props.box_detail?.score"
+              v-if="state.is_blind_open && props.box_detail.nftType"
             >
-              <span class="title">{{ $t("素材") }}</span>
+              <span class="title">{{ $t("类型") }}</span>
               <span class="value">
-                <star-amount
-                  :value="props.box_detail?.score"
-                  :formatOptions="{
-                    precision: 2,
-                  }"
-                >
-                </star-amount>
+                <span v-if="props.box_detail.nftType === 'COMPOSITE_ELEMENT'">
+                  {{ $t("素材") }}
+                </span>
+                <span v-if="props.box_detail.nftType === 'COMPOSITE_CARD'">
+                  {{ $t("重组NFT") }}
+                </span>
+                <span v-if="props.box_detail.nftType === 'NORMAL'">
+                  {{ $t("原生NFT") }}
+                </span>
               </span>
             </div>
             <!-- 稀有值 -->
@@ -95,8 +97,7 @@
                 </star-amount>
               </span>
             </div>
-            <star-space :size="20"></star-space>
-            <div class="base-info-item">
+            <div class="base-info-item" style="margin-top: 20px">
               <span class="title">{{ $t("创建者") }}</span>
               <span
                 class="value"
@@ -195,7 +196,7 @@ import utilsTools from "@utils/tool";
 import NftDetailHistory from "./NFTDetailHistory.vue";
 import NftDetailTab from "./NFTDetailTab.vue";
 import StarAmount from "@StarUI/StarAmount.vue";
-import StarSpace from "@StarUI/StarSpace.vue";
+// import StarSpace from "@StarUI/StarSpace.vue";
 
 const store = useStore();
 let state = reactive({
@@ -247,7 +248,11 @@ let state = reactive({
     }
   }),
   nft_address: computed(() => {
-    if (props.blind_box_type === "nft") {
+    if (
+      props.blind_box_type === "nft" ||
+      props.blind_box_type === "composite_card" ||
+      props.blind_box_type === "composite_element"
+    ) {
       return `${props.box_detail.nftMeta}`;
     } else {
       return props.box_detail && props.box_detail.boxToken;

@@ -1,16 +1,19 @@
 <template>
   <div :class="$style['role']">
     <!-- 无角色卡片 -->
-    <!-- <div :class="$style['role-no-character']">
+    <div
+      :class="$style['role-no-character']"
+      v-if="!state.composeNFT || state.composeNFT.length < 1"
+    >
       <p>
         {{ $t("metaverse.character card not obtained") }}
       </p>
       <p>
         {{ $t("metaverse.character card making") }}
       </p>
-    </div> -->
+    </div>
     <!-- 角色卡片 -->
-    <div :class="$style['role-character']">
+    <div :class="$style['role-character']" v-else>
       <div
         v-for="(d, i) in state.composeNFT"
         :key="i"
@@ -47,17 +50,6 @@ const state = reactive({
   maskDOMs: [],
   type: computed(() => store.state.StoreMeta.type),
   composeNFT: computed(() => store.state.StoreMeta.composeNFT),
-  roleLists: [
-    "https://imagedelivery.net/3mRLd_IbBrrQFSP57PNsVw/9d7e33c7-6627-4ad3-35a6-f3d4e120a800/public",
-    "https://imagedelivery.net/3mRLd_IbBrrQFSP57PNsVw/a514fbd5-36c0-47a3-9f7e-819541c03300/public",
-    "https://imagedelivery.net/3mRLd_IbBrrQFSP57PNsVw/9d7e33c7-6627-4ad3-35a6-f3d4e120a800/public",
-    "https://imagedelivery.net/3mRLd_IbBrrQFSP57PNsVw/9d7e33c7-6627-4ad3-35a6-f3d4e120a800/public",
-    "https://imagedelivery.net/3mRLd_IbBrrQFSP57PNsVw/a514fbd5-36c0-47a3-9f7e-819541c03300/public",
-    "https://imagedelivery.net/3mRLd_IbBrrQFSP57PNsVw/9d7e33c7-6627-4ad3-35a6-f3d4e120a800/public",
-    "https://imagedelivery.net/3mRLd_IbBrrQFSP57PNsVw/9d7e33c7-6627-4ad3-35a6-f3d4e120a800/public",
-    "https://imagedelivery.net/3mRLd_IbBrrQFSP57PNsVw/a514fbd5-36c0-47a3-9f7e-819541c03300/public",
-    "https://imagedelivery.net/3mRLd_IbBrrQFSP57PNsVw/9d7e33c7-6627-4ad3-35a6-f3d4e120a800/public",
-  ],
 });
 const hoverEvent = (index, flag) => {
   nextTick(() => {

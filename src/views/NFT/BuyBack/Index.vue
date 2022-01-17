@@ -94,7 +94,7 @@ onUnmounted(() => {
 
 const changeListQuery = (params) => {
   store.dispatch(
-    "StoreNftMarket/changeListQuery",
+    "StoreBuyBack/changeListQuery",
     Object.assign({}, params, { type: "init" })
   );
 };

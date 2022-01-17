@@ -131,20 +131,13 @@ const validateParams = (flag) => {
     ) {
       throw new Error("error");
     }
-    const queryElementList = state.selectedElementList.map((d) => {
-      const id = Object.values(d.chainNftIds)[0];
-      return {
-        id,
-        eleName: d.eleName,
-      };
-    });
     store.dispatch("StoreMeta/canCreateNFT", {
       userAddress: state.accounts[0],
       customName: state.nameValue,
       sex: state.genderValue === "male" ? 1 : 0,
       occupation: state.professionValue,
       groupId: state.selectedElementList[0].groupId,
-      elementList: queryElementList,
+      elementList: state.selectedElementList,
     });
   } catch (e) {
     store.commit("StoreMeta/SET_CALLBACK_DIALOG_PARAMS_STATUS", {

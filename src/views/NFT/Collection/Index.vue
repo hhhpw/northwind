@@ -335,7 +335,11 @@ const watchDetail = (d, sellType) => {
   if (sellType === "selling") {
     console.log("d", d);
     let query = {};
-    if (d.type === "nft" || d.type === "composite_card") {
+    if (
+      d.type === "nft" ||
+      d.type === "composite_card" ||
+      d.type === "composite_element"
+    ) {
       query = {
         sellType,
         infoId: d.nftBoxId,

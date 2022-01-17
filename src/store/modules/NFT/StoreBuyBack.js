@@ -8,10 +8,11 @@ import utilsFormat from "@utils/format";
 /* eslint-disable */
 
 const INIT_QUERY_PARAMS = {
+  sortRule: "ctime", // price ctime rarity
   groupId: 0,
-  currency: "all",
-  sort: 0, // 1=>high->low 2 =>low->hight
-  pageSize: 20,
+  nftType: "", //nft 原生nft/ box盲盒/ recombine组合nft/ element素材/元素
+  sort: 0, // 稀有度 1按照sortRule 字段，降序  2按照sortRule 字段，升序
+  pageSize: 30,
   pageNum: 1,
 };
 const INIT_LIST_STATUS = {

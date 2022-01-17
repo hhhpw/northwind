@@ -159,7 +159,7 @@ const getImgTruePath = (path) => {
   const isNeedProxy = process.env.VUE_APP_IS_NEED_PROXY_IMG_PATH;
   if (isNeedProxy) {
     // 本地代理使用
-    path = path.match(/v1(.*)/g)[0];
+    path = path.match(/v1(.*)/g)?.[0];
   }
   return new Promise((resolve) => {
     commonApi.getImgTruePath(path).then((res) => {

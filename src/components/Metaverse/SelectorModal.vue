@@ -45,7 +45,7 @@
                 class="card-wrap-item-box-svg"
               ></svg-icon>
               <star-amount
-                :value="d.amount"
+                :value="d?.score"
                 :formatOptions="{ precision: 0, trailingZero: false }"
               ></star-amount>
             </div>

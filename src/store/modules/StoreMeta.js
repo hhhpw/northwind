@@ -7,6 +7,7 @@ import utilsTool from "@utils/tool.js";
 import Wallet from "@wallet/meta";
 import collectionApi from "@api/nft/collection.js";
 import CONSTANTS_TOKEN from "@constants/token.js";
+import { flattenDeep } from "lodash";
 import {
   WALLET_DIALOG_PARAMS,
   SECOND_DIALOG_PARAMS,
@@ -107,6 +108,7 @@ const StoreMeta = {
         state.heroInfo = data;
       } else {
         state.heroInfo = null;
+        window.location.reload();
       }
     },
     [types.SET_SECOND_DIALOG_PARAMS_STATUS](state, payload) {
@@ -211,33 +213,43 @@ const StoreMeta = {
         });
       }
       try {
-        const composeData = await metaApi.compositeCard(payload);
+        const composeData = await metaApi.compositeCard(
+          Object.assign({}, payload, {
+            elementList: payload.elementList.map((d) => {
+              const id = Object.values(d.chainNftIds)[0];
+              return {
+                // 生成图片所需id
+                id,
+                eleName: d.eleName,
+              };
+            }),
+          })
+        );
         if (composeData.code === 200) {
           const { nftInfoId, image, description, name } = composeData.data;
           const { elementList, occupation, sex, customName } = payload;
           const { property } = state.metaData;
-          // 在所有的元素里过滤到未选择的
-          // 并获取到位置key
+          const selectedElementList = elementList.map((d) => {
+            const chainId = Object.keys(d.chainNftIds)[0];
+            return {
+              chainId,
+              eleName: d.eleName,
+            };
+          });
+          // 在所有的元素里获取所选择的并获取到位置key
           // 在从个人elementmap里获取chaind，value
           // {index:key, chainId: value}
           let filterElements = [];
-          for (let i = 0; i < elementList.length; i++) {
-            // 挑选所选择素材的id
+          for (let i = 0; i < selectedElementList.length; i++) {
+            // 挑选所选择素材的index 合约使用
             const t = property.filter(
-              (d) => d.desc === elementList[i].eleName
+              (d) => d.desc === selectedElementList[i].eleName
             )[0];
-            filterElements.push(t);
+            filterElements.push(
+              Object.assign({}, t, { ...selectedElementList[i] })
+            );
           }
-          const allElements = state.allElements;
-          const values = Object.values(allElements);
-          for (let i = 0; i < filterElements.length; i++) {
-            for (let k = 0; k < values.length; k++) {
-              if (filterElements[i].desc === values[k][0].eleName) {
-                const chainId = Object.keys(values[k][0].chainNftIds);
-                filterElements[i].chainId = chainId[0];
-              }
-            }
-          }
+          console.log("filterElements", filterElements);
           const selectedIds = filterElements.map((d) => {
             return {
               chainId: d.chainId,
@@ -391,14 +403,14 @@ const StoreMeta = {
           payload.payToken
         );
         // if (nftDetail.code === 200) {
-        // console.log("====nftDetail=====", nftDetail.data);
-        // let { compositeElements } = nftDetail.data;
-        // compositeElements = compositeElements.map((d) => {
-        //   return {
-        //     key: utilsFormat.computedLangCtx(`nftproperty.${d.type}`),
-        //     value: d.property,
-        //   };
-        // });
+        //   console.log("====nftDetail=====", nftDetail.data);
+        //   let { compositeElements } = nftDetail.data;
+        //   compositeElements = compositeElements.map((d) => {
+        //     return {
+        //       key: utilsFormat.computedLangCtx(`nftproperty.${d.type}`),
+        //       value: d.property,
+        //     };
+        //   });
         const params = {
           provider: rootState.StoreWallet.stcProvider,
           nftId: payload.chainId,

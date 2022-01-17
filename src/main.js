@@ -14,6 +14,7 @@ _app_directive(app);
 _app_element_ui(app);
 
 // 这里做一些全局公共的接口
+store.dispatch("StoreMeta/getNFTMeatInfo");
 store.dispatch("StoreCommon/getCurrencyList");
 
 app.use(store).use(router).use(i18n).use(animated).mount("#app");

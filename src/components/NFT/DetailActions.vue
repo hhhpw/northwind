@@ -375,7 +375,7 @@ const handleCloseQuotation = () => {
   font-weight: 500;
   color: #000000;
   .sell-price {
-    margin-bottom: 16px;
+    // margin-bottom: 16px;
     text-align: left;
     span {
       display: block;

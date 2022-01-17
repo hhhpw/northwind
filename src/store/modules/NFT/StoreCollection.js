@@ -132,6 +132,7 @@ const StoreCollection = {
       if (!rules[0] && !rules[1]) {
         list = [];
       }
+      console.log("===list====", list);
       return list;
     },
     tab_list(state) {
@@ -250,7 +251,7 @@ const StoreCollection = {
                   nft: true,
                   sellType: "",
                   payToken: item.payToken,
-                  type: "nft",
+                  type: item.type || "nft", // composite_element  //composite_card
                   isUnSoldNft: true,
                 };
                 list.push(obj);

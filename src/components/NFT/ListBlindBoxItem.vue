@@ -12,31 +12,34 @@
         }"
       />
     </div>
-    <!-- <div>{{ baseData }}</div> -->
     <div class="nft-blind-text">
       <div class="nft-blind-text-base">
         <div class="nft-blind-text-name">
-          <span>
+          <span v-if="baseData.type === 'composite_card'">
+            {{ $t(`nftproperty.${baseData.name}`) }}
+          </span>
+          <span v-else>
             {{ baseData.nftName || baseData.name || "" }}
           </span>
-
           <span class="nft-blind-text-name-tips">
             <!-- 可分解NFT -->
-            <span class="nft-blind-text-name-rarity">
-              <ElTooltip
-                effect="light"
-                placement="bottom"
-                :append-to-body="false"
+            <span
+              class="nft-blind-text-name-rarity"
+              v-if="
+                baseData.type === 'composite_card' ||
+                baseData.type === 'composite_element'
+              "
+            >
+              <nft-card-item-tool-tip
+                :placeString="$t('metaverse.can remake')"
+                svgName="clothes"
+                class="nft-blind-text-name-rarity-tooltip"
+                :svgStyle="{
+                  transform: 'scale(1.5)',
+                  'margin-right': '8px',
+                }"
               >
-                <template #content>
-                  <span class="nft-blind-text-name-rarity-tooltip">
-                    {{ $t("metaverse.can remake") }}
-                  </span>
-                </template>
-                <template #default>
-                  <svg-icon name="clothes" class="canremake-icon"></svg-icon>
-                </template>
-              </ElTooltip>
+              </nft-card-item-tool-tip>
             </span>
             <!-- 稀有值 -->
             <span
@@ -46,21 +49,14 @@
                 (baseData.type === 'composite_card' && baseData?.score)
               "
             >
-              <ElTooltip
-                effect="light"
-                placement="bottom"
-                :append-to-body="false"
+              <nft-card-item-tool-tip
+                :placeString="$t('NFT稀有值')"
+                svgName="rarity"
+                class="nft-blind-text-name-rarity-tooltip"
               >
-                <template #content>
-                  <span class="nft-blind-text-name-rarity-tooltip">
-                    {{ $t("NFT稀有值") }}
-                  </span>
-                </template>
-                <template #default>
-                  <svg-icon name="rarity" class="rarity-icon"></svg-icon>
-                </template>
-              </ElTooltip>
+              </nft-card-item-tool-tip>
               <star-amount
+                style="margin-left: 3px"
                 :value="baseData?.score"
                 :formatOptions="{
                   precision: 2,
@@ -72,18 +68,16 @@
         </div>
         <div class="nft-blind-text-address">
           <span v-if="baseData.type === 'box'">
-            {{
-              baseData.boxToken.slice(0, 6) +
-              "..." +
-              baseData.boxToken.slice(-4)
-            }}
+            {{ utilsFormat.formatSliceString(baseData.boxToken) }}
           </span>
           <span
-            v-if="baseData.type === 'nft' || baseData.type === 'composite_card'"
+            v-if="
+              baseData.type === 'nft' ||
+              baseData.type === 'composite_card' ||
+              baseData.type === 'composite_element'
+            "
           >
-            {{
-              baseData.nftMeta.slice(0, 6) + "..." + baseData.nftMeta.slice(-4)
-            }}
+            {{ utilsFormat.formatSliceString(baseData.nftMeta) }}
           </span>
         </div>
       </div>
@@ -222,6 +216,7 @@ import Confirm from "@components/NFT/Confirm";
 import utilsFormat from "@utils/format";
 import SvgIcon from "@components/SvgIcon/Index.vue";
 import StarAmount from "@StarUI/StarAmount";
+import NftCardItemToolTip from "./NFTCardItemToolTip.vue";
 const store = useStore();
 const props = defineProps({
   cardType: {
@@ -237,7 +232,7 @@ const props = defineProps({
   },
   contentText: {
     type: String,
-    default: "222",
+    default: "",
   },
   hasBtn: {
     type: Boolean,
@@ -408,12 +403,9 @@ const actionsCall = (action) => {
     display: flex;
     align-items: center;
   }
-  .canremake-icon {
-    transform: scale(1.5);
-    margin-right: 8px;
-  }
   .nft-blind-text-name-rarity {
     color: #fb8000;
+    display: flex;
     .nft-blind-text-name-rarity-tooltip {
       color: #391b0f;
     }

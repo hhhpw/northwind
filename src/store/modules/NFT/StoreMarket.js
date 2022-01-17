@@ -21,7 +21,7 @@ const INIT_LIST_PARAMS = {
   groupId: 0,
   nftType: "", //nft 原生nft/ box盲盒/ recombine组合nft/ element素材/元素
   sort: 0, // 稀有度 1按照sortRule 字段，降序  2按照sortRule 字段，升序
-  pageSize: 4,
+  pageSize: 30,
   pageNum: 1,
 };
 
@@ -167,6 +167,7 @@ const StoreNftMarket = {
         }
       }
       if (res.code == 200) {
+        console.log("res.data", res.data);
         commit(types.MARKET_BLIND_LIST, {
           data: res.data,
           hasMore: res.hasNext,

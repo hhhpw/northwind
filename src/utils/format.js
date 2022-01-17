@@ -3,7 +3,7 @@ import { computed } from "vue";
 import i18n from "@i18n";
 
 /**
- * 9900000 => 9 计算用
+ * 990000000 => 9
  * @param {*} balance
  * @param {*} precision
  * @returns
@@ -49,9 +49,21 @@ const computedLangCtx = (content, options) => {
   });
 };
 
+/**
+ *
+ */
+
+const formatSliceString = (string, backup = "") => {
+  if (string) {
+    return string.slice(0, 6) + "..." + string.slice(-4);
+  }
+  return backup;
+};
+
 export default {
   formatBalance,
   getTokenCurrency,
   formatPrice,
   computedLangCtx,
+  formatSliceString,
 };
