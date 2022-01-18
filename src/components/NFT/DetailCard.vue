@@ -3,9 +3,9 @@
     <div class="detail-base-info">
       <div class="left-image" v-if="props.box_detail">
         <img
-          v-if="state.is_blind_open"
+          v-if="state.isNFT"
           :src="
-            (state.is_blind_open && props.box_detail.imageLink) ||
+            (state.isNFT && props.box_detail.imageLink) ||
             (props.action_type === 'RECOVERY' && props.box_detail.icon)
           "
           alt=""
@@ -36,37 +36,18 @@
         <div class="right-top-bae-info">
           <div class="base-info-title">
             <span class="base-info-color">{{
-              state.is_blind_open
-                ? props.box_detail.seriesName
-                : props.box_detail.name
+              state.isNFT ? props.box_detail.seriesName : props.box_detail.name
             }}</span>
-
-            <!-- <span
-              class="base-info-title-rarity"
-              v-if="state.is_blind_open && props.box_detail?.score"
-            >
-              <svg-icon
-                name="rarity"
-                class="base-info-title-rarity-icon"
-              ></svg-icon>
-              <star-amount
-                :value="props.box_detail?.score"
-                :formatOptions="{
-                  precision: 2,
-                }"
-              >
-              </star-amount>
-            </span> -->
           </div>
 
-          <span class="base-info-color" v-if="state.is_blind_open">{{
+          <span class="base-info-color" v-if="state.isNFT">{{
             props.box_detail.name
           }}</span>
           <div class="base-info-list">
             <!-- 素材 -->
             <div
               class="base-info-item"
-              v-if="state.is_blind_open && props.box_detail.nftType"
+              v-if="state.isNFT && props.box_detail.nftType"
             >
               <span class="title">{{ $t("类型") }}</span>
               <span class="value">
@@ -84,7 +65,7 @@
             <!-- 稀有值 -->
             <div
               class="base-info-item"
-              v-if="state.is_blind_open && props.box_detail?.score"
+              v-if="state.isNFT && props.box_detail?.score"
             >
               <span class="title">{{ $t("稀有值") }}</span>
               <span class="value">
@@ -95,6 +76,40 @@
                   }"
                 >
                 </star-amount>
+              </span>
+            </div>
+
+            <div
+              class="base-info-item-character-info"
+              v-if="
+                state.isNFT && props.box_detail.nftType === 'COMPOSITE_CARD'
+              "
+            >
+              <span style="margin-right: 8px">
+                {{ $t("名字") }}:
+                <span class="base-info-item-character-info-value">{{
+                  props.box_detail?.customName
+                }}</span>
+              </span>
+              <span
+                style="margin-right: 8px"
+                v-if="props.box_detail?.occupation"
+              >
+                {{ $t("职业") }}
+                <span class="base-info-item-character-info-value">{{
+                  props.box_detail?.occupation
+                }}</span>
+              </span>
+              <span
+                style="margin-right: 8px"
+                v-if="
+                  props.box_detail?.sex === 1 || props.box_detail?.sex === 0
+                "
+              >
+                {{ $t("性别") }}
+                <span class="base-info-item-character-info-value">{{
+                  props.box_detail?.sex === 1 ? $t("male") : $t("female")
+                }}</span>
               </span>
             </div>
             <div class="base-info-item" style="margin-top: 20px">
@@ -127,7 +142,7 @@
                 class="value"
                 @click="pushPage(state.nft_address.split('::')[0])"
                 >{{
-                  state.is_blind_open
+                  state.isNFT
                     ? state.nft_address.slice(0, 6) +
                       "..." +
                       state.nft_address.slice(-4)
@@ -137,12 +152,13 @@
             </div>
           </div>
         </div>
+        <!-- {{ props.box_detail }} -->
         <!-- 操作部分 -->
         <detail-action
           class="detail-actions"
           :box_detail="props.box_detail"
           :action_type="props.action_type"
-          :is_blind_open="state.is_blind_open"
+          :isNFT="state.isNFT"
           @actionsCall="actionsCall"
         ></detail-action>
       </div>
@@ -166,7 +182,7 @@
         </div>
         <div
           class="specific-rarevalue"
-          v-if="state.selected_tab === 'rarevalue' && state.is_blind_open"
+          v-if="state.selected_tab === 'rarevalue' && state.isNFT"
         >
           <nft-detail-specific
             :box_detail="props.box_detail"
@@ -174,7 +190,7 @@
         </div>
         <div
           class="specific-history"
-          v-if="state.selected_tab === 'history' && state.is_blind_open"
+          v-if="state.selected_tab === 'history' && state.isNFT"
         >
           <nft-detail-history
             :box_detail="props.box_detail"
@@ -204,24 +220,27 @@ let state = reactive({
   contract_address: computed(() => store.state.StoreNFTDetail.contract_address),
   accounts: computed(() => store.state.StoreWallet.accounts),
   currLang: computed(() => store.state.StoreApp.currLang),
-  description: computed(() => {
-    if (store.state.StoreApp.currLang == "cn") {
-      return state.is_blind_open
-        ? props.box_detail.cn_description
-        : props.box_detail.cnDescription;
-    } else {
-      return state.is_blind_open
-        ? props.box_detail.en_description
-        : props.box_detail.enDescription;
-    }
-  }),
-  // 盲盒是否开启
-  is_blind_open: computed(() => {
-    return props.blind_box_type === "nft";
+  // description: computed(() => {
+  //   if (store.state.StoreApp.currLang == "cn") {
+  //     return state.isNFT
+  //       ? props.box_detail.cn_description
+  //       : props.box_detail.cnDescription;
+  //   } else {
+  //     return state.isNFT
+  //       ? props.box_detail.en_description
+  //       : props.box_detail.enDescription;
+  //   }
+  // }),
+  isNFT: computed(() => {
+    return (
+      props.blind_box_type === "nft" ||
+      props.blind_box_type === "composite_card" ||
+      props.blind_box_type === "composite_element"
+    );
   }),
   cross_bar_array: computed(() => {
     if (
-      state.is_blind_open ||
+      state.isNFT ||
       (state.history_list_params && state.history_list_params.type === "back")
     ) {
       return [
@@ -394,6 +413,13 @@ const selectCrossTab = (name) => {
             cursor: pointer;
             color: #3f1c09;
           }
+        }
+      }
+      .base-info-item-character-info {
+        font-size: 14px;
+        color: #7f7f7f;
+        .base-info-item-character-info-value {
+          color: #3f1c09 !important;
         }
       }
       .detail-actions {

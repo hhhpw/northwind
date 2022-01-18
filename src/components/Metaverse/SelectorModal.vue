@@ -13,9 +13,9 @@
       <template #title>
         <div class="meta-nft-selector-modal-header">
           <div class="meta-nft-selector-modal-header-text">
-            <p>{{ $t("metaverse.break down nft") }}</p>
+            <p>{{ $t("metaverse.disassemble an nft") }}</p>
             <p style="margin-top: 5px">
-              {{ $t("metaverse.break down nft rule") }}
+              {{ $t("metaverse.disassemble an nft rule") }}
             </p>
           </div>
           <svg-icon
@@ -58,7 +58,7 @@
               type="dark"
               class="card-wrap-item-btn"
               @click="brakeDownNFT(d)"
-              >{{ $t("metaverse.break down") }}</star-button
+              >{{ $t("metaverse.disassemble") }}</star-button
             >
           </div>
         </div>

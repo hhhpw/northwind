@@ -20,7 +20,7 @@
               dialogVisible: true,
             })
           "
-          >{{ $t("metaverse.get element") }}</span
+          >{{ $t("metaverse.obtain components") }}</span
         >
       </div>
     </div>
@@ -61,16 +61,16 @@
         <no-element-item style="margin-top: 160px"></no-element-item>
         <div>
           <span>{{
-            $t("metaverse.break down nft detail description one")
+            $t("metaverse.disassemble an nft detail description one")
           }}</span>
           <span>{{
-            $t("metaverse.break down nft detail description two")
+            $t("metaverse.disassemble an nft detail description two")
           }}</span>
         </div>
       </div>
       <!-- <template v-else>
         <no-element-item :class="$style['main-no-data']"></no-element-item>
-        <span>{{ $t("metaverse.break down nft detail description") }}</span>
+        <span>{{ $t("metaverse.disassemble nft detail description") }}</span>
       </template> -->
     </div>
   </div>

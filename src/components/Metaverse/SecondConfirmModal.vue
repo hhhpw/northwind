@@ -8,7 +8,7 @@
     >
       <template #custom-content>
         <div>
-          <p>{{ $t("metaverse.whether to generate NFT character cards") }}</p>
+          <p>{{ $t("metaverse.whether to generate character NFT") }}</p>
           <p style="margin-top: 10px">
             {{
               $t("metaverse.casting cost", {

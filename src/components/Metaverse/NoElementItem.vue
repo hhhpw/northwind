@@ -8,7 +8,7 @@
     "
   >
     <svg-icon name="clothes" :class="$style['svg']"></svg-icon>
-    <p>{{ $t("metaverse.get element") }}</p>
+    <p>{{ $t("metaverse.obtain components") }}</p>
   </div>
 </template>
 <script setup>
@@ -20,8 +20,8 @@ const store = useStore();
 </script>
 <style lang="scss" module>
 .box {
-  width: 102px;
-  height: 102px;
+  min-width: 102px;
+  min-height: 102px;
   background: rgba(251, 128, 0, 0.06);
   border-radius: 4px;
   opacity: 0.98;

@@ -223,16 +223,16 @@ let state = reactive({
   // 盲盒详情
   box_detail: computed(() => {
     const type = ref(route.query.type).value;
-    if (type === "nft") {
-      return Object.assign({}, store.state.StoreNftMarket.nft_box_detail, {
-        editBidPrice: utilsFormat.formatPrice(
-          store.state.StoreNftMarket.nft_box_detail?.topBidPrice
-        ),
-      });
-    } else {
+    if (type === "box") {
       return Object.assign({}, store.state.StoreNftMarket.blind_box_detail, {
         editBidPrice: utilsFormat.formatPrice(
           store.state.StoreNftMarket.blind_box_detail?.topBidPrice
+        ),
+      });
+    } else {
+      return Object.assign({}, store.state.StoreNftMarket.nft_box_detail, {
+        editBidPrice: utilsFormat.formatPrice(
+          store.state.StoreNftMarket.nft_box_detail?.topBidPrice
         ),
       });
     }
@@ -287,15 +287,15 @@ onMounted(() => {
   state.id = ref(route.query.id).value;
   state.groupId = ref(route.query.groupId).value;
   state.chainId = ref(route.query.chainId).value;
-  if (state.blind_box_type === "nft") {
-    // 请求NFT详情
-    store.dispatch("StoreNftMarket/queryNFTDetail", { id: state.id });
-  } else {
+  if (state.blind_box_type === "box") {
     // 请求盲盒详情
     store.dispatch("StoreNftMarket/queryBlindBoxDetail", {
       groupId: state.groupId,
       chainId: state.chainId,
     });
+  } else {
+    // 请求NFT详情
+    store.dispatch("StoreNftMarket/queryNFTDetail", { id: state.id });
   }
 });
 

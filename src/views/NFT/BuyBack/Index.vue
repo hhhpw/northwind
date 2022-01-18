@@ -122,10 +122,11 @@ const loadMore = () => {
   margin: 0 auto;
   padding-bottom: 30px;
   .blind-box-list {
-    margin-top: 45px;
+    margin-top: 30px;
     .blind-box-list-content {
       display: flex;
       flex-wrap: wrap;
+      padding-top: 20px;
       .list-blind-box-item {
         margin-right: 30px;
         height: 400px;

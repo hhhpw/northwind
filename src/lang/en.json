@@ -261,7 +261,16 @@
     "提取收益确认": "Confirm harvesting",
     "提取{amount}{symbol}至钱包": "Harvested {amount} {symbol} to wallet",
     "NFT挖矿": "NFT Mining",
-    "赎回": "Redeem"
+    "赎回": "Redeem",
+    "male": "男",
+    "female": "女",
+    "全部类型": "全部类型",
+    "全部素材": "全部素材",
+    "原生NFT": "原生NFT",
+    "重组NFT": "重组NFT",
+    "素材": "素材",
+    "类型": "类型",
+    "上架时间": "上架时间"
   },
   "farms": {
     "farm-swap-total-1": "Total trading volume",
@@ -322,6 +331,29 @@
     "remove-nft-failed": "Redeeming failed ",
     "remove-nft-card-desc": "Redeeming {name}",
     "mining-power": "MP"
+  },
+  "metaverse": {
+    "character nft making": "Character NFT Making",
+    "no character nft yet": "No Character NFT yet",
+    "disassemble an nft": "disassemble an nft",
+    "disassemble an nft rule": "*“Disassemble” function is only for NFTs of xxx KIKO. NFTs on sale cannot be disassembled. You will get all category components in the form of NFT.",
+    "disassemble": "Disassemble",
+    "obtain components": "Disassemble",
+    "disassemble an nft detail description one": "1. You can obtain character components by disassembling the NFTs, and reassemble them to a new character.",
+    "disassemble an nft detail description two": "2. The creator will receive 1% of trading fee when the reassembled NFT is sold.",
+    "generate character NFT": "Generate character NFT",
+    "generating character cards succeed": "Generating character NFT succeeded",
+    "generated character cards failed": "Generating character NFT failed",
+    "disassembling character NFT": "Disassembling character NFT",
+    "disassembling character NFT succeeded": "disassembling character NFT succeeded",
+    "disassembling character NFT failed": "disassembling character NFT failed",
+    "no NFT available": "No NFT available",
+    "please go to the market": "Please go to the market",
+    "the role card name is 0-10 English characters or special symbols": "Name should be 0-10 characters or special symbols",
+    "enter the name (0-10 English characters)": "enter the name ( 0-10 characters)",
+    "can be disassembled": "Can be disassembled",
+    "casting cost": "铸造费用:{amount} {currency}",
+    "whether to generate character NFT": "Generate character NFT?"
   },
   "nftproperty": {
     "Fur": "Fur",

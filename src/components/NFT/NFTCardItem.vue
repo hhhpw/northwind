@@ -1,10 +1,17 @@
 <template>
-  <div class="nft-blind-box-item">
-    <div class="nft-blind-box-pic" @click="watchDetail" v-if="baseData">
+  <div
+    class="nft-blind-box-item"
+    v-if="baseData"
+    :set="
+      ((type = baseData.type),
+      (boxToken = baseData.boxToken),
+      (nftMeta = baseData.nftMeta))
+    "
+  >
+    <div class="nft-blind-box-pic" @click="watchDetail">
       <img
         :src="baseData.icon"
         alt=""
-        :class="baseData.nft ? 'opened' : ''"
         width="100%"
         v-unsold-nft-url="{
           isUnSoldNft: baseData.isUnSoldNft || false,
@@ -20,13 +27,7 @@
           </span>
           <span class="nft-blind-text-name-tips">
             <!-- 可分解NFT -->
-            <span
-              class="nft-blind-text-name-rarity"
-              v-if="
-                baseData.type === 'composite_card' ||
-                baseData.type === 'composite_element'
-              "
-            >
+            <span class="nft-blind-text-name-rarity" v-if="showSplitIcon(type)">
               <nft-card-item-tool-tip
                 :placeString="$t('metaverse.can be disassembled')"
                 svgName="clothes"
@@ -39,13 +40,7 @@
               </nft-card-item-tool-tip>
             </span>
             <!-- 稀有值 -->
-            <span
-              class="nft-blind-text-name-rarity"
-              v-if="
-                (baseData.type === 'nft' && baseData?.score) ||
-                (baseData.type === 'composite_card' && baseData?.score)
-              "
-            >
+            <span class="nft-blind-text-name-rarity" v-if="baseData?.score">
               <nft-card-item-tool-tip
                 :placeString="$t('NFT稀有值')"
                 svgName="rarity"
@@ -64,18 +59,7 @@
           </span>
         </div>
         <div class="nft-blind-text-address">
-          <span v-if="baseData.type === 'box'">
-            {{ utilsFormat.formatSliceString(baseData.boxToken) }}
-          </span>
-          <span
-            v-if="
-              baseData.type === 'nft' ||
-              baseData.type === 'composite_card' ||
-              baseData.type === 'composite_element'
-            "
-          >
-            {{ utilsFormat.formatSliceString(baseData.nftMeta) }}
-          </span>
+          <span>{{ formatAddress(type === "box" ? boxToken : nftMeta) }}</span>
         </div>
       </div>
       <div class="nft-blind-text-price">
@@ -222,7 +206,7 @@ const props = defineProps({
   },
   sellType: {
     type: String,
-    default: "sell", //sell 出售中，selling 出售中两个按钮 sold 已出售待确认
+    default: "sell",
   },
   baseData: {
     type: Object,
@@ -253,7 +237,9 @@ const formatPriceWithLength = (price) => {
   return t;
 };
 
-const showSplitIcon = () => {};
+const showSplitIcon = (type) => {
+  return type === "composite_card" || type === "composite_element";
+};
 
 const handleConfirm = () => {
   store.commit("StoreNftMarket/CHANGE_CONFIRM_VISIBLE", false);
@@ -269,6 +255,9 @@ const watchDetail = () => {
 };
 const actionsCall = (action) => {
   emits("actionsCall", { action: action, baseData: props.baseData });
+};
+const formatAddress = (string) => {
+  return utilsFormat.formatSliceString(string);
 };
 </script>
 

@@ -149,7 +149,15 @@ const secondDialogConfirm = () => {
   const gap = 1 - NFT_CONSTANTS.NFT_GAS_FEE;
   price = utilsNumber.bigNum(price).times(gap).toString();
   const currency = utilsFormat.getTokenCurrency(state.baseData.payToken);
-  if (state.baseData.type === "nft") {
+  if (state.baseData.type === "box") {
+    params = {
+      tyArgs: [state.baseData.boxToken, state.baseData.payToken],
+      args: [String(state.baseData.chainId)],
+      type: "box",
+      groupId: state.baseData.groupId,
+      chainId: state.baseData.chainId,
+    };
+  } else {
     params = {
       tyArgs: [
         state.baseData.nftMeta,
@@ -159,15 +167,6 @@ const secondDialogConfirm = () => {
       args: [String(state.baseData.chainId)],
       type: "nft",
       infoId: state.baseData.nftBoxId,
-    };
-  }
-  if (state.baseData.type === "box") {
-    params = {
-      tyArgs: [state.baseData.boxToken, state.baseData.payToken],
-      args: [String(state.baseData.chainId)],
-      type: "box",
-      groupId: state.baseData.groupId,
-      chainId: state.baseData.chainId,
     };
   }
   state.dialogEvent = dialogEventMaps["AcceptBid"];
@@ -188,16 +187,11 @@ const pushMarket = () => {
 };
 const actionsCall = async ({ action, baseData }) => {
   state.baseData = baseData;
+  console.log("baseData", baseData);
   if (action === "CancelSell") {
+    state.dialogEvent = dialogEventMaps["CancelSell"];
     let params = {};
-    if (baseData.type === "nft") {
-      params = {
-        type: "nft",
-        tyArgs: [baseData.nftMeta, baseData.nftBody, baseData.payToken],
-        args: [String(baseData.chainId)],
-        infoId: baseData.nftBoxId,
-      };
-    } else if (baseData.type === "box") {
+    if (baseData.type === "box") {
       params = {
         tyArgs: [baseData.boxToken, baseData.payToken],
         args: [String(baseData.chainId)],
@@ -205,8 +199,14 @@ const actionsCall = async ({ action, baseData }) => {
         groupId: baseData.groupId,
         chainId: baseData.chainId,
       };
+    } else {
+      params = {
+        type: "nft",
+        tyArgs: [baseData.nftMeta, baseData.nftBody, baseData.payToken],
+        args: [String(baseData.chainId)],
+        infoId: baseData.nftBoxId,
+      };
     }
-    state.dialogEvent = dialogEventMaps["CancelSell"];
     store.dispatch("StoreCollection/cancelSellContractsCall", params);
   }
   if (action === "AcceptBid") {
@@ -333,7 +333,6 @@ const watchDetail = (d, sellType) => {
     // });
   }
   if (sellType === "selling") {
-    console.log("d", d);
     let query = {};
     if (
       d.type === "nft" ||

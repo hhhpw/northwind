@@ -6,10 +6,10 @@
       v-if="!state.composeNFT || state.composeNFT.length < 1"
     >
       <p>
-        {{ $t("metaverse.character card not obtained") }}
+        {{ $t("metaverse.no character nft yet") }}
       </p>
       <p>
-        {{ $t("metaverse.character card making") }}
+        {{ $t("metaverse.character nft making") }}
       </p>
     </div>
     <!-- 角色卡片 -->
@@ -30,7 +30,7 @@
           "
         >
           <p>{{ d.customName }}</p>
-          <p>{{ d.nftId }}</p>
+          <p>{{ d.name }}</p>
         </div>
         <img :src="d.image" />
       </div>

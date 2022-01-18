@@ -102,6 +102,7 @@ onUnmounted(() => {
 
 // 查看卡片详情
 const watchDetail = (detail) => {
+  console.log("===detail====", detail.type);
   const url = `${window.location.origin}/nftmarketdetail?id=${detail.nftBoxId}&groupId=${detail.groupId}&type=${detail.type}&chainId=${detail.chainId}`;
   window.open(url, "_blank");
 };
@@ -148,10 +149,11 @@ const loadMore = () => {
   margin: 0 auto;
   padding-bottom: 30px;
   .blind-box-list {
-    margin-top: 45px;
+    margin-top: 30px;
     .blind-box-list-content {
       display: flex;
       flex-wrap: wrap;
+      padding-top: 20px;
       .list-blind-box-item {
         margin-right: 30px;
         height: 400px;

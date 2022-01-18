@@ -68,8 +68,11 @@
         :class="$style['create-btn']"
         :type="state.canGenerated ? 'dark' : 'disabled'"
         @click="validateParams(state.canGenerated)"
+        :style="{
+          'font-size': state.currLang === 'zh' ? '15px' : '13px',
+        }"
         >{{
-          $t("metaverse.generate NFT character cards") +
+          $t("metaverse.generate character NFT") +
           ` (${state.metaData.compositeFee})STC`
         }}</star-button
       >
@@ -182,6 +185,9 @@ $bgColor2: #fcf7f1;
   }
   ::v-deep(.el-input__inner::placeholder) {
     color: $fontColor;
+    font-size: 10px;
+    // transform: scale(0.8);
+    // margin-left: 100px;
   }
 }
 .detail-info {
@@ -317,6 +323,7 @@ $bgColor2: #fcf7f1;
       padding: 0px;
       height: 40px;
       line-height: 40px;
+      font-size: 15px;
     }
   }
 }
