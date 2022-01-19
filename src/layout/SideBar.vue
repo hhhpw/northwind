@@ -107,7 +107,6 @@ const pushPage = (path) => {
   }
 };
 const setCollapseStatus = (label) => {
-  console.log("label", label);
   if (has(state.collapseObj, label)) {
     state.collapseObj[label] = !state.collapseObj[label];
   } else {

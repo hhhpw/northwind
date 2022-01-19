@@ -50,7 +50,7 @@ export default [
     path: "/info",
   },
   {
-    label: "metaverse",
+    label: "K-Avatar",
     path: "/metaverse",
   },
   // {

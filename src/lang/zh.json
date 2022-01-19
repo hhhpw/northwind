@@ -263,13 +263,14 @@
     "赎回": "贖回",
     "male": "男",
     "female": "女",
-    "全部类型": "全部类型",
-    "全部素材": "全部素材",
-    "原生NFT": "原生NFT",
-    "重组NFT": "重组NFT",
-    "素材": "素材",
-    "类型": "类型",
-    "上架时间": "上架时间"
+    "all collections": "全部系列",
+    "all categories": "全部類型",
+    "original NFT": "原生NFT",
+    "disassembled NFT": "重組NFT",
+    "components": "素材",
+    "category": "類型",
+    "listed Time": "上架時間",
+    "K-Avatar": "K-Avatar"
   },
   "farms": {
     "farm-swap-total-1": "總交易額",
@@ -332,7 +333,7 @@
   },
   "metaverse": {
     "character nft making": "角色卡牌製作",
-    "character card not obtained": "還未獲得任何角色卡牌",
+    "no character nft yet": "還未獲得任何角色卡牌",
     "disassemble an nft": "分解NFT",
     "disassemble an nft rule": "* 僅針對HERO系列的NFT，且正在出售中的NFT不能進行分解；分解後100%獲得該卡牌所有元素部件",
     "disassemble": "分解",

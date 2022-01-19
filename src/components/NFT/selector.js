@@ -1,7 +1,7 @@
 import utilsFormat from "@utils/format";
 export const nftTypesList = [
   {
-    label: utilsFormat.computedLangCtx("全部类型"),
+    label: utilsFormat.computedLangCtx("all categories"),
     value: "",
   },
   {
@@ -9,15 +9,15 @@ export const nftTypesList = [
     value: "box",
   },
   {
-    label: utilsFormat.computedLangCtx("原生NFT"),
+    label: utilsFormat.computedLangCtx("original NFT"),
     value: "nft",
   },
   {
-    label: utilsFormat.computedLangCtx("重组NFT"),
+    label: utilsFormat.computedLangCtx("disassembled NFT"),
     value: "composite_card ",
   },
   {
-    label: utilsFormat.computedLangCtx("素材"),
+    label: utilsFormat.computedLangCtx("components"),
     value: "composite_element",
   },
 ];
@@ -28,7 +28,7 @@ export const sortList = [
     value: "price",
   },
   {
-    label: utilsFormat.computedLangCtx("上架时间"),
+    label: utilsFormat.computedLangCtx("listed Time"),
     value: "ctime",
   },
   {

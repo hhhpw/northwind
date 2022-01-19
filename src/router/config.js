@@ -146,7 +146,7 @@ const routes = [
         component: () => import("@views/Metaverse/Index.vue"),
         name: "metaverse",
         meta: {
-          title: "MetaVerse",
+          title: "K-Avatar",
           url: "/metaverse",
         },
       },

@@ -86,6 +86,7 @@ const StoreMeta = {
       state.composeNFT = [];
       state.allSplitNFT = [];
       state.allElements = null;
+      state.loadingStatus = [false, false];
     },
     [types.SET_CURR_NFT_PROPERTY](state, payload) {
       state.currProto = payload;

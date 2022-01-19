@@ -69,6 +69,7 @@ const { t } = useI18n();
 const store = useStore();
 import SvgIcon from "@components/SvgIcon/Index.vue";
 import { nftTypesList, sortList } from "./selector.js";
+import utilsFormat from "@utils/format";
 
 const emits = defineEmits(["filterEvent"]);
 const state = reactive({
@@ -91,8 +92,8 @@ if (!state.nftSeriesList) {
       }
       result.unshift({
         groupId: "",
-        groupName: "全部系列",
-        seriesName: "全部系列",
+        groupName: utilsFormat.computedLangCtx("all collections"),
+        seriesName: utilsFormat.computedLangCtx("all collections"),
       });
       result = result.map((d) => {
         return {
