@@ -1,7 +1,5 @@
 <template>
-  <star-loading-fish
-    v-if="state.loadingStatus.indexOf(d === false) > -1"
-  ></star-loading-fish>
+  <star-loading-fish v-if="state.loadingStatus"></star-loading-fish>
   <div :class="$style.wrap" v-else>
     <role></role>
     <div :class="$style.main">
@@ -15,7 +13,6 @@
       </template>
     </div>
   </div>
-
   <selector-modal></selector-modal>
   <wallet-operate-modal></wallet-operate-modal>
   <second-confirm-modal></second-confirm-modal>
