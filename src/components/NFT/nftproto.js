@@ -203,6 +203,56 @@ export default function renderProperties(box_detail) {
         value: box_detail.properties?.outfit || "--",
         score: box_detail.properties?.outfitScore || "--",
       },
+      {
+        title: utilsFormat.computedLangCtx("nftproperty.五官"),
+        value: box_detail.properties?.face || "--",
+        score: box_detail.properties?.faceScore || "--",
+      },
+      {
+        title: utilsFormat.computedLangCtx("nftproperty.手臂"),
+        value: box_detail.properties?.arm || "--",
+        score: box_detail.properties?.armScore || "--",
+      },
+      {
+        title: utilsFormat.computedLangCtx("nftproperty.腿部"),
+        value: box_detail.properties?.leg || "--",
+        score: box_detail.properties?.legScore || "--",
+      },
+      {
+        title: utilsFormat.computedLangCtx("nftproperty.脚"),
+        value: box_detail.properties?.foot || "--",
+        score: box_detail.properties?.footScore || "--",
+      },
+      {
+        title: utilsFormat.computedLangCtx("nftproperty.武器"),
+        value: box_detail.properties?.weapon || "--",
+        score: box_detail.properties?.weaponScore || "--",
+      },
+      {
+        title: utilsFormat.computedLangCtx("nftproperty.头盔"),
+        value: box_detail.properties?.helmet || "--",
+        score: box_detail.properties?.helmetScore || "--",
+      },
+      {
+        title: utilsFormat.computedLangCtx("nftproperty.盔甲"),
+        value: box_detail.properties?.armor || "--",
+        score: box_detail.properties?.armorScore || "--",
+      },
+      {
+        title: utilsFormat.computedLangCtx("nftproperty.机甲"),
+        value: box_detail.properties?.mecha || "--",
+        score: box_detail.properties?.mechaScore || "--",
+      },
+      {
+        title: utilsFormat.computedLangCtx("nftproperty.裤子"),
+        value: box_detail.properties?.pants || "--",
+        score: box_detail.properties?.pantsScore || "--",
+      },
+      {
+        title: utilsFormat.computedLangCtx("nftproperty.裙子"),
+        value: box_detail.properties?.skirt || "--",
+        score: box_detail.properties?.skirtScore || "--",
+      },
     ];
   });
   return {

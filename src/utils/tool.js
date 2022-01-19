@@ -105,12 +105,8 @@ const getChainEventsByTxnHash = ({
 } = {}) => {
   return new Promise((resolve) => {
     commonApi.getChainEventsByTxnHash(txnHash).then((res) => {
-      console.log("===A===", res.result);
       if (res.result && res.result.length > 0) {
-        console.log("=====A+=======", handlerFunc, typeof handlerFunc);
         if (typeof handlerFunc === "function") {
-          console.log("===B===", res.result);
-
           // data => { data:  ,status: 'Executed'}
           const data = handlerFunc(res.result);
           resolve(data);
