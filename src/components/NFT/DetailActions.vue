@@ -298,15 +298,15 @@ const handleCloseQuotation = () => {
 }
 .trade-input {
   width: 100%;
-  height: 72px;
+  height: 60px;
   position: relative;
   border: 1px solid #ededed;
   background: #ffffff;
   border-radius: 16px;
 
   .trade-star-input {
-    height: 72px;
-    line-height: 72px;
+    height: 60px;
+    line-height: 60px;
     position: absolute;
     left: 18px;
     top: 0;
@@ -324,8 +324,8 @@ const handleCloseQuotation = () => {
     border: 2px solid #000000;
   }
   .currency-select {
-    height: 72px;
-    line-height: 72px;
+    height: 60px;
+    line-height: 60px;
     position: absolute;
     right: 18px;
     top: 0;

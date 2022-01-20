@@ -82,6 +82,7 @@ import SvgIcon from "@components/SvgIcon/Index.vue";
 import StarButton from "@StarUI/StarButton.vue";
 import StarAmount from "@StarUI/StarAmount.vue";
 import { useStore } from "vuex";
+import utilsRouter from "@utils/router";
 const store = useStore();
 
 const state = reactive({
@@ -105,6 +106,12 @@ const brakeDownNFT = (data) => {
 
 const changeBtnStatus = (index, flag) => {
   state.allSplitNFT[index].isShow = flag;
+};
+
+const pushMarket = () => {
+  utilsRouter.push({
+    path: "/nftmarket",
+  });
 };
 </script>
 <style lang="scss" scoped>

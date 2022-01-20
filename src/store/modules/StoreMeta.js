@@ -50,7 +50,7 @@ const StoreMeta = {
     composeNFT: [],
     allSplitNFT: [],
     allElements: null,
-    loadingStatus: [false, false],
+    loadingStatus: true,
   },
   getters: {
     elementList: (state) => {
@@ -86,18 +86,19 @@ const StoreMeta = {
       state.composeNFT = [];
       state.allSplitNFT = [];
       state.allElements = null;
-      state.loadingStatus = [false, false];
+      state.loadingStatus = true;
     },
     [types.SET_CURR_NFT_PROPERTY](state, payload) {
       state.currProto = payload;
     },
     [types.SET_USER_DATA](state, payload) {
       state[payload.key] = payload.data;
-      state.loadingStatus = [state.loadingStatus[0], true];
+      // state.loadingStatus = [state.loadingStatus[0], true];
     },
     [types.SET_META_DATA](state, payload) {
       state.metaData = payload;
-      state.loadingStatus = [true, state.loadingStatus[1]];
+      state.loadingStatus = false;
+      // state.loadingStatus = [true, state.loadingStatus[1]];
     },
     [types.SET_SELECTED_ELEMENT_LIST](state, payload) {
       state.selectedElementList = payload;
@@ -170,7 +171,7 @@ const StoreMeta = {
       const res = await metaApi.getNFTMeatInfo();
       if (res.code === 200) {
         let { elements, occupations, compositeFee } = res.data;
-        occupations = occupations[0].map((d, i) => {
+        occupations = occupations.map((d, i) => {
           return {
             ...d,
             value: d.desc,
@@ -291,6 +292,7 @@ const StoreMeta = {
                 nftType: "split",
               });
               const handleSucceed = () => {
+                dispatch("getNFTMeatInfo");
                 commit(
                   types.SET_WALLET_DIALOG_PARAMS_STATUS,
                   WALLET_DIALOG_PARAMS
