@@ -6,14 +6,6 @@
     >
       <template #nft-header v-if="state.coreType !== 'card'">
         <nft-selector @filterEvent="changeListQuery"></nft-selector>
-
-        <!-- <list-screen
-          @clickSelectJoint="clickSelectJoint"
-          :showTips="false"
-          :isShowSeries="true"
-          :isShowSort="true"
-        ></list-screen> -->
-
         <div class="blind-box-list">
           <star-scroll
             :hasMore="state.listStatus.hasMore"
@@ -64,7 +56,7 @@
   </div>
 </template>
 <script setup>
-import { reactive, computed, onMounted, onUnmounted } from "vue";
+import { reactive, computed, onUnmounted } from "vue";
 import StarNft from "@StarUI/StarNFT.vue";
 import NftNoConnectedWallet from "@components/NFT/NFTNoConnectedWallet.vue";
 import ListBlindBoxItem from "@components/NFT/ListBlindBoxItem.vue";
@@ -82,10 +74,6 @@ let state = reactive({
   buyBackList: computed(() => store.state.StoreBuyBack.buyBackList),
   listStatus: computed(() => store.state.StoreBuyBack.listStatus),
   firstLoading: computed(() => store.state.StoreBuyBack.firstLoading),
-});
-
-onMounted(() => {
-  store.dispatch("StoreBuyBack/getBuyBacklist", { type: "init" });
 });
 
 onUnmounted(() => {

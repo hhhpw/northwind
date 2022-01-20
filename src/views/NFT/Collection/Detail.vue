@@ -256,7 +256,16 @@ const changeBidPrice = async () => {
   if (!price) return;
   let params;
   editState.edit_price_show = false;
-  if (state.detail_type === "nft") {
+  if (state.detail_type === "box") {
+    const id = ref(route.query.chainId).value;
+    params = {
+      args: [String(id), price],
+      tyArgs: [state.detail_info.boxToken, state.detail_info.payToken],
+      type: "box",
+      groupId: ref(route.query.groupId).value,
+      chainId: id,
+    };
+  } else {
     params = {
       args: [String(state.detail_info.nftId), price],
       tyArgs: [
@@ -266,15 +275,6 @@ const changeBidPrice = async () => {
       ],
       type: "nft",
       infoId: ref(route.query.infoId).value,
-    };
-  } else if (state.detail_type === "box") {
-    const id = ref(route.query.chainId).value;
-    params = {
-      args: [String(id), price],
-      tyArgs: [state.detail_info.boxToken, state.detail_info.payToken],
-      type: "box",
-      groupId: ref(route.query.groupId).value,
-      chainId: id,
     };
   }
   state.dialogEvent = dialogEventMaps["UpdateBid"];
@@ -346,8 +346,7 @@ const actionsCall = async (d) => {
           groupId: ref(route.query.groupId).value,
           chainId: ref(route.query.chainId).value,
         };
-      }
-      if (state.detail_type === "nft") {
+      } else {
         params = {
           tyArgs: [
             state.detail_info.nftMeta,
@@ -374,7 +373,15 @@ const actionsCall = async (d) => {
   } else if (d.action === "CancelSell") {
     state.dialogEvent = dialogEventMaps["CancelSell"];
     let params;
-    if (state.detail_type === "nft") {
+    if (state.detail_type === "box") {
+      params = {
+        type: "box",
+        tyArgs: [state.detail_info.boxToken, state.detail_info.payToken],
+        args: [ref(route.query.chainId).value],
+        groupId: ref(route.query.groupId).value,
+        chainId: ref(route.query.chainId).value,
+      };
+    } else {
       params = {
         type: "nft",
         tyArgs: [
@@ -384,15 +391,6 @@ const actionsCall = async (d) => {
         ],
         args: [state.detail_info.nftId],
         infoId: ref(route.query.infoId).value,
-      };
-    }
-    if (state.detail_type === "box") {
-      params = {
-        type: "box",
-        tyArgs: [state.detail_info.boxToken, state.detail_info.payToken],
-        args: [ref(route.query.chainId).value],
-        groupId: ref(route.query.groupId).value,
-        chainId: ref(route.query.chainId).value,
       };
     }
     store.dispatch("StoreCollection/cancelSellContractsCall", params);
@@ -420,7 +418,15 @@ const sencondDialogConfirm = () => {
       price,
       currency: utilsFormat.getTokenCurrency(state.detail_info.payToken),
     };
-    if (state.detail_type === "nft") {
+    if (state.detail_type === "box") {
+      params = Object.assign({}, params, {
+        type: "box",
+        tyArgs: [state.detail_info.boxToken, state.detail_info.payToken],
+        args: [ref(route.query.chainId).value],
+        groupId: ref(route.query.groupId).value,
+        chainId: ref(route.query.chainId).value,
+      });
+    } else {
       params = Object.assign({}, params, {
         type: "nft",
         tyArgs: [
@@ -430,15 +436,6 @@ const sencondDialogConfirm = () => {
         ],
         args: [state.detail_info.nftId],
         infoId: ref(route.query.infoId).value,
-      });
-    }
-    if (state.detail_type === "box") {
-      params = Object.assign({}, params, {
-        type: "box",
-        tyArgs: [state.detail_info.boxToken, state.detail_info.payToken],
-        args: [ref(route.query.chainId).value],
-        groupId: ref(route.query.groupId).value,
-        chainId: ref(route.query.chainId).value,
       });
     }
     secondDialogClose();

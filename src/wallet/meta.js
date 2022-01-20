@@ -1,19 +1,17 @@
 /* eslint-disable */
+/** QQ show */
 
 import { getTxhash } from "./tool";
 import { nftProtoArr } from "./nftproto";
 
 /**** NFT META  ****/
 // 分解NFT
-const breakDownNFT = async ({ provider, nftId }) => {
+const breakDownNFT = async ({ provider, nftId, functionId }) => {
   try {
-    const funcId =
-      process.env.VUE_APP_NFT_META_ADDRESS +
-      process.env.VUE_APP_NFT_META_BREAK_DOWN_FUNCTION_ID;
     const tyArgs = [];
     const args = [nftId];
-    console.log("funcId", funcId, "tyArgs", tyArgs, "args", args);
-    return getTxhash(provider, funcId, tyArgs, args);
+    console.log("funcId", functionId, "tyArgs", tyArgs, "args", args);
+    return getTxhash(provider, functionId, tyArgs, args);
   } catch (e) {
     console.error("breakDownNFT", e);
     return "error";

@@ -49,16 +49,16 @@
               class="base-info-item"
               v-if="state.isNFT && props.box_detail.nftType"
             >
-              <span class="title">{{ $t("类型") }}</span>
+              <span class="title">{{ $t("category") }}</span>
               <span class="value">
                 <span v-if="props.box_detail.nftType === 'COMPOSITE_ELEMENT'">
-                  {{ $t("素材") }}
+                  {{ $t("components") }}
                 </span>
                 <span v-if="props.box_detail.nftType === 'COMPOSITE_CARD'">
-                  {{ $t("重组NFT") }}
+                  {{ $t("disassembled NFT") }}
                 </span>
                 <span v-if="props.box_detail.nftType === 'NORMAL'">
-                  {{ $t("原生NFT") }}
+                  {{ $t("original NFT") }}
                 </span>
               </span>
             </div>
@@ -112,7 +112,11 @@
                 }}</span>
               </span>
             </div>
-            <div class="base-info-item" style="margin-top: 20px">
+            <div
+              class="base-info-item"
+              style="margin-top: 20px"
+              v-if="props.box_detail?.creator"
+            >
               <span class="title">{{ $t("创建者") }}</span>
               <span
                 class="value"
@@ -136,7 +140,7 @@
                 stringFormat(props.box_detail && props.box_detail.owner)
               }}</span>
             </div>
-            <div class="base-info-item">
+            <div class="base-info-item" v-if="state.nft_address">
               <span class="title">{{ $t("合约地址") }}</span>
               <span
                 class="value"
@@ -319,6 +323,7 @@ const selectCrossTab = (name) => {
   .detail-base-info {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     .left-image {
       width: 424px;
       height: 424px;

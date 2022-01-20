@@ -174,7 +174,7 @@ $bgColor2: #fcf7f1;
     border-color: transparent;
   }
   ::v-deep(.el-input__inner) {
-    background: $bgColor;
+    background: #f3e6d7;
     border: none;
     color: $fontColor;
     height: 40px;

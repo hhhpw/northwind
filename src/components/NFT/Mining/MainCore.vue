@@ -167,7 +167,9 @@ let polling = (fn) => {
   return new Promise((resolve) => {
     fn();
     setTimeout(() => {
-      resolve(polling(fn));
+      if (typeof polling === "function") {
+        resolve(polling(fn));
+      }
     }, 5000);
   });
 };

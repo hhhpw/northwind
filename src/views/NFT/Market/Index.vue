@@ -6,16 +6,7 @@
     >
       <template #nft-header>
         <nft-selector @filterEvent="changeListQuery"></nft-selector>
-        <!-- <list-screen
-          @clickSelectJoint="selectCallback"
-          @clickRadio="clickRadio"
-          :isShowOpenStatus="true"
-          :showTips="false"
-          :isShowSeries="true"
-          :isShowSort="true"
-        ></list-screen> -->
         <div class="blind-box-list">
-          <!-- <div :class="{ 'blind-box-list-wrap': state.loading }"> -->
           <star-scroll
             :hasMore="state.listStatus.hasMore"
             :isLoading="state.listStatus.isLoading"
@@ -75,7 +66,6 @@
 import StarNft from "@StarUI/StarNFT.vue";
 import { reactive, computed, onUnmounted } from "vue";
 import NftNoConnectedWallet from "@components/NFT/NFTNoConnectedWallet.vue";
-// import ListScreen from "@components/NFT/ListScreen.vue";
 import NftSelector from "@components/NFT/NFTSelector.vue";
 import ListBlindBoxItem from "@components/NFT/ListBlindBoxItem.vue";
 import StarScroll from "@StarUI/StarScroll.vue";
@@ -90,15 +80,9 @@ let state = reactive({
   listStatus: computed(() => store.state.StoreNftMarket.listStatus),
 });
 
-// onMounted(() => {
-//   store.dispatch("StoreNftMarket/queryMarketList", { type: "init" });
-// });
-
 onUnmounted(() => {
   store.commit("StoreNftMarket/CLEAR_DATA");
 });
-
-// const state.marketList = computed(() => store.getters["StoreNftMarket/state.marketList"]);
 
 // 查看卡片详情
 const watchDetail = (detail) => {
@@ -114,31 +98,6 @@ const changeListQuery = (params) => {
     Object.assign({}, params, { type: "init" })
   );
 };
-// 类型筛选
-// const selectCallback = (item) => {
-//   const { groupId, sort } = item;
-//   store.dispatch("StoreNftMarket/changeListQuery", {
-//     groupId: groupId,
-//     sort: sort.value,
-//   });
-// };
-
-// const clickRadio = (data) => {
-//   const rules = data.map((d) => d.isOpen);
-//   let open = "all";
-//   if (rules[0]) {
-//     open = "box";
-//   }
-//   if (rules[1]) {
-//     open = "nft";
-//   }
-//   if (rules[0] && rules[1]) {
-//     open = "all";
-//   }
-//   store.dispatch("StoreNftMarket/changeListQuery", {
-//     open,
-//   });
-// };
 // 加载数据
 const loadMore = () => {
   store.dispatch("StoreNftMarket/queryMarketList", { type: "scroll" });

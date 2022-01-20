@@ -44,7 +44,14 @@
           <div :class="$style['main-item-info']">
             <span>
               <svg-icon name="rarity"></svg-icon>
-              <span>{{ d.score }}</span>
+              <!-- <span>{{ d.score }}</span> -->
+              <star-amount
+                :value="d.score"
+                :formatOptions="{
+                  precision: 0,
+                  trailingZero: true,
+                }"
+              ></star-amount>
             </span>
             <span :class="$style['main-item-info-amount']">
               <span>&times;</span>
@@ -80,10 +87,10 @@
 import { computed, onMounted, reactive, watch } from "vue";
 import SvgIcon from "@components/SvgIcon/Index.vue";
 import NoElementItem from "./NoElementItem.vue";
+import StarAmount from "@StarUI/StarAmount.vue";
 import { useStore } from "vuex";
 const store = useStore();
 const state = reactive({
-  property: ["身体", "发型", "发饰", "衣服", "裤子"],
   activeProperty: 0,
   activeElement: null,
   metaData: computed(() => store.state.StoreMeta.metaData),

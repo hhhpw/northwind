@@ -2,17 +2,21 @@ import request from "../../utils/request";
 
 // 获取平台回购列表
 function getBuyBacklist(params) {
-  const { groupId, sort, pageNum, pageSize } = params;
+  const { groupId, sort, pageNum, pageSize, nftType, sortRule } = params;
   return request({
     url:
       "/v1/nft/platBuyBack/getALL?groupId=" +
       groupId +
-      "&sort=" +
-      sort +
+      "&nftType=" +
+      nftType +
       "&pageSize=" +
       pageSize +
       "&pageNum=" +
-      pageNum,
+      pageNum +
+      "&sort=" +
+      sort +
+      "&sortRule=" +
+      sortRule,
     method: "GET",
   });
 }

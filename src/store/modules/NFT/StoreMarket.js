@@ -19,8 +19,8 @@ import utilsFormat from "@utils/format";
 const INIT_LIST_PARAMS = {
   sortRule: "ctime", // price ctime rarity
   groupId: 0,
-  nftType: "", //nft 原生nft/ box盲盒/ recombine组合nft/ element素材/元素
-  sort: 0, // 稀有度 1按照sortRule 字段，降序  2按照sortRule 字段，升序
+  nftType: "", //nft 原生nft/ box盲盒/ composite_card/ composite_element素材/元素
+  sort: 1, // 稀有度 1按照sortRule 字段，降序  2按照sortRule 字段，升序
   pageSize: 30,
   pageNum: 1,
 };

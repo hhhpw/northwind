@@ -250,19 +250,19 @@ let state = reactive({
   }), // 操作类型展示控制
   action_type: "", // 操作按钮类型, 用来判断展示弹窗
   contract_params: computed(() => {
-    let contractType = state.blind_box_type == "nft" ? "NFT" : "BLIND_BOX";
+    let contractType = state.blind_box_type == "box" ? "BLIND_BOX" : "NFT";
     let id =
-      state.blind_box_type == "nft"
-        ? state.box_detail.nftId
-        : ref(route.query.chainId).value;
+      state.blind_box_type == "box"
+        ? ref(route.query.chainId).value
+        : state.box_detail.nftId;
     let codes =
-      state.blind_box_type == "nft"
-        ? [
+      state.blind_box_type == "box"
+        ? [state.box_detail.boxToken, state.box_detail.payToken]
+        : [
             state.box_detail.nftMeta,
             state.box_detail.nftBody,
             state.box_detail.payToken,
-          ]
-        : [state.box_detail.boxToken, state.box_detail.payToken];
+          ];
     // let provider = store.state.StoreWallet.stcProvider;
     let offerPrice = 1;
     return { id, codes, contractType, offerPrice };

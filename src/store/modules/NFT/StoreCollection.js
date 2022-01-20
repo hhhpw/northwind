@@ -582,9 +582,7 @@ const StoreCollection = {
       let txnHash =
         type === "box"
           ? await Wallet.blindBoxContractCall(params)
-          : type === "nft"
-          ? await Wallet.nftContractCall(params)
-          : "";
+          : await Wallet.nftContractCall(params);
       console.timeEnd("===出售合约gas计算===");
       if (txnHash !== "error") {
         commit(types.CHANGE_DIALOG_STATUS, {
@@ -628,7 +626,7 @@ const StoreCollection = {
         if (boxStatus.code === 200) {
           onSell = boxStatus.data.onSell;
         }
-      } else if (payload.type === "nft") {
+      } else {
         const nftStatus = await collectionApi.getSellingNftDetail(
           payload.infoId
         );
@@ -664,9 +662,7 @@ const StoreCollection = {
       let txnHash =
         type === "box"
           ? await Wallet.blindBoxContractCall(params)
-          : type === "nft"
-          ? await Wallet.nftContractCall(params)
-          : "";
+          : await Wallet.nftContractCall(params);
       console.timeEnd("===collection:取消出售合约gas计算===");
       if (txnHash !== "error") {
         commit(types.CHANGE_DIALOG_STATUS, {
@@ -710,7 +706,7 @@ const StoreCollection = {
         if (boxStatus.code === 200) {
           onSell = boxStatus.data.onSell;
         }
-      } else if (payload.type === "nft") {
+      } else {
         const nftStatus = await collectionApi.getSellingNftDetail(
           payload.infoId
         );
@@ -746,9 +742,7 @@ const StoreCollection = {
       let txnHash =
         type === "box"
           ? await Wallet.blindBoxContractCall(params)
-          : type === "nft"
-          ? await Wallet.nftContractCall(params)
-          : "";
+          : await Wallet.nftContractCall(params);
       console.timeEnd("===collection:接受报价合约gas计算===");
       if (txnHash !== "error") {
         commit(types.CHANGE_DIALOG_STATUS, {
@@ -797,7 +791,7 @@ const StoreCollection = {
         if (boxStatus.code === 200) {
           onSell = boxStatus.data.onSell;
         }
-      } else if (payload.type === "nft") {
+      } else {
         const nftStatus = await collectionApi.getSellingNftDetail(
           payload.infoId
         );
@@ -830,14 +824,13 @@ const StoreCollection = {
               tyArgs,
               type: "CHANGE_PRICE",
             })
-          : type === "nft"
-          ? await Wallet.nftContractCall({
+          : await Wallet.nftContractCall({
               provider,
               args,
               tyArgs,
               type: "CHANGE_PRICE",
-            })
-          : "";
+            });
+
       console.timeEnd("===collection:更改售价合约gas计算===");
       if (txnHash !== "error") {
         commit(types.CHANGE_DIALOG_STATUS, {

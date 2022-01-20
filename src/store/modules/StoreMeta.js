@@ -407,6 +407,8 @@ const StoreMeta = {
           payload.chainId,
           payload.payToken
         );
+        const metaArr = payload.nftMeta.split("::");
+        const functionId = metaArr[0] + "::" + metaArr[1] + "::resolve_card";
         if (nftDetail.code === 200) {
           console.log("====nftDetail=====", nftDetail.data);
           let { compositeElements } = nftDetail.data;
@@ -419,6 +421,7 @@ const StoreMeta = {
           const params = {
             provider: rootState.StoreWallet.stcProvider,
             nftId: payload.chainId,
+            functionId,
           };
 
           const txnHash = await Wallet.breakDownNFT(params);
