@@ -20,6 +20,11 @@ body {
 //   font-family: Rigelstar;
 // }
 
+::-webkit-scrollbar {
+  width: 1px;
+  height: 1px;
+}
+
 @font-face {
   font-family: DenmarkRegular;
   src: url("../fonts/Denmark Regular.ttf");

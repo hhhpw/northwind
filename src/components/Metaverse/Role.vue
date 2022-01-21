@@ -73,6 +73,8 @@ const changeMainType = () => {
 };
 </script>
 <style lang="scss" module>
+@import "~@/styles/mixin.scss";
+
 .role {
   // width: 1100px;
   height: 136px;
@@ -124,6 +126,10 @@ const changeMainType = () => {
         font-size: 14px;
         padding-left: 10px;
         padding-top: 10px;
+        p {
+          @include textOverflow();
+          width: 90%;
+        }
       }
 
       // border: 2px solid #fb8000;

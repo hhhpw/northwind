@@ -3,6 +3,7 @@
 
 import { getTxhash } from "./tool";
 import { nftProtoArr } from "./nftproto";
+import { cloneDeep } from "lodash";
 
 /**** NFT META  ****/
 // 分解NFT
@@ -20,6 +21,7 @@ const breakDownNFT = async ({ provider, nftId, functionId }) => {
 
 const composeNFT = async ({ provider, info }) => {
   try {
+    const deepArr = cloneDeep(nftProtoArr);
     const funcId =
       process.env.VUE_APP_NFT_META_ADDRESS +
       process.env.VUE_APP_NFT_MEAT_COMPOSE_CUSTOM_FUNCTION_ID;
@@ -27,7 +29,7 @@ const composeNFT = async ({ provider, info }) => {
     const { selectedIds } = info;
     for (let i = 0; i < selectedIds.length; i++) {
       const index = selectedIds[i].index;
-      nftProtoArr[index - 1] = selectedIds[i].chainId;
+      deepArr[index - 1] = selectedIds[i].chainId;
     }
     const tyArgs = [];
     const args = [
@@ -37,7 +39,7 @@ const composeNFT = async ({ provider, info }) => {
       occupation,
       custom_name,
       sex,
-      ...nftProtoArr,
+      ...deepArr,
     ];
     console.log("funcId", funcId, "tyArgs", tyArgs, "args", args);
     return getTxhash(provider, funcId, [], args);
