@@ -1,10 +1,10 @@
 /* eslint-disable */
-import { computed, reactive } from "vuex";
+import { computed, reactive } from "vue";
 
 const NFT_TYPES = ["composite_card", "composite_element", "nft"];
 
-const useNFTFunc = (store, data) => {
-  const state = reactive({
+const useNFT = (store, data) => {
+  let state = reactive({
     accounts: computed(() => store.state.StoreWallet.accounts),
   });
 
@@ -19,12 +19,13 @@ const useNFTFunc = (store, data) => {
   // 是否再售
   const isOnSell = computed(() => {
     return data.onSel;
-  });
+  }).value;
 
   // 获取NFTtype
-  const getNFTType = () => {
+  const getNFTType = computed(() => {
+    console.log("data", data);
     return data.type;
-  };
+  }).value;
 
   // 是否符合nft类型
   const isSameNFTType = (typeArr) => {
@@ -52,4 +53,4 @@ const useNFTFunc = (store, data) => {
   };
 };
 
-export default useNFTFunc;
+export { useNFT };

@@ -22,7 +22,7 @@
                   v-for="(blind, i) in state.buyBackList"
                   :key="i"
                   class="list-blind-box-item"
-                  cardType="back"
+                  cardType="buyback"
                   sellType=""
                   :baseData="blind"
                   @watchDetail="watchDetail(blind)"

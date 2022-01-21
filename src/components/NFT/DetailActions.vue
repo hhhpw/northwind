@@ -18,7 +18,11 @@
         </div>
       </div>
       <!-- 盲盒未开启 -->
-      <div class="buttons blind-buttons" v-if="!props.is_blind_open">
+      <div
+        class="buttons blind-buttons"
+        v-if="!props.isNFT"
+        style="margin-top: 10px"
+      >
         <div
           class="sell-blind-box actions-button"
           @click="actionsCall('SellBlinkBox')"
@@ -37,6 +41,7 @@
         <div
           class="open-blind-box actions-button"
           @click="actionsCall('SellNFT')"
+          style="margin-top: 10px"
         >
           {{ $t("出售") }}
         </div>
@@ -230,7 +235,7 @@ const props = defineProps({
   is_sell: false, // 是否是出售
   box_detail: {}, // 详情信息
   action_type: String, // 操作类型  SELL 出售 OWNERSELL 本人出售 BUYERSELL 购买者 SOLDOUT售罄 RECOVERY回收
-  is_blind_open: Boolean, // 盲盒是否开启
+  isNFT: Boolean, // 盲盒是否开启
 });
 
 const formatPriceWithLength = (price, precision) => {

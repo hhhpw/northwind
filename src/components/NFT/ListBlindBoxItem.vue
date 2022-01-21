@@ -147,7 +147,7 @@
 
         <div
           class="nft-blind-text-price-item buyback"
-          v-if="props.cardType === 'back'"
+          v-if="props.cardType === 'buyback'"
         >
           <span>{{ $t("回收价格") }}：</span>
           <span> {{ baseData.buyPrice }} {{ baseData.currency }}</span>

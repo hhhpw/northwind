@@ -1,30 +1,157 @@
 <template>
   <div
-    class="nft-blind-box-item"
-    :class="$style['nft-blind-box-item']"
-    v-if="baseData"
+    class="nft-card-item"
+    :class="$style['nft-card-item']"
+    v-if="props.baseData"
     :set="
-      ((type = baseData.type),
-      (boxToken = baseData.boxToken),
-      (nftMeta = baseData.nftMeta))
+      ((itemData = props.baseData),
+      (boxToken = itemData.boxToken),
+      (nftMeta = itemData.nftMeta))
     "
   >
     <div :class="$style['img-box']" @click="watchDetail">
       <img
-        :src="baseData.icon"
+        :src="itemData.icon"
         alt=""
         width="100%"
         v-unsold-nft-url="{
-          isUnSoldNft: baseData.isUnSoldNft || false,
-          url: baseData.icon || '',
+          isUnSoldNft: itemData.isUnSoldNft || false,
+          url: itemData.icon || '',
         }"
       />
+    </div>
+    <div :class="$style['item-content']">
+      <div :class="$style['item-content-info']">
+        <div :class="$style['item-content-info-data']">
+          <span :class="$style['item-content-info-data-name']">{{
+            itemData.nftName || itemData.name
+          }}</span>
+          <span :class="$style['item-content-info-data-address']">
+            {{
+              baseData.type === "box"
+                ? utilsFormat.formatSliceString(boxToken)
+                : utilsFormat.formatSliceString(nftMeta)
+            }}
+          </span>
+        </div>
+        <div :class="$style['item-content-info-flag']">
+          <!-- 可分解标示 -->
+          <nft-card-item-tool-tip
+            v-if="showDisassembledIcon(itemData.type)"
+            :placeString="$t('metaverse.can be disassembled')"
+            svgName="clothes"
+            :svgStyle="{
+              transform: 'scale(1.5)',
+              'margin-right': '8px',
+            }"
+          >
+          </nft-card-item-tool-tip>
+          <!-- 稀有值 -->
+          <div
+            v-if="showRarityIcon(itemData.type, itemData?.score)"
+            :class="$style['item-content-info-flag-score']"
+          >
+            <nft-card-item-tool-tip
+              :placeString="$t('NFT稀有值')"
+              svgName="rarity"
+            >
+            </nft-card-item-tool-tip>
+            <star-amount
+              style="margin-left: 3px"
+              :value="baseData?.score"
+              :formatOptions="{
+                precision: 2,
+              }"
+            >
+            </star-amount>
+          </div>
+        </div>
+      </div>
+
+      <div :class="$style['item-content-slots']">
+        <!-- 回购 -->
+        <div
+          v-if="props.cardType === 'buyback'"
+          :class="$style['item-content-slots-buyback']"
+        >
+          <span>{{ $t("回收价格") }}：</span>
+          <span> {{ itemData.buyPrice }} {{ itemData.currency }}</span>
+        </div>
+
+        <!-- market && collection selling -->
+        <div
+          v-if="
+            props.cardType === 'market' ||
+            (props.cardType === 'collection' && props.sellType === 'selling')
+          "
+          :class="$style['item-content-slots-market']"
+        >
+          <div :class="$style['item-content-slots-market-item']">
+            <span>{{ $t("售价") }}：</span>
+            <span
+              >{{ utilsFormat.formatPrice(itemData.sellPrice) }}
+              {{ utilsFormat.getTokenCurrency(itemData.payToken) }}</span
+            >
+          </div>
+          <div :class="$style['item-content-slots-market-item']">
+            <span>{{ $t("最高出价") }}：</span>
+            <span v-if="Number(itemData.offerPrice) > 0">
+              {{ utilsFormat.formatPrice(itemData.offerPrice) }}
+              {{ utilsFormat.getTokenCurrency(itemData.payToken) }}
+            </span>
+            <span v-else style="text-align: right">
+              {{ $t("暂无报价") }}
+            </span>
+          </div>
+        </div>
+        <!-- collection -->
+        <div
+          v-if="props.cardType === 'collection'"
+          :class="$style['item-content-slots-collection']"
+        >
+          <div
+            v-if="props.sellType === 'selling'"
+            :class="$style['item-content-slots-collection-btns']"
+          >
+            <star-button
+              v-if="Number(baseData.offerPrice) > 0"
+              type="light"
+              :class="[
+                $style['item-content-slots-collection-selling-btn'],
+                $style['item-content-slots-collection-selling-btn-light'],
+              ]"
+              @click="actionsCall('AcceptBid')"
+              >{{
+                $t("接受") +
+                ` ${formatPriceWithLength(
+                  baseData.offerPrice
+                )} ${utilsFormat.getTokenCurrency(baseData.payToken)}`
+              }}
+            </star-button>
+
+            <star-button
+              type="dark"
+              :style="{ width: Number(baseData.offerPrice) <= 0 ? '100%' : '' }"
+              :class="$style['item-content-slots-collection-selling-btn']"
+              @click="actionsCall('CancelSell')"
+              >{{ $t("取消出售") }}</star-button
+            >
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 <script setup>
 /* eslint-disable */
-import { defineProps, reactive, computed, defineEmits } from "vue";
+import {
+  defineProps,
+  reactive,
+  computed,
+  defineEmits,
+  watch,
+  watchEffect,
+} from "vue";
 import { useStore } from "vuex";
 import StarButton from "@StarUI/StarButton.vue";
 import Confirm from "@components/NFT/Confirm";
@@ -32,15 +159,16 @@ import utilsFormat from "@utils/format";
 import SvgIcon from "@components/SvgIcon/Index.vue";
 import StarAmount from "@StarUI/StarAmount";
 import NftCardItemToolTip from "./NFTCardItemToolTip.vue";
+import { useNFT } from "../../hooks/useNFT";
 const store = useStore();
 const props = defineProps({
   cardType: {
     type: String,
-    default: "", //back平台回购，market 市场 collection 收藏 ,conllectionSell 未出售
+    default: "", //buyback平台回购，market 市场 collection 收藏 ,conllectionSell 未出售
   },
   sellType: {
     type: String,
-    default: "sell",
+    default: "", //selling 我的NFT销售中
   },
   baseData: {
     type: Object,
@@ -54,6 +182,9 @@ const props = defineProps({
     default: true,
   },
 });
+
+const { getNFTType, isNFT } = useNFT(store, props.baseData);
+
 let state = reactive({
   isShowConfirm: computed(
     () => store.state.StoreNftMarket.change_confirm_visible
@@ -71,8 +202,14 @@ const formatPriceWithLength = (price) => {
   return t;
 };
 
-const showSplitIcon = (type) => {
+const showDisassembledIcon = (type) => {
   return type === "composite_card" || type === "composite_element";
+};
+const showRarityIcon = (type, score) => {
+  if ((type === "nft" || type === "composite_card") && score) {
+    return true;
+  }
+  return false;
 };
 
 const handleConfirm = () => {
@@ -97,6 +234,10 @@ const formatAddress = (string) => {
 
 <style lang="scss" module>
 $border-radius: 16px;
+$gray: #7f7f7f;
+$fontWeight: bold;
+$black: #010e22;
+
 .nft-card-item {
   width: 279px;
   background: $white;
@@ -122,15 +263,93 @@ $border-radius: 16px;
     border-bottom: 0.5px solid #d1d1d1;
     border-top-left-radius: $border-radius;
     border-top-right-radius: $border-radius;
+    img {
+      cursor: pointer;
+      max-width: 279px;
+      max-height: 279px;
+      width: 100%;
+      height: 100%;
+      border-top-left-radius: $border-radius;
+      border-top-right-radius: $border-radius;
+    }
   }
-  img {
-    cursor: pointer;
-    max-width: 279px;
-    max-height: 279px;
-    width: 100%;
-    height: 100%;
-    border-top-left-radius: $border-radius;
-    border-top-right-radius: $border-radius;
+  .item-content {
+    padding: 12px 16px;
+    .item-content-info {
+      display: flex;
+      justify-content: space-between;
+      .item-content-info-data {
+        display: flex;
+        flex-direction: column;
+        .item-content-info-data-name {
+          font-weight: bold;
+        }
+        .item-content-info-data-address {
+          color: #7f7f7f;
+          font-size: 14px;
+        }
+      }
+      .item-content-info-flag {
+        display: flex;
+        .item-content-info-flag-score {
+          color: #fb8000;
+          font-weight: bold;
+          display: flex;
+        }
+      }
+    }
+    .item-content-slots {
+      .item-content-slots-buyback {
+        margin-top: 25px;
+        text-align: center;
+        display: block;
+        font-size: 14px;
+        span {
+          font-weight: $fontWeight;
+        }
+        span:first-child {
+          color: $gray;
+        }
+        span:nth-child(2) {
+          color: $black;
+        }
+      }
+      .item-content-slots-market {
+        margin: 10px 0px;
+        .item-content-slots-market-item {
+          font-size: 14px;
+          display: flex;
+          justify-content: space-between;
+          span {
+            font-weight: $fontWeight;
+          }
+          span:first-child {
+            color: $gray;
+          }
+          span:nth-child(2) {
+            color: $black;
+          }
+        }
+      }
+      .item-content-slots-collection {
+        .item-content-slots-collection-btns {
+          display: flex;
+          justify-content: space-between;
+          margin: 10px auto 0px;
+        }
+        .item-content-slots-collection-selling-btn {
+          height: 10px;
+          line-height: 10px;
+          width: 46%;
+          padding-left: 0;
+          padding-right: 0;
+        }
+        .item-content-slots-collection-selling-btn-light {
+          border: 1px solid $border-gray-color;
+          color: $text-black-color;
+        }
+      }
+    }
   }
 }
 </style>
