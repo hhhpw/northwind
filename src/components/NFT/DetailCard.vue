@@ -55,6 +55,7 @@
                   {{ $t("components") }}
                 </span>
                 <span v-if="props.box_detail.nftType === 'COMPOSITE_CARD'">
+                  <SvgIcon name="clothes"></SvgIcon>
                   {{ $t("disassembled NFT") }}
                 </span>
                 <span v-if="props.box_detail.nftType === 'NORMAL'">
@@ -69,6 +70,7 @@
             >
               <span class="title">{{ $t("稀有值") }}</span>
               <span class="value">
+                <svg-icon name="rarity" style="margin-right: 4px"></svg-icon>
                 <star-amount
                   :value="props.box_detail?.score"
                   :formatOptions="{
@@ -86,19 +88,19 @@
               "
             >
               <span style="margin-right: 8px">
-                {{ $t("名字") }}:
-                <span class="base-info-item-character-info-value">{{
-                  props.box_detail?.customName
-                }}</span>
+                {{ $t("name") }}:
+                <span class="base-info-item-character-info-value">
+                  {{ props.box_detail?.customName }}</span
+                >
               </span>
               <span
                 style="margin-right: 8px"
                 v-if="props.box_detail?.occupation"
               >
-                {{ $t("职业") }}
-                <span class="base-info-item-character-info-value">{{
-                  props.box_detail?.occupation
-                }}</span>
+                {{ $t("profession") }}
+                <span class="base-info-item-character-info-value">
+                  {{ props.box_detail?.occupation }}</span
+                >
               </span>
               <span
                 style="margin-right: 8px"
@@ -106,7 +108,7 @@
                   props.box_detail?.sex === 1 || props.box_detail?.sex === 0
                 "
               >
-                {{ $t("性别") }}
+                {{ $t("sex") }}
                 <span class="base-info-item-character-info-value">{{
                   props.box_detail?.sex === 1 ? $t("male") : $t("female")
                 }}</span>

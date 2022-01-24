@@ -86,6 +86,16 @@ const changeMainType = () => {
   display: flex;
   padding: 0px 20px;
   overflow-x: scroll;
+  &::-webkit-scrollbar {
+    height: 5px;
+    background-color: #ffecd4;
+    border-radius: 20px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    width: 80%;
+  }
   .role-no-character {
     font-size: 14px;
     color: #8b8b8b;

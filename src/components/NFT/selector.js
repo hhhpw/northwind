@@ -14,7 +14,7 @@ export const nftTypesList = [
   },
   {
     label: utilsFormat.computedLangCtx("disassembled NFT"),
-    value: "composite_card ",
+    value: "composite_card",
   },
   {
     label: utilsFormat.computedLangCtx("components"),

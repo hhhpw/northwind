@@ -41,7 +41,6 @@
             :placeString="$t('metaverse.can be disassembled')"
             svgName="clothes"
             :svgStyle="{
-              transform: 'scale(1.5)',
               'margin-right': '8px',
             }"
           >

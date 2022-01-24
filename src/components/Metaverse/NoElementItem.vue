@@ -31,8 +31,8 @@ const store = useStore();
   justify-content: center;
   flex-direction: column;
   .svg {
-    width: 40px;
-    height: 40px;
+    width: 18px;
+    height: 18px;
   }
   p {
     font-size: 14px;

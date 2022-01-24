@@ -139,6 +139,10 @@ const changeProperty = (d, i) => {
 </script>
 <style lang="scss" module>
 $mainHeight: 460px;
+// ::-webkit-scrollbar {
+//   width: 1px;
+//   height: 1px;
+// }
 @mixin activeBtnStyle {
   background: #ad865c;
   color: #fff;
@@ -200,6 +204,9 @@ $mainHeight: 460px;
     flex-wrap: wrap;
     align-content: flex-start;
     overflow: scroll;
+    &::-webkit-scrollbar {
+      display: none;
+    }
     // background: red;
     .main-no-data {
       align-self: center;

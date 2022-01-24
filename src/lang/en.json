@@ -271,7 +271,10 @@
     "components": "Components",
     "category": "Category",
     "listed Time": "Listed Time",
-    "K-Avatar": "K-Avatar"
+    "K-Avatar": "K-Avatar",
+    "name": "name",
+    "profession": "profession",
+    "sex": "sex"
   },
   "farms": {
     "farm-swap-total-1": "Total trading volume",
@@ -297,7 +300,6 @@
     "farm-swap-draw-sure-error": "Harvesting rewards will cause you lose mining power",
     "farm-swap-lock": "Lockup",
     "farm-swap-draw-gas": "Harvest fee",
-
     "farm-swap-mining-success2": "{amount} KIKO transfered to lockup pool",
     "farm-liquidity-title": "Stake LP tokens to earn. ",
     "farm-liquidity-stake-total": "Current staked {amount} USDT",

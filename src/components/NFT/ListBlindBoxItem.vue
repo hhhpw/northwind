@@ -32,8 +32,7 @@
                 svgName="clothes"
                 class="nft-blind-text-name-rarity-tooltip"
                 :svgStyle="{
-                  transform: 'scale(1.5)',
-                  'margin-right': '8px',
+                  'margin-right': '3px',
                 }"
               >
               </nft-card-item-tool-tip>

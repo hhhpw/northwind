@@ -270,7 +270,10 @@
     "components": "素材",
     "category": "類型",
     "listed Time": "上架時間",
-    "K-Avatar": "K-Avatar"
+    "K-Avatar": "K-Avatar",
+    "name": "名字",
+    "profession": "職業",
+    "sex": "性別"
   },
   "farms": {
     "farm-swap-total-1": "總交易額",
