@@ -7,21 +7,21 @@
       @click="selectCrossTab(d.id)"
     >
       <span
-        :class="['name', state.selected_tab === d.id ? 'selected_tab' : '']"
+        :class="['name', props.selected_tab === d.id ? 'selected_tab' : '']"
         >{{ d.name }}</span
       >
       <span
         class="bottom-line"
-        v-if="state.selected_tab === d.id && props.cross_bar_array.length > 1"
+        v-if="props.selected_tab === d.id && props.cross_bar_array.length > 1"
       ></span>
     </div>
   </div>
 </template>
 <script setup>
-import { reactive, defineProps, watch } from "vue";
-let state = reactive({
-  selected_tab: "description", // description rarevalue history
-});
+import { defineProps } from "vue";
+// let state = reactive({
+//   selected_tab: "", // description rarevalue history
+// });
 
 const emits = defineEmits(["selectCrossTab"]);
 const props = defineProps({
@@ -32,12 +32,12 @@ const props = defineProps({
     type: String,
   },
 });
-watch(
-  () => props.selected_tab,
-  (n) => {
-    state.selected_tab = n;
-  }
-);
+// watch(
+//   () => props.selected_tab,
+//   (n) => {
+//     state.selected_tab = n;
+//   }
+// );
 
 const selectCrossTab = (id) => {
   emits("selectCrossTab", id);

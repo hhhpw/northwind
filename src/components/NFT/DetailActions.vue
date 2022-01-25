@@ -82,7 +82,11 @@
           >
         </div>
       </div>
-      <div class="blind-offer-actions" v-if="props.box_detail">
+      <div
+        class="blind-offer-actions"
+        v-if="props.box_detail"
+        :style="{ 'margin-top': props.isNFT ? '10px' : '20px' }"
+      >
         <span class="purchase" @click="actionsCall('Purchase')">
           {{
             formatPriceWithLength(
@@ -131,7 +135,11 @@
           </span>
         </div>
       </div>
-      <div class="blind-offer-actions" v-if="props.box_detail.onSell">
+      <div
+        class="blind-offer-actions"
+        v-if="props.box_detail.onSell"
+        :style="{ 'margin-top': props.isNFT ? '10px' : '20px' }"
+      >
         <span
           :style="{
             cursor: props.box_detail.topBidPrice <= 0 ? 'default' : 'pointer',

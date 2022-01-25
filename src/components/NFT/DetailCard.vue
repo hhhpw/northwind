@@ -171,14 +171,17 @@
     </div>
     <div class="detail-specific-info">
       <nft-detail-tab
-        :cross_bar_array="state.cross_bar_array"
+        :cross_bar_array="cross_bar_array"
         @selectCrossTab="selectCrossTab"
         :selected_tab="state.selected_tab"
       ></nft-detail-tab>
       <div class="detail-specific-info-container">
         <div
           class="specific-description"
-          v-if="state.selected_tab === 'description'"
+          v-if="
+            state.selected_tab === 'description' &&
+            props.box_detail.nftType !== 'COMPOSITE_CARD'
+          "
         >
           {{
             props.box_detail && state.currLang === "en"
@@ -188,7 +191,11 @@
         </div>
         <div
           class="specific-rarevalue"
-          v-if="state.selected_tab === 'rarevalue' && state.isNFT"
+          v-if="
+            state.selected_tab === 'rarevalue' &&
+            state.isNFT &&
+            props.box_detail.nftType !== 'COMPOSITE_ELEMENT'
+          "
         >
           <nft-detail-specific
             :box_detail="props.box_detail"
@@ -196,7 +203,11 @@
         </div>
         <div
           class="specific-history"
-          v-if="state.selected_tab === 'history' && state.isNFT"
+          v-if="
+            state.selected_tab === 'history' &&
+            state.isNFT &&
+            props.box_detail.nftType !== 'COMPOSITE_ELEMENT'
+          "
         >
           <nft-detail-history
             :box_detail="props.box_detail"
@@ -207,7 +218,7 @@
   </div>
 </template>
 <script setup>
-import { reactive, computed, defineProps, defineEmits } from "vue";
+import { reactive, computed, defineProps, defineEmits, watchEffect } from "vue";
 import detailAction from "@components/NFT/DetailActions";
 import NftDetailSpecific from "./NFTDetailSpecific.vue";
 import SvgIcon from "@components/SvgIcon/Index.vue";
@@ -222,55 +233,18 @@ import StarAmount from "@StarUI/StarAmount.vue";
 
 const store = useStore();
 let state = reactive({
-  selected_tab: "description",
   contract_address: computed(() => store.state.StoreNFTDetail.contract_address),
   accounts: computed(() => store.state.StoreWallet.accounts),
   currLang: computed(() => store.state.StoreApp.currLang),
-  // description: computed(() => {
-  //   if (store.state.StoreApp.currLang == "cn") {
-  //     return state.isNFT
-  //       ? props.box_detail.cn_description
-  //       : props.box_detail.cnDescription;
-  //   } else {
-  //     return state.isNFT
-  //       ? props.box_detail.en_description
-  //       : props.box_detail.enDescription;
-  //   }
-  // }),
   isNFT: computed(() => {
-    return (
+    if (
       props.blind_box_type === "nft" ||
       props.blind_box_type === "composite_card" ||
       props.blind_box_type === "composite_element"
-    );
-  }),
-  cross_bar_array: computed(() => {
-    if (
-      state.isNFT ||
-      (state.history_list_params && state.history_list_params.type === "back")
     ) {
-      return [
-        {
-          id: "description",
-          name: t("描述"),
-        },
-        {
-          id: "rarevalue",
-          name: t("稀有值"),
-        },
-        {
-          id: "history",
-          name: t("历史"),
-        },
-      ];
-    } else {
-      return [
-        {
-          id: "description",
-          name: t("描述"),
-        },
-      ];
+      return true;
     }
+    return false;
   }),
   nft_address: computed(() => {
     if (
@@ -283,11 +257,62 @@ let state = reactive({
       return props.box_detail && props.box_detail.boxToken;
     }
   }),
+  selected_tab: "",
 });
 
 const pushPage = (path) => {
   utilsTools.openNewWindow(`https://stcscan.io/main/address/${path}`);
 };
+
+const cross_bar_array = computed(() => {
+  if (state.isNFT) {
+    if (props?.box_detail?.nftType === "COMPOSITE_ELEMENT") {
+      return [
+        {
+          id: "description",
+          name: t("描述"),
+        },
+      ];
+    }
+    if (props?.box_detail?.nftType === "COMPOSITE_CARD") {
+      return [
+        {
+          id: "rarevalue",
+          name: t("稀有值"),
+        },
+        {
+          id: "history",
+          name: t("历史"),
+        },
+      ];
+    }
+    return [
+      {
+        id: "description",
+        name: t("描述"),
+      },
+      {
+        id: "rarevalue",
+        name: t("稀有值"),
+      },
+      {
+        id: "history",
+        name: t("历史"),
+      },
+    ];
+  } else {
+    return [
+      {
+        id: "description",
+        name: t("描述"),
+      },
+    ];
+  }
+}).value;
+
+watchEffect(() => {
+  state.selected_tab = cross_bar_array?.[0]?.id;
+});
 
 let props = defineProps({
   box_detail: {

@@ -15,6 +15,7 @@
     <!-- 角色卡片 -->
     <div :class="$style['role-character']" v-else>
       <div
+        @click.stop="changeMainType"
         v-for="(d, i) in state.composeNFT"
         :key="i"
         :class="$style['role-character-item']"
@@ -61,7 +62,6 @@ const hoverEvent = (index, flag) => {
   });
 };
 const changeMainType = () => {
-  console.log("state.type", state.type);
   if (state.type === "not-generated") {
     // 清空所有元素
   }
