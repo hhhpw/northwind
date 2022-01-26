@@ -12,10 +12,7 @@
         <div
           @click.stop="
             () => {
-              pushIgo(
-                state.igoList[state.activeIndex].state,
-                state.igoList[state.activeIndex]
-              );
+              pushIgoIndex();
               setActiveItem(i);
             }
           "
@@ -123,6 +120,10 @@ let state = reactive({
 const pushIgo = (flag, data) => {
   if (flag === "preview") return;
   utilsTool.openNewWindow(`https://kgstarter.com/prodetail?pid=${data.id}`);
+};
+
+const pushIgoIndex = () => {
+  utilsTool.openNewWindow(`https://kgstarter.com`);
 };
 
 const pushPage = (i) => {
