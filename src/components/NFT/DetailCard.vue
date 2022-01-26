@@ -1,7 +1,7 @@
 <template>
-  <div class="nft-detail-card">
+  <div class="nft-detail-card" v-if="props.box_detail">
     <div class="detail-base-info">
-      <div class="left-image" v-if="props.box_detail">
+      <div class="left-image">
         <img
           v-if="state.isNFT"
           :src="
@@ -171,7 +171,7 @@
     </div>
     <div class="detail-specific-info">
       <nft-detail-tab
-        :cross_bar_array="cross_bar_array"
+        :cross_bar_array="state.cross_bar_array"
         @selectCrossTab="selectCrossTab"
         :selected_tab="state.selected_tab"
       ></nft-detail-tab>
@@ -230,6 +230,7 @@ import StarAmount from "@StarUI/StarAmount.vue";
 
 const store = useStore();
 let state = reactive({
+  cross_bar_array: null,
   contract_address: computed(() => store.state.StoreNFTDetail.contract_address),
   accounts: computed(() => store.state.StoreWallet.accounts),
   currLang: computed(() => store.state.StoreApp.currLang),
@@ -261,8 +262,9 @@ const pushPage = (path) => {
   utilsTools.openNewWindow(`https://stcscan.io/main/address/${path}`);
 };
 
-const cross_bar_array = computed(() => {
-  if (state.isNFT && props.box_detail.nftType) {
+const getBarArray = () => {
+  if (!props.box_detail.nftType) return;
+  if (state.isNFT) {
     if (props.box_detail.nftType === "COMPOSITE_ELEMENT") {
       return [
         {
@@ -294,10 +296,12 @@ const cross_bar_array = computed(() => {
       },
     ];
   }
-}).value;
+};
 
 watchEffect(() => {
-  state.selected_tab = cross_bar_array?.[0]?.id;
+  if (!props.box_detail.nftType) return;
+  state.cross_bar_array = getBarArray();
+  state.selected_tab = state.cross_bar_array?.[0]?.id;
 });
 
 let props = defineProps({
