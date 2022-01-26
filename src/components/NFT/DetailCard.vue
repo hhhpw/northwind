@@ -262,9 +262,20 @@ const pushPage = (path) => {
 };
 
 const cross_bar_array = computed(() => {
-  if (state.isNFT) {
-    if (props?.box_detail?.nftType === "COMPOSITE_ELEMENT") {
+  if (state.isNFT && props.box_detail.nftType) {
+    if (props.box_detail.nftType === "COMPOSITE_ELEMENT") {
       return [
+        {
+          id: "description",
+          name: t("描述"),
+        },
+      ];
+    } else {
+      return [
+        {
+          id: "description",
+          name: t("描述"),
+        },
         {
           id: "rarevalue",
           name: t("稀有值"),
@@ -275,20 +286,6 @@ const cross_bar_array = computed(() => {
         },
       ];
     }
-    return [
-      {
-        id: "description",
-        name: t("描述"),
-      },
-      {
-        id: "rarevalue",
-        name: t("稀有值"),
-      },
-      {
-        id: "history",
-        name: t("历史"),
-      },
-    ];
   } else {
     return [
       {

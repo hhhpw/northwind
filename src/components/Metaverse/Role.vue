@@ -73,6 +73,14 @@ const changeMainType = () => {
 };
 
 const pushHeroDetail = (payload) => {
+  if (state.type === "generated") {
+    store.commit("StoreMeta/CHANGE_MAIN_STATUS", {
+      data: Object.assign({}, payload, {
+        imageUrl: payload.image,
+      }),
+      type: "generated",
+    });
+  }
   if (state.type === "not-generated") {
     store.commit("StoreMeta/CHANGE_MAIN_STATUS", {
       data: Object.assign({}, payload, {

@@ -104,12 +104,9 @@ const StoreMeta = {
       state.selectedElementList = payload;
     },
     [types.CHANGE_MAIN_STATUS](state, payload) {
-      console.log("payload", payload);
       const { type, data } = payload;
       state.type = type;
       if (payload.type === "generated") {
-        console.log("===data====", data);
-
         state.heroInfo = data;
       } else {
         state.heroInfo = null;
