@@ -345,8 +345,9 @@
     "disassemble an nft detail description one": "1. You can obtain character components by disassembling the NFTs, and reassemble them to a new character.",
     "disassemble an nft detail description two": "2. The creator will receive 1% of trading fee when the reassembled NFT is sold.",
     "generate character NFT": "Generate character NFT",
+    "generating character cards": "Generating character NFT ",
     "generating character cards succeed": "Generating character NFT succeeded",
-    "generated character cards failed": "Generating character NFT failed",
+    "generating character cards failed": "Generating character NFT failed",
     "disassembling character NFT": "Disassembling character NFT",
     "disassembling character NFT succeeded": "disassembling character NFT succeeded",
     "disassembling character NFT failed": "disassembling character NFT failed",
@@ -355,7 +356,7 @@
     "the role card name is 1-10 English characters or special symbols": "Name should be 1-10 characters or special symbols",
     "enter the name (1-10 English characters)": "enter the name ( 1-10 characters)",
     "can be disassembled": "Can be disassembled",
-    "casting cost": "铸造费用:{amount} {currency}",
+    "casting cost": "Mint fee:{amount} {currency}",
     "whether to generate character NFT": "Generate character NFT?"
   },
   "nftproperty": {

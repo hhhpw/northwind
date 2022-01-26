@@ -10,7 +10,15 @@
         :style="{ width: 240 * state.igoList.length - 1 + 130 + 'px' }"
       >
         <div
-          @click="setActiveItem(i)"
+          @click.stop="
+            () => {
+              pushIgo(
+                state.igoList[state.activeIndex].state,
+                state.igoList[state.activeIndex]
+              );
+              setActiveItem(i);
+            }
+          "
           v-for="(d, i) in state.igoList"
           :key="i"
           :style="`background-image: url(${d.prdImg})`"

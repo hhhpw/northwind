@@ -206,7 +206,7 @@ const StoreMeta = {
       ) {
         commit(types.SET_WALLET_DIALOG_PARAMS_STATUS, {
           dialogText: utilsFormat.computedLangCtx(
-            "metaverse.generated character cards failed"
+            "metaverse.generating character cards failed"
           ),
           dialogStatus: "failed",
           failedBtnText: utilsFormat.computedLangCtx("确认"),
@@ -306,7 +306,7 @@ const StoreMeta = {
                   dialogStatus: "succeed",
                   successBtnText: utilsFormat.computedLangCtx("确认"),
                   dialogText: utilsFormat.computedLangCtx(
-                    "metaverse.generated character cards succeed"
+                    "metaverse.generating character cards succeed"
                   ),
                   handleSucceed: handleSucceed,
                   handleClose: handleSucceed,
@@ -324,7 +324,7 @@ const StoreMeta = {
           isShowClose: true,
           dialogStatus: "failed",
           dialogText: utilsFormat.computedLangCtx(
-            "metaverse.generated character cards failed"
+            "metaverse.generating character cards failed"
           ),
           isUseCustomContent: false,
           failedBtnText: utilsFormat.computedLangCtx("确认"),
