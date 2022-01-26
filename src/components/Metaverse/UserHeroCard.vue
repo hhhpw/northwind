@@ -29,11 +29,10 @@ const state = reactive({
 
 const renderOccupation = computed(() => {
   if (!state.metaData) return;
-  console.log("metaData", state.metaData);
   if (state.currLang === "zh") {
     return state.metaData.occupations.filter(
       (d) => d.desc === state.heroInfo.occupation
-    )[0].cnDesc;
+    )[0]?.cnDesc;
   }
   return state.heroInfo.occupation;
 });

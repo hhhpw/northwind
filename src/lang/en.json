@@ -352,8 +352,8 @@
     "disassembling character NFT failed": "disassembling character NFT failed",
     "no NFT available": "No NFT available",
     "please go to the market": "Please go to the market",
-    "the role card name is 0-10 English characters or special symbols": "Name should be 0-10 characters or special symbols",
-    "enter the name (0-10 English characters)": "enter the name ( 0-10 characters)",
+    "the role card name is 1-10 English characters or special symbols": "Name should be 1-10 characters or special symbols",
+    "enter the name (1-10 English characters)": "enter the name ( 1-10 characters)",
     "can be disassembled": "Can be disassembled",
     "casting cost": "铸造费用:{amount} {currency}",
     "whether to generate character NFT": "Generate character NFT?"

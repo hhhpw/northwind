@@ -15,7 +15,7 @@
     <!-- 角色卡片 -->
     <div :class="$style['role-character']" v-else>
       <div
-        @click.stop="changeMainType"
+        @click.stop="pushHeroDetail(d)"
         v-for="(d, i) in state.composeNFT"
         :key="i"
         :class="$style['role-character-item']"
@@ -68,6 +68,17 @@ const changeMainType = () => {
   if (state.type === "generated") {
     store.commit("StoreMeta/CHANGE_MAIN_STATUS", {
       type: "not-generated",
+    });
+  }
+};
+
+const pushHeroDetail = (payload) => {
+  if (state.type === "not-generated") {
+    store.commit("StoreMeta/CHANGE_MAIN_STATUS", {
+      data: Object.assign({}, payload, {
+        imageUrl: payload.image,
+      }),
+      type: "generated",
     });
   }
 };

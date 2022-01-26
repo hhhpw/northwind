@@ -29,7 +29,7 @@
     <star-space :size="20"></star-space>
     <div :class="$style['info-box']">
       <ElInput
-        :placeholder="$t('metaverse.enter the name (0-10 English characters)')"
+        :placeholder="$t('metaverse.enter the name (1-10 English characters)')"
         v-model="state.nameValue"
       >
       </ElInput>
@@ -146,7 +146,7 @@ const validateParams = (flag) => {
     store.commit("StoreMeta/SET_CALLBACK_DIALOG_PARAMS_STATUS", {
       dialogVisible: true,
       text: utilsFormat.computedLangCtx(
-        "the role card name is 0-10 English characters or special symbols"
+        "the role card name is 1-10 English characters or special symbols"
       ),
     });
   }

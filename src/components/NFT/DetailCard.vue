@@ -178,10 +178,7 @@
       <div class="detail-specific-info-container">
         <div
           class="specific-description"
-          v-if="
-            state.selected_tab === 'description' &&
-            props.box_detail.nftType !== 'COMPOSITE_CARD'
-          "
+          v-if="state.selected_tab === 'description'"
         >
           {{
             props.box_detail && state.currLang === "en"
@@ -267,14 +264,6 @@ const pushPage = (path) => {
 const cross_bar_array = computed(() => {
   if (state.isNFT) {
     if (props?.box_detail?.nftType === "COMPOSITE_ELEMENT") {
-      return [
-        {
-          id: "description",
-          name: t("描述"),
-        },
-      ];
-    }
-    if (props?.box_detail?.nftType === "COMPOSITE_CARD") {
       return [
         {
           id: "rarevalue",

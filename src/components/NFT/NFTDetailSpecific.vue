@@ -38,13 +38,37 @@ const props = defineProps({
   box_detail: Object,
 });
 
+const setList = (protos) => {
+  if (protos.properties && protos.properties.value.length) {
+    rarevalue_list = protos.properties.value.filter((d) => d.value !== "--");
+    state.rarevalue_list = rarevalue_list;
+  }
+};
+
 watchEffect(() => {
-  if (props.box_detail && props.box_detail.properties) {
+  if (
+    props.box_detail &&
+    props.box_detail.nftType === "COMPOSITE_CARD" &&
+    props.box_detail?.compositeElements?.length > 0
+  ) {
+    const list = props.box_detail.compositeElements.reduce((pre, curr) => {
+      let t = curr.type.replace(/\s+/gi, "");
+      t = t[0].toLowerCase() + t.slice(1);
+      return Object.assign({}, pre, {
+        [t]: curr.property,
+        [t + "Score"]: curr.score,
+      });
+    }, {});
+    const protos = nftProto({ properties: list });
+    setList(protos);
+  }
+  if (
+    props.box_detail &&
+    props.box_detail.properties &&
+    props.box_detail.nftType !== "COMPOSITE_CARD"
+  ) {
     const protos = nftProto(props.box_detail);
-    if (protos.properties && protos.properties.value.length) {
-      rarevalue_list = protos.properties.value.filter((d) => d.value !== "--");
-      state.rarevalue_list = rarevalue_list;
-    }
+    setList(protos);
   }
 });
 
