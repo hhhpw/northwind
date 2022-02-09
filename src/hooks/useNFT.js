@@ -23,7 +23,6 @@ const useNFT = (store, data) => {
 
   // 获取NFTtype
   const getNFTType = computed(() => {
-    console.log("data", data);
     return data.type;
   }).value;
 
@@ -44,12 +43,18 @@ const useNFT = (store, data) => {
     return false;
   };
 
+  // 出价方式  一口价或者拍卖
+  const getOfferPriceStyle = (type) => {
+    return type;
+  };
+
   return {
     isOwner,
     isOnSell,
     getNFTType,
     isSameNFTType,
     isNFT,
+    getOfferPriceStyle,
   };
 };
 

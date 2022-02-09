@@ -6,10 +6,23 @@
     :set="
       ((itemData = props.baseData),
       (boxToken = itemData.boxToken),
-      (nftMeta = itemData.nftMeta))
+      (nftMeta = itemData.nftMeta),
+      (payToken = utilsFormat.getTokenCurrency(itemData.payToken)),
+      (offerPriceStyle = getOfferPriceStyle('b')),
+      (t = getCountDown(1644400786000)))
     "
   >
     <div :class="$style['img-box']" @click="watchDetail">
+      <div
+        :class="$style['countdown-box']"
+        v-if="showCountDown(props.cardType, state.countdown, props.sellType)"
+      >
+        <svg-icon
+          name="clock"
+          style="margin-right: 3px; font-size: 16px"
+        ></svg-icon>
+        <span>{{ state.countdown }}</span>
+      </div>
       <img
         :src="itemData.icon"
         alt=""
@@ -86,6 +99,17 @@
           :class="$style['item-content-slots-market']"
         >
           <div :class="$style['item-content-slots-market-item']">
+            <span
+              >{{
+                offerPriceStyle === "a" ? $t("最新报价") : $t("一口价")
+              }}：</span
+            >
+            <span
+              >{{ utilsFormat.formatPrice(itemData.sellPrice) }}
+              {{ payToken }}</span
+            >
+          </div>
+          <!-- <div :class="$style['item-content-slots-market-item']">
             <span>{{ $t("售价") }}：</span>
             <span
               >{{ utilsFormat.formatPrice(itemData.sellPrice) }}
@@ -101,7 +125,7 @@
             <span v-else style="text-align: right">
               {{ $t("暂无报价") }}
             </span>
-          </div>
+          </div> -->
         </div>
         <!-- collection -->
         <div
@@ -143,14 +167,7 @@
 </template>
 <script setup>
 /* eslint-disable */
-import {
-  defineProps,
-  reactive,
-  computed,
-  defineEmits,
-  watch,
-  watchEffect,
-} from "vue";
+import { defineProps, reactive, computed, defineEmits, onUnmounted } from "vue";
 import { useStore } from "vuex";
 import StarButton from "@StarUI/StarButton.vue";
 import Confirm from "@components/NFT/Confirm";
@@ -159,6 +176,7 @@ import SvgIcon from "@components/SvgIcon/Index.vue";
 import StarAmount from "@StarUI/StarAmount";
 import NftCardItemToolTip from "./NFTCardItemToolTip.vue";
 import { useNFT } from "../../hooks/useNFT";
+import utilsTool from "@utils/tool";
 const store = useStore();
 const props = defineProps({
   cardType: {
@@ -181,9 +199,6 @@ const props = defineProps({
     default: true,
   },
 });
-
-const { getNFTType, isNFT } = useNFT(store, props.baseData);
-
 let state = reactive({
   isShowConfirm: computed(
     () => store.state.StoreNftMarket.change_confirm_visible
@@ -191,6 +206,22 @@ let state = reactive({
   pic: require("../../assets/nft/confirm-logo.png"),
   icon: require("../../assets/nft/blindbox.png"),
   contentText: "",
+  countdown: null,
+});
+
+const { getNFTType, isNFT, getOfferPriceStyle } = useNFT(store, props.baseData);
+
+let getCountDown = (timestamp) => {
+  if (timestamp) {
+    setTimeout(() => {
+      const res = utilsTool.getCountDown(timestamp);
+      state.countdown = res;
+    }, 1000);
+  }
+};
+
+onUnmounted(() => {
+  getCountDown = null;
 });
 
 const formatPriceWithLength = (price) => {
@@ -211,6 +242,12 @@ const showRarityIcon = (type, score) => {
   return false;
 };
 
+const showCountDown = (cardType, count, sellType) => {
+  if (cardType === "market" && count) return true;
+  if (cardType === "collection" && count && sellType === "selling") return true;
+  return false;
+};
+
 const handleConfirm = () => {
   store.commit("StoreNftMarket/CHANGE_CONFIRM_VISIBLE", false);
 };
@@ -220,14 +257,10 @@ const handleClose = () => {
 const emits = defineEmits(["watchDetail", "actionsCall"]);
 const watchDetail = () => {
   // 卡片的信息
-  const card_detail = {};
-  emits("watchDetail", card_detail);
+  emits("watchDetail", {});
 };
 const actionsCall = (action) => {
   emits("actionsCall", { action: action, baseData: props.baseData });
-};
-const formatAddress = (string) => {
-  return utilsFormat.formatSliceString(string);
 };
 </script>
 
@@ -238,14 +271,15 @@ $fontWeight: bold;
 $black: #010e22;
 
 .nft-card-item {
+  min-height: 370px;
   width: 279px;
   background: $white;
   box-shadow: 0px 8px 16px 0px rgba(223, 205, 185, 0.46), 0px 1px 0px 0px $white;
   border-radius: 16px;
   font-size: 14px;
   user-select: none;
-  margin-bottom: 30px;
-  padding-bottom: 10px;
+  margin-bottom: 20px;
+  // padding-bottom: 10px;
   overflow: hidden;
   margin-right: 20px;
   &:hover {
@@ -255,9 +289,7 @@ $black: #010e22;
   .img-box {
     width: 279px;
     height: 279px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    position: relative;
     cursor: pointer;
     border-bottom: 0.5px solid #d1d1d1;
     border-top-left-radius: $border-radius;
@@ -270,6 +302,22 @@ $black: #010e22;
       height: 100%;
       border-top-left-radius: $border-radius;
       border-top-right-radius: $border-radius;
+    }
+    .countdown-box {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 113px;
+      height: 28px;
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 4px;
+      top: 16px;
+      right: 16px;
+      color: #fff;
+      span {
+        font-size: 13px;
+      }
     }
   }
   .item-content {
@@ -299,7 +347,7 @@ $black: #010e22;
     }
     .item-content-slots {
       .item-content-slots-buyback {
-        margin-top: 25px;
+        margin: 10px 0px;
         text-align: center;
         display: block;
         font-size: 14px;

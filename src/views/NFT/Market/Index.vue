@@ -22,7 +22,7 @@
           >
             <template #content>
               <div class="blind-box-list-content">
-                <list-blind-box-item
+                <!-- <list-blind-box-item
                   v-for="(blind, i) in state.marketList"
                   :key="i"
                   class="list-blind-box-item"
@@ -31,7 +31,17 @@
                   :hasBtn="false"
                   :baseData="blind"
                   @watchDetail="watchDetail(blind)"
-                ></list-blind-box-item>
+                ></list-blind-box-item> -->
+                <nft-card-item
+                  v-for="(blind, i) in state.marketList"
+                  :key="i"
+                  class="list-blind-box-item"
+                  cardType="market"
+                  sellType="sell"
+                  :hasBtn="false"
+                  :baseData="blind"
+                  @watchDetail="watchDetail(blind)"
+                ></nft-card-item>
               </div>
             </template>
           </star-scroll>
@@ -67,10 +77,11 @@ import StarNft from "@StarUI/StarNFT.vue";
 import { reactive, computed, onUnmounted } from "vue";
 import NftNoConnectedWallet from "@components/NFT/NFTNoConnectedWallet.vue";
 import NftSelector from "@components/NFT/NFTSelector.vue";
-import ListBlindBoxItem from "@components/NFT/ListBlindBoxItem.vue";
+// import ListBlindBoxItem from "@components/NFT/ListBlindBoxItem.vue";
 import StarScroll from "@StarUI/StarScroll.vue";
 import Empty from "@components/NFT/Empty.vue";
 import StarLoadingFish from "@StarUI/StarLoadingFish.vue";
+import NftCardItem from "@components/NFT/NFTCardItem.vue";
 import { useStore } from "vuex";
 const store = useStore();
 let state = reactive({
@@ -86,13 +97,11 @@ onUnmounted(() => {
 
 // 查看卡片详情
 const watchDetail = (detail) => {
-  console.log("===detail====", detail.type);
   const url = `${window.location.origin}/nftmarketdetail?id=${detail.nftBoxId}&groupId=${detail.groupId}&type=${detail.type}&chainId=${detail.chainId}`;
   window.open(url, "_blank");
 };
 
 const changeListQuery = (params) => {
-  console.log("===changeListQuery====changeListQuery", params);
   store.dispatch(
     "StoreNftMarket/changeListQuery",
     Object.assign({}, params, { type: "init" })
@@ -115,7 +124,6 @@ const loadMore = () => {
       padding-top: 20px;
       .list-blind-box-item {
         margin-right: 30px;
-        height: 400px;
         &:nth-child(3n) {
           margin-right: 0;
         }

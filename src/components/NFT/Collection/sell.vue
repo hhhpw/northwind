@@ -6,7 +6,7 @@
   <template
     v-if="!state.onSellIsLoading && selling_data && selling_data.length > 0"
   >
-    <list-blind-box-item
+    <!-- <list-blind-box-item
       v-for="d in selling_data"
       :key="d.id"
       cardType="collection"
@@ -15,7 +15,19 @@
       @actionsCall="actionsCall"
       :price="d.sellPrice"
       @watchDetail="() => emits('watchDetail', d, 'selling')"
-    ></list-blind-box-item>
+    ></list-blind-box-item> -->
+
+    <nft-card-item
+      v-for="d in selling_data"
+      :key="d.id"
+      cardType="collection"
+      sellType="selling"
+      :baseData="d"
+      @actionsCall="actionsCall"
+      :price="d.sellPrice"
+      @watchDetail="() => emits('watchDetail', d, 'selling')"
+    >
+    </nft-card-item>
   </template>
   <empty
     v-if="
@@ -35,8 +47,9 @@
 </template>
 <script setup>
 import Empty from "@components/NFT/Empty.vue";
-import ListBlindBoxItem from "@components/NFT/ListBlindBoxItem.vue";
+// import ListBlindBoxItem from "@components/NFT/ListBlindBoxItem.vue";
 import StarLoadingFish from "@StarUI/StarLoadingFish.vue";
+import NftCardItem from "@components/NFT/NFTCardItem.vue";
 import { computed, defineEmits, reactive } from "vue";
 import { useStore } from "vuex";
 const store = useStore();

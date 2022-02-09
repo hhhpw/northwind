@@ -4,6 +4,11 @@ const JWT = require("jsonwebtoken");
 // import NFT_CONSTANTS from "@constants/nft.js";
 // import { findIndex } from "lodash";
 
+import * as isSameOrAfter from "dayjs/plugin/isSameOrAfter";
+import * as duration from "dayjs/plugin/duration";
+dayjs.extend(isSameOrAfter);
+dayjs.extend(duration);
+
 const openNewWindow = (url) => {
   window.open(url, "_blank");
 };
@@ -181,6 +186,7 @@ const setJWT = () => {
   return token;
 };
 
+/**农场调试的时候去掉这两个方法了 */
 const encodeQueryURL = (code) => {
   //对字符串进行加密
   var c = String.fromCharCode(code.charCodeAt(0) + code.length);
@@ -199,6 +205,23 @@ const decodeQueryURL = (code) => {
   return c;
 };
 
+const getCountDown = (timestamp) => {
+  if (dayjs().isSameOrAfter(dayjs(timestamp))) {
+    return null;
+  }
+  const diffTime = dayjs.duration(timestamp - dayjs());
+  let countdownStr = null;
+  const day = diffTime.days();
+  const hours =
+    diffTime.hours() < 10 ? `0${diffTime.hours()}` : diffTime.hours(); //小时
+  const minutes =
+    diffTime.minutes() < 10 ? `0${diffTime.minutes()}` : diffTime.minutes(); //分钟
+  const seconds =
+    diffTime.seconds() < 10 ? `0${diffTime.seconds()}` : diffTime.seconds(); //秒
+  countdownStr = `${day}D ${hours}:${minutes}:${seconds}`;
+  return countdownStr;
+};
+
 export default {
   openNewWindow,
   hexCharCodeToStr,
@@ -210,4 +233,5 @@ export default {
   encodeQueryURL,
   decodeQueryURL,
   getChainTransactionInfo,
+  getCountDown,
 };

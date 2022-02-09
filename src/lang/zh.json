@@ -273,7 +273,9 @@
     "K-Avatar": "K-Avatar",
     "name": "名字",
     "profession": "職業",
-    "sex": "性別"
+    "sex": "性別",
+    "一口价": "一口价",
+    "最新报价": "最新报价"
   },
   "farms": {
     "farm-swap-total-1": "總交易額",

@@ -18,7 +18,7 @@
           >
             <template #content>
               <div class="blind-box-list-content">
-                <list-blind-box-item
+                <!-- <list-blind-box-item
                   v-for="(blind, i) in state.buyBackList"
                   :key="i"
                   class="list-blind-box-item"
@@ -26,7 +26,17 @@
                   sellType=""
                   :baseData="blind"
                   @watchDetail="watchDetail(blind)"
-                ></list-blind-box-item>
+                ></list-blind-box-item> -->
+                <nft-card-item
+                  v-for="(blind, i) in state.buyBackList"
+                  :key="i"
+                  class="list-blind-box-item"
+                  cardType="buyback"
+                  sellType=""
+                  :baseData="blind"
+                  @watchDetail="watchDetail(blind)"
+                >
+                </nft-card-item>
               </div>
             </template>
           </star-scroll>
@@ -59,13 +69,14 @@
 import { reactive, computed, onUnmounted } from "vue";
 import StarNft from "@StarUI/StarNFT.vue";
 import NftNoConnectedWallet from "@components/NFT/NFTNoConnectedWallet.vue";
-import ListBlindBoxItem from "@components/NFT/ListBlindBoxItem.vue";
+// import ListBlindBoxItem from "@components/NFT/ListBlindBoxItem.vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 import Empty from "@components/NFT/Empty.vue";
 import StarScroll from "@StarUI/StarScroll.vue";
 import NftSelector from "@components/NFT/NFTSelector.vue";
 import StarLoadingFish from "@StarUI/StarLoadingFish.vue";
+import NftCardItem from "@components/NFT/NFTCardItem.vue";
 
 const router = useRouter();
 const store = useStore();
@@ -117,7 +128,6 @@ const loadMore = () => {
       padding-top: 20px;
       .list-blind-box-item {
         margin-right: 30px;
-        height: 400px;
         &:nth-child(3n) {
           margin-right: 0;
         }
