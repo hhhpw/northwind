@@ -27,7 +27,7 @@
     background: url("../../../assets/nft/import-bg.png");
     background-size: cover;
     text-align: center;
-    position: absolute;
+    position: fixed;
     z-index: 100;
     bottom: 10%;
     right: 5%;

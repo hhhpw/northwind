@@ -35,8 +35,8 @@
               </p>
               <star-space :size="15"></star-space>
               <p class="nft-gallery-address-info">
-                <label for="">{{ $t("导入合约地址") }}:</label>
-                <span class="address">{{ d.boxToken.split("::")[0] }}</span>
+                <label for="" class="address">{{ $t("盲盒代币地址") }}:</label>
+                <span>{{ d.boxToken }}</span>
               </p>
               <p class="nft-gallery-address-info">
                 <label for="">NFT Meta:</label>
@@ -163,9 +163,10 @@ onUnmounted(() => {
       word-wrap: break-word;
       word-break: break-all;
       overflow: hidden;
+      margin-top: 8px;
     }
     .address {
-      line-height: 40px;
+      font-size: 12px;
     }
   }
 }
