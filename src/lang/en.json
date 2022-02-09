@@ -261,7 +261,13 @@
     "提取收益确认": "Confirm harvesting",
     "提取{amount}{symbol}至钱包": "Harvested {amount} {symbol} to wallet",
     "NFT挖矿": "NFT Mining",
-    "赎回": "Redeem"
+    "赎回": "Redeem",
+    "导入合约地址": "Contract Addresses",
+    "导入盲盒地址": "Import mystery box",
+    "导入陈列室": "Import NFT gallery",
+    "导入成功": "Import succeeded",
+    "导入失败": "Import failed",
+    "导入中": "Importing"
   },
   "farms": {
     "farm-swap-total-1": "Total trading volume",

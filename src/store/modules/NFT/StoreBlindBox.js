@@ -22,6 +22,7 @@ const StoreBlindBox = {
   state: {
     blindBoxData: null,
     isShowBuyModal: false,
+    isShowImportModal: false,
     buyStatus: "ongoing",
     remainQuantity: null, // 剩余购买量
     listData: [],
@@ -66,6 +67,9 @@ const StoreBlindBox = {
     },
     [types.CHANGE_BUY_MODAL_STATUS](state, payload) {
       state.isShowBuyModal = payload;
+    },
+    [types.SET_IMPORT_MODAL_STATUS](state, payload) {
+      state.isShowImportModal = payload;
     },
     [types.CHANGE_BUY_CB_MODAL_STATUS](state, payload) {
       state.dialogParams = Object.assign({}, state.dialogParams, payload);
@@ -187,6 +191,63 @@ const StoreBlindBox = {
         commit("CHANGE_BUY_CB_MODAL_STATUS", {
           dialogStatus: "failed",
           dialogText: "购买失败",
+        });
+      }
+    },
+
+    async importBlindBoxGallery(
+      { rootState, commit, dispatch },
+      { tyArgs, type }
+    ) {
+      commit("CHANGE_BUY_CB_MODAL_STATUS", {
+        isShow: true,
+        dialogText: utilsFormat.computedLangCtx("导入中"),
+      });
+      const params = {
+        provider: rootState.StoreWallet.stcProvider,
+        type: type === "blindbox" ? "ACCEPT_TOKEN" : "ACCEPT",
+        tyArgs,
+      };
+      let txnHash = null;
+      if (type === "blindbox") {
+        txnHash = await Wallet.importBlindBox(params);
+      } else {
+        txnHash = await Wallet.importGallery(params);
+      }
+      if (txnHash !== "error") {
+        commit("CHANGE_BUY_CB_MODAL_STATUS", {
+          phase1: "success",
+        });
+        utilsTool.pollingTxnInfo({ txnHash }).then((res) => {
+          if (res === "Executed") {
+            // 查询到信息
+            dispatch("getOfferingList", {
+              type: "init",
+            });
+            commit("CHANGE_BUY_CB_MODAL_STATUS", {
+              phase2: "success",
+            });
+            setTimeout(() => {
+              commit("CHANGE_BUY_CB_MODAL_STATUS", {
+                dialogStatus: "success",
+                dialogText: utilsFormat.computedLangCtx("导入成功"),
+              });
+            }, 4000);
+          } else {
+            commit("CHANGE_BUY_CB_MODAL_STATUS", {
+              dialogStatus: "failed",
+              dialogText: utilsFormat.computedLangCtx("导入失败"),
+            });
+          }
+        });
+      } else {
+        dispatch("getOfferingList", {
+          type: "init",
+        });
+        commit("SET_IMPORT_MODAL_STATUS", false);
+        commit("CHANGE_BUY_CB_MODAL_STATUS", {
+          dialogStatus: "failed",
+          dialogText: utilsFormat.computedLangCtx("导入失败"),
         });
       }
     },
