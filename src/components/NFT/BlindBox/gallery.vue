@@ -83,6 +83,7 @@ let state = reactive({
   listStatus: computed(() => store.state.StoreBlindBox.listStatus),
   firstLoading: computed(() => store.state.StoreBlindBox.firstLoading),
   dialogParams: computed(() => store.state.StoreBlindBox.dialogParams),
+  accounts: computed(() => store.state.StoreWallet.accounts),
 });
 
 const loadMore = () => {
@@ -115,6 +116,7 @@ const importBlindBox = (item) => {
   store.dispatch("StoreBlindBox/importBlindBoxGallery", {
     tyArgs: [item.boxToken],
     type: "blindbox",
+    account: state.accounts[0],
   });
 };
 
@@ -123,6 +125,7 @@ const importGallery = (item) => {
   store.dispatch("StoreBlindBox/importBlindBoxGallery", {
     tyArgs: [nftMeta, nftBody],
     type: "gellery",
+    account: state.accounts[0],
   });
 };
 

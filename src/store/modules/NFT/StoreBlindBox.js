@@ -1,5 +1,6 @@
 import * as types from "../../types/NFT/blindbox.js";
 import blindboxApi from "@api/nft/blindbox";
+import commonApi from "@api/common";
 import Wallet from "@wallet";
 import utilsTool from "@utils/tool.js";
 import dayjs from "dayjs";
@@ -197,8 +198,27 @@ const StoreBlindBox = {
 
     async importBlindBoxGallery(
       { rootState, commit, dispatch },
-      { tyArgs, type }
+      { tyArgs, type, account }
     ) {
+      const res = await commonApi.getUserResourceList(account);
+      if (res && res.result && res.result.resources) {
+        let matchString = "";
+        if (type === "blindbox") {
+          matchString = tyArgs[0];
+        } else {
+          matchString = `NFTGallery::NFTGallery<${tyArgs[0]}, ${tyArgs[1]}>`;
+        }
+        for (let [k, v] of Object.entries(res.result.resources)) {
+          if (k.includes(matchString)) {
+            commit("CHANGE_BUY_CB_MODAL_STATUS", {
+              isShow: true,
+              dialogStatus: "failed",
+              dialogText: utilsFormat.computedLangCtx("已导入"),
+            });
+            return false;
+          }
+        }
+      }
       commit("CHANGE_BUY_CB_MODAL_STATUS", {
         isShow: true,
         dialogText: utilsFormat.computedLangCtx("导入中"),
