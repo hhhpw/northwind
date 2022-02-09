@@ -149,7 +149,7 @@ onUnmounted(() => {
     label {
       color: #8b8b8b;
       font-size: 14px;
-      min-width: 80px;
+      min-width: 125px;
       display: block;
       float: left;
       height: 40px;

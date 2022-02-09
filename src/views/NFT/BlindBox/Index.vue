@@ -30,7 +30,7 @@
     position: fixed;
     z-index: 100;
     bottom: 10%;
-    right: 5%;
+    right: 2%;
     cursor: pointer;
     img {
       width: 40px;
