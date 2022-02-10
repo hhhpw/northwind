@@ -214,6 +214,7 @@ const StoreBlindBox = {
               isShow: true,
               dialogStatus: "success",
               dialogText: utilsFormat.computedLangCtx("已导入"),
+              successBtnText: "",
             });
             return false;
           }
@@ -251,12 +252,14 @@ const StoreBlindBox = {
               commit("CHANGE_BUY_CB_MODAL_STATUS", {
                 dialogStatus: "success",
                 dialogText: utilsFormat.computedLangCtx("导入成功"),
+                successBtnText: "",
               });
             }, 4000);
           } else {
             commit("CHANGE_BUY_CB_MODAL_STATUS", {
               dialogStatus: "failed",
               dialogText: utilsFormat.computedLangCtx("导入失败"),
+              successBtnText: "",
             });
           }
         });

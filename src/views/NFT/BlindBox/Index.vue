@@ -6,8 +6,7 @@
     :listTypeParams="{ minHeight: '800px' }"
   >
     <template #nft-list>
-      <list v-if="!state.gelleryVisible"></list>
-      <gallery v-else></gallery>
+      <list></list>
       <div class="import" @click="handlePush()">
         <img src="../../../assets/nft/import.png" alt="" />
         <span>{{ $t("导入合约地址") }}</span>
@@ -49,13 +48,15 @@
 <script setup>
 import StarNft from "@StarUI/StarNFT.vue";
 import list from "@components/NFT/BlindBox/list.vue";
-import gallery from "@components/NFT/BlindBox/gallery.vue";
-import { reactive } from "vue";
-let state = reactive({
-  gelleryVisible: false,
-});
+import { useRouter } from "vue-router";
+const router = useRouter();
 
 const handlePush = () => {
-  state.gelleryVisible = !state.gelleryVisible;
+  router.push({
+    name: "nftgallery",
+    params: {
+      tabIndex: 1,
+    },
+  });
 };
 </script>

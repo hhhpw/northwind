@@ -269,7 +269,8 @@
     "导入成功": "Import succeeded",
     "导入失败": "Import failed",
     "导入中": "Importing",
-    "已导入": "Addresses already imported"
+    "已导入": "Addresses already imported",
+    "陈列室": "Gallery"
   },
   "farms": {
     "farm-swap-total-1": "Total trading volume",

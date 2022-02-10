@@ -182,9 +182,6 @@ onUnmounted(() => {
   overflow: hidden;
   background: #f7f7f7;
   padding: 16px;
-  &:hover {
-    opacity: 0.9;
-  }
   img {
     width: 275px;
     height: 168px;
@@ -213,6 +210,9 @@ onUnmounted(() => {
     font-size: 8px;
     margin-right: 20px;
     padding: 1px 10px;
+    &:hover {
+      opacity: 0.9;
+    }
   }
 }
 </style>
