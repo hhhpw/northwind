@@ -212,7 +212,7 @@ const StoreBlindBox = {
           if (k.includes(matchString)) {
             commit("CHANGE_BUY_CB_MODAL_STATUS", {
               isShow: true,
-              dialogStatus: "failed",
+              dialogStatus: "success",
               dialogText: utilsFormat.computedLangCtx("已导入"),
             });
             return false;
