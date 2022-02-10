@@ -25,7 +25,7 @@
                   cardType="buyback"
                   sellType=""
                   :baseData="blind"
-                  @watchDetail="watchDetail(blind)"
+                  @watchDetail="watchDetail(blind )"
                 ></list-blind-box-item> -->
                 <nft-card-item
                   v-for="(blind, i) in state.buyBackList"
