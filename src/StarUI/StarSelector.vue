@@ -4,6 +4,8 @@
       :suffix-icon="SelectSuffix"
       :popper-append-to-body="false"
       v-model="state.value"
+      :width="!props.width ? 'auto' : props.width"
+      class="star-select"
     >
       <ElOption
         v-for="i in props.items"
@@ -26,6 +28,9 @@ const props = defineProps({
     default: () => [],
     type: Array,
   },
+  width: {
+    value: "",
+  },
 });
 const emits = defineEmits(["emit"]);
 const emit = (i) => {
@@ -33,4 +38,8 @@ const emit = (i) => {
   emits("emit", i);
 };
 </script>
-<style scoped></style>
+<style scoped>
+.star-select {
+  width: 100%;
+}
+</style>

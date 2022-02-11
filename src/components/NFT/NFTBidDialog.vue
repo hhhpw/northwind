@@ -69,6 +69,8 @@
               :items="timeOptions"
               @emit="handleTime"
               :value="state.time"
+              class="bid-time-change"
+              :width="`100%`"
             ></star-selector>
           </div>
         </div>
@@ -128,7 +130,6 @@ const state = reactive({
   isShowClose: props.isShowClose,
   typeIndex: 0,
   price: "",
-  startPrice: "",
   time: "",
 });
 
@@ -154,13 +155,15 @@ BID_DIALOG_PARAMS.TIME.map((i) => {
 });
 
 const handleTime = (i) => {
-  debugger;
   state.time = i.value;
 };
 const handleClose = () => {
   emits("handleClose");
 };
 
+const inputEvent = (val) => {
+  state.price = val;
+};
 const changeAction = (i) => {
   state.typeIndex = i;
 };
@@ -178,11 +181,11 @@ const changeAction = (i) => {
     }
   }
   .star-dialog-el {
-    ::v-deep(.el-dialog__header) {
-      text-align: left !important;
-    }
+    // ::v-deep(.el-dialog__header) {
+    //   text-align: left !important;
+    // }
     ::v-deep(.el-dialog__body) {
-      padding-top: 10px !important;
+      padding: 0 !important;
     }
   }
   .nft-bid-dialog-header {
@@ -203,10 +206,12 @@ const changeAction = (i) => {
       font-size: 16px;
       color: #010e22;
       font-weight: 600;
+      margin-bottom: 10px;
     }
     .bid-type {
       width: 100%;
       overflow: hidden;
+      margin-bottom: 20px;
       a {
         width: 298px;
         height: 48px;
@@ -237,6 +242,7 @@ const changeAction = (i) => {
     .bid-price {
       border: 1px solid #ededed;
       height: 60px;
+      margin-bottom: 20px;
       .bid-price-input {
         width: 90%;
         line-height: 60px;
@@ -253,6 +259,11 @@ const changeAction = (i) => {
         display: inline-block;
         line-height: 60px;
       }
+    }
+    .bid-time-change {
+      width: 100%;
+      height: 60px;
+      line-height: 60px;
     }
   }
 
