@@ -146,14 +146,22 @@
       >
       </nft-dialog>
 
-      <nft-second-dialog
+      <!-- <nft-second-dialog
         :dialogVisible="state.secondDialogParams.isShow"
         :dialogParams="state.secondDialogParams"
         @handleClose="secondDialogClose"
         @handleCancel="secondDialogClose"
         @handleConfirm="secondDialogConfirm"
       >
-      </nft-second-dialog>
+      </nft-second-dialog> -->
+      <nft-bid-dialog
+        :dialogVisible="state.secondDialogParams.isShow"
+        :dialogParams="state.secondDialogParams"
+        @handleClose="secondDialogClose"
+        @handleCancel="secondDialogClose"
+        @handleConfirm="secondDialogConfirm"
+      >
+      </nft-bid-dialog>
 
       <nft-sold-out-dialog
         :dialogVisible="state.soldDialogParams.isShow"
@@ -187,7 +195,8 @@ import StarSpace from "@StarUI/StarSpace.vue";
 import StarNft from "@StarUI/StarNFT.vue";
 import detailCard from "@components/NFT/DetailCard.vue";
 import NftDialog from "@components/NFT/NFTDialog.vue";
-import NftSecondDialog from "@components/NFT/NFTSecondDialog.vue";
+// import NftSecondDialog from "@components/NFT/NFTSecondDialog.vue";
+import NftBidDialog from "@components/NFT/NFTBidDialog.vue";
 import NftSoldOutDialog from "@components/NFT/NFTSoldOutDialog.vue";
 import CONSTANTS_TOKENS from "@constants/token";
 import utilsNumber from "@utils/number";
