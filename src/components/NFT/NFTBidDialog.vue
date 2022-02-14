@@ -264,6 +264,15 @@ const changeAction = (i) => {
       width: 100%;
       height: 60px;
       line-height: 60px;
+      ::v-deep(.el-select .el-input__inner) {
+        height: 60px;
+        &:hover {
+          border-color: #dcdfe6;
+        }
+      }
+      ::v-deep(.el-select-dropdown__item.selected) {
+        color: #000;
+      }
     }
   }
 
