@@ -73,6 +73,12 @@
               :width="`100%`"
             ></star-selector>
           </div>
+          <div class="bid-text">
+            <p>{{ $t("说明") }}</p>
+            <p>{{ $t(BID_DIALOG_PARAMS.FIXEDTEXT) }}</p>
+            <p>{{ $t(BID_DIALOG_PARAMS.AUCTIONTEXT) }}</p>
+            <p>{{ $t(BID_DIALOG_PARAMS.FEETEXT) }}</p>
+          </div>
         </div>
       </div>
       <div class="nft-bid-dialog-footer">
@@ -264,6 +270,7 @@ const changeAction = (i) => {
       width: 100%;
       height: 60px;
       line-height: 60px;
+      margin-bottom: 20px;
       ::v-deep(.el-select .el-input__inner) {
         height: 60px;
         &:hover {
@@ -272,6 +279,13 @@ const changeAction = (i) => {
       }
       ::v-deep(.el-select-dropdown__item.selected) {
         color: #000;
+      }
+    }
+    .bid-text {
+      p {
+        font-size: 12px;
+        color: #7f7f7f;
+        margin-bottom: 2px;
       }
     }
   }
