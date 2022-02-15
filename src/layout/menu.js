@@ -49,10 +49,10 @@ export default [
     label: "行情",
     path: "/info",
   },
-  // {
-  //   label: "K-Avatar",
-  //   path: "/metaverse",
-  // },
+  {
+    label: "K-Avatar",
+    path: "/metaverse",
+  },
   // {
   //   label: "Farms",
   //   children: [
