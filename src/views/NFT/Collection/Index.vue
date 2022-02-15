@@ -194,7 +194,7 @@ const actionsCall = async ({ action, baseData }) => {
   console.log("baseData", baseData);
   if (action === "CancelSell") {
     state.dialogEvent = dialogEventMaps["CancelSell"];
-    console.log(" state.dialogEvent", state.dialogEvent);
+    console.log(" states.dialogEvent", state.dialogEvent);
     let params = {};
     if (baseData.type === "box") {
       params = {
