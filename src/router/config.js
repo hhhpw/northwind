@@ -41,6 +41,15 @@ const routes = [
         },
       },
       {
+        path: "/nftgallery",
+        component: () => import("@views/NFT/BlindBox/Gallery.vue"),
+        name: "nftgallery",
+        meta: {
+          title: "陈列室",
+          url: "/nftgallery",
+        },
+      },
+      {
         path: "/nftblindbox/:id",
         component: () => import("@views/NFT/BlindBox/Detail.vue"),
         name: "nftblindboxdetail",

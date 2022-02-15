@@ -131,9 +131,13 @@ let state = reactive({
   dialogEvent: null,
 });
 
-const handleSoldOutCloseFunc = () => {};
+const handleSoldOutCloseFunc = () => {
+  window.location.reload();
+};
 
-const handleSoldOutConfirmFunc = () => {};
+const handleSoldOutConfirmFunc = () => {
+  window.location.reload();
+};
 
 // 二次弹窗
 const secondDialogClose = () => {
@@ -190,6 +194,7 @@ const actionsCall = async ({ action, baseData }) => {
   console.log("baseData", baseData);
   if (action === "CancelSell") {
     state.dialogEvent = dialogEventMaps["CancelSell"];
+    console.log(" state.dialogEvent", state.dialogEvent);
     let params = {};
     if (baseData.type === "box") {
       params = {
