@@ -1,4 +1,4 @@
-// 盲盒
+// 盲盒 => 官方发布
 export const BLIND_STATUS = {
   soldOut: {
     text: "售罄",
@@ -6,6 +6,7 @@ export const BLIND_STATUS = {
   purchase: {
     text: "购买",
   },
+  // 未开始时 倒计时
 };
 
 // Market old
@@ -13,9 +14,11 @@ export const MARKET_STATUS = {
   soldOut: {
     text: "售罄",
   },
+  // 一口价情况下
   purchase: {
-    text: "购买",
+    text: "1STC 购买",
   },
+  // 拍卖
   bidPrice: {
     text: "出价",
   },
@@ -29,4 +32,15 @@ export const BUYBACK_STATUS = {
 };
 
 // My NFT
-export const MyNft = {};
+export const MyNft = {
+  sell: {
+    text: "出售", // 出售 NFT  一口价出售  拍卖
+  },
+  cancel: {
+    text: "取消出售",
+  },
+  // is owner && 拍卖
+  accept: {
+    text: "接受报价",
+  },
+};
