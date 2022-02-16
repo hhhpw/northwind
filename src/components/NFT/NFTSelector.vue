@@ -83,7 +83,24 @@ const state = reactive({
   initLoad: true,
 });
 
-if (!state.nftSeriesList) {
+const setSeriesList = (list) => {
+  list.unshift({
+    groupId: "",
+    groupName: utilsFormat.computedLangCtx("all collections"),
+    seriesName: utilsFormat.computedLangCtx("all collections"),
+  });
+  list = list.map((d) => {
+    return {
+      ...d,
+      label: d.groupName,
+      value: d.groupId,
+    };
+  });
+  state.nftSeriesList = list;
+};
+
+const nftseries = sessionStorage.getItem("nftseries");
+if (!nftseries) {
   commonApi.getNFTSeriesList().then((res) => {
     if (res.code === 200) {
       let result = [];
@@ -93,21 +110,12 @@ if (!state.nftSeriesList) {
       for (let i = 0; i < res.data.length; i++) {
         result.push(res.data[i]);
       }
-      result.unshift({
-        groupId: "",
-        groupName: utilsFormat.computedLangCtx("all collections"),
-        seriesName: utilsFormat.computedLangCtx("all collections"),
-      });
-      result = result.map((d) => {
-        return {
-          ...d,
-          label: d.groupName,
-          value: d.groupId,
-        };
-      });
-      state.nftSeriesList = result;
+      sessionStorage.setItem("nftseries", JSON.stringify(result));
+      setSeriesList(result);
     }
   });
+} else {
+  setSeriesList(JSON.parse(nftseries));
 }
 
 watch(
