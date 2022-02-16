@@ -6,7 +6,7 @@
         :class="$style['container-footer-content-item']"
         v-for="(d, i) in state.tabs"
         :key="i"
-        @click="pushPage(d.url)"
+        @click="pushPage(d)"
       >
         <img :src="d.img" />
         <span>{{ d.title }}</span>
@@ -15,10 +15,12 @@
   </div>
 </template>
 <script setup>
-import { reactive } from "vue";
+import { reactive, computed } from "vue";
 import utilsTool from "@utils/tool.js";
-
+import { useStore } from "vuex";
+const store = useStore();
 const state = reactive({
+  currLang: computed(() => store.state.StoreApp.currLang),
   tabs: [
     {
       title: "Twitter",
@@ -29,23 +31,33 @@ const state = reactive({
       title: "Telegram",
       img: require("../../assets/home/tel.png"),
       url: "https://t.me/kikoswap",
+      enUrl: "https://t.me/kikoverseEnglish",
     },
     {
       title: "Medium",
       img: require("../../assets/home/med.png"),
       url: "https://medium.com/@KikoResearch",
     },
+    {
+      title: "Discord",
+      img: require("../../assets/home/discord.png"),
+      url: "https://discord.com/invite/45pPRYMMjk",
+    },
   ],
 });
 
-const pushPage = (url) => {
-  utilsTool.openNewWindow(url);
+const pushPage = (item) => {
+  state.currLang === "zh"
+    ? utilsTool.openNewWindow(item.url)
+    : (item?.enUrl && utilsTool.openNewWindow(item?.enUrl)) ||
+      utilsTool.openNewWindow(item.url);
 };
 </script>
 <style lang="scss" module>
 .container-footer {
   width: 100%;
   // left: 20%;
+
   padding: 30px 20%;
   overflow: hidden;
   padding-bottom: 120px;
@@ -63,12 +75,13 @@ const pushPage = (url) => {
   }
   .container-footer-content {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     .container-footer-content-item {
+      margin-left: 20px;
       cursor: pointer;
       background: #faf6f3;
       border-radius: 16px;
-      padding: 40px 8%;
+      padding: 40px 40px;
       display: flex;
       justify-content: center;
       align-items: center;
