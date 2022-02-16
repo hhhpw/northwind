@@ -251,7 +251,6 @@ const StoreMeta = {
               Object.assign({}, t, { ...selectedElementList[i] })
             );
           }
-          console.log("filterElements", filterElements);
           const selectedIds = filterElements.map((d) => {
             return {
               chainId: d.chainId,
@@ -407,7 +406,6 @@ const StoreMeta = {
         const metaArr = payload.nftMeta.split("::");
         const functionId = metaArr[0] + "::" + metaArr[1] + "::resolve_card";
         if (nftDetail.code === 200) {
-          console.log("====nftDetail=====", nftDetail.data);
           let { compositeElements } = nftDetail.data;
           compositeElements = compositeElements.map((d) => {
             return {

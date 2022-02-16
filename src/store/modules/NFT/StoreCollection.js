@@ -132,7 +132,6 @@ const StoreCollection = {
       if (!rules[0] && !rules[1]) {
         list = [];
       }
-      console.log("===list====", list);
       return list;
     },
     tab_list(state) {
@@ -428,7 +427,6 @@ const StoreCollection = {
         txnHash: payload.txnHash,
         boxToken: payload.boxToken,
       });
-      console.log("====res===", res);
       if (res.result && res.result.length > 0) {
         const k = res.result.filter((d) =>
           d.type_tag.includes(payload.boxToken)
@@ -475,7 +473,6 @@ const StoreCollection = {
                   payload.nftBody,
                   id
                 );
-                console.log("nftInfo", nftInfo.data);
                 if (nftInfo.code === 200) {
                   commit(types.CHANGE_DIALOG_STATUS, {
                     phase2: "success",

@@ -87,7 +87,10 @@ if (!state.nftSeriesList) {
   commonApi.getNFTSeriesList().then((res) => {
     if (res.code === 200) {
       let result = [];
-      for (let i = res.data.length - 1; i >= 0; i--) {
+      // for (let i = res.data.length - 1; i >= 0; i--) {
+      //   result.push(res.data[i]);
+      // }
+      for (let i = 0; i < res.data.length; i++) {
         result.push(res.data[i]);
       }
       result.unshift({

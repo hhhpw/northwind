@@ -11,7 +11,7 @@ const breakDownNFT = async ({ provider, nftId, functionId }) => {
   try {
     const tyArgs = [];
     const args = [nftId];
-    console.log("funcId", functionId, "tyArgs", tyArgs, "args", args);
+    // console.log("funcId", functionId, "tyArgs", tyArgs, "args", args);
     return getTxhash(provider, functionId, tyArgs, args);
   } catch (e) {
     console.error("breakDownNFT", e);
@@ -41,7 +41,7 @@ const composeNFT = async ({ provider, info }) => {
       sex,
       ...deepArr,
     ];
-    console.log("funcId", funcId, "tyArgs", tyArgs, "args", args);
+    // console.log("funcId", funcId, "tyArgs", tyArgs, "args", args);
     return getTxhash(provider, funcId, [], args);
   } catch (e) {
     console.error("composeNFT", e);

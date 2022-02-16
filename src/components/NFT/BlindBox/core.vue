@@ -324,7 +324,6 @@ const buyBlindBox = async () => {
   if (!validateVal(state.inputVal)) {
     return;
   }
-  console.log("inputVal", state.inputVal);
   if (state.inputVal > 5) {
     state.errors[0] = true;
     return;

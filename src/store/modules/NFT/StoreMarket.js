@@ -167,7 +167,6 @@ const StoreNftMarket = {
         }
       }
       if (res.code == 200) {
-        console.log("res.data", res.data);
         commit(types.MARKET_BLIND_LIST, {
           data: res.data,
           hasMore: res.hasNext,

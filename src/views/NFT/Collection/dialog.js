@@ -56,7 +56,6 @@ export const dialogEventMaps = {
   // 取消出售
   CancelSell: {
     handleClose: (type) => {
-      console.log("type", type);
       if (type === "failed") {
         dialogEventMaps.CancelSell.handleFailed();
       } else if (type === "success") {

@@ -64,11 +64,21 @@
         <a href="https://twitter.com/Kiko_verse" target="_blank"
           ><img src="../assets/sidebar/twitter.png" alt=""
         /></a>
-        <a href="https://t.me/kikoswap" target="_blank"
+        <a
+          href="https://t.me/kikoswap"
+          target="_blank"
+          v-if="state.currLang === 'zh'"
+          ><img src="../assets/sidebar/telegram.png" alt=""
+        /></a>
+        <a href="https://t.me/kikoverseEnglish" target="_blank" v-else
           ><img src="../assets/sidebar/telegram.png" alt=""
         /></a>
         <a href="https://medium.com/@KikoResearch" target="_blank"
           ><img src="../assets/sidebar/medium.png" alt=""
+        /></a>
+
+        <a href="https://discord.com/invite/45pPRYMMjk" target="_blank"
+          ><img src="../assets/sidebar/discord.png" alt=""
         /></a>
       </div>
     </div>
@@ -82,12 +92,16 @@ import menus from "./menu.js";
 import { useRouter, useRoute } from "vue-router";
 import SvgIcon from "@components/SvgIcon/Index.vue";
 import { has, isObject } from "lodash";
+import { useStore } from "vuex";
+
 const router = useRouter();
 const route = useRoute();
 
+const store = useStore();
 const state = reactive({
   menus,
   currentRoute: computed(() => route.path),
+  currLang: computed(() => store.state.StoreApp.currLang),
   collapseObj: {
     NFT: true,
   },
@@ -233,8 +247,8 @@ const showRouterTag = (path, currentRoute) => {
     margin-left: 18px;
     justify-content: space-between;
     img {
-      width: 40px;
-      height: 40px;
+      width: 30px;
+      height: 30px;
     }
   }
 }

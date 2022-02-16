@@ -191,10 +191,8 @@ const pushMarket = () => {
 };
 const actionsCall = async ({ action, baseData }) => {
   state.baseData = baseData;
-  console.log("baseData", baseData);
   if (action === "CancelSell") {
     state.dialogEvent = dialogEventMaps["CancelSell"];
-    console.log(" states.dialogEvent", state.dialogEvent);
     let params = {};
     if (baseData.type === "box") {
       params = {
