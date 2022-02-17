@@ -41,7 +41,8 @@
 import { reactive, onMounted, ref, computed, watch, onUnmounted } from "vue";
 import NFT_CONSTANTS from "@constants/nft.js";
 import StarNft from "@StarUI/StarNFT.vue";
-import detailCard from "@components/NFT/DetailCard.vue";
+// import detailCard from "@components/NFT/DetailCard.vue";
+import detailCard from "@components/NFT/Details.vue";
 import { useRoute, useRouter } from "vue-router";
 import { useI18n } from "vue-i18n";
 import NftDialog from "@components/NFT/NFTDialog.vue";

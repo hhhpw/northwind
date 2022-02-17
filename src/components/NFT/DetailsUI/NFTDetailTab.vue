@@ -19,9 +19,6 @@
 </template>
 <script setup>
 import { defineProps } from "vue";
-// let state = reactive({
-//   selected_tab: "", // description rarevalue history
-// });
 
 const emits = defineEmits(["selectCrossTab"]);
 const props = defineProps({
@@ -32,12 +29,6 @@ const props = defineProps({
     type: String,
   },
 });
-// watch(
-//   () => props.selected_tab,
-//   (n) => {
-//     state.selected_tab = n;
-//   }
-// );
 
 const selectCrossTab = (id) => {
   emits("selectCrossTab", id);

@@ -39,7 +39,7 @@ export const MyNft = {
   cancel: {
     text: "取消出售",
   },
-  // is owner && 拍卖
+  // isOwner && 拍卖
   accept: {
     text: "接受报价",
   },
