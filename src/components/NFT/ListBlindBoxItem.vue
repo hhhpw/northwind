@@ -42,7 +42,8 @@
               class="nft-blind-text-name-rarity"
               v-if="
                 (baseData.type === 'nft' && baseData?.score) ||
-                (baseData.type === 'composite_card' && baseData?.score)
+                (baseData.type === 'composite_card' && baseData?.score) ||
+                (baseData.type === 'composite_element' && baseData?.score)
               "
             >
               <nft-card-item-tool-tip

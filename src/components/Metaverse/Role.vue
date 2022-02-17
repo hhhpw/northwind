@@ -6,10 +6,10 @@
       v-if="!state.composeNFT || state.composeNFT.length < 1"
     >
       <p>
-        {{ $t("metaverse.no character nft yet") }}
+        {{ $t("metaverse.character nft making") }}
       </p>
       <p>
-        {{ $t("metaverse.character nft making") }}
+        {{ $t("metaverse.no character nft yet") }}
       </p>
     </div>
     <!-- 角色卡片 -->

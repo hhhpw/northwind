@@ -65,8 +65,11 @@
       <star-space :size="20"></star-space>
       <star-button
         v-if="state.walletStatus === 'connected'"
-        :class="$style['create-btn']"
-        :type="state.canGenerated ? 'dark' : 'disabled'"
+        :class="[
+          $style['create-btn'],
+          $style[!state.canGenerated ? 'disabled' : ''],
+        ]"
+        :type="state.canGenerated ? 'dark' : ''"
         @click="validateParams(state.canGenerated)"
         :style="{
           'font-size': state.currLang === 'zh' ? '15px' : '13px',
@@ -184,7 +187,7 @@ $bgColor2: #fcf7f1;
     border-color: transparent;
   }
   ::v-deep(.el-input__inner::placeholder) {
-    color: $fontColor;
+    color: rgba(57, 27, 15, 0.4);
     font-size: 10px;
     // transform: scale(0.8);
     // margin-left: 100px;
@@ -324,6 +327,10 @@ $bgColor2: #fcf7f1;
       height: 40px;
       line-height: 40px;
       font-size: 15px;
+    }
+    .disabled {
+      background: rgba(213, 213, 213, 1);
+      color: rgba(172, 172, 172, 1);
     }
   }
 }

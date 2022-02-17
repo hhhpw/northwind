@@ -54,11 +54,22 @@
                 <span v-if="props.box_detail.nftType === 'COMPOSITE_ELEMENT'">
                   {{ $t("components") }}
                 </span>
-                <span v-if="props.box_detail.nftType === 'COMPOSITE_CARD'">
+                <span
+                  v-if="
+                    props.box_detail.nftType === 'COMPOSITE_CARD' &&
+                    props.box_detail?.original === false
+                  "
+                >
                   <SvgIcon name="clothes"></SvgIcon>
                   {{ $t("disassembled NFT") }}
                 </span>
-                <span v-if="props.box_detail.nftType === 'NORMAL'">
+                <span
+                  v-if="
+                    props.box_detail.nftType === 'NORMAL' ||
+                    (props.box_detail.nftType === 'COMPOSITE_CARD' &&
+                      props.box_detail?.original === true)
+                  "
+                >
                   {{ $t("original NFT") }}
                 </span>
               </span>
@@ -84,7 +95,9 @@
             <div
               class="base-info-item-character-info"
               v-if="
-                state.isNFT && props.box_detail.nftType === 'COMPOSITE_CARD'
+                state.isNFT &&
+                props.box_detail.nftType === 'COMPOSITE_CARD' &&
+                !props.box_detail?.original
               "
             >
               <span style="margin-right: 8px">
