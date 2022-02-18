@@ -22,9 +22,9 @@
 
       <div :class="$style['hero-info-imgs']">
         <img src="../../assets/metaverse/a.png" />
-        <img src="../../assets/metaverse/ice.png" />
-        <img src="../../assets/metaverse/fire.png" />
-        <img src="../../assets/metaverse/ice.png" />
+        <img src="../../assets/metaverse/b.png" />
+        <img src="../../assets/metaverse/c.png" />
+        <img src="../../assets/metaverse/d.png" />
       </div>
     </div>
 
@@ -66,7 +66,7 @@ const state = reactive({
   .wrap {
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     flex-direction: column;
     height: 100%;
   }
@@ -85,10 +85,14 @@ const state = reactive({
     width: 100%;
     position: relative;
     padding-bottom: 40px;
+    margin-top: 30px;
     border-bottom: 2px solid #f2decb;
+    // margin-top: 30px;
+    // justify-content: flex-start;
     .hero-info-occupations-item {
       // width: 25%;
-      margin-left: 6%;
+      // margin-left: 6%;
+      margin-right: 6%;
       float: left;
       text-align: center;
       position: relative;
@@ -117,9 +121,11 @@ const state = reactive({
 
   .hero-info-imgs {
     display: flex;
-    justify-content: space-between;
+    margin-top: 30px;
+    justify-content: flex-start;
     img {
       width: 70px;
+      margin-right: 10px;
     }
     padding-bottom: 40px;
   }

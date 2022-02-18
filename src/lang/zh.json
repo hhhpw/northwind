@@ -361,8 +361,8 @@
     "disassembling character NFT failed": "卡片分解失敗",
     "no NFT available": "暫無可用NFT",
     "please go to the market": "請前往市場逛逛",
-    "the role card name is 1-10 English characters or special symbols": "角色卡牌名稱為1-10個英文字符或特殊符號",
-    "enter the name (1-10 English characters)": "輸入名字（1-10英文字符）",
+    "the role card name is 1-10 English characters or special symbols": "角色卡牌名稱為1-20個英文字符或特殊符號",
+    "enter the name (1-10 English characters)": "輸入名字（1-20英文字符）",
     "can be disassembled": "可重組",
     "casting cost": "鑄造費用:{amount} {currency}",
     "whether to generate character NFT": "是否生成NFT角色卡牌"
