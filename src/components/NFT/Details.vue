@@ -8,7 +8,10 @@
       <!-- <Info :box_detail="props.box_detail"></Info> -->
     </div>
     <div class="content">
-      <details-content :box_detail="props.box_detail"></details-content>
+      <details-content
+        :box_detail="props.box_detail"
+        :blind_box_type="props.blind_box_type"
+      ></details-content>
     </div>
   </div>
 </template>
@@ -25,7 +28,6 @@ let props = defineProps({
   },
   action_type: String, // 操作类型
   blind_box_type: String, // box或是nft
-  // 来源页面
   fromView: {
     type: String,
   },

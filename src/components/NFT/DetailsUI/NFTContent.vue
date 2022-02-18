@@ -51,18 +51,28 @@ import { useI18n } from "vue-i18n";
 const { t } = useI18n();
 const store = useStore();
 let state = reactive({
-  isNFT: "1",
   cross_bar_array: null,
   contract_address: computed(() => store.state.StoreNFTDetail.contract_address),
   accounts: computed(() => store.state.StoreWallet.accounts),
   currLang: computed(() => store.state.StoreApp.currLang),
   selected_tab: "",
+  isNFT: computed(() => {
+    if (
+      props.blind_box_type === "nft" ||
+      props.blind_box_type === "composite_card" ||
+      props.blind_box_type === "composite_element"
+    ) {
+      return true;
+    }
+    return false;
+  }),
 });
 let props = defineProps({
   box_detail: {
     type: Object,
     default: () => {},
   },
+  blind_box_type: String,
 });
 const selectCrossTab = (name) => {
   state.selected_tab = name;
