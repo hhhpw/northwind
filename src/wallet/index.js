@@ -370,6 +370,68 @@ const openBlindBox = async ({ provider, blindboxId }) => {
   }
 };
 
+const importBlindBox = async ({
+  provider,
+  tyArgs, //[BoxToken, payToken] open:[]
+  type,
+}) => {
+  try {
+    console.log("type", type);
+    const args = [];
+    const funcId = process.env[`VUE_APP_BLIND_BOX_${type}_FUNCTION_ID`];
+    console.log(funcId, tyArgs, args);
+    const scriptFunction = await utils.tx.encodeScriptFunctionByResolve(
+      funcId,
+      tyArgs,
+      args,
+      process.env.VUE_APP_STAR_COIN_URL
+    );
+    const payloadInHex = (function () {
+      const se = new bcs.BcsSerializer();
+      scriptFunction.serialize(se);
+      return hexlify(se.getBytes());
+    })();
+    const txhash = await provider.getSigner().sendUncheckedTransaction({
+      data: payloadInHex,
+    });
+    return txhash;
+  } catch (e) {
+    console.log("e", e);
+    return "error";
+  }
+};
+
+const importGallery = async ({
+  provider,
+  tyArgs, //[BoxToken, payToken] open:[]
+  type, // BUY/OPEN/OFFLINE/SELL/BID
+}) => {
+  try {
+    console.log("type", type);
+    const args = [];
+    const funcId = process.env[`VUE_APP_BLIND_BOX_${type}_FUNCTION_ID`];
+    console.log(funcId, tyArgs, args);
+    const scriptFunction = await utils.tx.encodeScriptFunctionByResolve(
+      funcId,
+      tyArgs,
+      args,
+      process.env.VUE_APP_STAR_COIN_URL
+    );
+    const payloadInHex = (function () {
+      const se = new bcs.BcsSerializer();
+      scriptFunction.serialize(se);
+      return hexlify(se.getBytes());
+    })();
+    const txhash = await provider.getSigner().sendUncheckedTransaction({
+      data: payloadInHex,
+    });
+    return txhash;
+  } catch (e) {
+    console.log("e", e);
+    return "error";
+  }
+};
+
 /**
  * 签名
  * @param {} param0
@@ -466,6 +528,8 @@ export default {
   nftContractCall,
   blindBoxContractCall,
   openBlindBox,
+  importBlindBox,
+  importGallery,
   starMaskSign,
   stakeNFT,
   unStakeNFT,

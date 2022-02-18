@@ -274,7 +274,16 @@
     "K-Avatar": "K-Avatar",
     "name": "name",
     "profession": "profession",
-    "sex": "sex"
+    "sex": "sex",
+    "导入合约地址": "Contract Addresses",
+    "导入盲盒地址": "Import mystery box",
+    "盲盒代币地址": "Mystery Box Address",
+    "导入陈列室": "Import NFT gallery",
+    "导入成功": "Import succeeded",
+    "导入失败": "Import failed",
+    "导入中": "Importing",
+    "已导入": "Addresses already imported",
+    "陈列室": "Gallery"
   },
   "farms": {
     "farm-swap-total-1": "Total trading volume",
