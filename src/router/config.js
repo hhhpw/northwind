@@ -132,16 +132,6 @@ const routes = [
         },
       },
       {
-        path: "/swapfarms",
-        component: () => import("@views/Farms/FarmSwap.vue"),
-        name: "swapfarms",
-        meta: {
-          title: "交易挖矿",
-          bg: "nft",
-          url: "/swapfarms",
-        },
-      },
-      {
         path: "/kgstarter",
         component: () => import("@views/KgStarter/Index.vue"),
         name: "kgstarter",
