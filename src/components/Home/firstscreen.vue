@@ -59,7 +59,7 @@
         </star-button>
       </div>
     </div>
-    <!-- <div :class="$style['video-mask']" v-if="state.isShowVideo">
+    <div :class="$style['video-mask']" v-if="state.isShowVideo">
       <div :class="$style['video-container']">
         <div :class="$style['video-container-close']" @click="closeVideo">
           X
@@ -67,13 +67,13 @@
         <iframe
           height="550"
           width="980"
-          src="https://iframe.videodelivery.net/339e49985d51a81256fc4eeac3c8e0b8?preload=true&autoplay=true&poster=https%3A%2F%2Fvideodelivery.net%2F1a9089480eb3bee5da60ab607bbc3078%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600"
+          src=" https://iframe.videodelivery.net/2d3c58d014427798ef143c01bc420295?preload=true&autoplay=true&poster=https%3A%2F%2Fvideodelivery.net%2F2d3c58d014427798ef143c01bc420295%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600"
           style="border: none"
           allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
           allowfullscreen="true"
         ></iframe>
       </div>
-    </div> -->
+    </div>
   </div>
 </template>
 <script setup>
@@ -96,12 +96,12 @@ import connectLogic from "@mixins/wallet";
 const descZhPNG = require("../../assets/home/firstscreen-content-desc-zh.png");
 const descPNG = require("../../assets/home/firstscreen-content-desc.png");
 
-// const bodyStyle = (type) => {
-//   nextTick(() => {
-//     const body = document.getElementsByTagName("body")[0];
-//     body.style.overflow = type;
-//   });
-// };
+const bodyStyle = (type) => {
+  nextTick(() => {
+    const body = document.getElementsByTagName("body")[0];
+    body.style.overflow = type;
+  });
+};
 const store = useStore();
 
 const { connectWallet } = connectLogic(store);
@@ -112,7 +112,7 @@ let state = reactive({
   walletStatus: computed(() => store.state.StoreWallet.walletStatus),
   currLang: computed(() => store.state.StoreApp.currLang),
   videoSrc: null,
-  // isShowVideo: true,
+  isShowVideo: true,
 });
 
 onMounted(() => {
@@ -125,29 +125,29 @@ onMounted(() => {
   setTimeout(() => {
     state.isShowWinkCat = true;
   });
-  // nextTick(() => {
-  //   bodyStyle("hidden");
-  // });
+  nextTick(() => {
+    bodyStyle("hidden");
+  });
 });
 
-// onUnmounted(() => {
-//   bodyStyle("scroll");
-// });
+onUnmounted(() => {
+  bodyStyle("scroll");
+});
 
-// watch(
-//   () => state.isShowVideo,
-//   () => {
-//     if (state.isShowVideo) {
-//       bodyStyle("hidden");
-//     } else {
-//       bodyStyle("scroll");
-//     }
-//   }
-// );
+watch(
+  () => state.isShowVideo,
+  () => {
+    if (state.isShowVideo) {
+      bodyStyle("hidden");
+    } else {
+      bodyStyle("scroll");
+    }
+  }
+);
 
-// const closeVideo = () => {
-//   state.isShowVideo = false;
-// };
+const closeVideo = () => {
+  state.isShowVideo = false;
+};
 const btnClick = () => {
   if (state.walletStatus === "connected") {
     utilsRouter.push({
