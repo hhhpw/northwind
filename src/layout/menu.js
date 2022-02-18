@@ -53,17 +53,4 @@ export default [
     label: "K-Avatar",
     path: "/metaverse",
   },
-  // {
-  //   label: "Farms",
-  //   children: [
-  //     {
-  //       label: "交易挖矿",
-  //       path: "/swapfarms",
-  //     },
-  //     {
-  //       label: "流动性挖矿",
-  //       path: "/liquidityfarms",
-  //     },
-  //   ],
-  // },
 ];
