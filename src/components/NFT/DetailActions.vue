@@ -3,7 +3,7 @@
   <div class="nft-goods-detail-action">
     <!-- 我的NFT 未出售 -->
     <div class="sell-blind" v-if="props.action_type === 'UNSOLD'">
-      <div class="trade-input" v-if="props.box_detail">
+      <!-- <div class="trade-input" v-if="props.box_detail">
         <star-input
           class="trade-star-input"
           :value="String(props.box_detail.sellingPrice || '')"
@@ -16,7 +16,7 @@
         <div class="currency-select">
           {{ state.current_currency }}
         </div>
-      </div>
+      </div> -->
       <!-- 盲盒未开启 -->
       <div
         class="buttons blind-buttons"

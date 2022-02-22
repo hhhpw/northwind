@@ -5,7 +5,11 @@
         :box_detail="props.box_detail"
         :type="props.type"
       ></left-content>
-      <!-- <Info :box_detail="props.box_detail"></Info> -->
+      <Info
+        :box_detail="props.box_detail"
+        :blind_box_type="props.blind_box_type"
+        :action_type="props.action_type"
+      ></Info>
     </div>
     <div class="content">
       <details-content
@@ -17,7 +21,7 @@
 </template>
 <script setup>
 import LeftContent from "./DetailsUI/NFTLeftContent.vue";
-// import Info from "./DetailsUI/NFTInfo.vue";
+import Info from "./DetailsUI/NFTInfo.vue";
 import detailsContent from "./DetailsUI/NFTContent.vue";
 import { defineProps } from "vue";
 
@@ -28,9 +32,6 @@ let props = defineProps({
   },
   action_type: String, // 操作类型
   blind_box_type: String, // box或是nft
-  fromView: {
-    type: String,
-  },
   type: {
     type: String,
   },

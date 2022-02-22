@@ -1,7 +1,7 @@
 <template>
   <div class="details-img-content">
     <img
-      v-if="props.type === 'NFT'"
+      v-if="props.box_detail.imageLink"
       :src="
         props.box_detail.imageLink ||
         (props.action_type === 'RECOVERY' && props.box_detail.icon)

@@ -7,13 +7,13 @@
   >
     <template #nft-card>
       <div v-if="state.detail_info">
-        <detail-card
+        <detailCard
           :box_detail="state.detail_info"
           :action_type="state.action_type"
           :blind_box_type="state.detail_type"
           @actionsCall="actionsCall"
           fromView="collection"
-        ></detail-card>
+        ></detailCard>
       </div>
       <star-loading-fish v-else></star-loading-fish>
     </template>
@@ -115,7 +115,8 @@ import {
 } from "vue";
 import StarNft from "@StarUI/StarNFT.vue";
 import StarLoadingFish from "@StarUI/StarLoadingFish.vue";
-import DetailCard from "@components/NFT/DetailCard.vue";
+// import DetailCard from "@components/NFT/DetailCard.vue";
+import detailCard from "@components/NFT/Details.vue";
 import utilsNumber from "@utils/number";
 import utilsRegexp from "@utils/regexp";
 import NftDialog from "@components/NFT/NFTDialog.vue";

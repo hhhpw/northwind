@@ -1,5 +1,5 @@
 <template>
-  <div class="details-info">
+  <div class="details-right-info">
     <div class="base-info-title">
       <span class="base-info-color">{{
         state.isNFT ? props.box_detail.seriesName : props.box_detail.name
@@ -113,13 +113,60 @@
         >
       </div>
     </div>
+    <detail-action
+      class="detail-actions"
+      :box_detail="props.box_detail"
+      :action_type="props.action_type"
+      :isNFT="state.isNFT"
+      @actionsCall="actionsCall"
+    ></detail-action>
   </div>
 </template>
 <script setup>
 import SvgIcon from "@components/SvgIcon/Index.vue";
+import { reactive, computed, defineProps, defineEmits } from "vue";
+import StarAmount from "@StarUI/StarAmount.vue";
+import detailAction from "@components/NFT/DetailActions";
+let state = reactive({
+  isNFT: computed(() => {
+    if (
+      props.blind_box_type === "nft" ||
+      props.blind_box_type === "composite_card" ||
+      props.blind_box_type === "composite_element"
+    ) {
+      return true;
+    }
+    return false;
+  }),
+});
+let props = defineProps({
+  box_detail: {
+    type: Object,
+    default: () => {},
+  },
+  action_type: String, // 操作类型
+  blind_box_type: String, // box或是nft
+  type: {
+    type: String,
+  },
+});
+const stringFormat = (str) => {
+  if (str) {
+    return str.slice(0, 6) + "..." + str.slice(-4);
+  } else {
+    return "--";
+  }
+};
+
+// 操作事件回调
+const emits = defineEmits(["actionsCall"]);
+const actionsCall = (action) => {
+  emits("actionsCall", action);
+};
 </script>
+
 <style lang="scss" scoped>
-.details-info {
+.details-right-info {
   flex: 1;
   color: #3f1c09;
   margin-left: 33px;

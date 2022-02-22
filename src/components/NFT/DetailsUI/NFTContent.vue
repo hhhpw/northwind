@@ -43,8 +43,8 @@
 </template>
 <script setup>
 import NftDetailTab from "./NFTDetailTab.vue";
-import NftDetailSpecific from "../NFTDetailSpecific.vue";
-import NftDetailHistory from "../NFTDetailHistory.vue";
+import NftDetailSpecific from "./NFTDetailSpecific.vue";
+import NftDetailHistory from "./NFTDetailHistory.vue";
 import { reactive, computed, watchEffect } from "vue";
 import { useStore } from "vuex";
 import { useI18n } from "vue-i18n";

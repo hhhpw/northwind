@@ -29,7 +29,7 @@
 <script setup>
 /* eslint-disable */
 import { computed, watchEffect, reactive, ref } from "vue";
-import nftProto from "./nftproto";
+import nftProto from "../nftproto";
 let rarevalue_list = ref([]);
 let state = reactive({
   rarevalue_list: [],

@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { computed, reactive } from "vue";
 
-const NFT_TYPES = ["composite_card", "composite_element", "nft"];
+const NFT_TYPES = ["composite_card", "composite_element", "nft", "box"];
 
 const useNFT = (store, data) => {
   let state = reactive({

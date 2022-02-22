@@ -230,13 +230,13 @@
 <script setup>
 import { reactive, computed, defineProps, defineEmits, watchEffect } from "vue";
 import detailAction from "@components/NFT/DetailActions";
-import NftDetailSpecific from "./NFTDetailSpecific.vue";
+import NftDetailSpecific from "./DetailsUI/NFTDetailSpecific.vue";
 import SvgIcon from "@components/SvgIcon/Index.vue";
 import { useStore } from "vuex";
 import { useI18n } from "vue-i18n";
 const { t } = useI18n();
 import utilsTools from "@utils/tool";
-import NftDetailHistory from "./NFTDetailHistory.vue";
+import NftDetailHistory from "./DetailsUI/NFTDetailHistory.vue";
 import NftDetailTab from "./DetailsUI/NFTDetailTab.vue";
 import StarAmount from "@StarUI/StarAmount.vue";
 // import StarSpace from "@StarUI/StarSpace.vue";
