@@ -8,9 +8,10 @@
       <template #nft-card>
         <detailCard
           v-if="state.buyBackDetail"
-          :box_detail="state.buyBackDetail"
+          :detailData="state.buyBackDetail"
           :action_type="'RECOVERY'"
           :blind_box_type="'nft'"
+          :isNFT="true"
           @actionsCall="actionsCall"
         ></detailCard>
         <star-loading-fish v-else></star-loading-fish>

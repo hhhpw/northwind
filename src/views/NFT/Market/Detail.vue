@@ -404,7 +404,6 @@ const secondDialogConfirm = () => {
 
 // 操作按钮事件
 const actionsCall = (data) => {
-  debugger;
   state.action_type = data.action;
   switch (data.action) {
     case "UpdateBid":

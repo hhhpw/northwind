@@ -24,6 +24,7 @@
       <details-content
         :box_detail="props.detailData"
         :blind_box_type="props.blind_box_type"
+        :isNFT="props.isNFT"
       ></details-content>
     </div>
   </div>

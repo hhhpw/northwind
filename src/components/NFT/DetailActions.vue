@@ -49,7 +49,7 @@
     </div>
     <!-- 购买者视角 出售中 -->
     <div class="on-offer-blind" v-if="props.action_type === 'BUYERSELL'">
-      <div class="blind-offer-price">
+      <!-- <div class="blind-offer-price">
         <div class="sell-price price-content-style">
           <span>{{ $t("售价") }}：</span>
           <span
@@ -81,7 +81,11 @@
             }}</span
           >
         </div>
-      </div>
+      </div> -->
+      <nft-bid-info
+        :box_detail="props.box_detail"
+        :sellType="props.box_detail.sellType"
+      ></nft-bid-info>
       <div
         class="blind-offer-actions"
         v-if="props.box_detail"
@@ -232,6 +236,7 @@ import { useStore } from "vuex";
 const store = useStore();
 import utilsFormat from "@utils/format";
 import StarButton from "@StarUI/StarButton.vue";
+import NftBidInfo from "./DetailsUI/NFTBidInfo.vue";
 let state = reactive({
   value: "",
   isShowSearchDialog: false, // 是否出现币种弹窗

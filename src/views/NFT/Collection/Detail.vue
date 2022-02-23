@@ -8,9 +8,12 @@
     <template #nft-card>
       <div v-if="state.detail_info">
         <detailCard
-          :box_detail="state.detail_info"
+          :detailData="state.detail_info"
           :action_type="state.action_type"
           :blind_box_type="state.detail_type"
+          :isNFT="state.blind_box_type !== 'box'"
+          :isOnSell="state.detail_info.onSell"
+          :isOwner="isOwner(state.detail_info.address)"
           @actionsCall="actionsCall"
           fromView="collection"
         ></detailCard>
@@ -86,14 +89,14 @@
   >
   </nft-dialog>
 
-  <!-- <nft-second-dialog
+  <nft-second-dialog
     :dialogVisible="state.secondDialogParams.isShow"
     :dialogParams="state.secondDialogParams"
     @handleClose="secondDialogClose"
     @handleCancel="secondDialogClose"
     @handleConfirm="sencondDialogConfirm"
   >
-  </nft-second-dialog> -->
+  </nft-second-dialog>
   <nft-bid-dialog
     :dialogVisible="state.bidPriceDialogParams.isShow"
     :dialogParams="state.bidPriceDialogParams"
@@ -128,7 +131,7 @@ import detailCard from "@components/NFT/Details.vue";
 import utilsNumber from "@utils/number";
 import utilsRegexp from "@utils/regexp";
 import NftDialog from "@components/NFT/NFTDialog.vue";
-// import NftSecondDialog from "@components/NFT/NFTSecondDialog.vue";
+import NftSecondDialog from "@components/NFT/NFTSecondDialog.vue";
 import NftBidDialog from "@components/NFT/NFTBidDialog.vue";
 import NftSoldOutDialog from "@components/NFT/NFTSoldOutDialog.vue";
 import { useRoute } from "vue-router";
@@ -196,6 +199,12 @@ watchEffect(() => {
     );
   }
 });
+const isOwner = (address) =>
+  computed(() => {
+    if (store.state.StoreWallet.accounts?.[0]) {
+      return address === store.state.StoreWallet.accounts?.[0];
+    }
+  });
 
 onMounted(() => {
   store.commit(

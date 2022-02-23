@@ -31,9 +31,6 @@
 <script setup>
 import { defineProps } from "vue";
 import SvgIcon from "@components/SvgIcon/Index.vue";
-// let state = reactive({
-//   isNFT: "",
-// });
 let props = defineProps({
   box_detail: {
     type: Object,

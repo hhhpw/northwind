@@ -20,7 +20,7 @@
         class="specific-rarevalue"
         v-if="
           state.selected_tab === 'rarevalue' &&
-          state.isNFT &&
+          props.isNFT &&
           props.box_detail.nftType !== 'COMPOSITE_ELEMENT'
         "
       >
@@ -32,7 +32,7 @@
         class="specific-history"
         v-if="
           state.selected_tab === 'history' &&
-          state.isNFT &&
+          props.isNFT &&
           props.box_detail.nftType !== 'COMPOSITE_ELEMENT'
         "
       >
@@ -56,16 +56,6 @@ let state = reactive({
   accounts: computed(() => store.state.StoreWallet.accounts),
   currLang: computed(() => store.state.StoreApp.currLang),
   selected_tab: "",
-  isNFT: computed(() => {
-    if (
-      props.blind_box_type === "nft" ||
-      props.blind_box_type === "composite_card" ||
-      props.blind_box_type === "composite_element"
-    ) {
-      return true;
-    }
-    return false;
-  }),
 });
 let props = defineProps({
   box_detail: {
@@ -73,13 +63,14 @@ let props = defineProps({
     default: () => {},
   },
   blind_box_type: String,
+  isNFT: Boolean,
 });
 const selectCrossTab = (name) => {
   state.selected_tab = name;
 };
 const getBarArray = () => {
   if (!props.box_detail.nftType) return;
-  if (state.isNFT) {
+  if (props.isNFT) {
     if (props.box_detail.nftType === "COMPOSITE_ELEMENT") {
       return [
         {
