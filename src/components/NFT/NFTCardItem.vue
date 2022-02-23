@@ -181,7 +181,7 @@ const store = useStore();
 const props = defineProps({
   cardType: {
     type: String,
-    default: "", //buyback平台回购，market 市场 collection 收藏 ,conllectionSell 未出售
+    default: "", //buyback平台回购，market 市场 collection 收藏 ,
   },
   sellType: {
     type: String,

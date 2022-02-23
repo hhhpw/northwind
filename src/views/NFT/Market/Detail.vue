@@ -4,14 +4,18 @@
       class="blind-box-container"
       coreType="card"
       :cardTypeParams="{ minHeight: '800px' }"
+      :set="(detailData = state.box_detail)"
     >
       <template #nft-card>
         <detailCard
-          :box_detail="state.box_detail"
+          :detailData="detailData"
           :action_type="state.action_type_UI"
-          :blind_box_type="state.blind_box_type"
           @actionsCall="actionsCall"
-          v-if="state.box_detail"
+          :isNFT="state.blind_box_type !== 'box'"
+          v-if="detailData"
+          :isOnSell="detailData.onSell"
+          :isOwner="isOwner(detailData.address)"
+          cardType="market"
         ></detailCard>
         <star-loading-fish v-else></star-loading-fish>
       </template>
@@ -176,6 +180,7 @@ import {
   watch,
   onUnmounted,
 } from "vue";
+import { useNFT } from "../../../hooks/useNFT";
 import NFT_CONSTANTS from "@constants/nft.js";
 import StarButton from "@StarUI/StarButton.vue";
 import StarLoadingFish from "@StarUI/StarLoadingFish.vue";
@@ -221,16 +226,18 @@ let state = reactive({
   blind_box_type: computed(() => {
     return ref(route.query.type).value;
   }), // 盲盒或是NFT
+  blind_box_detail: computed(() => store.state.StoreNftMarket.blind_box_detail),
+  nft_box_detail: computed(() => store.state.StoreNftMarket.nft_box_detail),
   // 盲盒详情
   box_detail: computed(() => {
     const type = ref(route.query.type).value;
-    if (type === "box") {
+    if (type === "box" && Object.keys(state.blind_box_detail).length > 0) {
       return Object.assign({}, store.state.StoreNftMarket.blind_box_detail, {
         editBidPrice: utilsFormat.formatPrice(
           store.state.StoreNftMarket.blind_box_detail?.topBidPrice
         ),
       });
-    } else {
+    } else if (Object.keys(state.nft_box_detail).length > 0) {
       return Object.assign({}, store.state.StoreNftMarket.nft_box_detail, {
         editBidPrice: utilsFormat.formatPrice(
           store.state.StoreNftMarket.nft_box_detail?.topBidPrice
@@ -238,6 +245,7 @@ let state = reactive({
       });
     }
   }),
+
   action_type_UI: computed(() => {
     if (!state.box_detail.onSell) {
       return "SOLDOUT";
@@ -277,6 +285,29 @@ const editState = reactive({
   edit_price_isInteger: true,
 });
 
+const isOwner = (address) =>
+  computed(() => {
+    if (store.state.StoreWallet.accounts?.[0]) {
+      return address === store.state.StoreWallet.accounts?.[0];
+    }
+  });
+
+const box_detail_nft = computed(() => {
+  const type = ref(route.query.type).value;
+  if (type === "box" && state.blind_box_detail) {
+    return Object.assign({}, store.state.StoreNftMarket.blind_box_detail, {
+      editBidPrice: utilsFormat.formatPrice(
+        store.state.StoreNftMarket.blind_box_detail?.topBidPrice
+      ),
+    });
+  } else if (state.nft_box_detail) {
+    return Object.assign({}, store.state.StoreNftMarket.nft_box_detail, {
+      editBidPrice: utilsFormat.formatPrice(
+        store.state.StoreNftMarket.nft_box_detail?.topBidPrice
+      ),
+    });
+  }
+});
 watchEffect(() => {
   if (state.box_detail && editState.edit_price_show) {
     editState.edit_price_inputVal = Number(

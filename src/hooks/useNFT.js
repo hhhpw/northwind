@@ -4,6 +4,7 @@ import { computed, reactive } from "vue";
 const NFT_TYPES = ["composite_card", "composite_element", "nft", "box"];
 
 const useNFT = (store, data) => {
+  console.log("data", data);
   let state = reactive({
     accounts: computed(() => store.state.StoreWallet.accounts),
   });
@@ -17,9 +18,9 @@ const useNFT = (store, data) => {
     });
 
   // 是否再售
-  const isOnSell = computed(() => {
-    return data.onSel;
-  }).value;
+  // const isOnSell = computed(() => {
+  //   return data.onSell;
+  // }).value;
 
   // 获取NFTtype
   const getNFTType = computed(() => {
@@ -50,7 +51,7 @@ const useNFT = (store, data) => {
 
   return {
     isOwner,
-    isOnSell,
+    // isOnSell,
     getNFTType,
     isSameNFTType,
     isNFT,

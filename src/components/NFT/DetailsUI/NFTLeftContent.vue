@@ -1,9 +1,9 @@
 <template>
   <div class="details-img-content">
     <img
-      v-if="props.box_detail.imageLink"
+      v-if="props.isNFT"
       :src="
-        props.box_detail.imageLink ||
+        props.box_detail?.imageLink ||
         (props.action_type === 'RECOVERY' && props.box_detail.icon)
       "
       alt=""
@@ -13,7 +13,7 @@
         :src="props.box_detail.boxTokenLogo || props.box_detail.icon"
         alt=""
       />
-      <div class="unopen-blind-mask" v-if="props.action_type === 'UNSOLD'">
+      <div class="unopen-blind-mask" v-if="props.isOwner && !props.isOnSell">
         <div class="unopen-blind-mask-line">
           <svg-icon name="left-double-arrow" style="font-size: 16px"></svg-icon>
           <span @click="actionsCall({ action: 'OpenBlinkBox' })">
@@ -38,6 +38,15 @@ let props = defineProps({
   box_detail: {
     type: Object,
     default: () => {},
+  },
+  isNFT: {
+    type: Boolean,
+  },
+  isOwner: {
+    type: Boolean,
+  },
+  isOnSell: {
+    type: Boolean,
   },
 });
 </script>

@@ -2,25 +2,34 @@
   <div class="details">
     <div class="details-info">
       <left-content
-        :box_detail="props.box_detail"
+        :box_detail="props.detailData"
         :type="props.type"
+        :isNFT="props.isNFT"
+        :isOwner="props.isOwner"
+        :cardType="props.cardType"
+        :isOnSell="props.isOnSell"
       ></left-content>
       <Info
-        :box_detail="props.box_detail"
+        :box_detail="props.detailData"
         :blind_box_type="props.blind_box_type"
         :action_type="props.action_type"
+        :isNFT="props.isNFT"
+        :isOwner="props.isOwner"
+        :cardType="props.cardType"
+        :isOnSell="props.isOnSell"
         @actionsCall="actionsCall"
       ></Info>
     </div>
     <div class="content">
       <details-content
-        :box_detail="props.box_detail"
+        :box_detail="props.detailData"
         :blind_box_type="props.blind_box_type"
       ></details-content>
     </div>
   </div>
 </template>
 <script setup>
+/* eslint-disable */
 import LeftContent from "./DetailsUI/NFTLeftContent.vue";
 import Info from "./DetailsUI/NFTInfo.vue";
 import detailsContent from "./DetailsUI/NFTContent.vue";
@@ -31,10 +40,26 @@ let props = defineProps({
     type: Object,
     default: () => {},
   },
+  isNFT: Boolean,
   action_type: String, // 操作类型
   blind_box_type: String, // box或是nft
+  // 卡片详情所有数据
+  detailData: {
+    type: Object,
+    default: () => {},
+  },
   type: {
     type: String,
+  },
+  cardType: {
+    type: String,
+    default: "", //buyback平台回购，market 市场 collection 收藏 ,conllectionSell 未出售
+  },
+  isOnSell: {
+    type: Boolean,
+  },
+  isOwner: {
+    type: Boolean,
   },
 });
 // 操作事件回调
