@@ -9,6 +9,7 @@
         :box_detail="props.box_detail"
         :blind_box_type="props.blind_box_type"
         :action_type="props.action_type"
+        @actionsCall="actionsCall"
       ></Info>
     </div>
     <div class="content">
@@ -36,6 +37,11 @@ let props = defineProps({
     type: String,
   },
 });
+// 操作事件回调
+const emits = defineEmits(["actionsCall"]);
+const actionsCall = (action) => {
+  emits("actionsCall", action);
+};
 </script>
 <style lang="scss" scoped>
 .details {

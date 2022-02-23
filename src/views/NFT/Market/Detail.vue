@@ -146,22 +146,14 @@
       >
       </nft-dialog>
 
-      <!-- <nft-second-dialog
+      <nft-second-dialog
         :dialogVisible="state.secondDialogParams.isShow"
         :dialogParams="state.secondDialogParams"
         @handleClose="secondDialogClose"
         @handleCancel="secondDialogClose"
         @handleConfirm="secondDialogConfirm"
       >
-      </nft-second-dialog> -->
-      <nft-bid-dialog
-        :dialogVisible="state.secondDialogParams.isShow"
-        :dialogParams="state.secondDialogParams"
-        @handleClose="secondDialogClose"
-        @handleCancel="secondDialogClose"
-        @handleConfirm="secondDialogConfirm"
-      >
-      </nft-bid-dialog>
+      </nft-second-dialog>
 
       <nft-sold-out-dialog
         :dialogVisible="state.soldDialogParams.isShow"
@@ -196,8 +188,7 @@ import StarNft from "@StarUI/StarNFT.vue";
 // import detailCard from "@components/NFT/DetailCard.vue";
 import detailCard from "@components/NFT/Details.vue";
 import NftDialog from "@components/NFT/NFTDialog.vue";
-// import NftSecondDialog from "@components/NFT/NFTSecondDialog.vue";
-import NftBidDialog from "@components/NFT/NFTBidDialog.vue";
+import NftSecondDialog from "@components/NFT/NFTSecondDialog.vue";
 import NftSoldOutDialog from "@components/NFT/NFTSoldOutDialog.vue";
 import CONSTANTS_TOKENS from "@constants/token";
 import utilsNumber from "@utils/number";
@@ -382,6 +373,7 @@ const secondDialogConfirm = () => {
 
 // 操作按钮事件
 const actionsCall = (data) => {
+  debugger;
   state.action_type = data.action;
   switch (data.action) {
     case "UpdateBid":

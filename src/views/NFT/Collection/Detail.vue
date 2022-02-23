@@ -86,14 +86,22 @@
   >
   </nft-dialog>
 
-  <nft-second-dialog
+  <!-- <nft-second-dialog
     :dialogVisible="state.secondDialogParams.isShow"
     :dialogParams="state.secondDialogParams"
     @handleClose="secondDialogClose"
     @handleCancel="secondDialogClose"
     @handleConfirm="sencondDialogConfirm"
   >
-  </nft-second-dialog>
+  </nft-second-dialog> -->
+  <nft-bid-dialog
+    :dialogVisible="state.bidPriceDialogParams.isShow"
+    :dialogParams="state.bidPriceDialogParams"
+    @handleClose="bidPriceDialogClose"
+    @handleCancel="bidPriceDialogClose"
+    @handleConfirm="bidPriceDialogClose"
+  >
+  </nft-bid-dialog>
 
   <nft-sold-out-dialog
     :dialogVisible="state.soldDialogParams.isShow"
@@ -120,7 +128,8 @@ import detailCard from "@components/NFT/Details.vue";
 import utilsNumber from "@utils/number";
 import utilsRegexp from "@utils/regexp";
 import NftDialog from "@components/NFT/NFTDialog.vue";
-import NftSecondDialog from "@components/NFT/NFTSecondDialog.vue";
+// import NftSecondDialog from "@components/NFT/NFTSecondDialog.vue";
+import NftBidDialog from "@components/NFT/NFTBidDialog.vue";
 import NftSoldOutDialog from "@components/NFT/NFTSoldOutDialog.vue";
 import { useRoute } from "vue-router";
 import { useStore } from "vuex";
@@ -143,6 +152,7 @@ const handleSoldOutCloseFunc = () => {
 const handleSoldOutConfirmFunc = () => {
   window.location.reload();
 };
+
 let state = reactive({
   timer: null,
   coreType: "card",
@@ -169,6 +179,7 @@ let state = reactive({
       return "OWNERSELL";
     }
   }),
+  bidPriceDialogParams: NFT_CONSTANTS.BID_PRICE_DIALOD_PARAMS,
 });
 
 let editState = reactive({
@@ -332,36 +343,43 @@ const actionsCall = async (d) => {
       }),
     });
   } else if (d.action === "SellNFT" || d.action === "SellBlinkBox") {
-    if (!state.detail_info.sellingPrice) return;
-    if (utilsNumber.bigNum(state.detail_info.sellingPrice).gt(0)) {
-      const price = utilsNumber
-        .bigNum(String(state.detail_info.sellingPrice))
-        .times(Math.pow(10, 9))
-        .toString();
-      let params;
-      if (state.detail_type === "box") {
-        params = {
-          tyArgs: [state.detail_info.boxToken, state.detail_info.payToken],
-          args: [price],
-          type: "box",
-          groupId: ref(route.query.groupId).value,
-          chainId: ref(route.query.chainId).value,
-        };
-      } else {
-        params = {
-          tyArgs: [
-            state.detail_info.nftMeta,
-            state.detail_info.nftBody,
-            state.detail_info.payToken,
-          ],
-          args: [String(state.detail_info.nftId), String(price)],
-          type: "nft",
-          infoId: ref(route.query.infoId).value,
-        };
+    state.bidPriceDialogParams = Object.assign(
+      {},
+      NFT_CONSTANTS.BID_PRICE_DIALOD_PARAMS,
+      {
+        isShow: true,
       }
-      state.dialogEvent = dialogEventMaps["Sell"];
-      store.dispatch("StoreCollection/sellContractsCall", params);
-    }
+    );
+    // if (!state.detail_info.sellingPrice) return;
+    // if (utilsNumber.bigNum(state.detail_info.sellingPrice).gt(0)) {
+    //   const price = utilsNumber
+    //     .bigNum(String(state.detail_info.sellingPrice))
+    //     .times(Math.pow(10, 9))
+    //     .toString();
+    //   let params;
+    //   if (state.detail_type === "box") {
+    //     params = {
+    //       tyArgs: [state.detail_info.boxToken, state.detail_info.payToken],
+    //       args: [price],
+    //       type: "box",
+    //       groupId: ref(route.query.groupId).value,
+    //       chainId: ref(route.query.chainId).value,
+    //     };
+    //   } else {
+    //     params = {
+    //       tyArgs: [
+    //         state.detail_info.nftMeta,
+    //         state.detail_info.nftBody,
+    //         state.detail_info.payToken,
+    //       ],
+    //       args: [String(state.detail_info.nftId), String(price)],
+    //       type: "nft",
+    //       infoId: ref(route.query.infoId).value,
+    //     };
+    //   }
+    //   state.dialogEvent = dialogEventMaps["Sell"];
+    //   store.dispatch("StoreCollection/sellContractsCall", params);
+    // }
   } else if (d.action === "OpenBlinkBox") {
     state.dialogEvent = dialogEventMaps["OpenBlinkBox"];
     store.dispatch("StoreCollection/openBlindBoxCall", {
@@ -406,6 +424,10 @@ const secondDialogClose = () => {
     "StoreCollection/CHANGE_SECOND_DIALOG_STATUS",
     NFT_CONSTANTS.INIT_SECOND_DIALOG_PARAMS
   );
+};
+
+const bidPriceDialogClose = () => {
+  state.bidPriceDialogParams = NFT_CONSTANTS.BID_PRICE_DIALOD_PARAMS;
 };
 
 const sencondDialogConfirm = () => {

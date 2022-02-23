@@ -112,6 +112,13 @@
           }}</span
         >
       </div>
+      <div
+        class="base-info-item"
+        v-if="props.box_detail && props.box_detail.owner"
+      >
+        <span class="title">{{ $t("结束时间") }}</span>
+        <span class="value" @click="pushPage(props.box_detail.owner)"></span>
+      </div>
     </div>
     <detail-action
       class="detail-actions"
@@ -127,6 +134,7 @@ import SvgIcon from "@components/SvgIcon/Index.vue";
 import { reactive, computed, defineProps, defineEmits } from "vue";
 import StarAmount from "@StarUI/StarAmount.vue";
 import detailAction from "@components/NFT/DetailActions";
+import utilsTools from "@utils/tool";
 let state = reactive({
   isNFT: computed(() => {
     if (
@@ -157,7 +165,9 @@ const stringFormat = (str) => {
     return "--";
   }
 };
-
+const pushPage = (path) => {
+  utilsTools.openNewWindow(`https://stcscan.io/main/address/${path}`);
+};
 // 操作事件回调
 const emits = defineEmits(["actionsCall"]);
 const actionsCall = (action) => {

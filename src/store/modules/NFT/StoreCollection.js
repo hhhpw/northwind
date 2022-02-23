@@ -25,6 +25,7 @@ const StoreCollection = {
     sellRecordData: [],
     dialogParams: NFT_CONSTANTS.INIT_DIALOG_PARAMS,
     secondDialogParams: NFT_CONSTANTS.INIT_SECOND_DIALOG_PARAMS,
+    bidPriceDialogParams: NFT_CONSTANTS.BID_PRICE_DIALOD_PARAMS,
     soldDialogParams: NFT_CONSTANTS.INIT_SOLD_DIALOG_PARAMS,
     onSellIsLoading: false,
     purchaseQuery: {
@@ -97,6 +98,13 @@ const StoreCollection = {
       state.secondDialogParams = Object.assign(
         {},
         state.secondDialogParams,
+        payload
+      );
+    },
+    [types.CHANGE_BID_PRICE_DIALOG_PARAMS](state, payload) {
+      state.bidPriceDialogParams = Object.assign(
+        {},
+        state.bidPriceDialogParams,
         payload
       );
     },

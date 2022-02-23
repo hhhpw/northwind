@@ -22,6 +22,15 @@ const INIT_SECOND_DIALOG_PARAMS = {
   gasInfo: "",
 };
 
+const BID_PRICE_DIALOD_PARAMS = {
+  confirmText: utilsFormat.computedLangCtx("确认"),
+  cancelText: utilsFormat.computedLangCtx("取消"),
+  text: "",
+  isShow: false,
+  title: "",
+  gasInfo: "",
+};
+
 const NFT_GAS_FEE = "0.02";
 
 const INIT_SOLD_DIALOG_PARAMS = {
@@ -65,4 +74,5 @@ export default {
   INIT_SOLD_DIALOG_PARAMS,
   NFT_ERROR_CODES,
   LOADING_FISH,
+  BID_PRICE_DIALOD_PARAMS,
 };
