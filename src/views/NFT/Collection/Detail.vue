@@ -21,60 +21,6 @@
       <star-loading-fish v-else></star-loading-fish>
     </template>
   </star-nft>
-  <star-confirm
-    :dialogVisible="editState.edit_price_show"
-    :title="t('修改售价')"
-    :isCustomContent="true"
-    class="star-refresh quotation-confirm"
-    @handleClose="
-      () => {
-        editState.edit_price_show = false;
-        editState.edit_price_error = false;
-        editState.edit_price_isInteger = true;
-      }
-    "
-  >
-    <template #core>
-      <star-space :size="24"></star-space>
-      <div class="quotation-input-box">
-        <star-input-number
-          width="100%"
-          :value="editState.edit_price_inputVal"
-          @inputEvent="editInputEvent"
-          :max="999999999"
-        ></star-input-number>
-        <star-space :size="10"></star-space>
-        <div style="text-align: right">
-          {{ t("最高出价") }}
-          {{
-            (state.detail_info.topBidPrice &&
-              utilsFormat.formatPrice(state.detail_info.topBidPrice)) ||
-            "0"
-          }}
-          STC
-        </div>
-        <div v-if="!editState.edit_price_isInteger" class="error">
-          *{{ $t("只能输入整数") }}
-        </div>
-        <div v-if="editState.edit_price_error" class="error">
-          *{{ $t("售价需大于当前最高出价") }}
-        </div>
-      </div>
-    </template>
-    <template #footer>
-      <star-button
-        @click="changeBidPrice"
-        type="dark"
-        style="
-          width: 100%;
-          padding-left: 0px;
-          padding-right: 0px;
-          font-size: 14px;
-        "
-        >{{ $t("确认") }}</star-button
-      >
-    </template>
-  </star-confirm>
 
   <nft-dialog
     :dialogVisible="state.dialogEvent && state.dialogParams.isShow"
@@ -123,6 +69,7 @@ import {
   ref,
   watchEffect,
   onUnmounted,
+  watch,
 } from "vue";
 import StarNft from "@StarUI/StarNFT.vue";
 import StarLoadingFish from "@StarUI/StarLoadingFish.vue";
@@ -183,6 +130,7 @@ let state = reactive({
     }
   }),
   bidPriceDialogParams: NFT_CONSTANTS.BID_PRICE_DIALOD_PARAMS,
+  action_call_type: "",
 });
 
 let editState = reactive({
@@ -257,50 +205,6 @@ onUnmounted(() => {
   store.commit("StoreCollection/SET_DETAIL_INFO", null);
   store.commit("StoreCollection/SET_DETAIL_TYPE", null);
 });
-
-// 修改报价
-const changeBidPrice = async () => {
-  editState.edit_price_error = false;
-  editState.edit_price_isInteger = true;
-  const isInteger = utilsRegexp.isInteger(editState.edit_price_inputVal);
-  if (!isInteger) {
-    editState.edit_price_isInteger = false;
-    return;
-  }
-  if (!checkEditValue(editState.edit_price_inputVal)) {
-    return;
-  }
-  const price = utilsNumber
-    .bigNum(editState.edit_price_inputVal)
-    .times(Math.pow(10, 9))
-    .toString();
-  if (!price) return;
-  let params;
-  editState.edit_price_show = false;
-  if (state.detail_type === "box") {
-    const id = ref(route.query.chainId).value;
-    params = {
-      args: [String(id), price],
-      tyArgs: [state.detail_info.boxToken, state.detail_info.payToken],
-      type: "box",
-      groupId: ref(route.query.groupId).value,
-      chainId: id,
-    };
-  } else {
-    params = {
-      args: [String(state.detail_info.nftId), price],
-      tyArgs: [
-        state.detail_info.nftMeta,
-        state.detail_info.nftBody,
-        state.detail_info.payToken,
-      ],
-      type: "nft",
-      infoId: ref(route.query.infoId).value,
-    };
-  }
-  state.dialogEvent = dialogEventMaps["UpdateBid"];
-  store.dispatch("StoreCollection/updatePriceContractsCall", params);
-};
 
 const checkEditValue = (value) => {
   if (

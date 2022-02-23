@@ -1,7 +1,7 @@
 <template>
   <div class="details-img-content">
     <img
-      v-if="props.isNFT"
+      v-if="props.box_detail.imageLink"
       :src="
         props.box_detail?.imageLink ||
         (props.action_type === 'RECOVERY' && props.box_detail.icon)
@@ -29,7 +29,7 @@
   </div>
 </template>
 <script setup>
-import { defineProps } from "vue";
+import { defineProps, defineEmits } from "vue";
 import SvgIcon from "@components/SvgIcon/Index.vue";
 let props = defineProps({
   box_detail: {
@@ -46,6 +46,11 @@ let props = defineProps({
     type: Boolean,
   },
 });
+// 操作事件回调
+const emits = defineEmits(["actionsCall"]);
+const actionsCall = (action) => {
+  emits("actionsCall", action);
+};
 </script>
 <style scoped lang="scss">
 .details-img-content {

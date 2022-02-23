@@ -49,39 +49,7 @@
     </div>
     <!-- 购买者视角 出售中 -->
     <div class="on-offer-blind" v-if="props.action_type === 'BUYERSELL'">
-      <!-- <div class="blind-offer-price">
-        <div class="sell-price price-content-style">
-          <span>{{ $t("售价") }}：</span>
-          <span
-            >{{
-              (props.box_detail.sellingPrice &&
-                utilsFormat.formatPrice(props.box_detail.sellingPrice)) ||
-              "--"
-            }}
-            {{
-              props.box_detail.sellingPrice
-                ? utilsFormat.getTokenCurrency(props.box_detail.payToken)
-                : ""
-            }}</span
-          >
-        </div>
-        <div class="lastest-price price-content-style">
-          <span>{{ $t("最高出价") }}：</span>
-          <span
-            >{{
-              (props.box_detail.topBidPrice &&
-                utilsFormat.formatPrice(props.box_detail.topBidPrice)) ||
-              $t("暂无报价")
-            }}
-            {{
-              props.box_detail.topBidPrice &&
-              utilsFormat.formatPrice(props.box_detail.topBidPrice)
-                ? utilsFormat.getTokenCurrency(props.box_detail.payToken)
-                : ""
-            }}</span
-          >
-        </div>
-      </div> -->
+      <!-- 最高出价 && 售价 -->
       <nft-bid-info
         :box_detail="props.box_detail"
         :sellType="props.box_detail.sellType"
@@ -108,37 +76,10 @@
     </div>
     <!-- 拥有者视角 出售中 -->
     <div class="on-offer-blind" v-if="props.action_type === 'OWNERSELL'">
-      <div class="blind-offer-price">
-        <div class="sell-price price-content-style">
-          <span>{{ $t("售价") }}：</span>
-          <span style="display: inline-block"
-            >{{
-              utilsFormat.formatPrice(props.box_detail.sellingPrice) || "--"
-            }}
-            {{
-              props.box_detail.sellingPrice
-                ? utilsFormat.getTokenCurrency(props.box_detail.payToken)
-                : ""
-            }}</span
-          >
-          <svg-icon
-            name="update"
-            class="edit-icon"
-            @click="actionsCall('UpdateBid')"
-            v-if="props.box_detail.onSell"
-          ></svg-icon>
-        </div>
-        <div class="lastest-price price-content-style">
-          <span>{{ $t("最高出价") }}：</span>
-          <span v-if="Number(props.box_detail.topBidPrice) > 0">
-            {{ utilsFormat.formatPrice(props.box_detail.topBidPrice) }}
-            {{ utilsFormat.getTokenCurrency(props.box_detail.payToken) }}
-          </span>
-          <span v-else>
-            {{ $t("暂无报价") }}
-          </span>
-        </div>
-      </div>
+      <nft-bid-info
+        :box_detail="props.box_detail"
+        :sellType="props.box_detail.sellType"
+      ></nft-bid-info>
       <div
         class="blind-offer-actions"
         v-if="props.box_detail.onSell"

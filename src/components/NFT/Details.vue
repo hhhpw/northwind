@@ -8,6 +8,7 @@
         :isOwner="props.isOwner"
         :cardType="props.cardType"
         :isOnSell="props.isOnSell"
+        @actionsCall="actionsCall"
       ></left-content>
       <Info
         :box_detail="props.detailData"
@@ -63,6 +64,7 @@ let props = defineProps({
     type: Boolean,
   },
 });
+
 // 操作事件回调
 const emits = defineEmits(["actionsCall"]);
 const actionsCall = (action) => {
