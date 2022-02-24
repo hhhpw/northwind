@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { computed, reactive } from "vue";
 
-const NFT_TYPES = ["composite_card", "composite_element", "nft", "box"];
+const NFT_TYPES = ["composite_card", "composite_element", "nft"];
 
 const useNFT = (store, data) => {
   console.log("data", data);
@@ -56,7 +56,8 @@ const useNFT = (store, data) => {
     isSameNFTType,
     isNFT,
     getOfferPriceStyle,
+    nftTypes: NFT_TYPES,
   };
 };
 
-export { useNFT };
+export { useNFT, NFT_TYPES };
