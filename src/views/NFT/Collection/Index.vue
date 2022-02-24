@@ -248,8 +248,8 @@ const loadData = () => {
   state.collectionActiveTab = tabIndex;
   if (state.UserAddress && state.UserAddress[0]) {
     if (tabIndex === 1) {
-      store.dispatch("StoreCollection/groupList", state.UserAddress[0]);
-      // store.dispatch("StoreCollection/getSellingData", state.UserAddress[0]);
+      // store.dispatch("StoreCollection/groupList", state.UserAddress[0]);
+      store.dispatch("StoreCollection/getUnSellingData", state.UserAddress[0]);
     }
     if (tabIndex === 2) {
       // store.dispatch("StoreCollection/groupList", state.UserAddress[0]);

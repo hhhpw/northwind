@@ -95,6 +95,17 @@ function getSalesHistory(payload) {
   });
 }
 
+// 我的未出售
+function getUnSellingData(userAddress) {
+  return request({
+    url: "/v1/nft/store/unselling",
+    method: "GET",
+    params: {
+      userAddress, //钱包地址
+    },
+  });
+}
+
 export default {
   getBoxDetail, //盲盒详情
   getNftDetail, //nft详情
@@ -105,4 +116,5 @@ export default {
   getSellingNftDetail,
   getPurchaseHistory,
   getSalesHistory,
+  getUnSellingData,
 };
