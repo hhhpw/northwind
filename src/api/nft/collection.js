@@ -96,12 +96,12 @@ function getSalesHistory(payload) {
 }
 
 // 我的未出售
-function getUnSellingData(userAddress) {
+function getUnSellingData(address) {
   return request({
-    url: "/v1/nft/store/unselling",
+    url: "/v1/nft/unsell/list",
     method: "GET",
     params: {
-      userAddress, //钱包地址
+      address, //钱包地址
     },
   });
 }

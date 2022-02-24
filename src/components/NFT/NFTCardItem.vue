@@ -23,15 +23,11 @@
         ></svg-icon>
         <span>{{ state.countdown }}</span>
       </div>
-      <img
-        :src="itemData.icon"
-        alt=""
-        width="100%"
-        v-unsold-nft-url="{
+      <!-- v-unsold-nft-url="{
           isUnSoldNft: itemData.isUnSoldNft || false,
           url: itemData.icon || '',
-        }"
-      />
+        }" -->
+      <img :src="itemData.icon" alt="" width="100%" />
     </div>
     <div :class="$style['item-content']">
       <div :class="$style['item-content-info']">

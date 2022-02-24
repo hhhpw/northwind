@@ -15,8 +15,8 @@ const StoreCollection = {
     groupList: null,
     change_confirm_visible: false,
     show_rules: [true, true],
-    unsold_nft_data: [],
-    unsold_box_data: [],
+    // unsold_nft_data: [],
+    // unsold_box_data: [],
     detail_info: null,
     detail_type: null,
     sellingData: null,
@@ -28,6 +28,7 @@ const StoreCollection = {
     bidPriceDialogParams: NFT_CONSTANTS.BID_PRICE_DIALOD_PARAMS,
     soldDialogParams: NFT_CONSTANTS.INIT_SOLD_DIALOG_PARAMS,
     onSellIsLoading: false,
+    unSellData: false,
     purchaseQuery: {
       pageNum: 0,
       hasNext: true,
@@ -67,6 +68,11 @@ const StoreCollection = {
     [types.SET_SELLING_DATA](state, payload) {
       state.sellingData = payload;
       state.onSellIsLoading = false;
+    },
+    [types.SET_UNSELL_DATA](state, payload) {
+      console.log("SET_UNSELL_DATA", payload);
+      state.unSellData = payload;
+      state.isLoading = false;
     },
     [types.SET_LOADING_STATUS](state, payload) {
       state.isLoading = payload;
@@ -127,15 +133,14 @@ const StoreCollection = {
       return list;
     },
     unsold_data: (state) => {
-      const reverseArr = cloneDeep(state.unsold_box_data).reverse();
-      let list = [...state.unsold_nft_data, ...reverseArr];
+      let list = cloneDeep(state.unSellData);
       const rules = state.show_rules;
       if (rules[0] && !rules[1]) {
         // 只要box
-        list = list.filter((d) => d.nft === false);
+        list = list.filter((d) => d.type === "box");
       }
       if (!rules[0] && rules[1]) {
-        list = list.filter((d) => d.nft === true);
+        list = list.filter((d) => d.type !== "box");
       }
       if (!rules[0] && !rules[1]) {
         list = [];
@@ -343,9 +348,15 @@ const StoreCollection = {
       console.log("getUnSellingData", res);
       if (res.code === 200) {
         if (res.data && res.data.length) {
-          res.data.reverse();
+          const data = res.data.map((d) => {
+            return {
+              ...d,
+              icon: d.imageLink,
+              isBox: d.collectionType === "box" ? true : false,
+            };
+          });
+          commit(types.SET_UNSELL_DATA, data);
         }
-        // commit(types.SET_SELLING_DATA, res.data);
       }
     },
     //获取出售中的列表
