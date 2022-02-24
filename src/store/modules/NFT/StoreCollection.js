@@ -148,12 +148,10 @@ const StoreCollection = {
       return list;
     },
     tab_list(state) {
-      const list = [...state.unsold_nft_data, ...state.unsold_box_data];
-      let len = list.length;
       return [
         {
           name: "未出售",
-          num: len,
+          num: (state.unSellData && state.unSellData.length) || 0,
           key: 1,
           showCount: true,
         },
@@ -184,35 +182,63 @@ const StoreCollection = {
         payload.payToken
       );
       if (res.code === 200) {
-        if (payload.type === "list") {
-          let bidData = {
-            id: res.data.id,
-            icon: res.data.boxTokenLogo,
-            name: res.data.name,
-            nftBody: res.data.nftBody,
-            nftMeta: res.data.nftMeta,
-            nft: false,
-            sellType: "",
-            type: "box",
-            boxToken: payload.boxToken,
-            address: res.data.boxToken,
-            payToken: payload.payToken,
-          };
-          let list = [];
-          if (payload.count > 1) {
-            for (let i = 0; i < payload.count; i++) {
-              list.push(bidData);
-            }
-          }
-          if (list && list.length) {
-            commit(types.SET_UNSOLD_BOX_DATA, list);
-          } else {
-            commit(types.SET_UNSOLD_BOX_DATA, [bidData]);
-          }
-        } else if (payload.type === "detail") {
-          commit(types.SET_DETAIL_INFO, res.data);
-          commit(types.SET_DETAIL_TYPE, "box");
-        }
+        // if (payload.type === "list") {
+        //   let bidData = {
+        //     id: res.data.id,
+        //     icon: res.data.boxTokenLogo,
+        //     name: res.data.name,
+        //     nftBody: res.data.nftBody,
+        //     nftMeta: res.data.nftMeta,
+        //     nft: false,
+        //     sellType: "",
+        //     type: "box",
+        //     boxToken: payload.boxToken,
+        //     address: res.data.boxToken,
+        //     payToken: payload.payToken,
+        //   };
+        //   let list = [];
+        //   if (payload.count > 1) {
+        //     for (let i = 0; i < payload.count; i++) {
+        //       list.push(bidData);
+        //     }
+        //   }
+        //   if (list && list.length) {
+        //     commit(types.SET_UNSOLD_BOX_DATA, list);
+        //   } else {
+        //     commit(types.SET_UNSOLD_BOX_DATA, [bidData]);
+        //   }
+        // } else
+        commit(types.SET_DETAIL_INFO, res.data);
+        commit(types.SET_DETAIL_TYPE, "box");
+        // if (payload.type === "list") {
+        //   let bidData = {
+        //     id: res.data.id,
+        //     icon: res.data.boxTokenLogo,
+        //     name: res.data.name,
+        //     nftBody: res.data.nftBody,
+        //     nftMeta: res.data.nftMeta,
+        //     nft: false,
+        //     sellType: "",
+        //     type: "box",
+        //     boxToken: payload.boxToken,
+        //     address: res.data.boxToken,
+        //     payToken: payload.payToken,
+        //   };
+        //   let list = [];
+        //   if (payload.count > 1) {
+        //     for (let i = 0; i < payload.count; i++) {
+        //       list.push(bidData);
+        //     }
+        //   }
+        //   if (list && list.length) {
+        //     commit(types.SET_UNSOLD_BOX_DATA, list);
+        //   } else {
+        //     commit(types.SET_UNSOLD_BOX_DATA, [bidData]);
+        //   }
+        // } else if (payload.type === "detail") {
+        //   commit(types.SET_DETAIL_INFO, res.data);
+        //   commit(types.SET_DETAIL_TYPE, "box");
+        // }
       }
     },
 

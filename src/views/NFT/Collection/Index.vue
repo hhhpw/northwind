@@ -307,25 +307,28 @@ const clearData = () => {
 const watchDetail = (d, sellType) => {
   state.coreType = "card";
   if (sellType === "unsold") {
+    console.log("d.isBox", d);
     let query = {};
-    if (d.nft) {
+    if (!d.isBox) {
       query = {
         id: d.id,
         sellType,
         nftId: d.nftId,
         nftMeta: d.nftMeta,
         nftBody: d.nftBody,
-        payToken: d.payToken,
+        // payToken: d.payToken,
       };
     } else {
       query = {
         id: d.id,
         sellType,
-        boxToken: d.address,
-        payToken: d.payToken,
+        boxToken: d.boxToken,
+        // payToken: d.payToken,
       };
     }
+    console.log("query", query);
     const url = qs.stringify(query);
+    console.log("url", url);
     window.open(
       `${window.location.origin}/nftcollectiondetail?${url}`,
       "_blank"
