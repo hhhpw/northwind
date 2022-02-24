@@ -66,7 +66,7 @@
             </nft-card-item-tool-tip>
             <star-amount
               style="margin-left: 3px"
-              :value="baseData?.score"
+              :value="itemData?.score"
               :formatOptions="{
                 precision: 2,
               }"
@@ -205,7 +205,10 @@ let state = reactive({
   countdown: null,
 });
 
-const { getNFTType, isNFT, getOfferPriceStyle } = useNFT(store, props.baseData);
+const { getNFTType, isNFT, getOfferPriceStyle, nftTypes } = useNFT(
+  store,
+  props.baseData
+);
 
 let getCountDown = (timestamp) => {
   if (timestamp) {
@@ -232,7 +235,7 @@ const showDisassembledIcon = (type) => {
   return type === "composite_card" || type === "composite_element";
 };
 const showRarityIcon = (type, score) => {
-  if ((type === "nft" || type === "composite_card") && score) {
+  if (nftTypes.indexOf(type) > -1 && score) {
     return true;
   }
   return false;

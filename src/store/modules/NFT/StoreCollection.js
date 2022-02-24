@@ -70,7 +70,6 @@ const StoreCollection = {
       state.onSellIsLoading = false;
     },
     [types.SET_UNSELL_DATA](state, payload) {
-      console.log("SET_UNSELL_DATA", payload);
       state.unSellData = payload;
       state.isLoading = false;
     },
@@ -182,125 +181,11 @@ const StoreCollection = {
         payload.payToken
       );
       if (res.code === 200) {
-        // if (payload.type === "list") {
-        //   let bidData = {
-        //     id: res.data.id,
-        //     icon: res.data.boxTokenLogo,
-        //     name: res.data.name,
-        //     nftBody: res.data.nftBody,
-        //     nftMeta: res.data.nftMeta,
-        //     nft: false,
-        //     sellType: "",
-        //     type: "box",
-        //     boxToken: payload.boxToken,
-        //     address: res.data.boxToken,
-        //     payToken: payload.payToken,
-        //   };
-        //   let list = [];
-        //   if (payload.count > 1) {
-        //     for (let i = 0; i < payload.count; i++) {
-        //       list.push(bidData);
-        //     }
-        //   }
-        //   if (list && list.length) {
-        //     commit(types.SET_UNSOLD_BOX_DATA, list);
-        //   } else {
-        //     commit(types.SET_UNSOLD_BOX_DATA, [bidData]);
-        //   }
-        // } else
         commit(types.SET_DETAIL_INFO, res.data);
         commit(types.SET_DETAIL_TYPE, "box");
-        // if (payload.type === "list") {
-        //   let bidData = {
-        //     id: res.data.id,
-        //     icon: res.data.boxTokenLogo,
-        //     name: res.data.name,
-        //     nftBody: res.data.nftBody,
-        //     nftMeta: res.data.nftMeta,
-        //     nft: false,
-        //     sellType: "",
-        //     type: "box",
-        //     boxToken: payload.boxToken,
-        //     address: res.data.boxToken,
-        //     payToken: payload.payToken,
-        //   };
-        //   let list = [];
-        //   if (payload.count > 1) {
-        //     for (let i = 0; i < payload.count; i++) {
-        //       list.push(bidData);
-        //     }
-        //   }
-        //   if (list && list.length) {
-        //     commit(types.SET_UNSOLD_BOX_DATA, list);
-        //   } else {
-        //     commit(types.SET_UNSOLD_BOX_DATA, [bidData]);
-        //   }
-        // } else if (payload.type === "detail") {
-        //   commit(types.SET_DETAIL_INFO, res.data);
-        //   commit(types.SET_DETAIL_TYPE, "box");
-        // }
       }
     },
 
-    //未出售盲盒
-    /* eslint-disable-next-line*/
-    // async getUnsoldBID({}, payload) {
-    //   let list = [];
-    //   if (payload.resourceList) {
-    //     for (const [k, v] of Object.entries(payload.resourceList)) {
-    //       payload.data.map((item) => {
-    //         let matchString = item.boxToken
-    //           .replace("::KikoCatBox", "")
-    //           .toUpperCase();
-    //         let boxToken = k.toUpperCase().match(matchString);
-    //         if (boxToken) {
-    //           if (v.json.token) {
-    //             list.push({
-    //               boxToken: boxToken[0] + "::KikoCatBox",
-    //               amount: String(v.json.token.value),
-    //               payToken: item.payToken,
-    //             });
-    //           }
-    //         }
-    //       });
-    //     }
-    //     return list;
-    //   }
-    // },
-    // //未出售NFT
-    // /* eslint-disable-next-line*/
-    // async getUnsoldNft({}, payload) {
-    //   let list = [];
-    //   if (payload.resourceList) {
-    //     for (let [k, v] of Object.entries(payload.resourceList)) {
-    //       payload.data.map((item) => {
-    //         let matchString = `${item.nftMeta}, ${item.nftBody}`.toUpperCase();
-    //         if (k.toUpperCase().includes(matchString)) {
-    //           const items = v.json.items;
-    //           items.map(async (d) => {
-    //             let obj = {
-    //               icon: utilsTools.hexCharCodeToStr(d["base_meta"]["image"]),
-    //               name: utilsTools.hexCharCodeToStr(d["base_meta"]["name"]),
-    //               address: k,
-    //               nftId: d.id,
-    //               nftMeta: item.nftMeta,
-    //               nftBody: item.nftBody,
-    //               id: d.id,
-    //               nft: true,
-    //               sellType: "",
-    //               payToken: item.payToken,
-    //               type: item.type || "nft", // composite_element  //composite_card
-    //               isUnSoldNft: true,
-    //             };
-    //             list.push(obj);
-    //           });
-    //         }
-    //       });
-    //     }
-    //     return list;
-    //   }
-    //   return [];
-    // },
     //未出售nft详情
     async getNftDetail({ commit }, payload) {
       const res = await collectionApi.getNftDetail(
@@ -314,59 +199,6 @@ const StoreCollection = {
         commit(types.SET_DETAIL_TYPE, "nft");
       }
     },
-    // async groupList({ commit, dispatch }, payload) {
-    //   commit(types.SET_LOADING_STATUS, true);
-    //   console.time("===collection api request===");
-    //   console.time("===collection contracts===");
-    //   Promise.allSettled([
-    //     collectionApi.groupList(),
-    //     commonApi.getUserResourceList(payload),
-    //   ]).then(async ([resGroupList, resResourceList]) => {
-    //     if (
-    //       resGroupList.status === "fulfilled" &&
-    //       resGroupList.value.code === 200 &&
-    //       resResourceList.status === "fulfilled" &&
-    //       resResourceList.value.result
-    //     ) {
-    //       console.timeEnd("===collection contracts===");
-    //       const resourceList = resResourceList.value.result.resources;
-    //       const resNFT = await dispatch("getUnsoldNft", {
-    //         userAddress: payload,
-    //         data: resGroupList.value.data,
-    //         resourceList,
-    //       });
-    //       if (resNFT && resNFT.length > 0) {
-    //         commit(types.SET_UNSOLD_NFT_DATA, resNFT.reverse());
-    //         commit(types.SET_LOADING_STATUS, false);
-    //       }
-    //       const resBlindBox = await dispatch("getUnsoldBID", {
-    //         userAddress: payload,
-    //         data: resGroupList.value.data,
-    //         resourceList,
-    //       });
-    //       if (resBlindBox && resBlindBox.length > 0) {
-    //         resBlindBox.map(async (item) => {
-    //           console.log("resBlindBox=>item.amount", item.amount);
-    //           if (Number(item.amount) > 0) {
-    //             console.time("===box detail===");
-    //             await dispatch("getBoxDetail", {
-    //               boxToken: item.boxToken,
-    //               payToken: item.payToken,
-    //               count: item.amount,
-    //               type: "list",
-    //             });
-    //             commit(types.SET_LOADING_STATUS, false);
-    //             console.timeEnd("===box detail===");
-    //           }
-    //         });
-    //       }
-    //       setTimeout(() => {
-    //         commit(types.SET_LOADING_STATUS, false);
-    //       }, 1500);
-    //     }
-    //     console.timeEnd("===collection api request===");
-    //   });
-    // },
     // 获取我的未出售数据
     /* eslint-disable-next-line*/
     async getUnSellingData({ commit }, userAddress) {
@@ -396,7 +228,6 @@ const StoreCollection = {
         commit(types.SET_SELLING_DATA, res.data);
       }
     },
-    //出售中盲盒详情
     //出售中nft详情
     async getSellingNftDetail({ commit }, infoId) {
       const res = await collectionApi.getSellingNftDetail(infoId);
@@ -405,6 +236,7 @@ const StoreCollection = {
         commit(types.SET_DETAIL_TYPE, "nft");
       }
     },
+    //出售中盲盒详情
     async getSellingBoxDetail({ commit }, payload) {
       const res = await collectionApi.getSellingBoxDetail(
         payload.groupId,
