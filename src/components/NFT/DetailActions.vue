@@ -29,12 +29,6 @@
         >
           {{ $t("出售盲盒") }}
         </div>
-        <!-- <div
-          class="open-blind-box actions-button"
-          @click="actionsCall('OpenBlinkBox')"
-        >
-          {{ $t("打开盲盒") }}
-        </div> -->
       </div>
       <!-- 我的NFT nft-->
       <div class="buttons" v-else>
@@ -59,6 +53,7 @@
         v-if="props.box_detail"
         :style="{ 'margin-top': props.isNFT ? '10px' : '20px' }"
       >
+        ·
         <span class="purchase" @click="actionsCall('Purchase')">
           {{
             formatPriceWithLength(
@@ -186,7 +181,6 @@ let state = reactive({
   accounts: computed(() => store.state.StoreWallet.accounts),
 });
 const props = defineProps({
-  is_sell: false, // 是否是出售
   box_detail: {}, // 详情信息
   action_type: String, // 操作类型  SELL 出售 OWNERSELL 本人出售 BUYERSELL 购买者 SOLDOUT售罄 RECOVERY回收
   isNFT: Boolean, // 盲盒是否开启
