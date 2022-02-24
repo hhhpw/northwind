@@ -919,6 +919,48 @@ const StoreCollection = {
         });
       }
     },
+
+    async sellBoxFixPrice({ commit, rootState }, payload) {
+      commit(types.CHANGE_DIALOG_STATUS, {
+        isShow: true,
+        dialogText: utilsFormat.computedLangCtx("上架中"),
+      });
+      const params = {
+        provider: rootState.StoreWallet.stcProvider,
+        tyArgs: payload.tyArgs,
+        args: payload.args,
+        type: "FIX_PRICE_SELL",
+      };
+      const txnHash = await Wallet.sellboxFixPrice(params);
+      if (txnHash !== "error") {
+        commit(types.CHANGE_DIALOG_STATUS, {
+          phase1: "success",
+        });
+        utilsTool.pollingTxnInfo({ txnHash }).then((res) => {
+          if (res === "Executed") {
+            commit(types.CHANGE_DIALOG_STATUS, {
+              phase2: "success",
+            });
+            setTimeout(() => {
+              commit(types.CHANGE_DIALOG_STATUS, {
+                dialogStatus: "success",
+                dialogText: utilsFormat.computedLangCtx("已上架"),
+              });
+            }, 5000);
+          } else {
+            commit(types.CHANGE_DIALOG_STATUS, {
+              dialogStatus: "failed",
+              dialogText: utilsFormat.computedLangCtx("上架失败"),
+            });
+          }
+        });
+      } else {
+        commit(types.CHANGE_DIALOG_STATUS, {
+          dialogStatus: "failed",
+          dialogText: utilsFormat.computedLangCtx("上架失败"),
+        });
+      }
+    },
   },
 };
 

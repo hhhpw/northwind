@@ -48,7 +48,7 @@
     :dialogParams="state.bidPriceDialogParams"
     @handleClose="bidPriceDialogClose"
     @handleCancel="bidPriceDialogClose"
-    @handleConfirm="bidPriceDialogClose"
+    @handleConfirm="bidPricConfirm"
   >
   </nft-bid-dialog>
 
@@ -79,7 +79,7 @@ import utilsNumber from "@utils/number";
 import utilsRegexp from "@utils/regexp";
 import NftDialog from "@components/NFT/NFTDialog.vue";
 import NftSecondDialog from "@components/NFT/NFTSecondDialog.vue";
-import NftBidDialog from "@components/NFT/NFTBidDialog.vue";
+import NftBidDialog from "@components/NFT/DetailsUI/NFTBidDialog.vue";
 import NftSoldOutDialog from "@components/NFT/NFTSoldOutDialog.vue";
 import { useRoute } from "vue-router";
 import { useStore } from "vuex";
@@ -184,18 +184,18 @@ onMounted(() => {
       });
     }
   } else if (sellType === "unsold") {
-    if (boxToken) {
+    if (boxToken && payToken) {
       store.dispatch("StoreCollection/getBoxDetail", {
         boxToken,
-        // payToken,
-        // type: "detail",
+        payToken,
+        type: "detail",
       });
     } else {
       store.dispatch("StoreCollection/getNftDetail", {
         nftId: nftId,
         nftMeta: nftMeta,
         nftBody: nftBody,
-        // payToken: payToken,
+        payToken: payToken,
       });
     }
   }
@@ -376,6 +376,24 @@ const sencondDialogConfirm = () => {
     }
     secondDialogClose();
     store.dispatch("StoreCollection/acceptBidContractsCall", params);
+  }
+};
+
+const bidPricConfirm = (objs) => {
+  let params = {};
+  if (objs["type"] === 0) {
+    let price = utilsNumber
+      .bigNum(objs.price)
+      .times(Math.pow(10, 9))
+      .toString();
+    params = Object.assign(
+      {},
+      {
+        tyArgs: [state.detail_info.boxToken, state.detail_info.payToken],
+        args: [price],
+      }
+    );
+    store.dispatch("StoreCollection/sellBoxFixPrice", params);
   }
 };
 </script>

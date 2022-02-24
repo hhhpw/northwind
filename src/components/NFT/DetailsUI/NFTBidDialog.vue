@@ -68,7 +68,7 @@
             <star-selector
               :items="timeOptions"
               @emit="handleTime"
-              :value="state.time"
+              :value="state.endDay"
               class="bid-time-change"
               :width="`100%`"
             ></star-selector>
@@ -83,7 +83,7 @@
       </div>
       <div class="nft-bid-dialog-footer">
         <star-button
-          @click="emits('handleConfirm')"
+          @click="handleConfirm"
           class="nft-bid-dialog-footer-button"
           type="green"
           v-if="props.dialogParams.confirmText"
@@ -136,7 +136,7 @@ const state = reactive({
   isShowClose: props.isShowClose,
   typeIndex: 0,
   price: "",
-  time: "",
+  endDay: "",
 });
 
 watch(
@@ -161,10 +161,27 @@ BID_DIALOG_PARAMS.TIME.map((i) => {
 });
 
 const handleTime = (i) => {
-  state.time = i.value;
+  state.endDay = i.value;
 };
 const handleClose = () => {
   emits("handleClose");
+};
+
+const handleConfirm = () => {
+  let params = {};
+  if (state.typeIndex === 0) {
+    params = {
+      type: state.typeIndex,
+      price: state.price,
+    };
+  } else {
+    params = {
+      type: state.typeIndex,
+      price: state.price,
+      end_day: state.endDay,
+    };
+  }
+  emits("handleConfirm", params);
 };
 
 const inputEvent = (val) => {
