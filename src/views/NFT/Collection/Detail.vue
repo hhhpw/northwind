@@ -184,10 +184,10 @@ onMounted(() => {
       });
     }
   } else if (sellType === "unsold") {
-    if (boxToken && payToken) {
+    if (boxToken) {
       store.dispatch("StoreCollection/getBoxDetail", {
         boxToken,
-        payToken,
+        // payToken,
         type: "detail",
       });
     } else {
@@ -195,7 +195,7 @@ onMounted(() => {
         nftId: nftId,
         nftMeta: nftMeta,
         nftBody: nftBody,
-        payToken: payToken,
+        // payToken: payToken,
       });
     }
   }

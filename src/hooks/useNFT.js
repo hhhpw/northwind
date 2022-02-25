@@ -1,10 +1,10 @@
 /* eslint-disable */
+import NFT_CONSTANTS from "@constants/nft.js";
 import { computed, reactive } from "vue";
 
-const NFT_TYPES = ["composite_card", "composite_element", "nft"];
+const NFT_TYPES = NFT_CONSTANTS.NFT_TYPES;
 
 const useNFT = (store, data) => {
-  console.log("data", data);
   let state = reactive({
     accounts: computed(() => store.state.StoreWallet.accounts),
   });
@@ -60,8 +60,7 @@ const useNFT = (store, data) => {
     isSameNFTType,
     isNFT,
     getOfferPriceStyle,
-    nftTypes: NFT_TYPES,
   };
 };
 
-export { useNFT, NFT_TYPES };
+export { useNFT };

@@ -176,10 +176,7 @@ const StoreCollection = {
   actions: {
     //获取未出售盲盒详情
     async getBoxDetail({ commit }, payload) {
-      let res = await collectionApi.getBoxDetail(
-        payload.boxToken,
-        payload.payToken
-      );
+      let res = await collectionApi.getBoxDetail(payload.boxToken);
       if (res.code === 200) {
         commit(types.SET_DETAIL_INFO, res.data);
         commit(types.SET_DETAIL_TYPE, "box");
@@ -210,7 +207,7 @@ const StoreCollection = {
             return {
               ...d,
               icon: d.imageLink,
-              isBox: d.collectionType === "box" ? true : false,
+              // isBox: d.collectionType === "box" ? true : false,
             };
           });
           commit(types.SET_UNSELL_DATA, data);
