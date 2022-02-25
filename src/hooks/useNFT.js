@@ -46,7 +46,11 @@ const useNFT = (store, data) => {
 
   // 出价方式  一口价或者拍卖
   const getOfferPriceStyle = (type) => {
-    return type;
+    if (type === 1) {
+      return "one_time_offer";
+    } else if (type === 2) {
+      return "auction";
+    }
   };
 
   return {
