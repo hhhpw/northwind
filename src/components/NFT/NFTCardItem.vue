@@ -8,8 +8,8 @@
       (boxToken = itemData.boxToken),
       (nftMeta = itemData.nftMeta),
       (payToken = utilsFormat.getTokenCurrency(itemData.payToken)),
-      (offerPriceStyle = getOfferPriceStyle('b')),
-      (t = getCountDown(1644400786000)))
+      (offerPriceStyle = getOfferPriceStyle(itemData.sellType)),
+      (t = getCountDown(itemData.endTime)))
     "
   >
     <div :class="$style['img-box']" @click="watchDetail">
@@ -97,7 +97,7 @@
           <div :class="$style['item-content-slots-market-item']">
             <span
               >{{
-                offerPriceStyle === "a" ? $t("最新报价") : $t("一口价")
+                offerPriceStyle === "auction" ? $t("最新报价") : $t("一口价")
               }}：</span
             >
             <span
