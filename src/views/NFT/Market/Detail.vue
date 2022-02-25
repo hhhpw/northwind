@@ -563,16 +563,31 @@ const bidPrice = () => {
     state.bidOfferPrice = state.quotation_inputVal;
     state.quotation_show = false;
     setTimeout(() => state.quotation_inputVal, 1000);
-    state.dialogEvent = dialogEventMaps["BidPrice"];
-    store.dispatch(
-      "StoreNftMarket/bidPrice",
-      Object.assign({}, state.contract_params, {
-        offerPrice: state.bidOfferPrice,
-        nftId: ref(route.query.id).value,
-        groupId: ref(route.query.groupId).value,
-        chainId: ref(route.query.chainId).value,
-      })
-    );
+    if (utilsNumber.bigNum(state.bidOfferPrice).gte(sellPrice)) {
+      state.secondDialogParams = Object.assign(
+        {},
+        NFT_CONSTANTS.INIT_SECOND_DIALOG_PARAMS,
+        {
+          isShow: true,
+          imgUrl: state.box_detail.boxTokenLogo || state.box_detail.imageLink,
+          text: t("市场买入", {
+            price: sellPrice,
+            currency: utilsFormat.getTokenCurrency(state.box_detail.payToken),
+          }),
+        }
+      );
+    } else {
+      state.dialogEvent = dialogEventMaps["BidPrice"];
+      store.dispatch(
+        "StoreNftMarket/bidPrice",
+        Object.assign({}, state.contract_params, {
+          offerPrice: state.bidOfferPrice,
+          nftId: ref(route.query.id).value,
+          groupId: ref(route.query.groupId).value,
+          chainId: ref(route.query.chainId).value,
+        })
+      );
+    }
   }
 };
 
