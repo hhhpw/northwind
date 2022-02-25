@@ -100,8 +100,13 @@
                 offerPriceStyle === "auction" ? $t("最新报价") : $t("一口价")
               }}：</span
             >
+            <!-- 有最新出价则出价否则就展示售价 -->
             <span
-              >{{ utilsFormat.formatPrice(itemData.sellPrice) }}
+              >{{
+                utilsFormat.formatPrice(
+                  itemData?.offerPrice || itemData.sellPrice
+                )
+              }}
               {{ payToken }}</span
             >
           </div>
