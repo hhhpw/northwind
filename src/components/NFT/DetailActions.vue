@@ -54,7 +54,11 @@
         :style="{ 'margin-top': props.isNFT ? '10px' : '20px' }"
       >
         ·
-        <span class="purchase" @click="actionsCall('Purchase')">
+        <span
+          class="purchase"
+          v-if="props.box_detail.sellType === 1"
+          @click="actionsCall('Purchase')"
+        >
           {{
             formatPriceWithLength(
               props.box_detail.sellingPrice,
@@ -64,9 +68,12 @@
           {{ utilsFormat.getTokenCurrency(props.box_detail.payToken) }}
           {{ $t("购买") }}</span
         >
-        <span class="bid" @click="actionsCall('BidPrice')">{{
-          $t("出价")
-        }}</span>
+        <span
+          class="bid"
+          v-if="props.box_detail.sellType === 2"
+          @click="actionsCall('BidPrice')"
+          >{{ $t("出价") }}</span
+        >
       </div>
     </div>
     <!-- 拥有者视角 出售中 -->
@@ -365,13 +372,6 @@ const handleCloseQuotation = () => {
     color: #ffffff;
     font-size: 16px;
     font-weight: 600;
-
-    &:last-child {
-      margin: 0;
-      background: #fffaf3;
-      color: #f36346;
-      border: 1px solid #f36346;
-    }
   }
 }
 .cancel-sell {

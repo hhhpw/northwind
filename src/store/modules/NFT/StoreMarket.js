@@ -316,7 +316,7 @@ const StoreNftMarket = {
         txnHash = await Wallet.blindBoxContractCall({
           provider,
           tyArgs: params.codes,
-          type: "BID",
+          type: "BID_PRICE_BUY",
           args: [String(params.id), price],
         });
       }
@@ -325,17 +325,15 @@ const StoreNftMarket = {
           provider,
           tyArgs: params.codes,
           args: [String(params.id), price],
-          type: "BID",
+          type: "BID_PRICE_BUY",
         });
       }
-      console.timeEnd("===market:出价合约gas计算===");
       if (txnHash !== "error") {
         commit(types.CHANGE_DIALOG_STATUS, {
           phase1: "success",
         });
         utilsTool.pollingTxnInfo({ txnHash }).then((res) => {
           if (res === "Executed") {
-            console.timeEnd("===market:出价合约===");
             commit(types.CHANGE_DIALOG_STATUS, {
               phase2: "success",
             });
@@ -346,7 +344,6 @@ const StoreNftMarket = {
               });
             }, 5000);
           } else {
-            console.timeEnd("===market:出价合约===");
             commit(types.CHANGE_DIALOG_STATUS, {
               dialogStatus: "failed",
               dialogText: utilsFormat.computedLangCtx("出价失败"),
@@ -354,7 +351,6 @@ const StoreNftMarket = {
           }
         });
       } else {
-        console.timeEnd("===market:出价合约===");
         commit(types.CHANGE_DIALOG_STATUS, {
           dialogStatus: "failed",
           dialogText: utilsFormat.computedLangCtx("出价失败"),
