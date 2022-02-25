@@ -276,6 +276,7 @@ let state = reactive({
     let offerPrice = 1;
     return { id, codes, contractType, offerPrice };
   }),
+  sellType: "",
 });
 
 const editState = reactive({

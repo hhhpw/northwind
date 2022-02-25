@@ -383,57 +383,32 @@ const bidPricConfirm = (objs) => {
   let params = {};
   state.dialogEvent = dialogEventMaps["bidPriceSell"];
   let price = utilsNumber.bigNum(objs.price).times(Math.pow(10, 9)).toString();
-  if (state.detail_type === "box") {
-    if (objs["type"] === 0) {
-      params = Object.assign(
-        {},
-        {
-          tyArgs: [state.detail_info.boxToken, state.detail_info.payToken],
-          args: [price],
-          sellType: 0,
-        }
-      );
-    } else {
-      params = Object.assign(
-        {},
-        {
-          tyArgs: [state.detail_info.boxToken, , state.detail_info.payToken],
-          args: [price, objs.end_day],
-          sellType: 1,
-        }
-      );
-    }
-    store.dispatch("StoreCollection/sellBoxPrice", params);
+  if (objs["type"] === 0) {
+    params = Object.assign(
+      {},
+      {
+        tyArgs: [
+          "0x69f1e543a3bef043b63bed825fcd2cf6::BatchMintNFT::KikoCatBox",
+          state.detail_info.payToken,
+        ],
+        args: [price],
+        sellType: 0,
+      }
+    );
   } else {
-    if (objs["type"] === 0) {
-      params = Object.assign(
-        {},
-        {
-          tyArgs: [
-            state.detail_info.nftMeta,
-            state.detail_info.nftBody,
-            state.detail_info.payToken,
-          ],
-          args: [state.detail_info.nftId, price],
-          sellType: 0,
-        }
-      );
-    } else {
-      params = Object.assign(
-        {},
-        {
-          tyArgs: [
-            state.detail_info.nftMeta,
-            state.detail_info.nftBody,
-            state.detail_info.payToken,
-          ],
-          args: [state.detail_info.nftId, price, objs.end_day],
-          sellType: 1,
-        }
-      );
-    }
-    store.dispatch("StoreCollection/sellNFTPrice", params);
+    params = Object.assign(
+      {},
+      {
+        tyArgs: [
+          "0x69f1e543a3bef043b63bed825fcd2cf6::BatchMintNFT::KikoCatBox",
+          state.detail_info.payToken,
+        ],
+        args: [price, objs.end_day],
+        sellType: 1,
+      }
+    );
   }
+  store.dispatch("StoreCollection/sellPrice", params);
 };
 </script>
 <style lang="scss" scoped>

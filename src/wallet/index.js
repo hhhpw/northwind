@@ -433,7 +433,7 @@ const importGallery = async ({
 };
 
 /**
- * @param 一口价/拍卖
+ * @param  一口价/拍卖 卖出 盲盒
  * @returns
  */
 const sellboxPrice = async ({ provider, tyArgs, args, type }) => {
@@ -461,6 +461,37 @@ const sellboxPrice = async ({ provider, tyArgs, args, type }) => {
     return "error";
   }
 };
+
+/**
+ * @param  一口价/拍卖 卖出 NFT
+ * @returns
+ */
+const sellNFTPrice = async ({ provider, tyArgs, args, type }) => {
+  try {
+    console.log("type", type);
+    const funcId = process.env[`VUE_APP_NFT_${type}_FUNCTION_ID`];
+    console.log(funcId, tyArgs, args);
+    const scriptFunction = await utils.tx.encodeScriptFunctionByResolve(
+      funcId,
+      tyArgs,
+      args,
+      process.env.VUE_APP_STAR_COIN_URL
+    );
+    const payloadInHex = (function () {
+      const se = new bcs.BcsSerializer();
+      scriptFunction.serialize(se);
+      return hexlify(se.getBytes());
+    })();
+    const txhash = await provider.getSigner().sendUncheckedTransaction({
+      data: payloadInHex,
+    });
+    return txhash;
+  } catch (e) {
+    console.log("e", e);
+    return "error";
+  }
+};
+
 /**
  * 签名
  * @param {} param0
@@ -560,6 +591,7 @@ export default {
   importBlindBox,
   importGallery,
   sellboxPrice,
+  sellNFTPrice,
   starMaskSign,
   stakeNFT,
   unStakeNFT,
