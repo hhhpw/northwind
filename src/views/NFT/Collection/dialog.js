@@ -109,4 +109,26 @@ export const dialogEventMaps = {
       window.location.reload();
     },
   },
+  // 一口价/拍卖
+  bidPriceSell: {
+    handleClose: (type) => {
+      if (type === "failed") {
+        dialogEventMaps.bidPriceSell.handleFailed();
+      } else if (type === "success") {
+        dialogEventMaps.bidPriceSell.handleSuccess();
+      }
+    },
+    handleSuccess: () => {
+      dialog_params_init();
+      router.push({
+        name: "nftcollection",
+        params: {
+          tabIndex: 2,
+        },
+      });
+    },
+    handleFailed: () => {
+      window.location.reload();
+    },
+  },
 };

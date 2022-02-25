@@ -168,6 +168,7 @@ const handleClose = () => {
 };
 
 const handleConfirm = () => {
+  emits("handleClose");
   let params = {};
   if (state.typeIndex === 0) {
     params = {

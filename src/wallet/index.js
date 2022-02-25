@@ -433,10 +433,10 @@ const importGallery = async ({
 };
 
 /**
- * @param 一口价拍卖
+ * @param 一口价/拍卖
  * @returns
  */
-const sellboxFixPrice = async ({ provider, tyArgs, args, type }) => {
+const sellboxPrice = async ({ provider, tyArgs, args, type }) => {
   try {
     console.log("type", type);
     const funcId = process.env[`VUE_APP_BLIND_BOX_${type}_FUNCTION_ID`];
@@ -559,7 +559,7 @@ export default {
   openBlindBox,
   importBlindBox,
   importGallery,
-  sellboxFixPrice,
+  sellboxPrice,
   starMaskSign,
   stakeNFT,
   unStakeNFT,

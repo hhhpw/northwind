@@ -761,14 +761,14 @@ const StoreCollection = {
         provider: rootState.StoreWallet.stcProvider,
         tyArgs: payload.tyArgs,
         args: payload.args,
-        type: "FIX_PRICE_SELL",
+        type: payload.sellType === 0 ? "FIX_PRICE_SELL" : "BID_PRICE_SELL",
       };
-      const txnHash = await Wallet.sellboxFixPrice(params);
+      const txnHash = await Wallet.sellboxPrice(params);
       if (txnHash !== "error") {
         commit(types.CHANGE_DIALOG_STATUS, {
           phase1: "success",
         });
-        utilsTool.pollingTxnInfo({ txnHash }).then((res) => {
+        utilsTools.pollingTxnInfo({ txnHash }).then((res) => {
           if (res === "Executed") {
             commit(types.CHANGE_DIALOG_STATUS, {
               phase2: "success",

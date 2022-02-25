@@ -1,6 +1,24 @@
 <template>
   <div class="nft-bid-info">
-    <div class="price bid" v-if="props.sellType === '1'">
+    <div class="price" v-if="props.sellType === 1">
+      <div class="price-item">
+        <label for="">{{ t("一口价") }}</label>
+        <span
+          >{{
+            (props.box_detail.sellingPrice &&
+              utilsFormat.formatPrice(props.box_detail.sellingPrice)) ||
+            $t("暂无报价")
+          }}
+          {{
+            props.box_detail.sellingPrice &&
+            utilsFormat.formatPrice(props.box_detail.sellingPrice)
+              ? utilsFormat.getTokenCurrency(props.box_detail.payToken)
+              : ""
+          }}</span
+        >
+      </div>
+    </div>
+    <div class="price bid" v-else>
       <div class="price-item">
         <label for="">{{ t("最高出价") }}</label>
         <span
@@ -19,24 +37,6 @@
       </div>
       <div class="price-item">
         <label for="">{{ t("起拍价") }}</label>
-        <span
-          >{{
-            (props.box_detail.sellingPrice &&
-              utilsFormat.formatPrice(props.box_detail.sellingPrice)) ||
-            $t("暂无报价")
-          }}
-          {{
-            props.box_detail.sellingPrice &&
-            utilsFormat.formatPrice(props.box_detail.sellingPrice)
-              ? utilsFormat.getTokenCurrency(props.box_detail.payToken)
-              : ""
-          }}</span
-        >
-      </div>
-    </div>
-    <div class="price" v-if="props.sellType === '2'">
-      <div class="price-item">
-        <label for="">{{ t("一口价") }}</label>
         <span
           >{{
             (props.box_detail.sellingPrice &&

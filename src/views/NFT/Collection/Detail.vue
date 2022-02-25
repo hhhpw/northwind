@@ -381,20 +381,34 @@ const sencondDialogConfirm = () => {
 
 const bidPricConfirm = (objs) => {
   let params = {};
+  state.dialogEvent = dialogEventMaps["bidPriceSell"];
+  let price = utilsNumber.bigNum(objs.price).times(Math.pow(10, 9)).toString();
   if (objs["type"] === 0) {
-    let price = utilsNumber
-      .bigNum(objs.price)
-      .times(Math.pow(10, 9))
-      .toString();
     params = Object.assign(
       {},
       {
-        tyArgs: [state.detail_info.boxToken, state.detail_info.payToken],
+        tyArgs: [
+          "0x69f1e543a3bef043b63bed825fcd2cf6::BatchMintNFT::KikoCatBox",
+          state.detail_info.payToken,
+        ],
         args: [price],
+        sellType: 0,
       }
     );
-    store.dispatch("StoreCollection/sellBoxFixPrice", params);
+  } else {
+    params = Object.assign(
+      {},
+      {
+        tyArgs: [
+          "0x69f1e543a3bef043b63bed825fcd2cf6::BatchMintNFT::KikoCatBox",
+          state.detail_info.payToken,
+        ],
+        args: [price, objs.end_day],
+        sellType: 1,
+      }
+    );
   }
+  store.dispatch("StoreCollection/sellBoxFixPrice", params);
 };
 </script>
 <style lang="scss" scoped>

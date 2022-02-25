@@ -73,7 +73,7 @@
     <div class="on-offer-blind" v-if="props.action_type === 'OWNERSELL'">
       <nft-bid-info
         :box_detail="props.box_detail"
-        :sellType="props.box_detail.sellType"
+        :sellType="props.box_detail.sellType || 2"
       ></nft-bid-info>
       <div
         class="blind-offer-actions"
