@@ -228,24 +228,21 @@ const StoreNftMarket = {
         dialogText: utilsFormat.computedLangCtx("购买中"),
       });
       let txnHash;
-      console.time("===market:买入合约===");
-      console.time("===market:买入合约gas计算===");
       if (params.contractType === "BLIND_BOX") {
         txnHash = await Wallet.blindBoxContractCall({
           provider: provider,
           args: [params.id],
           tyArgs: params.codes,
-          type: "BUY",
+          type: params.sellType === 1 ? "FIX_PRICE_BUY" : "BID_PRICE_BUY",
         });
       } else {
         txnHash = await Wallet.nftContractCall({
           provider: provider,
           args: [params.id],
           tyArgs: params.codes,
-          type: "BUY",
+          type: params.sellType === 1 ? "FIX_PRICE_BUY" : "BID_PRICE_BUY",
         });
       }
-      console.timeEnd("===market:买入合约gas计算===");
       if (txnHash !== "error") {
         commit(types.CHANGE_DIALOG_STATUS, {
           phase1: "success",
@@ -311,8 +308,6 @@ const StoreNftMarket = {
         dialogText: utilsFormat.computedLangCtx("出价中"),
       });
       let txnHash;
-      console.time("===market:出价合约===");
-      console.time("===market:出价合约gas计算===");
       const price = utilsNumber
         .bigNum(params.offerPrice)
         .times(Math.pow(10, 9))

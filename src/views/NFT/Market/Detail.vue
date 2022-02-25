@@ -276,7 +276,6 @@ let state = reactive({
     let offerPrice = 1;
     return { id, codes, contractType, offerPrice };
   }),
-  sellType: "",
 });
 
 const editState = reactive({
@@ -351,25 +350,25 @@ const secondDialogConfirm = () => {
   if (!state.action_type) return;
   if (state.action_type === "BidPrice") {
     secondDialogClose();
-    state.dialogEvent = dialogEventMaps["Purchase"];
-    store.dispatch(
-      "StoreNftMarket/purchaseFun",
-      Object.assign({}, state.contract_params, {
-        nftId: ref(route.query.id).value,
-        groupId: ref(route.query.groupId).value,
-        chainId: ref(route.query.chainId).value,
-      })
-    );
-    // state.dialogEvent = dialogEventMaps["BidPrice"];
+    // state.dialogEvent = dialogEventMaps["Purchase"];
     // store.dispatch(
-    //   "StoreNftMarket/bidPrice",
+    //   "StoreNftMarket/purchaseFun",
     //   Object.assign({}, state.contract_params, {
-    //     offerPrice: state.bidOfferPrice,
     //     nftId: ref(route.query.id).value,
     //     groupId: ref(route.query.groupId).value,
     //     chainId: ref(route.query.chainId).value,
     //   })
     // );
+    state.dialogEvent = dialogEventMaps["BidPrice"];
+    store.dispatch(
+      "StoreNftMarket/bidPrice",
+      Object.assign({}, state.contract_params, {
+        offerPrice: state.bidOfferPrice,
+        nftId: ref(route.query.id).value,
+        groupId: ref(route.query.groupId).value,
+        chainId: ref(route.query.chainId).value,
+      })
+    );
   }
   if (state.action_type === "Purchase") {
     secondDialogClose();
@@ -380,6 +379,7 @@ const secondDialogConfirm = () => {
         nftId: ref(route.query.id).value,
         groupId: ref(route.query.groupId).value,
         chainId: ref(route.query.chainId).value,
+        sellType: state.box_detail.sellType,
       })
     );
   }
@@ -546,7 +546,6 @@ const changeBidPrice = () => {
   }
 };
 const bidPrice = () => {
-  state.quotation_isInteger = true;
   const isInteger = utilsRegexp.isInteger(state.quotation_inputVal);
   if (!isInteger) {
     state.quotation_isInteger = false;
@@ -554,59 +553,27 @@ const bidPrice = () => {
   }
   state.quotation_error = [false, false];
   if (state.quotation_inputVal)
-    if (state.action_type_UI !== "OWNERSELL") {
-      // state.quotation_inputVal = 1;
-      state.action_type = "BidPrice";
-      if (checkValue(state.quotation_inputVal)) {
-        const sellPrice = utilsNumber
-          .bigNum(state.box_detail.sellingPrice)
-          .div(Math.pow(10, 9))
-          .toString();
-        state.bidOfferPrice = state.quotation_inputVal;
-        state.quotation_show = false;
-        setTimeout(() => state.quotation_inputVal, 1000);
-        // state.quotation_inputVal = 1;
-        // 大于售价二次弹窗确认购买，  后续走购买的流程
-        // console.log(
-        //   "sellPrice",
-        //   sellPrice,
-        //   "state.bidOfferPrice",
-        //   state.bidOfferPrice,
-        //   "state.quotation_inputVal ",
-        //   state.quotation_inputVal
-        // );
-        if (utilsNumber.bigNum(state.bidOfferPrice).gte(sellPrice)) {
-          state.secondDialogParams = Object.assign(
-            {},
-            NFT_CONSTANTS.INIT_SECOND_DIALOG_PARAMS,
-            {
-              isShow: true,
-              imgUrl:
-                state.box_detail.boxTokenLogo || state.box_detail.imageLink,
-              text: t("市场买入", {
-                price: sellPrice,
-                currency: utilsFormat.getTokenCurrency(
-                  state.box_detail.payToken
-                ),
-              }),
-            }
-          );
-        } else {
-          state.dialogEvent = dialogEventMaps["BidPrice"];
-          store.dispatch(
-            "StoreNftMarket/bidPrice",
-            Object.assign({}, state.contract_params, {
-              offerPrice: state.bidOfferPrice,
-              nftId: ref(route.query.id).value,
-              groupId: ref(route.query.groupId).value,
-              chainId: ref(route.query.chainId).value,
-            })
-          );
-        }
-      }
-    } else {
-      state.action_type = "UpdateBid";
-    }
+    // state.quotation_inputVal = 1;
+    state.action_type = "BidPrice";
+  if (checkValue(state.quotation_inputVal)) {
+    const sellPrice = utilsNumber
+      .bigNum(state.box_detail.sellingPrice)
+      .div(Math.pow(10, 9))
+      .toString();
+    state.bidOfferPrice = state.quotation_inputVal;
+    state.quotation_show = false;
+    setTimeout(() => state.quotation_inputVal, 1000);
+    state.dialogEvent = dialogEventMaps["BidPrice"];
+    store.dispatch(
+      "StoreNftMarket/bidPrice",
+      Object.assign({}, state.contract_params, {
+        offerPrice: state.bidOfferPrice,
+        nftId: ref(route.query.id).value,
+        groupId: ref(route.query.groupId).value,
+        chainId: ref(route.query.chainId).value,
+      })
+    );
+  }
 };
 
 const secondDialogClose = () => {
