@@ -304,12 +304,13 @@ const clearData = () => {
   state.dialogEvent = null;
 };
 
+const isNFT = (type) => NFT_CONSTANTS.NFT_TYPES.indexOf(type) > -1;
+
 const watchDetail = (d, sellType) => {
   state.coreType = "card";
   if (sellType === "unsold") {
-    console.log("d.isBox", d);
     let query = {};
-    if (!d.isBox) {
+    if (isNFT(d.type)) {
       query = {
         id: d.id,
         sellType,
@@ -340,11 +341,7 @@ const watchDetail = (d, sellType) => {
   }
   if (sellType === "selling") {
     let query = {};
-    if (
-      d.type === "nft" ||
-      d.type === "composite_card" ||
-      d.type === "composite_element"
-    ) {
+    if (isNFT(d.type)) {
       query = {
         sellType,
         infoId: d.nftBoxId,

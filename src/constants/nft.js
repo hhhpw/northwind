@@ -1,4 +1,7 @@
 import utilsFormat from "@utils/format";
+
+const NFT_TYPES = ["composite_card", "composite_element", "nft"];
+
 const INIT_DIALOG_PARAMS = {
   dialogStatus: "ongoing", // success failed ongoing
   dialogText: utilsFormat.computedLangCtx("购买中"), // 购买成功 购买失败
@@ -75,4 +78,5 @@ export default {
   NFT_ERROR_CODES,
   LOADING_FISH,
   BID_PRICE_DIALOD_PARAMS,
+  NFT_TYPES,
 };

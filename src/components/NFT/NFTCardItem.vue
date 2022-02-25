@@ -172,6 +172,7 @@ import SvgIcon from "@components/SvgIcon/Index.vue";
 import StarAmount from "@StarUI/StarAmount";
 import NftCardItemToolTip from "./NFTCardItemToolTip.vue";
 import { useNFT } from "../../hooks/useNFT";
+import NFT_CONSTANTS from "@constants/nft.js";
 import utilsTool from "@utils/tool";
 const store = useStore();
 const props = defineProps({
@@ -205,10 +206,7 @@ let state = reactive({
   countdown: null,
 });
 
-const { getNFTType, isNFT, getOfferPriceStyle, nftTypes } = useNFT(
-  store,
-  props.baseData
-);
+const { getNFTType, isNFT, getOfferPriceStyle } = useNFT(store, props.baseData);
 
 let getCountDown = (timestamp) => {
   if (timestamp) {
@@ -235,7 +233,7 @@ const showDisassembledIcon = (type) => {
   return type === "composite_card" || type === "composite_element";
 };
 const showRarityIcon = (type, score) => {
-  if (nftTypes.indexOf(type) > -1 && score) {
+  if (NFT_CONSTANTS.NFT_TYPES.indexOf(type) > -1 && score) {
     return true;
   }
   return false;

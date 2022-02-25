@@ -8,7 +8,6 @@ function getBoxDetail(boxToken, payToken) {
     method: "GET",
     params: {
       boxToken,
-      payToken,
     },
   });
 }
