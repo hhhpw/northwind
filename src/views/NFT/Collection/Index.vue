@@ -99,7 +99,7 @@ import { useI18n } from "vue-i18n";
 import utilsFormat from "@utils/format";
 import utilsNumber from "@utils/number";
 import NftDialog from "@components/NFT/NFTDialog.vue";
-import NftSecondDialog from "@components/NFT/NFTSecondDialog.vue";
+import NftSecondDialog from "@components/NFT/DetailsUI/NFTSecondDialog.vue";
 import NftSoldOutDialog from "@components/NFT/NFTSoldOutDialog.vue";
 import unsold from "@components/NFT/Collection/unsold.vue";
 import sell from "@components/NFT/Collection/sell.vue";

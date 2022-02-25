@@ -78,7 +78,7 @@ import detailCard from "@components/NFT/Details.vue";
 import utilsNumber from "@utils/number";
 import utilsRegexp from "@utils/regexp";
 import NftDialog from "@components/NFT/NFTDialog.vue";
-import NftSecondDialog from "@components/NFT/NFTSecondDialog.vue";
+import NftSecondDialog from "@components/NFT/DetailsUI/NFTSecondDialog.vue";
 import NftBidDialog from "@components/NFT/DetailsUI/NFTBidDialog.vue";
 import NftSoldOutDialog from "@components/NFT/NFTSoldOutDialog.vue";
 import { useRoute } from "vue-router";

@@ -193,7 +193,7 @@ import StarNft from "@StarUI/StarNFT.vue";
 // import detailCard from "@components/NFT/DetailCard.vue";
 import detailCard from "@components/NFT/Details.vue";
 import NftDialog from "@components/NFT/NFTDialog.vue";
-import NftSecondDialog from "@components/NFT/NFTSecondDialog.vue";
+import NftSecondDialog from "@components/NFT/DetailsUI/NFTSecondDialog.vue";
 import NftSoldOutDialog from "@components/NFT/NFTSoldOutDialog.vue";
 import CONSTANTS_TOKENS from "@constants/token";
 import utilsNumber from "@utils/number";

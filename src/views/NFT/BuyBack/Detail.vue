@@ -47,7 +47,7 @@ import detailCard from "@components/NFT/Details.vue";
 import { useRoute, useRouter } from "vue-router";
 import { useI18n } from "vue-i18n";
 import NftDialog from "@components/NFT/NFTDialog.vue";
-import NftSecondDialog from "@components/NFT/NFTSecondDialog.vue";
+import NftSecondDialog from "@components/NFT/DetailsUI/NFTSecondDialog.vue";
 import StarLoadingFish from "@StarUI/StarLoadingFish.vue";
 import utilsNumber from "@utils/number";
 const { t } = useI18n();
