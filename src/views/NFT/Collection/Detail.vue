@@ -358,7 +358,7 @@ const sencondDialogConfirm = () => {
       params = Object.assign({}, params, {
         type: "box",
         tyArgs: [state.detail_info.boxToken, state.detail_info.payToken],
-        args: [ref(route.query.chainId).value],
+        args: [state.detail_info.id],
         groupId: ref(route.query.groupId).value,
         chainId: ref(route.query.chainId).value,
       });
@@ -397,7 +397,7 @@ const bidPricConfirm = (objs) => {
       params = Object.assign(
         {},
         {
-          tyArgs: [state.detail_info.boxToken, , state.detail_info.payToken],
+          tyArgs: [state.detail_info.boxToken, state.detail_info.payToken],
           args: [price, objs.end_day],
           sellType: 1,
         }

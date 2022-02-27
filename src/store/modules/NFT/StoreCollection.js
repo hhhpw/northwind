@@ -617,7 +617,7 @@ const StoreCollection = {
           args,
           tyArgs,
           provider: rootState.StoreWallet.stcProvider,
-          type: "ACCEPT_BID",
+          type: "ACCEPT_PRICE",
         }
       );
       console.time("===collection:接受报价合约===");

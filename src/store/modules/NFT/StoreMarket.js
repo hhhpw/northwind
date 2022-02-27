@@ -490,14 +490,14 @@ const StoreNftMarket = {
           provider,
           args: [String(params.id)],
           tyArgs: params.codes,
-          type: "ACCEPT_BID",
+          type: "ACCEPT_PRICE",
         });
       } else {
         txnHash = await Wallet.nftContractCall({
           provider: provider,
           args: [String(params.id)],
           tyArgs: params.codes,
-          type: "ACCEPT_BID",
+          type: "ACCEPT_PRICE",
         });
       }
       console.timeEnd("===market:接受报价合约gas计算===");

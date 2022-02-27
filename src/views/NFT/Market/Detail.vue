@@ -571,6 +571,8 @@ const bidPrice = () => {
         nftId: ref(route.query.id).value,
         boxToken: state.box_detail.boxToken,
         payToken: state.box_detail.payToken,
+        groupId: ref(route.query.groupId).value,
+        chainId: ref(route.query.chainId).value,
       })
     );
     // 弃用原出价逻辑

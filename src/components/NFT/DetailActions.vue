@@ -3,20 +3,6 @@
   <div class="nft-goods-detail-action">
     <!-- 我的NFT 未出售 -->
     <div class="sell-blind" v-if="props.action_type === 'UNSOLD'">
-      <!-- <div class="trade-input" v-if="props.box_detail">
-        <star-input
-          class="trade-star-input"
-          :value="String(props.box_detail.sellingPrice || '')"
-          @inputEvent="inputEvent"
-          validateType="integer"
-          max="999999999"
-          :placeholder="$t('输入出售价格')"
-        >
-        </star-input>
-        <div class="currency-select">
-          {{ state.current_currency }}
-        </div>
-      </div> -->
       <!-- 盲盒未开启 -->
       <div
         class="buttons blind-buttons"
@@ -53,7 +39,6 @@
         v-if="props.box_detail"
         :style="{ 'margin-top': props.isNFT ? '10px' : '20px' }"
       >
-        ·
         <span
           class="purchase"
           v-if="props.box_detail.sellType === 1"
@@ -80,7 +65,7 @@
     <div class="on-offer-blind" v-if="props.action_type === 'OWNERSELL'">
       <nft-bid-info
         :box_detail="props.box_detail"
-        :sellType="props.box_detail.sellType || 2"
+        :sellType="props.box_detail.sellType"
       ></nft-bid-info>
       <div
         class="blind-offer-actions"
