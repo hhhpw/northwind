@@ -119,11 +119,11 @@
         class="base-info-item"
         v-if="props.box_detail && props.box_detail.owner"
       >
-        <span class="title">{{ $t("结束时间") }}</span>
+        <span class="title">{{ $t("距离结束") }}</span>
         <span class="value" v-if="state.countdown">
-          <i>{{ state.countdown["day"] }}:</i>
-          <i>{{ state.countdown["hours"] }}:</i>
-          <i>{{ state.countdown["minutes"] }}:</i>
+          <i>{{ state.countdown["day"] }}</i> :
+          <i>{{ state.countdown["hours"] }}</i> :
+          <i>{{ state.countdown["minutes"] }}</i> :
           <i>{{ state.countdown["seconds"] }}</i>
         </span>
       </div>
@@ -231,6 +231,14 @@ const actionsCall = (action) => {
       .value {
         cursor: pointer;
         color: #3f1c09;
+        i {
+          font-style: normal;
+          display: inline-block;
+          width: 23px;
+          background: #161311;
+          color: #fff;
+          text-align: center;
+        }
       }
     }
   }

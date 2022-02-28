@@ -1,7 +1,7 @@
 <template>
   <div class="nft-bid-info">
     <div class="price" v-if="props.sellType === 1">
-      <div class="price-item">
+      <div class="price-item once-price">
         <label for="">{{ t("一口价") }}</label>
         <span
           >{{
@@ -35,7 +35,7 @@
           }}</span
         >
       </div>
-      <div class="price-item">
+      <div class="price-item front-price">
         <label for="">{{ t("起拍价") }}</label>
         <span
           >{{
@@ -91,6 +91,16 @@ let props = defineProps({
         color: #161311;
         font-size: 14px;
         font-weight: bold;
+      }
+    }
+    .once-price {
+      text-align: left;
+      margin-left: 20px;
+    }
+    .front-price {
+      label,
+      span {
+        color: #7f7f7f;
       }
     }
   }

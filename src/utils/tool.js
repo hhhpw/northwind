@@ -223,11 +223,11 @@ const getCountDown = (timestamp) => {
 };
 
 const getCountDownDetails = (timestamp) => {
+  let countdownStr = { day: "00", hours: "00", minutes: "00", seconds: "00" };
   if (dayjs().isSameOrAfter(dayjs(timestamp))) {
-    return null;
+    return countdownStr;
   }
   const diffTime = dayjs.duration(timestamp - dayjs());
-  let countdownStr = null;
   const day = diffTime.days() < 10 ? `0${diffTime.days()}` : diffTime.days(); //小时 ;
   const hours =
     diffTime.hours() < 10 ? `0${diffTime.hours()}` : diffTime.hours(); //小时
