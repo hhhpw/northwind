@@ -222,6 +222,23 @@ const getCountDown = (timestamp) => {
   return countdownStr;
 };
 
+const getCountDownDetails = (timestamp) => {
+  if (dayjs().isSameOrAfter(dayjs(timestamp))) {
+    return null;
+  }
+  const diffTime = dayjs.duration(timestamp - dayjs());
+  let countdownStr = null;
+  const day = diffTime.days() < 10 ? `0${diffTime.days()}` : diffTime.days(); //小时 ;
+  const hours =
+    diffTime.hours() < 10 ? `0${diffTime.hours()}` : diffTime.hours(); //小时
+  const minutes =
+    diffTime.minutes() < 10 ? `0${diffTime.minutes()}` : diffTime.minutes(); //分钟
+  const seconds =
+    diffTime.seconds() < 10 ? `0${diffTime.seconds()}` : diffTime.seconds(); //秒
+  countdownStr = `${day}:${hours}:${minutes}:${seconds}`;
+  return countdownStr;
+};
+
 export default {
   openNewWindow,
   hexCharCodeToStr,
@@ -234,4 +251,5 @@ export default {
   decodeQueryURL,
   getChainTransactionInfo,
   getCountDown,
+  getCountDownDetails,
 };

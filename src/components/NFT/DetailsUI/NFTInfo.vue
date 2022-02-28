@@ -1,5 +1,8 @@
 <template>
-  <div class="details-right-info">
+  <div
+    class="details-right-info"
+    :set="(t = getCountDown(props.box_detail.endTime))"
+  >
     <div class="base-info-title">
       <span class="base-info-color">{{
         state.isNFT ? props.box_detail.seriesName : props.box_detail.name
@@ -117,7 +120,7 @@
         v-if="props.box_detail && props.box_detail.owner"
       >
         <span class="title">{{ $t("结束时间") }}</span>
-        <span class="value" @click="pushPage(props.box_detail.owner)"></span>
+        <span class="value">{{ state.countdown }}</span>
       </div>
     </div>
     <detail-action
@@ -131,7 +134,7 @@
 </template>
 <script setup>
 import SvgIcon from "@components/SvgIcon/Index.vue";
-import { reactive, computed, defineProps, defineEmits } from "vue";
+import { reactive, computed, defineProps, defineEmits, onUnmounted } from "vue";
 import StarAmount from "@StarUI/StarAmount.vue";
 import detailAction from "@components/NFT/DetailActions";
 import utilsTools from "@utils/tool";
@@ -146,6 +149,7 @@ let state = reactive({
     }
     return false;
   }),
+  countdown: null,
 });
 let props = defineProps({
   box_detail: {
@@ -168,6 +172,18 @@ const stringFormat = (str) => {
 const pushPage = (path) => {
   utilsTools.openNewWindow(`https://stcscan.io/main/address/${path}`);
 };
+
+let getCountDown = (timestamp) => {
+  if (timestamp) {
+    setTimeout(() => {
+      const res = utilsTools.getCountDownDetails(timestamp);
+      state.countdown = res;
+    }, 1000);
+  }
+};
+onUnmounted(() => {
+  getCountDown = null;
+});
 // 操作事件回调
 const emits = defineEmits(["actionsCall"]);
 const actionsCall = (action) => {
