@@ -120,7 +120,12 @@
         v-if="props.box_detail && props.box_detail.owner"
       >
         <span class="title">{{ $t("结束时间") }}</span>
-        <span class="value">{{ state.countdown }}</span>
+        <span class="value">
+          <i>{{ state.countdown.day }}:</i>
+          <i>{{ state.countdown.hours }}:</i>
+          <i>{{ state.countdown.minutes }}:</i>
+          <i>{{ state.countdown.seconds }}</i>
+        </span>
       </div>
     </div>
     <detail-action
@@ -149,7 +154,7 @@ let state = reactive({
     }
     return false;
   }),
-  countdown: null,
+  countdown: { day: "", hours: "", minutes: "", seconds: "" },
 });
 let props = defineProps({
   box_detail: {

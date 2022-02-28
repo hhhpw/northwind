@@ -235,7 +235,12 @@ const getCountDownDetails = (timestamp) => {
     diffTime.minutes() < 10 ? `0${diffTime.minutes()}` : diffTime.minutes(); //分钟
   const seconds =
     diffTime.seconds() < 10 ? `0${diffTime.seconds()}` : diffTime.seconds(); //秒
-  countdownStr = `${day}:${hours}:${minutes}:${seconds}`;
+  countdownStr = {
+    day,
+    hours,
+    minutes,
+    seconds,
+  };
   return countdownStr;
 };
 
