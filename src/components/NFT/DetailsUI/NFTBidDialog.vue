@@ -136,7 +136,7 @@ const state = reactive({
   isShowClose: props.isShowClose,
   typeIndex: 0,
   price: "",
-  endDay: "",
+  endDay: 1,
 });
 
 watch(
