@@ -154,7 +154,7 @@ let state = reactive({
     }
     return false;
   }),
-  countdown: null,
+  countdown: { day: "00", hours: "00", minutes: "00", seconds: "00" },
 });
 let props = defineProps({
   box_detail: {
