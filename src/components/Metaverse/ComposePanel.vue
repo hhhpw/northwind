@@ -76,7 +76,7 @@
         }"
         >{{
           $t("metaverse.generate character NFT") +
-          ` (${state.metaData.compositeFee})STC`
+          ` (${state.metaData.compositeFee}) STC`
         }}</star-button
       >
       <star-button
@@ -131,7 +131,7 @@ const validateParams = (flag) => {
   try {
     if (
       utilsRegExp.isChinese(state.nameValue) ||
-      (state.nameValue && state.nameValue.length > 10) ||
+      (state.nameValue && state.nameValue.length > 20) ||
       (state.nameValue && state.nameValue.length < 1) ||
       !state.nameValue
     ) {
