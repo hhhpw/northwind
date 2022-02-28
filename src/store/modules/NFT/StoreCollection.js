@@ -202,16 +202,17 @@ const StoreCollection = {
       let res = await collectionApi.getUnSellingData(userAddress);
       console.log("getUnSellingData", res);
       if (res.code === 200) {
+        let data = [];
         if (res.data && res.data.length) {
-          const data = res.data.map((d) => {
+          data = res.data.map((d) => {
             return {
               ...d,
               icon: d.imageLink,
               // isBox: d.collectionType === "box" ? true : false,
             };
           });
-          commit(types.SET_UNSELL_DATA, data);
         }
+        commit(types.SET_UNSELL_DATA, data);
       }
     },
     //获取出售中的列表
