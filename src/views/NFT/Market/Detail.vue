@@ -30,7 +30,7 @@
           () => {
             state.quotation_show = false;
             state.quotation_inputVal = 1;
-            state.quotation_error = [false, false];
+            state.quotation_error = [false, false, false];
             state.quotation_isInteger = true;
           }
         "
@@ -62,6 +62,9 @@
             </div>
             <div v-if="state.quotation_error[1]" class="error">
               *{{ $t("可用金额不足") }}
+            </div>
+            <div v-if="state.quotation_error[2]" class="error">
+              *{{ $t("报价需大于起拍价") }}
             </div>
           </div>
         </template>
@@ -211,7 +214,7 @@ const num = ref(1);
 let state = reactive({
   soldDialogParams: computed(() => store.state.StoreNftMarket.soldDialogParams),
   quotation_show: false, // 报价弹窗
-  quotation_error: [false, false],
+  quotation_error: [false, false, false],
   quotation_inputVal: 1,
   quotation_isInteger: true,
   balances: computed(() => store.state.StoreWallet.balances),
@@ -473,29 +476,39 @@ const actionsCall = (data) => {
 };
 
 const checkValue = (value) => {
-  state.quotation_error = [false, false];
+  state.quotation_error = [false, false, false];
   const topBidPrice = utilsNumber
     .bigNum(state.box_detail.topBidPrice)
+    .div(Math.pow(10, 9))
+    .toString();
+  const sellingPrice = utilsNumber
+    .bigNum(state.box_detail.sellingPrice)
     .div(Math.pow(10, 9))
     .toString();
   if (utilsNumber.bigNum(topBidPrice).gt(0)) {
     // 小于报价错误
     if (utilsNumber.bigNum(value).lte(topBidPrice)) {
-      state.quotation_error = [true, false];
+      state.quotation_error = [true, false, false];
       return false;
     }
     // 大于可用金额错误
     if (utilsNumber.bigNum(value).gt(userAmount.value)) {
-      state.quotation_error = [false, true];
+      state.quotation_error = [false, true, false];
       return false;
     }
     return true;
   }
-  return true;
+  // 等于起拍价错误
+  else if (utilsNumber.bigNum(value).lte(sellingPrice)) {
+    state.quotation_error = [false, false, true];
+    return false;
+  } else {
+    return true;
+  }
 };
 const inputEvent = (e) => {
   state.quotation_isInteger = true;
-  state.quotation_error = [false, false];
+  state.quotation_error = [false, false, false];
   state.quotation_inputVal = Number(e);
 };
 
@@ -551,7 +564,7 @@ const bidPrice = () => {
     state.quotation_isInteger = false;
     return;
   }
-  state.quotation_error = [false, false];
+  state.quotation_error = [false, false, false];
   if (state.quotation_inputVal)
     // state.quotation_inputVal = 1;
     state.action_type = "BidPrice";

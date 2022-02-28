@@ -21,8 +21,9 @@
 import { defineProps, reactive } from "vue";
 import SelectSuffix from "@components/SelectSuffix.vue";
 let state = reactive({
-  value: "",
+  value: 1,
 });
+
 const props = defineProps({
   items: {
     default: () => [],
@@ -32,6 +33,7 @@ const props = defineProps({
     value: "",
   },
 });
+
 const emits = defineEmits(["emit"]);
 const emit = (i) => {
   state.value = i.value;
