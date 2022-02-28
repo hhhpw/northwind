@@ -117,7 +117,7 @@
       </div>
       <div
         class="base-info-item"
-        v-if="props.box_detail && props.box_detail.owner"
+        v-if="props.box_detail && props.box_detail.sellType === 2"
       >
         <span class="title">{{ $t("距离结束") }}</span>
         <span class="value" v-if="state.countdown">
