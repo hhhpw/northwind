@@ -35,4 +35,8 @@ export const sortList = [
     label: utilsFormat.computedLangCtx("稀有值"),
     value: "rarity",
   },
+  {
+    label: utilsFormat.computedLangCtx("到期时间"),
+    value: "etime",
+  },
 ];

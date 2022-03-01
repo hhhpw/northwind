@@ -283,7 +283,8 @@
     "导入失败": "Import failed",
     "导入中": "Importing",
     "已导入": "Addresses already imported",
-    "陈列室": "Gallery"
+    "陈列室": "Gallery",
+    "到期时间": "Expire Date"
   },
   "farms": {
     "farm-swap-total-1": "Total trading volume",
