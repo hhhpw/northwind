@@ -73,6 +73,7 @@
         :style="{ 'margin-top': props.isNFT ? '10px' : '20px' }"
       >
         <span
+          v-if="props.box_detail.sellType === 2"
           :style="{
             cursor: props.box_detail.topBidPrice <= 0 ? 'default' : 'pointer',
           }"
