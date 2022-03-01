@@ -11,7 +11,7 @@
           :detailData="state.detail_info"
           :action_type="state.action_type"
           :blind_box_type="state.detail_type"
-          :isNFT="state.blind_box_type !== 'box'"
+          :isNFT="state.blind_box_type !== 'box' && !state.detail_info.boxToken"
           :isOnSell="state.detail_info.onSell"
           :isOwner="isOwner(state.detail_info.address)"
           @actionsCall="actionsCall"
