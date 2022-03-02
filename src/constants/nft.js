@@ -26,8 +26,7 @@ const INIT_SECOND_DIALOG_PARAMS = {
 };
 
 const BID_PRICE_DIALOD_PARAMS = {
-  confirmText: utilsFormat.computedLangCtx("确认"),
-  cancelText: utilsFormat.computedLangCtx("取消"),
+  confirmText: utilsFormat.computedLangCtx("提交"),
   text: "",
   isShow: false,
   title: "",

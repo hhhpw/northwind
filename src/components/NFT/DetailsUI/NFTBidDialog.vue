@@ -88,18 +88,9 @@
         <star-button
           @click="handleConfirm"
           class="nft-bid-dialog-footer-button"
-          type="green"
           v-if="props.dialogParams.confirmText"
         >
           {{ props.dialogParams.confirmText }}
-        </star-button>
-        <star-button
-          type="red"
-          class="nft-bid-dialog-footer-button"
-          @click="emits('handleCancel')"
-          v-if="props.dialogParams.cancelText"
-        >
-          {{ props.dialogParams.cancelText }}
         </star-button>
       </div>
     </ElDialog>
@@ -217,14 +208,13 @@ const changeAction = (i) => {
       color: $btn-orange-bgcolor;
     }
   }
-  .star-dialog-el {
-    // ::v-deep(.el-dialog__header) {
-    //   text-align: left !important;
-    // }
-    ::v-deep(.el-dialog__body) {
-      padding: 0 !important;
-    }
+  ::v-deep(.el-dialog__header) {
+    padding-left: 42px !important;
   }
+  ::v-deep(.el-dialog__body) {
+    padding: 15px 28px 20px 42px !important;
+  }
+
   .nft-bid-dialog-header {
     display: flex;
     justify-content: space-between;
@@ -248,7 +238,7 @@ const changeAction = (i) => {
     .bid-type {
       width: 100%;
       overflow: hidden;
-      margin-bottom: 20px;
+      margin-bottom: 24px;
       a {
         width: 298px;
         height: 48px;
@@ -280,6 +270,7 @@ const changeAction = (i) => {
       border: 1px solid #ededed;
       height: 60px;
       margin-bottom: 10px;
+      border-radius: 19px;
       .bid-price-input {
         width: 90%;
         line-height: 60px;
@@ -289,7 +280,7 @@ const changeAction = (i) => {
         ::v-deep(.el-input__inner) {
           border: none;
           color: #000;
-          border-radius: 10px;
+          border-radius: 19px;
         }
       }
       span {
@@ -301,6 +292,9 @@ const changeAction = (i) => {
       color: #fb8000;
       margin-bottom: 10px;
     }
+    .bid-time {
+      margin-top: 24px;
+    }
     .bid-time-change {
       width: 100%;
       height: 60px;
@@ -308,6 +302,7 @@ const changeAction = (i) => {
       margin-bottom: 10px;
       ::v-deep(.el-select .el-input__inner) {
         height: 60px;
+        border-radius: 19px;
         &:hover {
           border-color: #dcdfe6;
         }
@@ -326,19 +321,18 @@ const changeAction = (i) => {
   }
 
   .nft-bid-dialog-footer {
-    width: 90%;
+    width: 100%;
     margin-top: 20px;
-    margin-left: 5%;
     display: flex;
     justify-content: space-around;
     .nft-bid-dialog-footer-button {
       user-select: none;
-      // padding-right: 0px;
-      // padding-left: 0px;
+      width: 100%;
       padding: 15px 15px;
-      width: 35%;
       font-size: 16px;
       border-radius: 12px;
+      background: #fb8000;
+      color: #fff;
     }
   }
 }

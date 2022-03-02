@@ -370,6 +370,9 @@ const handleCloseQuotation = () => {
 }
 .cancel-sell {
   cursor: pointer;
+  background: #fff !important;
+  color: #f88000 !important;
+  border: 1px solid #f88000;
 }
 .sold-out {
   flex: 1;

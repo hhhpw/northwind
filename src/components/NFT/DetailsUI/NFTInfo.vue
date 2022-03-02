@@ -51,20 +51,20 @@
         class="base-info-item-character-info"
         v-if="state.isNFT && props.box_detail.nftType === 'COMPOSITE_CARD'"
       >
-        <span style="margin-right: 8px">
+        <span style="margin-right: 16px">
           {{ $t("name") }}:
           <span class="base-info-item-character-info-value">
             {{ props.box_detail?.customName }}</span
           >
         </span>
-        <span style="margin-right: 8px" v-if="props.box_detail?.occupation">
+        <span style="margin-right: 16px" v-if="props.box_detail?.occupation">
           {{ $t("profession") }}
           <span class="base-info-item-character-info-value">
             {{ props.box_detail?.occupation }}</span
           >
         </span>
         <span
-          style="margin-right: 8px"
+          style="margin-right: 16px"
           v-if="props.box_detail?.sex === 1 || props.box_detail?.sex === 0"
         >
           {{ $t("sex") }}
