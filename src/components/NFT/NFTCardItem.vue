@@ -115,14 +115,14 @@
         >
           <div v-if="offerPriceStyle === 'auction'">
             <div :class="$style['item-content-slots-market-item']">
-              <span>{{ $t("起拍价") }}：</span>
+              <span style="font-weight: normal">{{ $t("起拍价") }}：</span>
               <span
                 >{{ utilsFormat.formatPrice(itemData.sellPrice) }}
                 {{ utilsFormat.getTokenCurrency(itemData.payToken) }}</span
               >
             </div>
             <div :class="$style['item-content-slots-market-item']">
-              <span>{{ $t("最高出价") }}：</span>
+              <span style="font-weight: normal">{{ $t("最高出价") }}：</span>
               <span v-if="Number(itemData.offerPrice) > 0">
                 {{ utilsFormat.formatPrice(itemData.offerPrice) }}
                 {{ utilsFormat.getTokenCurrency(itemData.payToken) }}
@@ -137,7 +137,7 @@
               :class="$style['item-content-slots-market-item']"
               style="margin-bottom: 28px"
             >
-              <span>{{ $t("一口价") }}：</span>
+              <span style="font-weight: normal">{{ $t("一口价") }}：</span>
               <span
                 >{{ utilsFormat.formatPrice(itemData.sellPrice) }}
                 {{ utilsFormat.getTokenCurrency(itemData.payToken) }}</span
