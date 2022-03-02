@@ -16,6 +16,7 @@
           :isOnSell="detailData.onSell"
           :isOwner="isOwner(detailData.address)"
           cardType="market"
+          :blind_box_type="state.blind_box_type"
         ></detailCard>
         <star-loading-fish v-else></star-loading-fish>
       </template>

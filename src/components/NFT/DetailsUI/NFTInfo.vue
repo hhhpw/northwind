@@ -101,7 +101,7 @@
           stringFormat(props.box_detail && props.box_detail.owner)
         }}</span>
       </div>
-      <div class="base-info-item" v-if="state.nft_address">
+      <div class="base-info-item">
         <span class="title">{{ $t("合约地址") }}</span>
         <span
           class="value"
@@ -153,6 +153,17 @@ let state = reactive({
       return true;
     }
     return false;
+  }),
+  nft_address: computed(() => {
+    if (
+      props.blind_box_type === "nft" ||
+      props.blind_box_type === "composite_card" ||
+      props.blind_box_type === "composite_element"
+    ) {
+      return `${props.box_detail.nftMeta}`;
+    } else {
+      return props.box_detail && props.box_detail.boxToken;
+    }
   }),
   countdown: { day: "00", hours: "00", minutes: "00", seconds: "00" },
 });
