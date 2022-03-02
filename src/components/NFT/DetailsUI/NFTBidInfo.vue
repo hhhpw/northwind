@@ -3,7 +3,7 @@
     <div class="price" v-if="props.sellType === 1">
       <div class="price-item once-price">
         <label for="">{{ t("一口价") }}</label>
-        <span
+        <span class="price-value"
           >{{
             (props.box_detail.sellingPrice &&
               utilsFormat.formatPrice(props.box_detail.sellingPrice)) ||
@@ -21,7 +21,7 @@
     <div class="price bid" v-else>
       <div class="price-item">
         <label for="">{{ t("最高出价") }}</label>
-        <span
+        <span class="price-value"
           >{{
             (props.box_detail.topBidPrice &&
               utilsFormat.formatPrice(props.box_detail.topBidPrice)) ||
@@ -37,7 +37,7 @@
       </div>
       <div class="price-item front-price">
         <label for="">{{ t("起拍价") }}</label>
-        <span
+        <span class="price-value"
           >{{
             (props.box_detail.sellingPrice &&
               utilsFormat.formatPrice(props.box_detail.sellingPrice)) ||
@@ -91,6 +91,9 @@ let props = defineProps({
         color: #161311;
         font-size: 14px;
         font-weight: bold;
+      }
+      .price-value {
+        font-size: 20px;
       }
     }
     .once-price {

@@ -209,10 +209,10 @@ const changeAction = (i) => {
     }
   }
   ::v-deep(.el-dialog__header) {
-    padding-left: 42px !important;
+    padding: 28px 24px 28px 42px !important;
   }
   ::v-deep(.el-dialog__body) {
-    padding: 15px 28px 20px 42px !important;
+    padding: 7px 28px 72px 42px !important;
   }
 
   .nft-bid-dialog-header {
@@ -220,6 +220,10 @@ const changeAction = (i) => {
     justify-content: space-between;
     font-weight: bold;
     line-height: 36px;
+
+    span {
+      font-size: 24px;
+    }
     .svg {
       width: 36px;
       height: 36px;
@@ -233,12 +237,12 @@ const changeAction = (i) => {
       font-size: 16px;
       color: #010e22;
       font-weight: 600;
-      margin-bottom: 10px;
+      margin-bottom: 16px;
     }
     .bid-type {
       width: 100%;
       overflow: hidden;
-      margin-bottom: 24px;
+      margin-bottom: 34px;
       a {
         width: 298px;
         height: 48px;
@@ -269,7 +273,7 @@ const changeAction = (i) => {
     .bid-price {
       border: 1px solid #ededed;
       height: 72px;
-      margin-bottom: 10px;
+      margin-bottom: 34px;
       border-radius: 19px;
       .bid-price-input {
         width: 90%;
@@ -294,6 +298,7 @@ const changeAction = (i) => {
     }
     .bid-time {
       margin-top: 24px;
+      margin-bottom: 34px;
     }
     .bid-time-change {
       width: 100%;
@@ -312,6 +317,7 @@ const changeAction = (i) => {
       }
     }
     .bid-text {
+      margin-bottom: 34px;
       p {
         font-size: 14px;
         color: #7f7f7f;
