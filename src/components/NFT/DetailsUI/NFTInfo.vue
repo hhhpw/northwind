@@ -231,7 +231,7 @@ const actionsCall = (action) => {
     }
   }
   .base-info-list {
-    margin-top: 24px;
+    margin-top: 14px;
     .base-info-item {
       display: flex;
       justify-content: space-between;
@@ -262,7 +262,7 @@ const actionsCall = (action) => {
     }
   }
   .detail-actions {
-    margin-top: 20px;
+    margin-top: 10px;
   }
 }
 </style>
