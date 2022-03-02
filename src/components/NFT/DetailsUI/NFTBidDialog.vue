@@ -62,7 +62,7 @@
             <span>{{ $t(state.current_currency) }}</span>
           </div>
           <div v-if="state.errorInfo" class="error">
-            *{{ $t("请输入售价") }}
+            *{{ $t("请输入价格") }}
           </div>
           <div class="bid-time" v-if="state.typeIndex === 1">
             <p>
