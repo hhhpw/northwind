@@ -61,6 +61,9 @@
             </star-input>
             <span>{{ $t(state.current_currency) }}</span>
           </div>
+          <div v-if="state.errorInfo" class="error">
+            *{{ $t("请输入价格") }}
+          </div>
           <div class="bid-time" v-if="state.typeIndex === 1">
             <p>
               {{ $t(BID_DIALOG_PARAMS.AUCTIONPRICE[1]) }}
@@ -137,6 +140,7 @@ const state = reactive({
   typeIndex: 0,
   price: "",
   endDay: 1,
+  errorInfo: false,
 });
 
 watch(
@@ -168,6 +172,10 @@ const handleClose = () => {
 };
 
 const handleConfirm = () => {
+  if (state.price === "") {
+    state.errorInfo = true;
+    return false;
+  }
   emits("handleClose");
   let params = {};
   if (state.typeIndex === 0) {
@@ -186,6 +194,9 @@ const handleConfirm = () => {
 };
 
 const inputEvent = (val) => {
+  if (val !== "") {
+    state.errorInfo = false;
+  }
   state.price = val;
 };
 const changeAction = (i) => {
@@ -266,7 +277,7 @@ const changeAction = (i) => {
     .bid-price {
       border: 1px solid #ededed;
       height: 60px;
-      margin-bottom: 20px;
+      margin-bottom: 10px;
       .bid-price-input {
         width: 90%;
         line-height: 60px;
@@ -284,11 +295,15 @@ const changeAction = (i) => {
         line-height: 60px;
       }
     }
+    .error {
+      color: #fb8000;
+      margin-bottom: 10px;
+    }
     .bid-time-change {
       width: 100%;
       height: 60px;
       line-height: 60px;
-      margin-bottom: 20px;
+      margin-bottom: 10px;
       ::v-deep(.el-select .el-input__inner) {
         height: 60px;
         &:hover {
