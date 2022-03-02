@@ -129,7 +129,6 @@
       </div>
     </div>
     <detail-action
-      class="detail-actions"
       :box_detail="props.box_detail"
       :action_type="props.action_type"
       :isNFT="state.isNFT"
@@ -260,9 +259,6 @@ const actionsCall = (action) => {
     .base-info-item-character-info-value {
       color: #3f1c09 !important;
     }
-  }
-  .detail-actions {
-    margin-top: 10px;
   }
 }
 </style>
