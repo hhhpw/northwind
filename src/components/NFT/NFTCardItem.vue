@@ -302,7 +302,7 @@ $black: #010e22;
   overflow: hidden;
   margin-right: 20px;
   &:hover {
-    box-shadow: 0 18px 32px -18px #000 !important;
+    box-shadow: 0 18px 32px -18px rgba(0, 0, 0, 0.6) !important;
     transform: translateY(-3px);
   }
   .img-box {
@@ -406,7 +406,7 @@ $black: #010e22;
         .item-content-slots-collection-selling-btn {
           height: 10px;
           line-height: 10px;
-          width: 46%;
+          width: 48%;
           padding-left: 0;
           padding-right: 0;
         }

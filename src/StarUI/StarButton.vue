@@ -39,6 +39,7 @@ const props = defineProps({
 .star-button.light {
   color: $text-orange-color;
   border: 1px solid $border-orange-color;
+  padding: 14px 25px;
   background-color: #fff;
 }
 .star-button.disabled {
