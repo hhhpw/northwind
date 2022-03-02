@@ -404,6 +404,7 @@ onUnmounted(() => {
     .nft-blindbox-core-header-right {
       color: $text-brown-color;
       margin-left: 33px;
+      position: relative;
       .nft-blindbox-core-header-right-title {
         font-size: 32px;
         font-family: PingFangSC-Semibold, PingFang SC;
@@ -434,7 +435,9 @@ onUnmounted(() => {
         height: 46px;
         line-height: 46px;
         padding: 0px;
-        border-radius: 16px;
+        border-radius: 4px;
+        position: absolute;
+        bottom: 0;
       }
       .nft-blindbox-core-header-right-button.light {
         background-color: transparent;

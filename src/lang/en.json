@@ -296,7 +296,8 @@
     "距离结束": "Will be close in",
     "天": "day",
     "起拍价": "Auction Start Price",
-    "拍卖时间": "Auction Start Time"
+    "拍卖时间": "Auction Start Time",
+    "提交": "Submit"
   },
   "farms": {
     "farm-swap-total-1": "Total trading volume",

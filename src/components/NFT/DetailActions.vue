@@ -5,7 +5,7 @@
     <div class="sell-blind" v-if="props.action_type === 'UNSOLD'">
       <!-- 盲盒未开启 -->
       <div
-        class="buttons blind-buttons"
+        class="buttons blind-buttons button-style"
         v-if="!props.isNFT"
         style="margin-top: 10px"
       >
@@ -17,7 +17,7 @@
         </div>
       </div>
       <!-- 我的NFT nft-->
-      <div class="buttons" v-else>
+      <div class="buttons button-style" v-else>
         <div
           class="open-blind-box actions-button"
           @click="actionsCall('SellNFT')"
@@ -35,7 +35,7 @@
         :sellType="props.box_detail.sellType"
       ></nft-bid-info>
       <div
-        class="blind-offer-actions"
+        class="blind-offer-actions button-style"
         v-if="props.box_detail"
         :style="{ 'margin-top': props.isNFT ? '10px' : '20px' }"
       >
@@ -68,7 +68,7 @@
         :sellType="props.box_detail.sellType"
       ></nft-bid-info>
       <div
-        class="blind-offer-actions"
+        class="blind-offer-actions button-style"
         v-if="props.box_detail.onSell"
         :style="{ 'margin-top': props.isNFT ? '10px' : '20px' }"
       >
@@ -103,13 +103,13 @@
         }}</span>
       </div>
       <div v-else>
-        <div class="sold-out">
+        <div class="sold-out button-style">
           <span class="sold-out-action all-horizontal">{{ $t("售罄") }}</span>
         </div>
       </div>
     </div>
     <!-- 售罄 -->
-    <div class="sold-out" v-if="props.action_type === 'SOLDOUT'">
+    <div class="sold-out button-style" v-if="props.action_type === 'SOLDOUT'">
       <span class="sold-out-action all-horizontal">{{ $t("售罄") }}</span>
     </div>
     <!-- 回收状态 -->
@@ -128,7 +128,7 @@
         </p>
       </div>
       <div
-        class="recovery-actions all-horizontal"
+        class="recovery-actions all-horizontal button-style"
         @click="
           () => {
             if (props.box_detail.userHoldAmount > 0) {
@@ -233,6 +233,7 @@ const handleCloseQuotation = () => {
 }
 .nft-goods-detail-action {
   flex: 1;
+  position: relative;
 }
 .sell-blind {
   // border: 1px solid red;
@@ -240,6 +241,7 @@ const handleCloseQuotation = () => {
   flex-flow: column;
   height: 100%;
   justify-content: space-between;
+  position: relative;
   // padding-top: 30px;
 }
 .trade-input {
@@ -248,7 +250,7 @@ const handleCloseQuotation = () => {
   position: relative;
   border: 1px solid #ededed;
   background: #ffffff;
-  border-radius: 16px;
+  border-radius: 4px;
 
   .trade-star-input {
     height: 60px;
@@ -283,7 +285,7 @@ const handleCloseQuotation = () => {
 }
 .actions-button {
   width: 100%;
-  border-radius: 19px;
+  border-radius: 4px;
   height: 46px;
   line-height: 46px;
   text-align: center;
@@ -292,6 +294,11 @@ const handleCloseQuotation = () => {
   background-color: #f88000;
   color: #fff;
   // margin-top: 20px;
+}
+.button-style {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
 }
 .blind-buttons {
   display: flex;
@@ -313,6 +320,7 @@ const handleCloseQuotation = () => {
   display: flex;
   flex-flow: column;
   justify-content: space-between;
+  position: relative;
 }
 .blind-offer-price {
   flex: 1;
@@ -353,7 +361,7 @@ const handleCloseQuotation = () => {
     line-height: 46px;
     text-align: center;
     margin-right: 16px;
-    border-radius: 16px;
+    border-radius: 4px;
     background: #f88000;
     color: #ffffff;
     font-size: 16px;
@@ -362,6 +370,9 @@ const handleCloseQuotation = () => {
 }
 .cancel-sell {
   cursor: pointer;
+  background: #fff !important;
+  color: #f88000 !important;
+  border: 1px solid #f88000;
 }
 .sold-out {
   flex: 1;
@@ -378,7 +389,7 @@ const handleCloseQuotation = () => {
   width: 100%;
   height: 46px;
   background: #d1d1d1;
-  border-radius: 16px;
+  border-radius: 4px;
   text-align: center;
   line-height: 46px;
   color: #9e9e9e;
@@ -393,6 +404,7 @@ const handleCloseQuotation = () => {
   display: flex;
   flex-flow: column;
   justify-content: space-between;
+  position: relative;
   .recovery-price-count {
     padding-top: 24px;
     flex: 1;

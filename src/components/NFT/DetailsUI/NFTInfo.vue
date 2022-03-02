@@ -51,20 +51,20 @@
         class="base-info-item-character-info"
         v-if="state.isNFT && props.box_detail.nftType === 'COMPOSITE_CARD'"
       >
-        <span style="margin-right: 8px">
+        <span style="margin-right: 16px">
           {{ $t("name") }}:
           <span class="base-info-item-character-info-value">
             {{ props.box_detail?.customName }}</span
           >
         </span>
-        <span style="margin-right: 8px" v-if="props.box_detail?.occupation">
+        <span style="margin-right: 16px" v-if="props.box_detail?.occupation">
           {{ $t("profession") }}
           <span class="base-info-item-character-info-value">
             {{ props.box_detail?.occupation }}</span
           >
         </span>
         <span
-          style="margin-right: 8px"
+          style="margin-right: 16px"
           v-if="props.box_detail?.sex === 1 || props.box_detail?.sex === 0"
         >
           {{ $t("sex") }}
@@ -101,7 +101,7 @@
           stringFormat(props.box_detail && props.box_detail.owner)
         }}</span>
       </div>
-      <div class="base-info-item" v-if="state.nft_address">
+      <div class="base-info-item">
         <span class="title">{{ $t("合约地址") }}</span>
         <span
           class="value"
@@ -153,6 +153,17 @@ let state = reactive({
       return true;
     }
     return false;
+  }),
+  nft_address: computed(() => {
+    if (
+      props.blind_box_type === "nft" ||
+      props.blind_box_type === "composite_card" ||
+      props.blind_box_type === "composite_element"
+    ) {
+      return `${props.box_detail.nftMeta}`;
+    } else {
+      return props.box_detail && props.box_detail.boxToken;
+    }
   }),
   countdown: { day: "00", hours: "00", minutes: "00", seconds: "00" },
 });

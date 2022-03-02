@@ -83,8 +83,8 @@ let props = defineProps({
     justify-content: space-between;
     .price-item {
       flex: 1;
-      text-align: center;
-
+      text-align: left;
+      margin-left: 30px;
       label,
       span {
         display: block;
