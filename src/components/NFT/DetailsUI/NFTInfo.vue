@@ -199,6 +199,7 @@ const actionsCall = (action) => {
 <style lang="scss" scoped>
 .details-right-info {
   flex: 1;
+  height: 424px;
   color: #3f1c09;
   margin-left: 33px;
   display: flex;

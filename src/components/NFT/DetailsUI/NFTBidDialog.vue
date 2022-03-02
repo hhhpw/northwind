@@ -13,7 +13,7 @@
       <template #title>
         <div class="nft-bid-dialog-header">
           <span>
-            {{ props.title || "出售NFT" }}
+            {{ $t("出售NFT") }}
           </span>
           <svg-icon
             v-if="state.isShowClose"
@@ -77,7 +77,7 @@
             ></star-selector>
           </div>
           <div class="bid-text">
-            <p>{{ $t("说明") }}</p>
+            <p>{{ $t("说明") }}:</p>
             <p>{{ $t(BID_DIALOG_PARAMS.FIXEDTEXT) }}</p>
             <p>{{ $t(BID_DIALOG_PARAMS.AUCTIONTEXT) }}</p>
             <p>{{ $t(BID_DIALOG_PARAMS.FEETEXT) }}</p>
@@ -114,6 +114,8 @@ import { BID_DIALOG_PARAMS } from "@constants/dialog.js";
 import StarInput from "@StarUI/StarInput.vue";
 import StarSelector from "@StarUI/StarSelector.vue";
 import { useStore } from "vuex";
+import { useI18n } from "vue-i18n";
+const { t } = useI18n();
 const store = useStore();
 
 const props = defineProps({
@@ -161,7 +163,7 @@ const emits = defineEmits(["handleClose", "handleCancel", "handleConfirm"]);
 
 let timeOptions = [];
 BID_DIALOG_PARAMS.TIME.map((i) => {
-  timeOptions.push({ label: i + "天", value: i });
+  timeOptions.push({ label: i + " " + t("天"), value: i });
 });
 
 const handleTime = (i) => {

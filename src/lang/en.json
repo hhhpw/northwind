@@ -284,7 +284,19 @@
     "导入中": "Importing",
     "已导入": "Addresses already imported",
     "陈列室": "Gallery",
-    "到期时间": "Expire Date"
+    "到期时间": "Expire Date",
+    "出售NFT": "Selling an NFT",
+    "出售方式": "Selling Methods",
+    "一口价出售": "Direct Deal",
+    "拍卖": "Auction",
+    "说明": "Description",
+    "一口价说明": "Direct Deal: when this method is selected, the buyer can only make the purchase at the set price by seller. The market will not have an expiration time displayed. The seller can cancel the sale or wait for buyer.",
+    "拍卖说明": "Auction: The seller sets the starting price and expiration time. If there is no new bid within 5 minutes from the expiration time, the auction will be executed with the highest bid. If there is a new bid within 5 minutes from the expiration time, the expiration time will be extended by 5 minutes.",
+    "费用说明": "Fees: after the purchase successfully executed, 2% of the deal price will be charged for the fee, of which 1% will be used as a handling fee, and the other 1% will be paid to the creator of the NFT as a copyright fee. ",
+    "距离结束": "Will be close in",
+    "天": "day",
+    "起拍价": "Auction Start Price",
+    "拍卖时间": "Auction Start Time"
   },
   "farms": {
     "farm-swap-total-1": "Total trading volume",
