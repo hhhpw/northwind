@@ -86,16 +86,13 @@
           <span> {{ itemData.buyPrice }} {{ itemData.currency }}</span>
         </div>
 
-        <!-- market && collection selling -->
+        <!-- market -->
         <div
-          v-if="
-            props.cardType === 'market' ||
-            (props.cardType === 'collection' && props.sellType === 'selling')
-          "
+          v-if="props.cardType === 'market'"
           :class="$style['item-content-slots-market']"
         >
           <div :class="$style['item-content-slots-market-item']">
-            <span
+            <span style="font-weight: normal"
               >{{
                 offerPriceStyle === "auction" ? $t("最新报价") : $t("一口价")
               }}：</span
@@ -110,24 +107,45 @@
               {{ payToken }}</span
             >
           </div>
-          <!-- <div :class="$style['item-content-slots-market-item']">
-            <span>{{ $t("售价") }}：</span>
-            <span
-              >{{ utilsFormat.formatPrice(itemData.sellPrice) }}
-              {{ utilsFormat.getTokenCurrency(itemData.payToken) }}</span
-            >
-          </div>
-          <div :class="$style['item-content-slots-market-item']">
-            <span>{{ $t("最高出价") }}：</span>
-            <span v-if="Number(itemData.offerPrice) > 0">
-              {{ utilsFormat.formatPrice(itemData.offerPrice) }}
-              {{ utilsFormat.getTokenCurrency(itemData.payToken) }}
-            </span>
-            <span v-else style="text-align: right">
-              {{ $t("暂无报价") }}
-            </span>
-          </div> -->
         </div>
+        <!-- collection selling -->
+        <div
+          v-if="props.cardType === 'collection' && props.sellType === 'selling'"
+          :class="$style['item-content-slots-market']"
+        >
+          <div v-if="offerPriceStyle === 'auction'">
+            <div :class="$style['item-content-slots-market-item']">
+              <span>{{ $t("起拍价") }}：</span>
+              <span
+                >{{ utilsFormat.formatPrice(itemData.sellPrice) }}
+                {{ utilsFormat.getTokenCurrency(itemData.payToken) }}</span
+              >
+            </div>
+            <div :class="$style['item-content-slots-market-item']">
+              <span>{{ $t("最高出价") }}：</span>
+              <span v-if="Number(itemData.offerPrice) > 0">
+                {{ utilsFormat.formatPrice(itemData.offerPrice) }}
+                {{ utilsFormat.getTokenCurrency(itemData.payToken) }}
+              </span>
+              <span v-else style="text-align: right">
+                {{ $t("暂无报价") }}
+              </span>
+            </div>
+          </div>
+          <div v-if="offerPriceStyle === 'one_time_offer'">
+            <div
+              :class="$style['item-content-slots-market-item']"
+              style="margin-bottom: 28px"
+            >
+              <span>{{ $t("一口价") }}：</span>
+              <span
+                >{{ utilsFormat.formatPrice(itemData.sellPrice) }}
+                {{ utilsFormat.getTokenCurrency(itemData.payToken) }}</span
+              >
+            </div>
+          </div>
+        </div>
+
         <!-- collection -->
         <div
           v-if="props.cardType === 'collection'"
@@ -138,8 +156,15 @@
             :class="$style['item-content-slots-collection-btns']"
           >
             <star-button
-              v-if="Number(baseData.offerPrice) > 0"
               type="light"
+              :style="{ width: Number(baseData.offerPrice) <= 0 ? '100%' : '' }"
+              :class="$style['item-content-slots-collection-selling-btn']"
+              @click="actionsCall('CancelSell')"
+              >{{ $t("取消出售") }}</star-button
+            >
+            <star-button
+              v-if="Number(baseData.offerPrice) > 0"
+              type="dark"
               :class="[
                 $style['item-content-slots-collection-selling-btn'],
                 $style['item-content-slots-collection-selling-btn-light'],
@@ -152,14 +177,6 @@
                 )} ${utilsFormat.getTokenCurrency(baseData.payToken)}`
               }}
             </star-button>
-
-            <star-button
-              type="dark"
-              :style="{ width: Number(baseData.offerPrice) <= 0 ? '100%' : '' }"
-              :class="$style['item-content-slots-collection-selling-btn']"
-              @click="actionsCall('CancelSell')"
-              >{{ $t("取消出售") }}</star-button
-            >
           </div>
         </div>
       </div>
@@ -394,8 +411,8 @@ $black: #010e22;
           padding-right: 0;
         }
         .item-content-slots-collection-selling-btn-light {
-          border: 1px solid $border-gray-color;
-          color: $text-black-color;
+          // border: 1px solid $border-gray-color;
+          // color: $text-black-color;
         }
       }
     }

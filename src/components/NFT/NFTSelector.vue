@@ -195,13 +195,13 @@ $hoverColor: #e9ded1;
     box-shadow: $boxShadow;
     border: none;
     .el-select-dropdown__item.selected {
-      color: $fontColor;
-      background-color: $hoverColor;
+      color: rgba(251, 128, 0, 1);
+      background-color: rgba(233, 222, 209, 0.5);
     }
     .el-select-dropdown__item.hover,
     .el-select-dropdown__item:hover {
-      color: $fontColor;
-      background: $hoverColor;
+      color: rgba(251, 128, 0, 1);
+      background: rgba(233, 222, 209, 0.5);
     }
   }
   ::v-deep(.el-popper.is-light .el-popper__arrow::before) {
