@@ -268,12 +268,12 @@ const changeAction = (i) => {
     }
     .bid-price {
       border: 1px solid #ededed;
-      height: 60px;
+      height: 72px;
       margin-bottom: 10px;
       border-radius: 19px;
       .bid-price-input {
         width: 90%;
-        line-height: 60px;
+        line-height: 72px;
         font-size: 24px;
         font-weight: 500px;
         float: left;
@@ -285,7 +285,7 @@ const changeAction = (i) => {
       }
       span {
         display: inline-block;
-        line-height: 60px;
+        line-height: 72px;
       }
     }
     .error {
@@ -297,11 +297,11 @@ const changeAction = (i) => {
     }
     .bid-time-change {
       width: 100%;
-      height: 60px;
-      line-height: 60px;
+      height: 72px;
+      line-height: 72px;
       margin-bottom: 10px;
       ::v-deep(.el-select .el-input__inner) {
-        height: 60px;
+        height: 72px;
         border-radius: 19px;
         &:hover {
           border-color: #dcdfe6;
@@ -313,9 +313,10 @@ const changeAction = (i) => {
     }
     .bid-text {
       p {
-        font-size: 12px;
+        font-size: 14px;
         color: #7f7f7f;
         margin-bottom: 2px;
+        font-weight: normal;
       }
     }
   }
