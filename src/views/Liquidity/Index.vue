@@ -1,9 +1,9 @@
 <template>
   <div class="liquidity-container">
     <star-space :size="20"></star-space>
-    <div class="liquidity-container-btnwarp">
+    <!-- <div class="liquidity-container-btnwarp">
       <star-change-button :activeIndex="1"></star-change-button>
-    </div>
+    </div> -->
     <star-space :size="25"></star-space>
     <star-swap-card class="liquidity-container-card">
       <liquidity-core class="liquidity-container-core"></liquidity-core>
@@ -19,7 +19,7 @@ import { computed, reactive } from "vue";
 import LiquidityCore from "@components/Liquidity/core.vue";
 import LiquidityTransitionCard from "@components/Liquidity/transitioncard.vue";
 import StarSwapCard from "@StarUI/StarSwapCard.vue";
-import StarChangeButton from "@StarUI/StarChangeButton.vue";
+// import StarChangeButton from "@StarUI/StarChangeButton.vue";
 import StarSpace from "@StarUI/StarSpace.vue";
 import { useStore } from "vuex";
 const store = useStore();

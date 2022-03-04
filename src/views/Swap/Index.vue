@@ -1,9 +1,9 @@
 <template>
   <div class="swap-container">
     <star-space :size="20"></star-space>
-    <div class="swap-container-btnwarp">
+    <!-- <div class="swap-container-btnwarp">
       <star-change-button :activeIndex="0"></star-change-button>
-    </div>
+    </div> -->
     <star-space :size="25"></star-space>
     <star-swap-card class="swap-container-card">
       <swap-core class="swap-container-core"></swap-core>
@@ -17,7 +17,7 @@
 import SwapCore from "@components/Swap/core.vue";
 import SwapTransitionCard from "@components/Swap/card.vue";
 import StarSwapCard from "@StarUI/StarSwapCard.vue";
-import StarChangeButton from "@StarUI/StarChangeButton.vue";
+// import StarChangeButton from "@StarUI/StarChangeButton.vue";
 import StarSpace from "@StarUI/StarSpace.vue";
 // const test = (type) => {
 //   let t = {};

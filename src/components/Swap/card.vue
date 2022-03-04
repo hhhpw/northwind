@@ -132,7 +132,7 @@ const priceVisible = (value) => {
   padding: 30px 20px;
   width: 440px;
   border-radius: 34px;
-  background-color: #fff;
+  background-color: #252525;
   transition: top 500ms ease-in-out 0s;
   display: inline-block;
   position: relative;
