@@ -49,7 +49,6 @@ const emitClick = (value) => {
 }
 </style>
 <style lang="scss" scoped>
-// 只能操纵里面的样式
 .fly-dropdown-menu {
   background-color: $theme_gray_color;
   border: none;
@@ -66,6 +65,7 @@ const emitClick = (value) => {
     &:hover {
       background-color: $gray;
       color: $white;
+      opacity: 0.8;
     }
     &.is-active {
       background: $gary_dark;

@@ -41,11 +41,11 @@ let state = reactive({
   provider: computed(() => store.state.StoreWallet.stcProvider),
   balances: computed(() => store.state.StoreWallet.balances),
 });
-const { connectWallet, isflyMaskInstalled, renderAccount, walletInit } =
+const { connectWallet, isStarMaskInstalled, renderAccount, walletInit } =
   connectLogic(store);
 
 const init = async () => {
-  const isStalled = isflyMaskInstalled();
+  const isStalled = isStarMaskInstalled();
   if (!isStalled) return;
   walletInit();
 };
@@ -100,7 +100,7 @@ $h: 35px;
     display: flex;
     align-items: center;
     .fly-connect-wallet-connected-amountstc {
-      background: red;
+      background: $theme_light_color;
       color: $black;
       border-radius: 8px;
       height: 100%;

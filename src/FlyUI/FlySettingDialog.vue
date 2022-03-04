@@ -8,10 +8,10 @@
       <template #content>
         <div class="setting">
           <p>
-            {{ $t("滑点容差") }}
-            <ElTooltip effect="light" placement="right" :append-to-body="false">
+            <label style="margin-right: 5px">{{ $t("滑点容差") }}</label>
+            <ElTooltip placement="right" :append-to-body="false">
               <template #content>
-                <div :style="'max-width:400px;'">
+                <div :style="'max-width:300px;'">
                   {{
                     $t(
                       "较高的滑点容差有助于交易成功。设置完成后，如果兑换率变动超过此百分比，则此次交易不会被执行。"
@@ -43,39 +43,38 @@
               <ElInput
                 class="input-el"
                 v-model="state.slippageTolerance"
-                :style="
-                  state.slippageTolerance !== '0.1' &&
-                  state.slippageTolerance !== '0.5' &&
-                  state.slippageTolerance !== '1.0'
-                    ? 'border: 2px solid #fb8000'
-                    : ''
-                "
                 @input="setSlippage"
                 @blur="handleBlurSlipppage"
               /><span class="unit-input">%</span>
             </div>
           </div>
 
-          <p>
-            <label>{{ $t("多节点兑换") }}</label>
-            <ElTooltip effect="light" placement="right" :append-to-body="false">
-              <template #content>
-                <div :style="'max-width:400px'">
-                  {{ $t("关闭后将只进行直接币对交易") }}
-                </div>
-              </template>
-              <template #default>
-                <svg-icon name="f-question" class="question"></svg-icon>
-              </template>
-            </ElTooltip>
-            <input
-              type="checkbox"
-              class="slippageswitch"
-              v-model="state.switchSlippage"
-              checked
-              @change="changeSwitchSlippage"
-            />
-          </p>
+          <div class="footer">
+            <div>
+              <label style="margin-right: 5px">{{ $t("多节点兑换") }}</label>
+              <ElTooltip placement="right" :append-to-body="false">
+                <template #content>
+                  <div :style="'max-width:400px'">
+                    {{ $t("关闭后将只进行直接币对交易") }}
+                  </div>
+                </template>
+                <template #default>
+                  <svg-icon name="f-question" class="question"></svg-icon>
+                </template>
+              </ElTooltip>
+            </div>
+
+            <div class="switchSlippage" @click="changeSwitchSlippage">
+              <img
+                src="../../src/assets/common/setting-open.png"
+                v-if="state.switchSlippage"
+              />
+              <img
+                src="../../src/assets/common/setting-close.png"
+                v-if="!state.switchSlippage"
+              />
+            </div>
+          </div>
         </div>
       </template>
     </fly-dialog>
@@ -107,8 +106,8 @@ const props = defineProps({
   },
 });
 
-const changeSwitchSlippage = (value) => {
-  let val = value.target.checked;
+const changeSwitchSlippage = () => {
+  let val = !state.switchSlippage;
   store.dispatch("StoreApp/changeSwitchSlippage", val);
 };
 watch(
@@ -155,30 +154,36 @@ const handleBlurSlipppage = () => {
 </script>
 
 <style lang="scss" scoped>
-@import "~@/styles/variables.scss";
+$marginBtm: 20px;
+// $text-color: #b2b2b2;
 .flex-style {
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  margin-bottom: 20px;
 }
 .fly-setting {
+  ::v-deep(.el-dialog) {
+    background-image: url("../../src/assets/common/bg.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+  }
   ::v-deep(.el-dialog__header) {
-    padding-bottom: 0px;
-    padding-left: 25px;
+    padding: 30px 25px 0px;
+    color: $white;
   }
   ::v-deep(.el-dialog__body) {
-    padding: 0px 25px 32px;
+    padding: 25px 25px 32px;
   }
+
   .setting {
     width: 350px;
-    background: rgba(216, 216, 216, 0);
-    border-radius: 16px;
-    padding: 10px 0px 24px;
+    border-radius: 24px;
     p {
       font-size: 16px;
       font-family: PingFangSC-Medium, PingFang SC;
       font-weight: 500;
-      color: $text-black-color;
+      color: $white;
       line-height: 22px;
       overflow: hidden;
       label {
@@ -206,7 +211,7 @@ const handleBlurSlipppage = () => {
         width: 64px;
         height: 35px;
         border-radius: 8px;
-        border: 1px solid #ededed;
+        border: 0.2px solid $gray;
         line-height: 35px;
         padding: 0 10px;
         text-align: center;
@@ -224,32 +229,36 @@ const handleBlurSlipppage = () => {
           + .el-radio-button__inner) {
         background-color: $theme_light_color !important;
         color: $black;
+        border: none !important;
+        outline: none !important;
       }
     }
     .input-el {
       width: 96px;
       height: 33px;
       border-radius: 6px;
-      border: 1px solid #ededed;
+      // border: 1px solid $gray;
       position: relative;
+      box-sizing: content-box;
       // top: 3px;
       display: inline-block;
-      .border-show {
-        ::v-deep(.el-input__inner) {
-          border-color: $theme_light_color;
-        }
-        input {
-          border-color: $theme_light_color;
-        }
+      :v-deep(.el-input__inner:focus) {
+        border: 2px solid $theme_light_color !important;
       }
       ::v-deep(.el-input__inner) {
-        height: 33px;
+        height: 34px;
         line-height: 33px;
-        border-color: #fff;
+        border: none;
+        background: transparent;
+        border: 1px solid $gray;
+        outline: none;
+        // border-color: #fff;
+        color: $theme_light_color;
         position: relative;
-      }
-      &:focus-within {
-        border-color: $theme_light_color !important;
+        &:focus-within {
+          border-color: $theme_light_color !important;
+          border: 2px solid;
+        }
       }
     }
     .unit-input {
@@ -305,21 +314,35 @@ const handleBlurSlipppage = () => {
     }
   }
   .footer {
-    width: 388px;
-    margin-top: 24px;
-    .footer-btn {
-      width: 100%;
-      height: 27px;
-      color: $theme_light_color;
-      border-color: $theme_light_color;
-      padding: 10px 0px;
-      &:focus,
-      &:hover {
-        color: $white;
-        border-color: $theme_light_color;
-        background-color: $theme_light_color;
+    font-size: 16px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .switchSlippage {
+      cursor: pointer;
+      img {
+        width: 60px;
+        height: 35px;
       }
     }
   }
+  // .footer {
+  //   width: 388px;
+  //   margin-top: 24px;
+  //   .footer-btn {
+  //     width: 100%;
+  //     height: 27px;
+  //     color: $theme_light_color;
+  //     border-color: $theme_light_color;
+  //     padding: 10px 0px;
+  //     &:focus,
+  //     &:hover {
+  //       color: $white;
+  //       border-color: $theme_light_color;
+  //       background-color: $theme_light_color;
+  //     }
+  //   }
+  // }
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <star-wallet-dialog
+  <fly-wallet-dialog
     :dialogParams="state.walletDialogParams"
     @handleFailed="state.walletDialogParams?.handleFailed"
     @handleClose="state.walletDialogParams?.handleClose"
@@ -15,17 +15,18 @@
             })
           }}
         </p>
-        <star-space :size="20"></star-space>
+        <fly-space :size="20"></fly-space>
       </div>
     </template>
-  </star-wallet-dialog>
+  </fly-wallet-dialog>
 </template>
 <script setup>
 import { computed, reactive } from "vue";
 import { useStore } from "vuex";
-import StarWalletDialog from "@StarUI/StarWalletDialog.vue";
+// import StarWalletDialog from "@StarUI/StarWalletDialog.vue";
+import FlyWalletDialog from "@FlyUI/FlyWalletDialog.vue";
 import utilsNumber from "@utils/number";
-import StarSpace from "@StarUI/StarSpace.vue";
+import FlySpace from "@FlyUI/FlySpace.vue";
 const store = useStore();
 const state = reactive({
   walletDialogParams: computed(

@@ -2,8 +2,9 @@
 $black: #000000;
 $gray: #434343;
 $gary_dark: #363636;
+$gray_light: #757575;
 $white: #ffffff;
-$red: #f34653;
+$red: #f36346;
 $green: #0ec89b;
 $blue: #0079ed;
 $opacity_bg_color: #1f233d;
@@ -13,9 +14,9 @@ $orange: #fba800;
 
 /* -----------系统色-------------- */
 $theme_light_color: $orange;
-$theme_light_dark_color: $orange;
 $theme_gray_color: $gray;
-
+$theme_danger_color: $red;
+$theme_disabled_color: $gray_light;
 // $base_light_color: $white;
 // $base_color: $black;
 // $base_gray_background_color: $gray_color;

@@ -36,7 +36,18 @@ $text-brow-color: #744600;
 }
 .fly-button.dark {
   color: $white;
+  background-color: transparent;
   background-color: $theme_gray_color;
+}
+.fly-button.danger_ghost {
+  color: $theme_danger_color;
+  background-color: transparent;
+  border: 1px solid $theme_danger_color;
+}
+.fly-button.success_ghost {
+  color: $theme_light-color;
+  // background-color: $theme_gray_color;
+  border: 1px solid $theme_light-color;
 }
 .fly-button.light {
   color: $text-orange-color;
@@ -47,9 +58,8 @@ $text-brow-color: #744600;
 .fly-button.disabled {
   // background-color: $btn-gray-bgcolor;
   // color: $text-gary2-color;
-  background: rgba(178, 178, 178, 0.11);
-  color: #b2b2b2;
-  border: 1px solid #d1d1d1;
+  background: $gray_light;
+  color: $black;
 }
 .fly-button.brown {
   background-color: $btn-light-brown-bgcolor;

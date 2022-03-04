@@ -86,7 +86,7 @@ const handleClose = () => {
 @import "~@/styles/variables.scss";
 .fly-dialog {
   ::v-deep(.el-dialog) {
-    border-radius: 34px;
+    border-radius: 24px;
     .el-dialog__headerbtn:focus .el-dialog__close,
     .el-dialog__headerbtn:hover .el-dialog__close {
       color: $btn-orange-bgcolor;
@@ -102,8 +102,8 @@ const handleClose = () => {
     justify-content: space-between;
     font-weight: bold;
     .svg {
-      width: 36px;
-      height: 36px;
+      width: 25px;
+      height: 25px;
       &:hover {
         opacity: 0.7;
       }
