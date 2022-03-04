@@ -1,25 +1,25 @@
 <template>
-  <div class="star-nav">
-    <!-- <star-button type="dark">
+  <div class="fly-nav">
+    <!-- <fly-button type="dark">
       {{ $t("链接钱包") }}
-    </star-button> -->
+    </fly-button> -->
 
     <connect-wallet> </connect-wallet>
-    <star-drop-down
+    <fly-drop-down
       :menus="state.languages"
       @clickEvent="changeLang"
       :activeValue="state.currLang"
     >
       <template #placeholder>
-        <star-button type="light" class="lang" style="background: #f9efe4">
+        <fly-button type="dark" class="lang">
           {{ lang }}
-        </star-button>
+        </fly-button>
       </template>
-    </star-drop-down>
-    <div class="star-nav-setting" @click="changeSettingVisible(true)">
-      <svg-icon name="setting"></svg-icon>
+    </fly-drop-down>
+    <div class="fly-nav-setting" @click="changeSettingVisible(true)">
+      <svg-icon name="f-setting"></svg-icon>
     </div>
-    <setting-dialog
+    <fly-setting-dialog
       :dialogVisible="state.isShowSettings"
       @handleClose="changeSettingVisible(false)"
     />
@@ -29,12 +29,12 @@
 <script setup>
 /* eslint-disable */
 // import { defineEmits } from "vue";
-import StarButton from "@StarUI/StarButton.vue";
-import ConnectWallet from "@components/ConnectWallet.vue";
-import StarDropDown from "@StarUI/StarDropDown.vue";
+import FlyButton from "@FlyUI/FlyButton.vue";
+import ConnectWallet from "@FlyUI/FlyConnectWallet.vue";
+import FlyDropDown from "@FlyUI/FlyDropDown.vue";
 import SvgIcon from "@components/SvgIcon/Index.vue";
 import session from "@utils/session";
-import SettingDialog from "@components/SettingDialog.vue";
+import FlySettingDialog from "@FlyUI/FlySettingDialog.vue";
 import {
   computed,
   onMounted,
@@ -76,7 +76,7 @@ const changeSettingVisible = (type) => {
 </script>
 
 <style lang="scss" scoped>
-.star-nav {
+.fly-nav {
   // position: fixed;
   top: 0;
   right: 30px;
@@ -96,11 +96,11 @@ const changeSettingVisible = (type) => {
     padding: 0 16px;
     width: 100px;
   }
-  .star-nav-setting {
+  .fly-nav-setting {
     margin-left: 15px;
     width: 40px;
     height: 35px;
-    background: #e9ded1;
+    background-color: $theme_gray_color;
     border-radius: 8px;
     text-align: center;
     line-height: 35px;
