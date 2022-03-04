@@ -65,6 +65,7 @@ module.exports = {
       .set("@utils", resolve("src/utils"))
       .set("@components", resolve("src/components"))
       .set("@StarUI", resolve("src/StarUI"))
+      .set("@FlyUI", resolve("src/FlyUI"))
       .set("@api", resolve("src/api"))
       .set("@router", resolve("src/router"))
       .set("@utils", resolve("src/utils"))
@@ -131,6 +132,7 @@ module.exports = {
       scss: {
         prependData: `
         @import "@styles/variables.scss";
+        @import "@styles/_vars.scss";
         `,
       },
       css: cssConfig,
