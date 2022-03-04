@@ -306,6 +306,7 @@ const StoreSwap = {
             automatic: true,
           });
         }
+        console.log(obj, "=====s");
         commit(types.SET_CALCALATOR_SWAP_DATA, obj);
       }
     },

@@ -17,88 +17,98 @@
       </div>
       <div class="swap-content-header-right">
         <svg-icon
-          name="setting"
+          name="f-setting"
           @click="showDialog('isShowSettingDialog')"
         ></svg-icon>
         <svg-icon
-          name="record"
+          name="f-record"
           @click="showDialog('isShowHistoryDialog')"
         ></svg-icon>
       </div>
     </div>
     <star-space :size="20"></star-space>
     <div class="swap-content-core">
-      <div class="swap-content-core-item form">
-        <div class="swap-content-core-item-title">
-          <span>
-            {{ $t("从") }}
-          </span>
-          <span v-if="A.disPlayBalance">
-            {{ $t("余额") }}: {{ A.disPlayBalance }}
-          </span>
-        </div>
-        <div class="swap-content-core-item-main">
-          <star-input
-            class="swap-content-core-item-main-input"
-            placeholder="0.0"
-            :value="state.from.inputVal"
-            :max="A.disPlayBalance"
-            :precision="state.from.exchangePrecision"
-            @inputEvent="inputEvent($event, 'from')"
-          ></star-input>
-          <div
-            class="swap-content-core-item-main-max"
-            v-if="state.walletStatus === 'connected' && state.from.currency"
-            @click="setToInputValueMax('from', A.disPlayBalance)"
-          >
-            Max
+      <div class="swap-content-cote-box">
+        <div class="swap-content-core-item form">
+          <div class="swap-content-core-item-main">
+            <star-input
+              class="swap-content-core-item-main-input"
+              placeholder="0.0"
+              :value="state.from.inputVal"
+              :max="A.disPlayBalance"
+              :precision="state.from.exchangePrecision"
+              @inputEvent="inputEvent($event, 'from')"
+            ></star-input>
+
+            <div>
+              <div
+                class="swap-content-core-item-main-currencyselect"
+                @click="showCurrencyListDialog('from')"
+              >
+                <img v-if="state.from.icon" :src="state.from.icon" />
+                <span>
+                  {{ A.disPlayCurrency || "STC" }}
+                </span>
+              </div>
+              <div class="swap-content-core-item-right">
+                <span
+                  v-if="A.disPlayBalance"
+                  class="swap-content-core-item-disPlayBalance"
+                >
+                  {{ $t("余额") }}: {{ A.disPlayBalance }}
+                </span>
+                <span
+                  class="swap-content-core-item-main-max"
+                  v-if="
+                    state.walletStatus === 'connected' && state.from.currency
+                  "
+                  @click="setToInputValueMax('from', A.disPlayBalance)"
+                >
+                  MAX
+                </span>
+              </div>
+            </div>
           </div>
-          <div
-            class="swap-content-core-item-main-currencyselect"
-            @click="showCurrencyListDialog('from')"
-          >
-            <img v-if="state.from.icon" :src="state.from.icon" />
-            <span>
-              {{ A.disPlayCurrency || "STC" }}
-            </span>
-            <svg-icon name="arrowdownselect"></svg-icon>
+        </div>
+        <div class="change-content">
+          <svg-icon
+            name="f-updown"
+            @click="transfromCurrencySelect(true)"
+          ></svg-icon>
+        </div>
+        <div class="swap-content-core-item to">
+          <div class="swap-content-core-item-main">
+            <star-input
+              class="swap-content-core-item-main-input"
+              :value="state.to.inputVal"
+              :max="B.disPlayBalance"
+              :precision="state.to.exchangePrecision"
+              placeholder="0.0"
+              @inputEvent="inputEvent($event, 'to')"
+            ></star-input>
+            <div>
+              <div
+                class="swap-content-core-item-main-currencyselect"
+                @click="showCurrencyListDialog('to')"
+              >
+                <img v-if="state.to.icon" :src="state.to.icon" />
+                <span>
+                  {{ B.disPlayCurrency }}
+                </span>
+              </div>
+              <div class="swap-content-core-item-right">
+                <span
+                  v-if="B.disPlayBalance"
+                  class="swap-content-core-item-disPlayBalance"
+                >
+                  {{ $t("余额") }}: {{ B.disPlayBalance }}
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-      <div class="change-content">
-        <svg-icon
-          name="arrowdown"
-          @click="transfromCurrencySelect(true)"
-        ></svg-icon>
-      </div>
-      <div class="swap-content-core-item to">
-        <div class="swap-content-core-item-title">
-          <span> {{ $t("到") }}</span>
-          <span v-if="B.disPlayBalance">
-            {{ $t("余额") }}: {{ B.disPlayBalance }}
-          </span>
-        </div>
-        <div class="swap-content-core-item-main">
-          <star-input
-            class="swap-content-core-item-main-input"
-            :value="state.to.inputVal"
-            :max="B.disPlayBalance"
-            :precision="state.to.exchangePrecision"
-            placeholder="0.0"
-            @inputEvent="inputEvent($event, 'to')"
-          ></star-input>
-          <div
-            class="swap-content-core-item-main-currencyselect"
-            @click="showCurrencyListDialog('to')"
-          >
-            <img v-if="state.to.icon" :src="state.to.icon" />
-            <span>
-              {{ B.disPlayCurrency }}
-            </span>
-            <svg-icon name="arrowdownselect"></svg-icon>
-          </div>
-        </div>
-      </div>
+
       <star-space :size="20"></star-space>
       <div class="swap-content-core-detail">
         <div
@@ -127,7 +137,7 @@
                 </div>
               </template>
               <template #default>
-                <svg-icon name="question" class="question"></svg-icon>
+                <svg-icon name="f-question" class="question"></svg-icon>
               </template>
             </ElTooltip>
           </span>
@@ -459,6 +469,7 @@ const swapFunc = async (status) => {
       focusType: state.focusType,
     };
     const res = await Wallet.swapToken(params);
+
     if (res) {
       store.commit("StoreSwap/CHANGE_CONFIRM_VISIBLE", true);
     }
@@ -480,7 +491,7 @@ onUnmounted(() => {
 }
 .swap-content {
   width: 100%;
-  color: $text-black-color;
+  color: $text-white-color;
   .swap-content-header {
     display: flex;
     align-items: center;
@@ -499,53 +510,67 @@ onUnmounted(() => {
       .svg-icon {
         width: 18px;
         height: 18px;
+        color: $text-white-color;
       }
       .svg-icon:last-child {
-        margin-left: 15px;
+        margin-left: 26px;
       }
     }
   }
   .swap-content-core {
     .change-content {
-      padding: 20px 0px;
       text-align: center;
     }
+    .swap-content-cote-box {
+      background: #464646;
+      border-radius: 8px;
+    }
     .swap-content-core-item {
-      height: 90px;
+      height: 81px;
       padding: 10px 16px;
       display: flex;
       flex-direction: column;
       justify-content: space-around;
       border-radius: 19px;
-      border: 1px solid #ededed;
-      .swap-content-core-item-title {
-        display: flex;
-        justify-content: space-between;
-        font-size: 14px;
-        font-weight: bold;
-      }
       .swap-content-core-item-main {
         display: flex;
         align-items: center;
         justify-content: space-between;
         height: 50px;
+
         .swap-content-core-item-main-input {
           ::v-deep(.el-input__inner) {
-            border-color: #fff;
-            color: #000;
+            border: none;
+            color: $text-gray3-color;
+            background: none;
+            font-size: 24px;
+            outline: none;
           }
           width: 230px;
         }
         .swap-content-core-item-main-max {
           color: $text-orange-color;
-          font-size: 20px;
+          font-size: 12px;
           margin-left: 6px;
           cursor: pointer;
         }
+        .swap-content-core-item-right {
+          text-align: right;
+          white-space: nowrap;
+        }
+        .swap-content-core-item-disPlayBalance {
+          font-size: 12px;
+          color: $text-white-color;
+        }
         .swap-content-core-item-main-currencyselect {
-          margin-left: 2px;
+          margin-left: auto;
+          width: 120px;
+          padding: 4px;
           display: flex;
           align-items: center;
+          background: #585858;
+          color: $text-white-color;
+          border-radius: 8px;
           &:hover {
             opacity: 0.6;
             cursor: pointer;
@@ -556,7 +581,7 @@ onUnmounted(() => {
             height: 24px;
           }
           span {
-            text-align: center;
+            text-align: right;
             font-size: 20px;
             display: inline-block;
             padding-left: 3px;
