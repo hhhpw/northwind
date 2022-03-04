@@ -1,10 +1,8 @@
 <template>
   <section :class="$style['app-main']">
     <router-view v-slot="{ Component }" :key="route.path">
-      <!-- <transition name="fade-transform" mode="out-in"> -->
       <slot></slot>
       <component :is="Component" />
-      <!-- </transition> -->
     </router-view>
   </section>
 </template>
@@ -22,6 +20,6 @@ watchEffect(() => {
 
 <style lang="scss" module>
 .app-main {
-  padding-top: 24px;
+  margin-top: 70px;
 }
 </style>

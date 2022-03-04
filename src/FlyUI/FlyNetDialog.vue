@@ -1,19 +1,19 @@
 <template>
-  <div class="star-net-dialog">
+  <div class="fly-net-dialog">
     <ElDialog
       v-model="state.visible"
       width="440px"
-      custom-class="star-dialog-el"
+      custom-class="fly-dialog-el"
       :close-on-press-escape="false"
       :close-on-click-modal="false"
       :modal="true"
       :show-close="false"
     >
-      <div class="star-net-dialog-content">
+      <div class="fly-net-dialog-content">
         <fly-space :size="50"></fly-space>
         <img src="../assets/common/net-error.png" />
         <fly-space :size="40"></fly-space>
-        <p class="star-net-dialog-content-text">{{ $t("网络错误") }}</p>
+        <p class="fly-net-dialog-content-text">{{ $t("网络错误") }}</p>
         <p style="font-size: 14px">
           {{ $t("请切换正确的钱包网络") }}
         </p>
@@ -24,7 +24,6 @@
 </template>
 
 <script setup>
-// import { ElDialog } from "element-plus";
 import { reactive, defineProps, watch } from "vue";
 import FlySpace from "@FlyUI/FlySpace";
 const props = defineProps({
@@ -42,29 +41,25 @@ watch(
 </script>
 
 <style lang="scss" scoped>
-.star-net-dialog {
+.fly-net-dialog {
   ::v-deep(.el-dialog) {
-    border-radius: 34px;
-    .el-dialog__headerbtn:focus .el-dialog__close,
-    .el-dialog__headerbtn:hover .el-dialog__close {
-      color: $btn-orange-bgcolor;
-    }
+    border-radius: 16px;
+    background: linear-gradient(180deg, #3e3e3e 0%, #3e3e3e 0%, #252525 100%);
   }
   ::v-deep(.el-dialog__body) {
     padding-top: 10px !important;
   }
 
-  .star-net-dialog-content {
-    // background: red;
+  .fly-net-dialog-content {
     text-align: center;
     img {
       display: inline-block;
       width: 70px;
       user-select: none;
     }
-    .star-net-dialog-content-text {
+    .fly-net-dialog-content-text {
       font-size: 20px;
-      color: $text-black-color;
+      color: $white;
       font-weight: 600;
     }
   }

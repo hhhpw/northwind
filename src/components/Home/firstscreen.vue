@@ -125,14 +125,14 @@ onMounted(() => {
   setTimeout(() => {
     state.isShowWinkCat = true;
   });
-  nextTick(() => {
-    bodyStyle("hidden");
-  });
+  // nextTick(() => {
+  //   bodyStyle("hidden");
+  // });
 });
 
-onUnmounted(() => {
-  bodyStyle("scroll");
-});
+// onUnmounted(() => {
+//   bodyStyle("scroll");
+// });
 
 // watch(
 //   () => state.isShowVideo,
