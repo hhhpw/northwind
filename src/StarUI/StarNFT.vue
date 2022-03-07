@@ -1,11 +1,11 @@
 <template>
   <div class="star-nft">
     <star-space :size="25"></star-space>
-    <flyui-change-button
+    <flyUI-change-button
       :activeIndex="state.activeIndex"
       :tabs="state.tabs"
       class="star-nft-header"
-    ></flyui-change-button>
+    ></flyUI-change-button>
     <star-space :size="25"></star-space>
     <slot name="nft-header"></slot>
     <div
@@ -28,7 +28,7 @@
 <script setup>
 import { reactive, defineProps, onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
-import FlyuiChangeButton from "@FlyUI/FlyUIChangeButton.vue";
+import FlyUIChangeButton from "@FlyUI/FlyUIChangeButton.vue";
 import StarSpace from "@StarUI/StarSpace.vue";
 import { findIndex } from "lodash";
 const route = useRoute();

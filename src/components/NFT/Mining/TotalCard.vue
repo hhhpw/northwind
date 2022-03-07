@@ -1,20 +1,20 @@
 <template>
   <div :class="$style['total-data-container']" v-if="state.miningData">
     <div :class="$style['header']">
-      <p :class="$style['title']">
-        {{ $t("nftmining.total-mining-power") }}
-      </p>
-      <star-amount
-        :value="state.miningData.totalScore"
-        :class="$style['amount']"
-        :formatOptions="{
-          precision: 2,
-          trailingZero: false,
-        }"
-      ></star-amount>
-    </div>
-    <div :class="$style['footer']">
-      <div>
+      <div :class="$style['header-content']">
+        <p :class="$style['title']">
+          {{ $t("nftmining.total-mining-power") }}
+        </p>
+        <star-amount
+          :value="state.miningData.totalScore"
+          :class="$style['amount']"
+          :formatOptions="{
+            precision: 2,
+            trailingZero: false,
+          }"
+        ></star-amount>
+      </div>
+      <div :class="$style['header-content']">
         <p :class="$style['title']">{{ $t("日产量") }}</p>
         <star-amount
           :class="$style['amount']"
@@ -26,6 +26,8 @@
           }"
         ></star-amount>
       </div>
+    </div>
+    <div :class="$style['footer']">
       <div :class="$style['year-profit']">
         <p :class="$style[('title', 'year-profit-title')]">
           {{ $t("平均年化收益率") }}
@@ -55,37 +57,44 @@ let state = reactive({
 });
 </script>
 <style lang="scss" module>
+@import "~@/styles/_vars.scss";
 .amount {
-  font-size: 24px;
+  font-size: 18px;
   font-weight: normal;
 }
 .amount-color {
-  color: #fb8000;
+  color: #fba800;
+  font-size: 18px;
 }
 .total-data-container {
-  // color: red;
-  position: absolute;
-  width: 335px;
-  height: 150px;
-  color: #fff;
-  top: 50px;
-  left: 65px;
+  width: 588px;
+  height: 192px;
+  color: $white;
+  display: inline-block;
+  background: linear-gradient(144deg, #3e3e3e 0%, #252525 100%);
+  border-radius: 8px;
   .title {
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 600;
-    color: #fff;
+    color: $white;
   }
   .year-profit-title {
-    color: #fb8000;
+    color: #fba800;
     font-weight: 600;
+    font-size: 14px;
   }
   .header {
-    margin-left: 20px;
-    margin-top: 15px;
+    margin-left: 32px;
+    margin-top: 36px;
+    overflow: hidden;
+    .header-content {
+      display: inline-block;
+      width: 50%;
+    }
   }
   .footer {
-    margin-top: 20px;
-    padding: 0px 20px;
+    margin-top: 36px;
+    padding: 0px 36px;
     display: flex;
     justify-content: space-between;
   }

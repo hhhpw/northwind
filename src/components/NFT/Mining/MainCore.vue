@@ -7,8 +7,6 @@
         v-for="(d, i) in state.slotArrays"
         :key="i"
         :class="$style['mining-core-container-slot-item-wrap']"
-        @mouseenter.stop="enterNFTSlot(i, d.hasNFT, true)"
-        @mouseleave.stop="enterNFTSlot(i, d.hasNFT, false)"
         @click.stop="clickSlotEvent(i + 1, d.hasNFT)"
       >
         <div
@@ -17,9 +15,9 @@
               if (el) state.slotDOMs[i] = el;
             }
           "
-          :style="setSlotBg(d.hasNFT)"
           :class="$style['mining-core-container-slot-item']"
         >
+          <div :class="$style['mining-core-container-slot-item-no-info']"></div>
           <div :class="$style['mining-core-container-slot-item-img-box']">
             <img :src="d?.imageLink" v-if="d?.imageLink" />
             <div
@@ -124,7 +122,7 @@ let state = reactive({
   provider: computed(() => store.state.StoreWallet.stcProvider),
 });
 
-const { enterNFTSlot, setSlotBg } = changeSlotBgFunc(state);
+// const { enterNFTSlot, setSlotBg } = changeSlotBgFunc(state);
 
 const clickSlotEvent = (index, hasNFT) => {
   if (hasNFT) return;
@@ -189,54 +187,43 @@ onUnmounted(() => {
   transform: rotate(45deg);
 }
 .mining-core-container {
-  background-image: url("../../../assets/nft/nft-mining.png");
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
   position: relative;
-  width: 900px;
+  width: 1200px;
   height: 540px;
+  overflow: hidden;
+  margin-top: 38px;
   .mining-core-container-slot-wrap {
-    position: absolute;
-    bottom: 0px;
+    width: 100%;
+    margin-top: 32px;
+    overflow: hidden;
     .mining-core-container-slot-item-wrap {
       :hover {
         cursor: pointer;
       }
-      position: relative;
-      float: left;
-      height: 182px;
-      background: transparent;
-      width: 180px;
+      display: inline-block;
+      height: 229px;
+      width: 229px;
+      margin-right: 13px;
+      background: rgba(255, 255, 255, 0.1);
+      text-align: center;
+      &:last-child {
+        margin-right: 0;
+      }
       .mining-core-container-slot-item {
-        height: 180px;
-        background: transparent;
-        width: 178px;
-        position: relative;
-        left: 50%;
-        // background-image: url("../../../assets/nft/mining-nft-slot.png");
-        background-repeat: no-repeat;
-        background-size: 100% 100%;
-        top: 50%;
-        // bottom: 50%;
-        transform: translate(-50%, -50%);
-        overflow: hidden;
+        height: 198px;
+        background: rgba(255, 255, 255, 0.1);
+        width: 198px;
+        margin: 16px 15px 16px;
         .mining-core-container-slot-item-img-box {
-          width: 132px;
-          height: 132px;
-          position: absolute;
-          left: 50%;
-          top: 50%;
-          transform: translate(-50%, -51%);
+          width: 198px;
+          height: 198px;
           .mining-core-container-slot-item-img-box-tl {
             @include corner();
             top: -10px;
             left: -10px;
-            // top: -2px;
-            // left: -3px;
           }
           .mining-core-container-slot-item-img-box-tr {
             @include corner();
-            // top: -10px;
             right: -0px;
           }
           .mining-core-container-slot-item-img-box-bl {

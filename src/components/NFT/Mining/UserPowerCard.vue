@@ -24,15 +24,6 @@
       </div>
     </div>
     <div :class="$style['my-power-content']">
-      <div
-        :class="$style['button']"
-        ref="buttonDOM"
-        @mouseenter="enterBtn(true)"
-        @mouseleave="enterBtn(false)"
-        @click="drawProfit"
-      >
-        {{ state.walletStatus !== "connected" ? $t("链接钱包") : $t("收获") }}
-      </div>
       <div :class="$style['year-profit']">
         <p :class="$style['title']">
           {{ $t("nftmining.my-mining-year-profit") }}
@@ -48,6 +39,11 @@
             percentStyle: true,
           }"
         ></star-amount>
+      </div>
+      <div :class="$style['my-power-button']">
+        <div :class="$style['button']" ref="buttonDOM" @click="drawProfit">
+          {{ state.walletStatus !== "connected" ? $t("链接钱包") : $t("收获") }}
+        </div>
       </div>
     </div>
   </div>
@@ -70,16 +66,6 @@ let state = reactive({
 
 const { connectWallet } = connectLogic(store);
 
-const enterBtn = (flag) => {
-  nextTick(() => {
-    if (flag) {
-      buttonDOM.value.style.backgroundImage = `url(${btnHoverBg})`;
-      return;
-    }
-    buttonDOM.value.style.backgroundImage = `url(${btnBg})`;
-  });
-};
-
 const drawProfit = () => {
   if (state.walletStatus !== "connected") {
     connectWallet();
@@ -89,56 +75,60 @@ const drawProfit = () => {
 };
 </script>
 <style lang="scss" module>
+@import "~@/styles/_vars.scss";
 .amount {
-  font-size: 24px;
-  font-weight: bolder;
+  font-size: 18px;
+  font-weight: 600;
 }
 .my-power {
-  position: absolute;
-  right: 25px;
-  width: 380px;
-  height: 160px;
-  top: 55px;
-  color: #ffffff;
+  width: 588px;
+  height: 192px;
+  float: right;
+  color: #fba800;
+  background: linear-gradient(161deg, #fba800 0%, rgba(251, 168, 0, 0.09) 100%);
+  border-radius: 8px;
   .title {
     font-weight: 600;
     font-size: 14px;
   }
 
   .my-power-header {
-    display: flex;
-    justify-content: space-between;
-    padding: 0px 20px;
-    margin-top: 20px;
+    overflow: hidden;
+    padding: 0px 32px;
+    margin-top: 36px;
     .my-power-item {
+      width: 50%;
+      float: left;
       .amount {
-        font-size: 24px;
+        font-size: 18px;
         font-weight: normal;
+        font-weight: 600;
       }
     }
   }
   .my-power-content {
-    display: flex;
-    padding: 0px 20px;
-    margin-top: 15px;
+    padding: 0px 32px;
+    margin-top: 36px;
+    overflow: hidden;
+    .year-profit {
+      width: 50%;
+      float: left;
+    }
+    .my-power-button {
+      width: 50%;
+      float: left;
+    }
     .button {
-      width: 190px;
-      height: 70px;
-      font-size: 20px;
-      line-height: 60px;
-      background-image: url("../../../assets/nft/mining-nft-btn.png");
-      background-size: 100% 100%;
-      background-repeat: no-repeat;
+      width: 206px;
+      height: 35px;
+      font-size: 14px;
+      line-height: 35px;
+      background: #fba800;
+      border-radius: 8px;
       cursor: pointer;
       text-align: center;
       vertical-align: middle;
-      :hover {
-        opacity: 0.5;
-      }
-    }
-    .year-profit {
-      margin-left: 20px;
-      margin-top: 5px;
+      color: $white;
     }
   }
 }
