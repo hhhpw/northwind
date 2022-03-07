@@ -8,11 +8,11 @@
       <div
         v-for="(d, i) in state.menus"
         :key="i"
-        @click="pushPage(d.path)"
+        @click="pushPage(d?.defaultPath || d.path)"
         :class="[
           $style['app-header-menu-item'],
           {
-            [$style['active']]: d.path === state.currentRoute,
+            [$style['active']]: isActivePath(d.path),
           },
         ]"
       >
@@ -51,16 +51,17 @@ import FlyDropDown from "@FlyUI/FlyDropDown.vue";
 import SvgIcon from "@components/SvgIcon/Index.vue";
 import { computed, reactive } from "vue";
 import { useStore } from "vuex";
-// import { useI18n } from "vue-i18n";
 import i18n from "../i18n";
 
 const store = useStore();
+const router = useRouter();
+const route = useRoute();
 
 let state = reactive({
   languages: computed(() => store.state.StoreApp.languages),
   currLang: computed(() => store.state.StoreApp.currLang),
   menus,
-  currentRoute: computed(() => route.path),
+  currentRoute: computed(() => route.meta.url),
 });
 const lang = computed(() => {
   return state.languages.filter((d) => d.value === state.currLang)[0].label;
@@ -74,13 +75,20 @@ const changeLang = (value) => {
   }
 };
 
-const router = useRouter();
-const route = useRoute();
-
 const pushPage = (path) => {
   router.push({
     path,
   });
+};
+
+const isActivePath = (path) => {
+  if (Array.isArray(path)) {
+    console.log("state.currentRoute", state.currentRoute);
+    if (path.indexOf(state.currentRoute) > -1) {
+      return true;
+    }
+  }
+  return path === state.currentRoute;
 };
 </script>
 <style lang="scss" module>
@@ -94,6 +102,7 @@ const pushPage = (path) => {
   line-height: 73px;
   display: flex;
   padding: 0px 20px;
+  z-index: 2000;
   .app-header-logo {
     display: flex;
     align-items: center;
@@ -124,8 +133,9 @@ const pushPage = (path) => {
   .app-header-settings {
     position: fixed;
     right: 20px;
-    top: 20px;
     display: flex;
+    align-items: center;
+    height: 70px;
     .app-header-settings-lang {
       margin-left: 25px;
       box-sizing: border-box;

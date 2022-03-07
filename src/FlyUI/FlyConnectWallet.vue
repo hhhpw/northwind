@@ -69,51 +69,48 @@ const stcBalance = (balance) => {
 </script>
 <style lang="scss" scoped>
 $h: 35px;
-.fly-connect-wallet {
+
+.slide-fade-enter-active {
+  transition: all 0.3s ease-out;
+}
+
+.slide-fade-leave-active {
+  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+}
+
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+  transform: translateX(20px);
+  opacity: 0;
+}
+.fly-button {
   height: $h;
-  display: inline-block;
-  .slide-fade-enter-active {
-    transition: all 0.3s ease-out;
-  }
-
-  .slide-fade-leave-active {
-    transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
-  }
-
-  .slide-fade-enter-from,
-  .slide-fade-leave-to {
-    transform: translateX(20px);
-    opacity: 0;
-  }
-  .fly-button {
-    height: $h;
-    box-sizing: border-box;
-    padding: 0px 16px;
-    width: auto;
-    max-width: 150px;
-  }
-  .fly-connect-wallet-connected {
-    height: $h;
-    font-size: 16px;
+  box-sizing: border-box;
+  padding: 0px 16px;
+  width: auto;
+  max-width: 150px;
+}
+.fly-connect-wallet-connected {
+  height: $h;
+  font-size: 16px;
+  border-radius: 8px;
+  background: $theme_gray_color;
+  align-items: center;
+  display: flex;
+  .fly-connect-wallet-connected-amountstc {
+    background: $theme_light_color;
+    color: $black;
     border-radius: 8px;
-    background: $theme_gray_color;
-    display: flex;
-    align-items: center;
-    .fly-connect-wallet-connected-amountstc {
-      background: $theme_light_color;
-      color: $black;
-      border-radius: 8px;
-      height: 100%;
-      line-height: $h;
-      padding: 0px 16px;
-      text-align: center;
-    }
-    .fly-connect-wallet-connected-account {
-      color: $white;
-      width: 80px;
-      text-align: center;
-      box-sizing: border-box;
-    }
+    height: 100%;
+    line-height: $h;
+    padding: 0px 16px;
+    text-align: center;
+  }
+  .fly-connect-wallet-connected-account {
+    color: $white;
+    width: 80px;
+    text-align: center;
+    box-sizing: border-box;
   }
 }
 </style>

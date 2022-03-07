@@ -13,34 +13,15 @@ export default [
   },
   {
     label: "NFT",
-    path: "/nftblindbox",
-    // children: [
-    //   {
-    //     label: "盲盒",
-    //     path: "/nftblindbox",
-    //   },
-    //   {
-    //     label: "市场",
-    //     path: "/nftmarket",
-    //   },
-    //   {
-    //     label: "平台回购",
-    //     path: "/nftbuyback",
-    //   },
-    //   {
-    //     label: "我的NFT",
-    //     path: {
-    //       name: "nftcollection",
-    //       params: {
-    //         tabIndex: "1",
-    //       },
-    //     },
-    //   },
-    //   {
-    //     label: "NFT挖矿",
-    //     path: "/nftmining",
-    //   },
-    // ],
+    defaultPath: "/nftblindbox",
+    path: [
+      "/nftblindbox",
+      "/nftmarket",
+      "/nftcollection",
+      "/nftbuyback",
+      "/nftmining",
+      "/nftcollectiondetail",
+    ],
   },
   {
     label: "K-Avatar",
