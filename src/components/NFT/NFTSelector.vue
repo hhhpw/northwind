@@ -3,6 +3,7 @@
     <div>
       <!-- 系列 -->
       <ElSelect
+        class="series-select"
         v-model="state.nftSeriesValue"
         :suffix-icon="SelectSuffix"
         :popper-append-to-body="false"
@@ -159,64 +160,72 @@ const changeSortDir = () => {
 </script>
 
 <style scoped lang="scss">
-$bgColor: linear-gradient(180deg, #fdf8f3 0%, #f9efe4 100%);
-$boxShadow: 0px 2px 4px 0px #dfcdb9, inset 0px 1px 0px 0px #ffffff;
-$borderColor: #ebd5bd;
-$fontColor: #391b0f;
-$bgColor2: #fcf7f1;
-$hoverColor: #e9ded1;
+@import "~@/styles/_vars.scss";
 .nft-selector {
+  .series-select {
+    width: 144px;
+  }
   ::v-deep(.el-input) {
-    width: auto;
+    width: 100%;
     border-radius: 8px;
     overflow: hidden;
-    background-color: $bgColor2;
-    height: 32px;
+    height: 36px;
     border: none;
-    box-shadow: $boxShadow;
+    background: rgba(255, 255, 255, 0.2);
   }
   ::v-deep(.el-input__inner) {
-    background: $bgColor;
-    height: 32px;
-    color: $fontColor;
+    height: 36px;
+    color: $white;
     border: none;
+    text-indent: 18px;
+    padding: 0;
+    background: rgba(255, 255, 255, 0.2);
   }
   ::v-deep(.el-input__inner:focus) {
     border: none;
   }
-  ::v-deep(.el-input__inner::placeholder) {
-    color: $fontColor;
-  }
   ::v-deep(.el-select__popper.el-popper[role="tooltip"]) {
     border: none;
+    background: linear-gradient(180deg, #3e3e3e 0%, #3e3e3e 0%, #252525 100%);
+    border-radius: 8px;
   }
   ::v-deep(.el-select-dropdown) {
-    background: linear-gradient(180deg, #fdf8f3 0%, #f9efe4 100%);
-    box-shadow: $boxShadow;
+    width: 144px;
+    background: linear-gradient(180deg, #3e3e3e 0%, #3e3e3e 0%, #252525 100%);
     border: none;
+    border-radius: 8px;
+    .el-select-dropdown__list {
+      margin-top: 14px !important;
+    }
     .el-select-dropdown__item.selected {
-      color: rgba(251, 128, 0, 1);
-      background-color: rgba(233, 222, 209, 0.5);
+      color: $white;
+      font-weight: 400;
+      background: rgba(255, 255, 255, 0.1);
     }
     .el-select-dropdown__item.hover,
     .el-select-dropdown__item:hover {
-      color: rgba(251, 128, 0, 1);
-      background: rgba(233, 222, 209, 0.5);
+      color: $white;
+      background: rgba(255, 255, 255, 0.1);
     }
   }
   ::v-deep(.el-popper.is-light .el-popper__arrow::before) {
-    background-color: $bgColor2;
+    display: none;
   }
   ::v-deep(.el-select__popper.el-popper[role="tooltip"]
       .el-popper__arrow::before) {
     border: none;
+    display: none;
   }
+
   .type-select {
     margin-left: 20px;
-    width: 180px;
+    width: 144px;
   }
   .sort-select {
-    width: 120px;
+    width: 128px;
+    ::v-deep(.el-select-dropdown) {
+      width: 128px;
+    }
   }
 }
 .nft-selector {
@@ -229,12 +238,10 @@ $hoverColor: #e9ded1;
     .sort-item {
       cursor: pointer;
       width: 32px;
-      height: 32px;
+      height: 36px;
       background: linear-gradient(180deg, #fdf8f3 0%, #f9efe4 100%);
-      box-shadow: 0px 2px 4px 0px #dfcdb9, inset 0px 1px 0px 0px #ffffff;
-      border-radius: 8px;
       text-align: center;
-      line-height: 32px;
+      line-height: 36px;
       margin-right: 6px;
       img {
         vertical-align: middle;
