@@ -23,6 +23,6 @@ watchEffect(() => {
   margin: 0 auto;
   margin-top: 70px;
   width: 1400px;
-  border: 1px solid red;
+  // border: 1px solid red;
 }
 </style>

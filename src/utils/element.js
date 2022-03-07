@@ -14,6 +14,7 @@ import {
   ElInfiniteScroll,
   ElSelect,
   ElOption,
+  ElPagination,
 } from "element-plus";
 
 const EleUI = [
@@ -32,6 +33,7 @@ const EleUI = [
   ElInfiniteScroll,
   ElSelect,
   ElOption,
+  ElPagination,
 ];
 
 export default (app) => {
