@@ -128,7 +128,7 @@ const loadMore = () => {
       padding-top: 20px;
       .list-blind-box-item {
         margin-right: 30px;
-        &:nth-child(3n) {
+        &:nth-child(4n) {
           margin-right: 0;
         }
       }

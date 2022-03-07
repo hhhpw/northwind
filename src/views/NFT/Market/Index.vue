@@ -123,8 +123,8 @@ const loadMore = () => {
       flex-wrap: wrap;
       padding-top: 20px;
       .list-blind-box-item {
-        margin-right: 30px;
-        &:nth-child(3n) {
+        margin-right: 28px;
+        &:nth-child(4n) {
           margin-right: 0;
         }
       }
