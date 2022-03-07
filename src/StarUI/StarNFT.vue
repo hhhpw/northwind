@@ -106,16 +106,17 @@ onMounted(() => {
 </script>
 <style lang="scss" scoped>
 @import "~@/styles/variables.scss";
+@import "~@/styles/_vars.scss";
 .star-nft {
-  width: 900px;
+  width: 1200px;
+  background: $black;
   .star-nft-header {
-    width: auto;
+    width: 100%;
+    background: #191919;
   }
   .nft-card-core {
-    // background-color: $nft-card-bgcolor;
     background: #ffffff;
     width: 100%;
-    // height: 400px;
     height: auto;
     box-shadow: 0px 8px 16px 0px rgba(223, 205, 185, 0.46),
       0px 1px 0px 0px #ffffff;
