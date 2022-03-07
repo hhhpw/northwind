@@ -20,6 +20,9 @@ watchEffect(() => {
 
 <style lang="scss" module>
 .app-main {
+  margin: 0 auto;
   margin-top: 70px;
+  width: 1400px;
+  border: 1px solid red;
 }
 </style>

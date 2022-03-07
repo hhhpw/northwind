@@ -56,23 +56,7 @@ $text-brow-color: #744600;
   background-color: #fff;
 }
 .fly-button.disabled {
-  // background-color: $btn-gray-bgcolor;
-  // color: $text-gary2-color;
   background: $gray_light;
   color: $black;
-}
-.fly-button.brown {
-  background-color: $btn-light-brown-bgcolor;
-  color: $text-brown-color;
-}
-.fly-button.green {
-  color: $text-green-color;
-  border: 1px solid $border-green-color;
-  background-color: #fff;
-}
-.fly-button.red {
-  color: $text-error-color;
-  border: 1px solid $border-red-color;
-  background-color: #fff;
 }
 </style>

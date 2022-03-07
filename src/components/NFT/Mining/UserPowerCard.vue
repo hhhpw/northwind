@@ -57,7 +57,7 @@
 import { computed, onMounted, reactive, watch, nextTick, ref } from "vue";
 import StarAmount from "@StarUI/StarAmount.vue";
 import { useStore } from "vuex";
-import connectLogic from "../../../mixins/wallet";
+import connectLogic from "@hooks/useMyWallet";
 import btnBg from "../../../assets/nft/mining-nft-btn.png";
 import btnHoverBg from "../../../assets/nft/mining-nft-btn-hover.png";
 let buttonDOM = ref();

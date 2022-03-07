@@ -99,7 +99,7 @@ import utilsFormat from "@utils/format";
 import SvgIcon from "@components/SvgIcon/Index.vue";
 import StarSpace from "@StarUI/StarSpace.vue";
 import { useStore } from "vuex";
-import connectLogic from "@mixins/wallet";
+import connectLogic from "@hooks/useMyWallet";
 import utilsRegExp from "@utils/regexp.js";
 import ValidateErrorModal from "./ValidateErrorModal.vue";
 import SelectSuffix from "@components/SelectSuffix.vue";

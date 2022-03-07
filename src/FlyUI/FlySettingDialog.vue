@@ -7,23 +7,24 @@
     >
       <template #content>
         <div class="setting">
-          <p>
-            <label style="margin-right: 5px">{{ $t("滑点容差") }}</label>
-            <ElTooltip placement="right" :append-to-body="false">
-              <template #content>
-                <div :style="'max-width:300px;'">
-                  {{
-                    $t(
-                      "较高的滑点容差有助于交易成功。设置完成后，如果兑换率变动超过此百分比，则此次交易不会被执行。"
-                    )
-                  }}
-                </div>
-              </template>
-              <template #default>
-                <svg-icon name="f-question" class="question"></svg-icon>
-              </template>
-            </ElTooltip>
-          </p>
+          <div class="flex-style">
+            <span style="margin-right: 5px; font-size: 16px; color: #fff">{{
+              $t("滑点容差")
+            }}</span>
+            <fly-tool-tip
+              :placeString="
+                $t(
+                  '较高的滑点容差有助于交易成功。设置完成后，如果兑换率变动超过此百分比，则此次交易不会被执行。'
+                )
+              "
+              svgName="f-question"
+              :svgStyle="{
+                'margin-right': '3px',
+              }"
+            >
+            </fly-tool-tip>
+          </div>
+
           <div class="flex-style">
             <el-radio-group
               v-model="state.slippageTolerance"
@@ -50,18 +51,18 @@
           </div>
 
           <div class="footer">
-            <div>
-              <label style="margin-right: 5px">{{ $t("多节点兑换") }}</label>
-              <ElTooltip placement="right" :append-to-body="false">
-                <template #content>
-                  <div :style="'max-width:400px'">
-                    {{ $t("关闭后将只进行直接币对交易") }}
-                  </div>
-                </template>
-                <template #default>
-                  <svg-icon name="f-question" class="question"></svg-icon>
-                </template>
-              </ElTooltip>
+            <div class="flex-style">
+              <span style="margin-right: 5px; font-size: 16px; color: #fff">{{
+                $t("多节点兑换")
+              }}</span>
+              <fly-tool-tip
+                :placeString="$t('关闭后将只进行直接币对交易')"
+                svgName="f-question"
+                :svgStyle="{
+                  'margin-right': '3px',
+                }"
+              >
+              </fly-tool-tip>
             </div>
 
             <div class="switchSlippage" @click="changeSwitchSlippage">
@@ -84,10 +85,9 @@
 <script setup>
 import FlyDialog from "@FlyUI/FlyDialog.vue";
 import { reactive, defineProps, watch, defineEmits, computed } from "vue";
-// import { ElRadioGroup, ElRadioButton, ElInput, ElTooltip } from "element-plus";
 import session from "@utils/session";
 import { useStore } from "vuex";
-import SvgIcon from "@components/SvgIcon/Index.vue";
+import FlyToolTip from "@FlyUI/FlyToolTip.vue";
 
 let state = reactive({
   visible: props.dialogVisible,

@@ -87,7 +87,7 @@ import { useI18n } from "vue-i18n";
 import AddPool from "./addpool.vue";
 import DelPool from "./delpool.vue";
 import PoolList from "./poollist.vue";
-import connectLogic from "@mixins/wallet";
+import connectLogic from "@hooks/useMyWallet";
 import SearchCurrency from "@components/SearchCurrency";
 import HistoryRecord from "@components/HistoryRecord";
 

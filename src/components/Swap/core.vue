@@ -210,7 +210,7 @@ import SearchCurrency from "../SearchCurrency";
 import HistoryRecord from "../HistoryRecord.vue";
 import { useI18n } from "vue-i18n"; //要在js中使用国际化
 import { debounce } from "lodash";
-import connectLogic from "@mixins/wallet";
+import connectLogic from "@hooks/useMyWallet";
 const { t } = useI18n();
 const store = useStore();
 import Wallet from "../../wallet/index";

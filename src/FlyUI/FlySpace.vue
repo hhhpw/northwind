@@ -17,9 +17,9 @@ const props = defineProps({
 const sizeStyle = computed(() => {
   const size = props.size;
   if (props.horizontal) {
-    return `display:inline-block; width: ${size}PX;`;
+    return `display:inline-block; width: ${size}px;`;
   }
-  return `height: ${size}PX;`;
+  return `height: ${size}px;`;
 });
 </script>
 

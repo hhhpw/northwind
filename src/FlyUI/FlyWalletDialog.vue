@@ -1,8 +1,8 @@
 <template>
-  <div class="star-wallet-dialog">
+  <div class="fly-wallet-dialog">
     <ElDialog
       v-model="state.visible"
-      custom-class="star-dialog-el"
+      custom-class="fly-dialog-el"
       width="480px"
       :before-close="() => emits('handleClose')"
       :close-on-press-escape="false"
@@ -12,7 +12,7 @@
     >
       <template #title>
         <div
-          class="star-wallet-dialog-header"
+          class="fly-wallet-dialog-header"
           :style="{
             'justify-content': props.dialogParams.hasTitle
               ? 'space-between'
@@ -20,20 +20,20 @@
           }"
         >
           <!-- 自定义标题 -->
-          <slot name="star-wallet-dialog-header-title"></slot>
+          <slot name="fly-wallet-dialog-header-title"></slot>
           <span v-if="props.dialogParams.hasTitle">
             {{ props.dialogParams.title }}
           </span>
           <svg-icon
             v-if="props.dialogParams.isShowClose"
             name="f-dialog-close"
-            class="star-wallet-dialog-header-svg"
+            class="fly-wallet-dialog-header-svg"
             @click.stop="() => emits('handleClose')"
           ></svg-icon>
         </div>
       </template>
-      <div class="star-wallet-dialog-content">
-        <div class="star-wallet-dialog-content-core">
+      <div class="fly-wallet-dialog-content">
+        <div class="fly-wallet-dialog-content-core">
           <img
             style="border-radius: 16px"
             :src="renderContentImg(props.dialogParams.dialogStatus)"
@@ -46,7 +46,7 @@
             v-if="props.dialogParams.isUseStatusImg"
           />
           <p
-            class="star-wallet-dialog-content-core-text"
+            class="fly-wallet-dialog-content-core-text"
             v-if="props.dialogParams.dialogText"
           >
             {{
@@ -56,9 +56,9 @@
             }}
           </p>
         </div>
-        <slot name="star-wallet-dialog-custom-content"></slot>
+        <slot name="fly-wallet-dialog-custom-content"></slot>
         <div
-          class="star-wallet-dialog-content-feedback"
+          class="fly-wallet-dialog-content-feedback"
           :style="{
             width: setDiaglogStyle.feedBackWith,
             display:
@@ -70,7 +70,7 @@
         >
           <div
             :class="renderColorStyle(props.dialogParams.phase1)"
-            class="star-wallet-dialog-content-feedback-phase1"
+            class="fly-wallet-dialog-content-feedback-phase1"
             v-if="props.dialogParams.phase1"
           >
             <img
@@ -82,7 +82,7 @@
             <span>{{ $t("在钱包确认操作") }}</span>
           </div>
           <div
-            class="star-wallet-dialog-content-feedback-phase2"
+            class="fly-wallet-dialog-content-feedback-phase2"
             :class="renderColorStyle(props.dialogParams.phase2)"
           >
             <img
@@ -95,10 +95,10 @@
           </div>
         </div>
       </div>
-      <div class="star-wallet-dialog-footer">
+      <div class="fly-wallet-dialog-footer">
         <fly-button
           @click="emits('handleSucceed')"
-          class="star-wallet-dialog-footer-button"
+          class="fly-wallet-dialog-footer-button"
           type="success_ghost"
           v-if="
             props.dialogParams.successBtnText &&
@@ -109,7 +109,7 @@
         </fly-button>
         <fly-button
           type="danger_ghost"
-          class="star-wallet-dialog-footer-button"
+          class="fly-wallet-dialog-footer-button"
           @click="emits('handleFailed')"
           v-if="
             props.dialogParams.failedBtnText &&
@@ -239,7 +239,7 @@ const emits = defineEmits(["handleClose", "handleSucceed", "handleFailed"]);
   }
 }
 
-.star-wallet-dialog {
+.fly-wallet-dialog {
   ::v-deep(.el-dialog) {
     background-color: $black;
     border-radius: 34px;
@@ -251,12 +251,12 @@ const emits = defineEmits(["handleClose", "handleSucceed", "handleFailed"]);
   ::v-deep(.el-dialog__body) {
     padding-top: 10px !important;
   }
-  .star-wallet-dialog-header {
+  .fly-wallet-dialog-header {
     display: flex;
     justify-content: flex-end;
     align-items: center;
     font-weight: bold;
-    .star-wallet-dialog-header-svg {
+    .fly-wallet-dialog-header-svg {
       width: 36px;
       height: 36px;
       &:hover {
@@ -264,16 +264,16 @@ const emits = defineEmits(["handleClose", "handleSucceed", "handleFailed"]);
       }
     }
   }
-  .star-wallet-dialog-content {
+  .fly-wallet-dialog-content {
     // background: red;
-    .star-wallet-dialog-content-core {
+    .fly-wallet-dialog-content-core {
       text-align: center;
       img {
         display: inline-block;
         width: 140px;
         user-select: none;
       }
-      .star-wallet-dialog-content-core-text {
+      .fly-wallet-dialog-content-core-text {
         font-size: 20px;
         color: $theme_light_color;
         font-weight: 600;
@@ -284,11 +284,11 @@ const emits = defineEmits(["handleClose", "handleSucceed", "handleFailed"]);
       }
     }
   }
-  .star-wallet-dialog-content-mining-success {
+  .fly-wallet-dialog-content-mining-success {
     color: #8b8b8b;
     text-align: center;
   }
-  .star-wallet-dialog-content-feedback {
+  .fly-wallet-dialog-content-feedback {
     // transform: rotate(-20deg, 0deg);
     // transform-origin: right center;
     width: 323px;
@@ -327,17 +327,17 @@ const emits = defineEmits(["handleClose", "handleSucceed", "handleFailed"]);
       transition: 0.5s;
       animation: rotate 1s linear infinite;
     }
-    .star-wallet-dialog-content-feedback-phase1 {
+    .fly-wallet-dialog-content-feedback-phase1 {
       margin-top: 30px;
     }
-    .star-wallet-dialog-content-feedback-phase2 {
+    .fly-wallet-dialog-content-feedback-phase2 {
       margin-top: 10px;
     }
   }
-  .star-wallet-dialog-footer {
+  .fly-wallet-dialog-footer {
     width: 100%;
     margin-top: 0px;
-    .star-wallet-dialog-footer-button {
+    .fly-wallet-dialog-footer-button {
       padding-right: 0px;
       padding-left: 0px;
       width: 70%;

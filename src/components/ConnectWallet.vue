@@ -30,7 +30,7 @@
 import { computed, onMounted, reactive } from "vue";
 import StarButton from "@StarUI/StarButton.vue";
 import { useStore } from "vuex";
-import connectLogic from "../mixins/wallet";
+import connectLogic from "@hooks/useMyWallet";
 import utilsFormat from "@utils/format";
 import Cookies from "js-cookie";
 import CONSTANTS_TOKENS from "@constants/token";

@@ -10,7 +10,7 @@
 </template>
 <script setup>
 import StarButton from "@StarUI/StarButton.vue";
-import connectLogic from "@mixins/wallet";
+import connectLogic from "@hooks/useMyWallet";
 import { useStore } from "vuex";
 const store = useStore();
 const { connectWallet } = connectLogic(store);

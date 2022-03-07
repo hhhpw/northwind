@@ -182,7 +182,7 @@ import { isUndefined } from "lodash";
 import { useRouter, useRoute } from "vue-router";
 import utilsNumber from "@utils/number";
 import utilsFormat from "@utils/format";
-import connectLogic from "../../../mixins/wallet";
+import connectLogic from "@hooks/useMyWallet";
 import CONSTANTS_TOKENS from "@constants/token";
 import NftSoldOutDialog from "@components/NFT/NFTSoldOutDialog.vue";
 import StarLoadingFish from "@StarUI/StarLoadingFish.vue";

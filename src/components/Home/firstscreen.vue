@@ -92,7 +92,7 @@ import HOME_CONSTANTS from "@constants/home";
 import { useStore } from "vuex";
 import utilsRouter from "@utils/router";
 // import Hls from "hls.js";
-import connectLogic from "@mixins/wallet";
+import connectLogic from "@hooks/useMyWallet";
 const descZhPNG = require("../../assets/home/firstscreen-content-desc-zh.png");
 const descPNG = require("../../assets/home/firstscreen-content-desc.png");
 

@@ -72,9 +72,9 @@ module.exports = {
       .set("@views", resolve("src/views"))
       .set("@store", resolve("src/store"))
       .set("@styles", resolve("src/styles"))
-      .set("@mixins", resolve("src/mixins"))
       .set("@wallet", resolve("src/wallet"))
       .set("@i18n", resolve("src/i18n"))
+      .set("@hooks", resolve("src/hooks"))
       .set("@constants", resolve("src/constants"));
 
     config.module.rule("svg").exclude.add(resolve("src/icons")).end();
