@@ -20,13 +20,13 @@
           <div :class="$style['main-item-info']">
             <span :class="$style['main-item-info-data']">
               <svg-icon name="f-rarity"></svg-icon>
-              <star-amount
+              <fly-amount
                 :value="d.score"
                 :formatOptions="{
                   precision: 0,
                   trailingZero: true,
                 }"
-              ></star-amount>
+              ></fly-amount>
             </span>
             <span :class="$style['main-item-info-amount']">
               <span>&times;</span>
@@ -61,7 +61,7 @@
 import { computed, reactive } from "vue";
 import SvgIcon from "@components/SvgIcon/Index.vue";
 import NoElementItem from "./NoElementItem.vue";
-import StarAmount from "@StarUI/StarAmount.vue";
+import FlyAmount from "@FlyUI/FlyAmount.vue";
 import { useStore } from "vuex";
 const store = useStore();
 const state = reactive({

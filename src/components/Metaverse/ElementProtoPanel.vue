@@ -9,9 +9,20 @@
         { [$style['property-item-active']]: i === state.activeProperty },
       ]"
     >
+      <div
+        v-if="i === state.activeProperty"
+        :class="$style['property-item-active-block']"
+      ></div>
       {{ $t(`nftproperty.${d.desc}`) }}
     </div>
-    <div :class="[$style['property-item'], $style['property-item-get']]">
+    <div
+      :class="[$style['property-item'], $style['property-item-get']]"
+      @click="
+        store.commit('StoreMeta/SET_SELECTOR_DIALOG_PARAMS', {
+          dialogVisible: true,
+        })
+      "
+    >
       {{ $t("metaverse.obtain components") }}
     </div>
   </div>
@@ -58,13 +69,21 @@ const changeProperty = (d, i) => {
     color: rgba(255, 255, 255, 0.5);
     line-height: 40px;
     font-size: 14px;
+    border-left: 1px solid transparent;
+    position: relative;
     &:hover {
       @include activeBtnStyle();
     }
   }
   .property-item-active {
     background: linear-gradient(129deg, #4a4a4a 0%, #3c3c3c 100%);
-    border-left: 1px solid #ffffff;
+    .property-item-active-block {
+      left: 1px;
+      position: absolute;
+      width: 1px;
+      height: 100%;
+      background: #ffffff;
+    }
   }
   .property-item-get {
     color: $theme_light_color;
