@@ -36,7 +36,7 @@
         <img :src="d.image" />
       </div>
       <div :class="$style['role-character-add']" @click="changeMainType">
-        <img src="../../assets/metaverse/add-role.png" />
+        {{ $t("角色卡牌制作") }}
       </div>
     </div>
   </div>
@@ -96,22 +96,19 @@ const pushHeroDetail = (payload) => {
 
 .role {
   // width: 1100px;
-  height: 136px;
-  background: linear-gradient(180deg, #fef5d3 0%, #f2decb 100%);
-  box-shadow: 0px 6px 13px 0px rgba(223, 205, 185, 0.46),
-    inset 1px 1px 0px 0px #ffecd4,
-    inset -1px -1px 0px 0px rgba(220, 164, 105, 0.36);
-  border-radius: 13px;
+  height: 150px;
+  box-sizing: border-box;
+  border: 1px solid red;
   display: flex;
-  padding: 0px 20px;
   overflow-x: scroll;
+  padding-right: 20px;
   &::-webkit-scrollbar {
     height: 5px;
-    background-color: #ffecd4;
+    // background-color: #ffecd4;
     border-radius: 20px;
   }
   &::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.5);
+    // background: rgba(255, 255, 255, 0.5);
     border-radius: 20px;
     width: 80%;
   }
@@ -129,14 +126,12 @@ const pushHeroDetail = (payload) => {
     display: flex;
     align-self: center;
     .role-character-item {
-      width: 108px;
-      height: 108px;
-      border: 2px solid #fff;
-      box-sizing: border-box;
-      // box-shadow: ;
+      width: 150px;
+      height: 150px;
       border-radius: 6px;
       overflow: hidden;
       position: relative;
+      background: #000000;
       &:not(:first-child) {
         margin-left: 15px;
       }
@@ -149,7 +144,7 @@ const pushHeroDetail = (payload) => {
         height: 100%;
         top: 0;
         left: 0;
-        background: rgba(0, 0, 0, 0.5);
+        // background: rgba(0, 0, 0, 0.5);
         color: #fff;
         display: none;
         font-size: 14px;
@@ -171,9 +166,14 @@ const pushHeroDetail = (payload) => {
     .role-character-add {
       display: inline-block;
       margin-left: 15px;
-      width: 108px;
-      height: 108px;
+      width: 150px;
+      height: 150px;
       cursor: pointer;
+      background: #000000;
+      color: #ffffff;
+      font-size: 16px;
+      text-align: center;
+      line-height: 150px;
     }
   }
 }
