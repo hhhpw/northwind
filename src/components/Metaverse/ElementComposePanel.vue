@@ -4,7 +4,6 @@
     class="compose-container"
     v-if="state.metaData"
   >
-    <fly-space :size="15"></fly-space>
     <div :class="$style['role-box']">
       <div :class="$style['role-box-score']">
         <svg-icon name="f-rarity" style="margin-right: 3px"></svg-icon>
