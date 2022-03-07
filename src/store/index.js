@@ -4,7 +4,6 @@ import StoreApp from "./modules/StoreApp";
 import StoreSwap from "./modules/StoreSwap";
 import StoreWallet from "./modules/StoreWallet";
 import StoreLiquidity from "./modules/StoreLiquidity";
-import StoreNFTDetail from "./modules/NFT/StoreDetail";
 import StoreBlindBox from "./modules/NFT/StoreBlindBox";
 import StoreNftMarket from "./modules/NFT/StoreMarket";
 import StoreCollection from "./modules/NFT/StoreCollection";
@@ -21,7 +20,6 @@ export default createStore({
     StoreSwap,
     StoreWallet,
     StoreLiquidity,
-    StoreNFTDetail,
     StoreBlindBox,
     StoreNftMarket,
     StoreCollection,

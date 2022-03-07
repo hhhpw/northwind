@@ -4,9 +4,10 @@
     <role></role>
     <div :class="$style.main">
       <template v-if="state.type === 'not-generated'">
-        <element-panel></element-panel>
-        <compose-panel></compose-panel
-      ></template>
+        <element-proto-panel></element-proto-panel>
+        <element-show-panel></element-show-panel>
+        <element-compose-panel></element-compose-panel>
+      </template>
       <template v-if="state.type === 'generated'">
         <user-hero-card></user-hero-card>
         <hero-info></hero-info>
@@ -21,8 +22,9 @@
 /* eslint-disable*/
 import { computed, onUnmounted, reactive, watchEffect } from "vue";
 import Role from "@components/Metaverse/Role.vue";
-import ElementPanel from "./ElementPanel.vue";
-import ComposePanel from "./ComposePanel.vue";
+import ElementProtoPanel from "./ElementProtoPanel.vue";
+import ElementShowPanel from "./ElementShowPanel.vue";
+import ElementComposePanel from "./ElementComposePanel.vue";
 import SelectorModal from "@components/Metaverse/SelectorModal.vue";
 import WalletOperateModal from "./WalletOperateModal.vue";
 import SecondConfirmModal from "./SecondConfirmModal.vue";
@@ -61,13 +63,14 @@ onUnmounted(() => {
 </script>
 <style lang="scss" module>
 .wrap {
-  width: 1000px;
+  width: 100%;
   overflow: hidden;
   margin: 0 auto;
   margin-top: 20px;
   .main {
     display: flex;
     margin-top: 30px;
+    background: #000000;
   }
 }
 </style>

@@ -7,13 +7,11 @@
       })
     "
   >
-    <svg-icon name="clothes" :class="$style['svg']"></svg-icon>
+    <svg-icon name="f-clothes" :class="$style['svg']"></svg-icon>
     <p>{{ $t("metaverse.obtain components") }}</p>
   </div>
 </template>
 <script setup>
-/* eslint-disable */
-import { computed, onMounted, reactive, watch } from "vue";
 import SvgIcon from "@components/SvgIcon/Index.vue";
 import { useStore } from "vuex";
 const store = useStore();
@@ -22,10 +20,9 @@ const store = useStore();
 .box {
   min-width: 102px;
   min-height: 102px;
-  background: rgba(251, 128, 0, 0.06);
+  background: rgba(216, 216, 216, 0.11);
   border-radius: 4px;
   opacity: 0.98;
-  border: 1px dashed rgba(251, 128, 0, 0.52);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -36,7 +33,7 @@ const store = useStore();
   }
   p {
     font-size: 14px;
-    color: #fb8000;
+    color: $theme-light-color;
     cursor: pointer;
   }
 }
