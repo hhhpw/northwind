@@ -17,12 +17,13 @@
           "
           :class="$style['mining-core-container-slot-item']"
         >
-          <div :class="$style['mining-core-container-slot-item-no-info']"></div>
-          <div :class="$style['mining-core-container-slot-item-img-box']">
-            <img :src="d?.imageLink" v-if="d?.imageLink" />
+          <div
+            :class="$style['mining-core-container-slot-item-img-box']"
+            v-if="d?.imageLink"
+          >
+            <img :src="d?.imageLink" />
             <div
               :class="$style['mining-core-container-slot-item-img-box-desc']"
-              v-if="d?.imageLink"
             >
               <svg-icon
                 name="mininglight"
@@ -33,6 +34,18 @@
                 :formatOptions="{ precision: 2, trailingZero: true }"
               ></star-amount>
             </div>
+          </div>
+          <div
+            :class="$style['mining-core-container-slot-item-no-info']"
+            v-else
+          >
+            <div :class="$style['no-nft']">
+              <svg-icon
+                name="f-add-mining"
+                style="width: 38px; height: 38px"
+              ></svg-icon>
+            </div>
+            <p>{{ $t("nftmining.nft-selector-title") }}</p>
           </div>
           <div
             :ref="
@@ -189,7 +202,6 @@ onUnmounted(() => {
 .mining-core-container {
   position: relative;
   width: 1200px;
-  height: 540px;
   overflow: hidden;
   margin-top: 38px;
   .mining-core-container-slot-wrap {
@@ -260,6 +272,15 @@ onUnmounted(() => {
             transform: translate(-50%, -50%);
           }
         }
+        .mining-core-container-slot-item-no-info {
+          .no-nft {
+            padding: 65px 80px 0;
+          }
+          p {
+            margin-top: 24px;
+            color: $white;
+          }
+        }
         .mining-core-container-slot-item-shadow-box {
           width: 132px;
           height: 132px;
@@ -291,6 +312,6 @@ onUnmounted(() => {
   font-weight: 600;
   color: #8b8b8b;
   font-size: 14px;
-  margin-top: 30px;
+  margin-top: 51px;
 }
 </style>

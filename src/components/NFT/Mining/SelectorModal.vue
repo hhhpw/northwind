@@ -3,7 +3,7 @@
     <ElDialog
       v-model="state.visible"
       custom-class="star-dialog-el"
-      width="868px"
+      width="672px"
       :before-close="handleClose"
       :close-on-press-escape="false"
       :close-on-click-modal="false"
@@ -19,7 +19,7 @@
             </p>
           </div>
           <svg-icon
-            name="dialog-close"
+            name="f-dialog-close"
             class="nft-mining-selector-dialog-header-svg"
             @click.stop="handleClose"
           ></svg-icon>
@@ -53,9 +53,13 @@ const handleClose = () => {
 };
 </script>
 <style lang="scss" scoped>
+@import "~@/styles/_vars.scss";
 .nft-mining-selector-dialog {
   ::v-deep(.el-dialog) {
     border-radius: 8px;
+    padding: 32px 24px;
+    height: 717px;
+    background: linear-gradient(180deg, #3e3e3e 0%, #3e3e3e 0%, #252525 100%);
     .el-dialog__headerbtn:focus .el-dialog__close,
     .el-dialog__headerbtn:hover .el-dialog__close {
       color: $btn-orange-bgcolor;
@@ -64,6 +68,9 @@ const handleClose = () => {
   ::v-deep(.el-dialog__body) {
     padding-top: 0px !important;
     // padding: 0px 0px 30px !important;
+  }
+  ::v-deep(.el-dialog__header) {
+    padding: 0 !important;
   }
   .star-dialog-el {
     ::v-deep(.el-dialog__header) {
@@ -77,14 +84,13 @@ const handleClose = () => {
     justify-content: space-between;
     margin-bottom: 20px;
     .nft-mining-selector-dialog-header-text {
+      color: $white;
       p:first-child {
         font-weight: 500;
-        color: #391b0f;
         font-size: 20px;
       }
       p:last-child {
         font-size: 14px;
-        color: #8b8b8b;
       }
     }
     .nft-mining-selector-dialog-header-svg {
@@ -93,8 +99,8 @@ const handleClose = () => {
     }
   }
   .nft-mining-selector-empty-link {
-    color: rgb(251, 128, 0);
-    border-bottom: 1px dashed rgb(251, 128, 0);
+    color: #fba800;
+    border-bottom: 1px dashed #fba800;
     cursor: pointer;
   }
 }

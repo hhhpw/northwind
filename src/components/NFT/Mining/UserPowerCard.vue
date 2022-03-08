@@ -85,7 +85,7 @@ const drawProfit = () => {
   height: 192px;
   float: right;
   color: #fba800;
-  background: linear-gradient(161deg, #fba800 0%, rgba(251, 168, 0, 0.09) 100%);
+  background: linear-gradient(161deg, #422c00 0%, #1f1400 100%);
   border-radius: 8px;
   .title {
     font-weight: 600;
@@ -117,18 +117,18 @@ const drawProfit = () => {
     .my-power-button {
       width: 50%;
       float: left;
+      height: 70px;
     }
     .button {
       width: 206px;
       height: 35px;
-      font-size: 14px;
-      line-height: 35px;
-      background: #fba800;
+      background: linear-gradient(256deg, #fdd300 0%, #fba800 100%);
+      box-shadow: 0px 12px 15px 0px rgba(253, 168, 0, 0.39);
       border-radius: 8px;
-      cursor: pointer;
+      font-weight: 600;
+      color: #170f00;
       text-align: center;
-      vertical-align: middle;
-      color: $white;
+      line-height: 35px;
     }
   }
 }
