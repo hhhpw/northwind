@@ -7,21 +7,22 @@
       @mouseenter="changeBtnStatus(i, true)"
       @mouseleave="changeBtnStatus(i, false)"
     >
-      <img :src="d.imageLink" />
-      <p :class="$style['card-wrap-item-text']">
-        {{ $t("nftmining.mining-power") }}：
-        <star-amount
-          :value="d.score"
-          :formatOptions="{
-            precision: 2,
-            trailingZero: true,
-          }"
-        >
-        </star-amount>
-      </p>
-      <div v-show="d.isShow">
+      <div :class="$style['item-content']">
+        <img :src="d.imageLink" />
+        <p :class="$style['card-wrap-item-text']">
+          {{ $t("nftmining.mining-power") }}：
+          <star-amount
+            :value="d.score"
+            :formatOptions="{
+              precision: 2,
+              trailingZero: true,
+            }"
+          >
+          </star-amount>
+        </p>
+      </div>
+      <div v-show="d.isShow" :class="$style['stake-show']">
         <star-button
-          type="dark"
           :class="$style['card-wrap-item-btn']"
           @click="
             store.dispatch('StoreNFTMining/stakeNFT', {
@@ -64,36 +65,53 @@ const changeBtnStatus = (i, flag) => {
   display: flex;
   flex-wrap: wrap;
   max-height: 60vh;
-  height: 60vh;
   overflow: scroll;
   img {
     width: 144px;
     height: 144px;
-    border-radius: 8px;
   }
+
   .card-wrap-item {
-    padding: 24px 20px;
-    margin-bottom: 15px;
-    margin-left: 14px;
+    width: 144px;
+    height: 173px;
+    margin-bottom: 24px;
     text-align: center;
-    border: 2px solid transparent;
-    // width: 120px;
-    height: 220px;
-    &:hover {
-      border: 2px solid #ff9534;
-      cursor: pointer;
+    margin-right: 16px;
+    position: relative;
+    .item-content {
+      position: absolute;
+      z-index: 99;
+    }
+    &:nth-child(4n) {
+      margin-right: 0;
     }
     .card-wrap-item-text {
-      margin-top: 10px;
-      color: #391b0f;
+      margin-top: 4px;
+      color: #ffffff;
       font-size: 14px;
+      text-align: left;
     }
     .card-wrap-item-btn {
       margin-top: 3px;
       width: 120px;
       padding: 8px;
-      border-radius: 5px;
+      border-radius: 4px;
       font-size: 14px;
+      border: none;
+      background: linear-gradient(256deg, #fdd300 0%, #fba800 100%);
+      box-shadow: 0px 12px 15px 0px rgba(253, 168, 0, 0.39);
+      margin: 57px 0;
+      color: #000000;
+      font-size: 16px;
+    }
+    .stake-show {
+      width: 144px;
+      height: 144px;
+      position: absolute;
+      z-index: 1000;
+      background: rgba(11, 7, 0, 0.5);
+      top: 0;
+      cursor: pointer;
     }
   }
 }

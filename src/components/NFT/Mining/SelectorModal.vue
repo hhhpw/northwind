@@ -66,7 +66,7 @@ const handleClose = () => {
     }
   }
   ::v-deep(.el-dialog__body) {
-    padding-top: 0px !important;
+    padding: 0px !important;
     // padding: 0px 0px 30px !important;
   }
   ::v-deep(.el-dialog__header) {
@@ -87,7 +87,7 @@ const handleClose = () => {
       color: $white;
       p:first-child {
         font-weight: 500;
-        font-size: 20px;
+        font-size: 24px;
       }
       p:last-child {
         font-size: 14px;
@@ -97,11 +97,6 @@ const handleClose = () => {
       width: 30px;
       height: 30px;
     }
-  }
-  .nft-mining-selector-empty-link {
-    color: #fba800;
-    border-bottom: 1px dashed #fba800;
-    cursor: pointer;
   }
 }
 </style>

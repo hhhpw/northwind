@@ -15,6 +15,8 @@
               if (el) state.slotDOMs[i] = el;
             }
           "
+          @mouseenter="changeBtnStatus(i, true)"
+          @mouseleave="changeBtnStatus(i, false)"
           :class="$style['mining-core-container-slot-item']"
         >
           <div
@@ -29,6 +31,7 @@
                 name="mininglight"
                 style="margin-right: 3px; margin-left: 5px"
               ></svg-icon>
+              <span>{{ $t("算力") }}:</span>
               <star-amount
                 :value="d.score"
                 :formatOptions="{ precision: 2, trailingZero: true }"
@@ -53,10 +56,10 @@
                 if (el) state.shadowDOMs[i] = el;
               }
             "
+            v-if="state.listShow[i] === true"
             :class="$style['mining-core-container-slot-item-shadow-box']"
           >
             <star-button
-              type="dark"
               :class="$style['mining-core-container-slot-item-shadow-box-btn']"
               @click.stop.prevent="
                 store.dispatch('StoreNFTMining/removeNFT', {
@@ -133,6 +136,7 @@ let state = reactive({
   accounts: computed(() => store.state.StoreWallet.accounts),
   currLang: computed(() => store.state.StoreApp.currLang),
   provider: computed(() => store.state.StoreWallet.stcProvider),
+  listShow: [],
 });
 
 // const { enterNFTSlot, setSlotBg } = changeSlotBgFunc(state);
@@ -155,6 +159,14 @@ const init = async () => {
       state.isLoading = false;
     }, 1500);
   }
+};
+
+const changeBtnStatus = (i, flag) => {
+  if (flag) {
+    state.listShow[i] = true;
+    return;
+  }
+  state.listShow[i] = false;
 };
 
 init();
@@ -193,12 +205,6 @@ onUnmounted(() => {
 });
 </script>
 <style lang="scss" module>
-@mixin corner {
-  position: absolute;
-  height: 20px;
-  width: 20px;
-  transform: rotate(45deg);
-}
 .mining-core-container {
   position: relative;
   width: 1200px;
@@ -226,50 +232,37 @@ onUnmounted(() => {
         background: rgba(255, 255, 255, 0.1);
         width: 198px;
         margin: 16px 15px 16px;
+        position: relative;
         .mining-core-container-slot-item-img-box {
           width: 198px;
           height: 198px;
-          .mining-core-container-slot-item-img-box-tl {
-            @include corner();
-            top: -10px;
-            left: -10px;
-          }
-          .mining-core-container-slot-item-img-box-tr {
-            @include corner();
-            right: -0px;
-          }
-          .mining-core-container-slot-item-img-box-bl {
-            @include corner();
-            bottom: -10px;
-            left: -10px;
-          }
-          .mining-core-container-slot-item-img-box-br {
-            @include corner();
-            bottom: -10px;
-            right: -10px;
+          position: relative;
+          img {
+            width: 198px;
+            height: 198px;
+            border: none;
+            position: absolute;
+            left: 0;
           }
           .mining-core-container-slot-item-img-box-desc {
             background: linear-gradient(
               180deg,
               rgba(0, 0, 0, 0) 0%,
-              rgba(0, 0, 0, 0.9) 100%
+              #000000 100%
             );
             opacity: 0.74;
-            width: 132px;
+            width: 198px;
             padding: 5px 0px;
             color: #fff;
-            font-size: 12px;
+            font-size: 14px;
             position: absolute;
             bottom: 0px;
-          }
-          img {
-            width: 132px;
-            height: 132px;
-            border: none;
-            position: relative;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
+            z-index: 100;
+            text-align: left;
+            font-weight: 400;
+            span {
+              margin-right: 10px;
+            }
           }
         }
         .mining-core-container-slot-item-no-info {
@@ -282,23 +275,26 @@ onUnmounted(() => {
           }
         }
         .mining-core-container-slot-item-shadow-box {
-          width: 132px;
-          height: 132px;
+          width: 198px;
+          height: 198px;
           position: absolute;
-          left: 50%;
-          top: 50%;
-          background-color: rgba(0, 0, 0, 0.5);
-          transform: translate(-50%, -51%);
-          display: none;
+          z-index: 1000;
+          background: rgba(11, 7, 0, 0.5);
+          top: 0;
+          cursor: pointer;
           .mining-core-container-slot-item-shadow-box-btn {
-            padding: 5px 15px;
-            width: 60px;
+            width: 160px;
+            height: 30px;
             font-size: 16px;
-            left: 50%;
+            line-height: 30px;
             position: relative;
-            transform: translate(-50%, 0%);
-            margin-top: 20px;
             font-weight: normal;
+            padding: 0;
+            margin: 84px 19px;
+            background: linear-gradient(256deg, #fdd300 0%, #fba800 100%);
+            box-shadow: 0px 12px 15px 0px rgba(253, 168, 0, 0.39);
+            color: #000000;
+            border: none;
             &:hover {
               opacity: 0.9 !important;
             }
