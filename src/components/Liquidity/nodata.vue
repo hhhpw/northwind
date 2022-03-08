@@ -4,15 +4,15 @@
     <!-- <p>未找到流動性 您可以添加流動性以獲取LP Token並享受額外代幣激勵</p> -->
     <p>{{ $t("未找到流动性") }}</p>
     <p>{{ $t("您可以添加流动性以获取LP Token并享受额外代币激励") }}</p>
-    <star-space :size="40"></star-space>
-    <star-button type="light" class="no-liquidity-data-btn" @click="addPool"
+    <Fly-space :size="40"></Fly-space>
+    <Fly-button type="light" class="no-liquidity-data-btn" @click="addPool"
       >{{ $t("添加流动性") }}
-    </star-button>
+    </Fly-button>
   </div>
 </template>
 <script setup>
-import StarButton from "@StarUI/StarButton.vue";
-import StarSpace from "@StarUI/StarSpace.vue";
+import FlyButton from "@FlyUI/FlyButton.vue";
+import FlySpace from "@FlyUI/FlySpace.vue";
 import { useStore } from "vuex";
 const store = useStore();
 const addPool = () => {
@@ -20,8 +20,10 @@ const addPool = () => {
 };
 </script>
 <style lang="scss" scoped>
+@import "~@/styles/variables.scss";
 .no-liquidity-data {
   font-size: 14px;
+  color: $text-white-color;
   .no-liquidity-data-btn {
     width: 100%;
     width: 100%;

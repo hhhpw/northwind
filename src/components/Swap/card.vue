@@ -2,7 +2,7 @@
   <div
     v-if="state.swapCalcalatorData"
     class="swap-datamenu"
-    :style="{ top: `${state.isShow ? '40px' : '200px'}` }"
+    :style="{ top: `${state.isShow ? '16px' : '200px'}` }"
   >
     <template v-if="state.swapCalcalatorData">
       <div class="swap-datamenu-sold">
@@ -28,7 +28,7 @@
               </div>
             </template>
             <template #default>
-              <svg-icon name="question" class="question"></svg-icon>
+              <svg-icon name="f-question" class="question"></svg-icon>
             </template>
           </ElTooltip>
         </p>
@@ -63,7 +63,7 @@
               </div>
             </template>
             <template #default>
-              <svg-icon name="question" class="question"></svg-icon>
+              <svg-icon name="f-question" class="question"></svg-icon>
             </template>
           </ElTooltip>
         </p>
@@ -79,7 +79,7 @@
               </div>
             </template>
             <template #default>
-              <svg-icon name="question" class="question"></svg-icon>
+              <svg-icon name="f-question" class="question"></svg-icon>
             </template>
           </ElTooltip>
         </p>
@@ -128,6 +128,7 @@ const priceVisible = (value) => {
 }
 </style>
 <style lang="scss" scoped>
+@import "~@/styles/variables.scss";
 .swap-datamenu {
   padding: 30px 20px;
   width: 440px;
@@ -137,6 +138,7 @@ const priceVisible = (value) => {
   display: inline-block;
   position: relative;
   left: 50%;
+  color: $text-white-color;
   transform: translate(-50%, 0);
   div {
     display: flex;

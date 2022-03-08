@@ -9,81 +9,84 @@
       (B = formatTo(state.walletStatus, state.to.currency, state.to.token)))
     "
   >
-    <div class="liquidity-content-core-item form">
-      <div class="liquidity-content-core-item-title">
-        <span>
-          <!-- {{ $t("从") }} -->
-        </span>
-        <span v-if="A.disPlayBalance">
-          {{ $t("余额") }}: {{ A.disPlayBalance }}
-        </span>
-      </div>
-      <div class="liquidity-content-core-item-main">
-        <star-input
-          class="liquidity-content-core-item-main-input"
-          placeholder="0.0"
-          :precision="state.from.exchangePrecision"
-          :value="state.from.inputVal"
-          :max="A.disPlayBalance"
-          @inputEvent="inputEvent($event, 'from')"
-        ></star-input>
-        <div
-          class="liquidity-content-core-item-main-max"
-          v-if="state.walletStatus === 'connected' && state.from.currency"
-          @click="setToInputValueMax('from', A.disPlayBalance)"
-        >
-          Max
-        </div>
-        <div
-          class="liquidity-content-core-item-main-currencyselect"
-          @click="handleCurrencySelectDialog('from')"
-        >
-          <img v-if="state.from.icon" :src="state.from.icon" />
+    <div class="liquidity-content-core-box">
+      <div class="liquidity-content-core-item form">
+        <div class="liquidity-content-core-item-title">
           <span>
-            {{ A.disPlayCurrency }}
+            <!-- {{ $t("从") }} -->
           </span>
-          <svg-icon name="arrowdownselect"></svg-icon>
-        </div>
-      </div>
-    </div>
-    <div class="change-content">
-      <svg-icon name="cross"></svg-icon>
-    </div>
-    <div class="liquidity-content-core-item to">
-      <div class="liquidity-content-core-item-title">
-        <!-- <span> {{ $t("到") }}</span> -->
-        <span v-if="B.disPlayBalance">
-          {{ $t("余额") }}: {{ B.disPlayBalance }}
-        </span>
-      </div>
-      <div class="liquidity-content-core-item-main">
-        <star-input
-          class="liquidity-content-core-item-main-input"
-          :value="state.to.inputVal"
-          :precision="state.to.exchangePrecision"
-          placeholder="0.0"
-          :max="B.disPlayBalance"
-          @inputEvent="inputEvent($event, 'to')"
-        ></star-input>
-        <div
-          class="liquidity-content-core-item-main-max"
-          v-if="state.walletStatus === 'connected' && state.to.currency"
-          @click="setToInputValueMax('to', B.disPlayBalance)"
-        >
-          Max
-        </div>
-        <div
-          class="liquidity-content-core-item-main-currencyselect"
-          @click="handleCurrencySelectDialog('to')"
-        >
-          <img v-if="state.to.icon" :src="state.to.icon" />
-          <span>
-            {{ B.disPlayCurrency }}
+          <span v-if="A.disPlayBalance">
+            {{ $t("余额") }}: {{ A.disPlayBalance }}
           </span>
-          <svg-icon name="arrowdownselect"></svg-icon>
+        </div>
+        <div class="liquidity-content-core-item-main">
+          <Fly-input
+            class="liquidity-content-core-item-main-input"
+            placeholder="0.0"
+            :precision="state.from.exchangePrecision"
+            :value="state.from.inputVal"
+            :max="A.disPlayBalance"
+            @inputEvent="inputEvent($event, 'from')"
+          ></Fly-input>
+          <div
+            class="liquidity-content-core-item-main-max"
+            v-if="state.walletStatus === 'connected' && state.from.currency"
+            @click="setToInputValueMax('from', A.disPlayBalance)"
+          >
+            Max
+          </div>
+          <div
+            class="liquidity-content-core-item-main-currencyselect"
+            @click="handleCurrencySelectDialog('from')"
+          >
+            <img v-if="state.from.icon" :src="state.from.icon" />
+            <span>
+              {{ A.disPlayCurrency }}
+            </span>
+            <svg-icon name="arrowdownselect"></svg-icon>
+          </div>
+        </div>
+      </div>
+      <div class="change-content">
+        <svg-icon name="cross"></svg-icon>
+      </div>
+      <div class="liquidity-content-core-item to">
+        <div class="liquidity-content-core-item-title">
+          <!-- <span> {{ $t("到") }}</span> -->
+          <span v-if="B.disPlayBalance">
+            {{ $t("余额") }}: {{ B.disPlayBalance }}
+          </span>
+        </div>
+        <div class="liquidity-content-core-item-main">
+          <Fly-input
+            class="liquidity-content-core-item-main-input"
+            :value="state.to.inputVal"
+            :precision="state.to.exchangePrecision"
+            placeholder="0.0"
+            :max="B.disPlayBalance"
+            @inputEvent="inputEvent($event, 'to')"
+          ></Fly-input>
+          <div
+            class="liquidity-content-core-item-main-max"
+            v-if="state.walletStatus === 'connected' && state.to.currency"
+            @click="setToInputValueMax('to', B.disPlayBalance)"
+          >
+            Max
+          </div>
+          <div
+            class="liquidity-content-core-item-main-currencyselect"
+            @click="handleCurrencySelectDialog('to')"
+          >
+            <img v-if="state.to.icon" :src="state.to.icon" />
+            <span>
+              {{ B.disPlayCurrency }}
+            </span>
+            <svg-icon name="arrowdownselect"></svg-icon>
+          </div>
         </div>
       </div>
     </div>
+
     <star-space :size="20"></star-space>
     <div class="liquidity-content-core-card" v-if="pollDetailData">
       <p>{{ $t("价格与资金池份额") }}</p>
@@ -120,7 +123,7 @@ import { computed, reactive, onUnmounted, onMounted, watch } from "vue";
 import SvgIcon from "@components/SvgIcon/Index.vue";
 import StarSpace from "@StarUI/StarSpace.vue";
 import { useStore } from "vuex";
-import StarInput from "@StarUI/StarInput";
+import FlyInput from "@FlyUI/FlyInput";
 import utilsNumber from "@utils/number";
 import Wallet from "../../wallet/index";
 
@@ -257,7 +260,10 @@ const getBalance = async (type, token) => {
     }
   }
 }
-
+.liquidity-content-core-box {
+  background: #464646;
+  border-radius: 8px;
+}
 .liquidity-content-core-item {
   border-radius: 16px;
   height: 90px;
@@ -266,7 +272,7 @@ const getBalance = async (type, token) => {
   flex-direction: column;
   justify-content: space-around;
   border-radius: 19px;
-  border: 1px solid #ededed;
+  // border: 1px solid #ededed;
   .liquidity-content-core-item-title {
     display: flex;
     justify-content: flex-end;
@@ -280,8 +286,10 @@ const getBalance = async (type, token) => {
     height: 50px;
     .liquidity-content-core-item-main-input {
       ::v-deep(.el-input__inner) {
-        border-color: #fff;
-        color: #000;
+        // border-color: #fff;
+        border: none;
+        background: none;
+        color: $text-white-color;
       }
       width: 230px;
     }
