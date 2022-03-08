@@ -1,11 +1,11 @@
 <template>
   <div class="mining-no-data">
-    <img src="../../../assets/nft/mining-no-data.png" />
+    <img src="../../../assets/nft/f-mining-no-data.png" />
     <p style="color: #8b8b8b">
       {{ $t("nftmining.nft-selector-nodata") }}
     </p>
     <p class="mining-no-data-link" @click="pushMarket">
-      {{ $t("去市场转转吧") }}
+      {{ $t("可在市场进行购买") }}
     </p>
   </div>
 </template>
@@ -27,18 +27,19 @@ const pushMarket = () => {
   display: flex;
   align-items: center;
   flex-direction: column;
-  justify-content: center;
+  margin-top: 90px;
   width: 100%;
   height: 60vh;
+  font-size: 16px;
   img {
     display: inline-block;
-    margin-bottom: 20px;
-    width: 110px;
-    height: 110px;
+    margin-bottom: 40px;
+    width: 91px;
+    height: 76px;
   }
   .mining-no-data-link {
-    color: rgb(251, 128, 0);
-    border-bottom: 1px dashed rgb(251, 128, 0);
+    color: #fba800;
+    border-bottom: 1px dashed #fba800;
     cursor: pointer;
   }
 }
