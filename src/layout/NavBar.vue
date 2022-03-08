@@ -30,7 +30,7 @@
 /* eslint-disable */
 // import { defineEmits } from "vue";
 import FlyButton from "@FlyUI/FlyButton.vue";
-import ConnectWallet from "@FlyUI/FlyConnectWallet.vue";
+// import ConnectWallet from "@FlyUI/FlyConnectWallet.vue";
 import FlyDropDown from "@FlyUI/FlyDropDown.vue";
 import SvgIcon from "@components/SvgIcon/Index.vue";
 import session from "@utils/session";

@@ -26,19 +26,19 @@
         ></svg-icon>
       </div>
     </div>
-    <star-space :size="20"></star-space>
+    <Fly-space :size="20"></Fly-space>
     <div class="swap-content-core">
       <div class="swap-content-cote-box">
         <div class="swap-content-core-item form">
           <div class="swap-content-core-item-main">
-            <star-input
+            <Fly-input
               class="swap-content-core-item-main-input"
               placeholder="0.0"
               :value="state.from.inputVal"
               :max="A.disPlayBalance"
               :precision="state.from.exchangePrecision"
               @inputEvent="inputEvent($event, 'from')"
-            ></star-input>
+            ></Fly-input>
 
             <div>
               <div
@@ -78,14 +78,14 @@
         </div>
         <div class="swap-content-core-item to">
           <div class="swap-content-core-item-main">
-            <star-input
+            <Fly-input
               class="swap-content-core-item-main-input"
               :value="state.to.inputVal"
               :max="B.disPlayBalance"
               :precision="state.to.exchangePrecision"
               placeholder="0.0"
               @inputEvent="inputEvent($event, 'to')"
-            ></star-input>
+            ></Fly-input>
             <div>
               <div
                 class="swap-content-core-item-main-currencyselect"
@@ -109,7 +109,7 @@
         </div>
       </div>
 
-      <star-space :size="20"></star-space>
+      <Fly-space :size="20"></Fly-space>
       <div class="swap-content-core-detail">
         <div
           class="swap-content-core-detail-price"
@@ -119,7 +119,7 @@
           <span>{{ state.swapCalcalatorData.priceFormatStr }}</span>
           <!-- <span>{{ renderDisplayPriceStr }}</span> -->
         </div>
-        <star-space :size="10"></star-space>
+        <Fly-space :size="10"></Fly-space>
         <div
           class="swap-content-core-detail-slippage"
           v-if="state.settings && state.settings.slippageTolerance"
@@ -145,19 +145,18 @@
           <span>{{ `${state.settings.slippageTolerance}%` }}</span>
         </div>
       </div>
-      <star-space :size="30"></star-space>
+      <Fly-space :size="30"></Fly-space>
       <div class="swap-content-core-btn">
-        <star-button
-          type="dark"
+        <Fly-button
           v-if="state.walletStatus === 'unConnected'"
           @click="connectWallet"
         >
           {{ $t("连接钱包") }}
-        </star-button>
+        </Fly-button>
         <div v-else>
-          <star-button :type="btnStatus.type" @click="swapFunc(btnStatus)">{{
+          <Fly-button :type="btnStatus.type" @click="swapFunc(btnStatus)">{{
             btnStatus.text
-          }}</star-button>
+          }}</Fly-button>
         </div>
       </div>
     </div>
@@ -175,9 +174,9 @@
         {{ $t("请稍后查看记录") }}
       </template>
       <template #footer>
-        <star-button class="confirm-btn" @click="handleConfirm">{{
+        <Fly-button class="confirm-btn" @click="handleConfirm">{{
           $t("确认")
-        }}</star-button>
+        }}</Fly-button>
       </template>
     </star-confirm>
     <history-record
@@ -191,19 +190,19 @@
       @handleClose="handleClose('isShowSearchDialog')"
       @handleSelect="handleSelectCurrency"
     ></search-currency>
-    <setting-dialog
+    <!-- <setting-dialog
       :dialogVisible="state.isShowSettingDialog"
       @handleClose="handleClose('isShowSettingDialog')"
-    ></setting-dialog>
+    ></setting-dialog> -->
   </div>
 </template>
 <script setup>
 import { computed, reactive, watch, onUnmounted, onMounted } from "vue";
 import SvgIcon from "@components/SvgIcon/Index.vue";
-import StarButton from "@StarUI/StarButton.vue";
-import StarSpace from "@StarUI/StarSpace.vue";
+import FlyButton from "@FlyUI/FlyButton.vue";
+import FlySpace from "@FlyUI/FlySpace.vue";
 import { useStore } from "vuex";
-import StarInput from "@StarUI/StarInput";
+import FlyInput from "@FlyUI/FlyInput";
 import StarConfirm from "@StarUI/StarConfirm.vue";
 import utilsNumber from "@utils/number";
 import SearchCurrency from "../SearchCurrency";
@@ -214,7 +213,7 @@ import connectLogic from "@hooks/useMyWallet";
 const { t } = useI18n();
 const store = useStore();
 import Wallet from "../../wallet/index";
-import SettingDialog from "../SettingDialog.vue";
+// import SettingDialog from "../SettingDialog.vue";
 // import commonApi from "@api/common";
 // import { ElTooltip } from "element-plus";
 
@@ -293,7 +292,7 @@ const btnStatus = computed(() => {
   }
   // 是否有流动池
   return {
-    type: "dark",
+    type: "normal",
     text: t("兑换"),
     isClick: true,
   };
@@ -390,12 +389,16 @@ watch(
 
 const showDialog = (type) => {
   state[type] = true;
-  if (type === "isShowHistoryDialog" && state.totalSwapList.length === 0) {
-    store.dispatch("StoreSwap/getExchangeHistoryList", {
-      userAddress: state.accounts[0],
-      pageSize: 6,
-      nextId: 0,
-    });
+  if (type === "isShowHistoryDialog") {
+    if (state.totalSwapList.length === 0) {
+      store.dispatch("StoreSwap/getExchangeHistoryList", {
+        userAddress: state.accounts[0],
+        pageSize: 6,
+        nextId: 0,
+      });
+    }
+  } else {
+    store.commit("StoreApp/CHANGE_SETTING_VISIBLE", true);
   }
 };
 const handleClose = (type) => {
@@ -622,7 +625,7 @@ onUnmounted(() => {
       }
     }
     .swap-content-core-btn {
-      .star-button {
+      .fly-button {
         width: 100%;
         padding: 15px 0px;
       }

@@ -9,7 +9,7 @@ import AssetsList from "@components/Info/assetslist.vue";
 
 <style lang="scss" module>
 .container-assets {
-  width: 1100px;
+  width: 1200px;
   margin: 0 auto;
 }
 </style>

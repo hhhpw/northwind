@@ -1,7 +1,8 @@
 <template>
   <div :class="$style['game-container']">
-    <screen @loadEnd="loadEnd" v-if="!state.isFull"></screen>
-    <full-screen v-if="state.isFull"></full-screen>
+    <!-- <screen @loadEnd="loadEnd" v-if="!state.isFull"></screen> -->
+    <!-- <full-screen v-if="state.isFull"></full-screen> -->
+    <full-screen></full-screen>
   </div>
 </template>
 <script setup>

@@ -25,7 +25,7 @@ const delPool = (item) => {
 @import "~@/styles/variables.scss";
 @import "~@/styles/mixin.scss";
 .loop-list {
-  color: $text-black-color;
+  color: $text-white-color;
   font-size: 14px;
   .loop-list-item {
     width: 100%;

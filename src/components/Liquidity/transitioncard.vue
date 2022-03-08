@@ -40,11 +40,12 @@ let state = reactive({
   padding: 30px 20px;
   width: 440px;
   border-radius: 34px;
-  background-color: #ffffff;
+  background-color: #11100d;
   transition: top 500ms ease-in-out 0s;
   display: inline-block;
   position: relative;
   left: 50%;
   transform: translate(-50%, 0);
+  color: #979797;
 }
 </style>

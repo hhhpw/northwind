@@ -1,9 +1,6 @@
 <template>
   <div :class="$style['full-screen-container']">
-    <div :class="$style['full-screen-container-header']">
-      <img src="../../assets/igo/header.png" />
-    </div>
-    <div :class="$style['full-screen-container-content']" ref="bgDOM">
+    <div :class="$style['full-screen-container-content']">
       <div :class="$style['full-screen-container-content-mask']">
         <div :class="$style['full-screen-container-content-main']">
           <div :class="$style['full-screen-container-content-main-core']">
@@ -12,9 +9,9 @@
               <p>{{ $t("kgstarter.content") }}</p>
               <p>{{ $t("kgstarter.footer") }}</p>
             </div>
-            <screen-data></screen-data>
           </div>
         </div>
+        <screen-data></screen-data>
       </div>
     </div>
     <!-- 预加载防止闪烁，后续写个方法 -->
@@ -63,98 +60,69 @@ nextTick(() => {
 //   background: rgba(0, 0, 0, 0.7);
 // }
 .full-screen-container {
-  position: fixed;
-  top: 0px;
-  left: 200px;
-  background: #fcb502;
-  height: 100%;
-  width: calc(100vw - 200px);
-  .full-screen-container-header {
-    padding: 20px;
-    padding-bottom: 10px;
-    margin-top: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    img {
-      text-align: center;
-      height: 20px;
-    }
-  }
+  position: absolute;
+  left: 0;
+  top: 72px;
+  padding-top: 29px;
+  width: 100%;
+  height: calc(100% - 72px);
+  z-index: 1;
+  background-image: url("../../assets/igo/kg-bg-3.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
   .full-screen-container-content {
     // min-height: 550px;
-    height: calc(100% - 200px);
-    width: 1000px;
+    height: calc(100% - 306px);
+    width: 1200px;
     margin: 0 auto;
-    margin-top: 10px;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
-    border: 15px solid #283037;
     border-radius: 5px;
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    &::after {
-      content: "";
-      display: block;
-      position: absolute;
-      height: calc(100% + 40px);
-      width: calc(100% + 40px);
-      top: -20px;
-      left: -20px;
-      border-radius: 4px;
-      background: linear-gradient(#dc8c04, #fec944);
-      z-index: -1;
-    }
     .full-screen-container-content-mask {
       width: 100%;
       height: 100%;
-      // background: rgba(0, 0, 0, 0.5);
-      background-image: url("../../assets/igo/bg-mask.png");
-      background-repeat: no-repeat;
-      background-size: 100% 100%;
       position: absolute;
       top: 0;
       left: 0;
     }
     .full-screen-container-content-main {
-      // border: 2px solid red;
       background-image: url("../../assets/igo/kg-content-header.png");
       background-repeat: no-repeat;
       background-size: 100% 100%;
-      width: calc(100% - 50px);
+      width: 100%;
+      height: 563px;
       margin: 0 auto;
       margin-top: 20px;
-      height: calc(100% - 50px);
       display: flex;
       align-items: flex-end;
       justify-content: center;
-      // border: 1px solid red;
-      // height: 500px;
-      // display: flex;
       text-align: center;
-      // justify-content: center;
-      // align-items: center;
       .full-screen-container-content-main-core {
         // border: 3px solid green;
         height: 93%;
-        width: 90%;
+        width: 100%;
         margin-bottom: 15px;
         overflow: scroll;
+        position: relative;
         .logo {
           width: 200px;
           margin-top: 10px;
         }
         .full-screen-container-content-main-desc {
+          width: 700px !important;
           font-size: 15px;
           color: #fff;
-          text-align: left;
+          text-align: center;
           padding: 10px 28px;
           opacity: 0.8;
-          width: 90%;
+          width: 100%;
           margin: 0 auto;
           margin-bottom: 20px;
           box-sizing: border-box;

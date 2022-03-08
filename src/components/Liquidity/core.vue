@@ -1,7 +1,7 @@
 <template>
   <div class="liquidity-content">
     <li-header></li-header>
-    <star-space :size="20"></star-space>
+    <Fly-space :size="20"></Fly-space>
     <div class="liquidity-content-core">
       <template v-if="state.poolType === 'init'">
         <no-data v-if="!state.hasLiquidity"></no-data>
@@ -15,9 +15,9 @@
       <template v-if="state.poolType === 'delete'">
         <del-pool></del-pool>
       </template>
-      <star-space :size="20"></star-space>
+      <Fly-space :size="20"></Fly-space>
       <div class="liquidity-content-core-btn">
-        <star-button
+        <Fly-button
           type="dark"
           v-if="
             state.walletStatus === 'unConnected' && state.poolType === 'add'
@@ -25,12 +25,12 @@
           @click="connectWallet"
         >
           {{ $t("连接钱包") }}
-        </star-button>
+        </Fly-button>
         <div v-if="state.walletStatus === 'connected' && btnStatus">
-          <star-button
+          <Fly-button
             :type="btnStatus.type"
             @click="btnClickEvent(btnStatus.flag)"
-            >{{ btnStatus.text }}</star-button
+            >{{ btnStatus.text }}</Fly-button
           >
         </div>
       </div>
@@ -67,9 +67,9 @@
         </p>
       </template>
       <template #footer>
-        <star-button class="confirm-btn" @click="handleConfirm">{{
+        <Fly-button class="confirm-btn" @click="handleConfirm">{{
           $t("确认")
-        }}</star-button>
+        }}</Fly-button>
       </template>
     </star-confirm>
   </div>
@@ -77,8 +77,8 @@
 <script setup>
 import { computed, reactive, onMounted, watch } from "vue";
 import StarConfirm from "@StarUI/StarConfirm.vue";
-import StarButton from "@StarUI/StarButton.vue";
-import StarSpace from "@StarUI/StarSpace.vue";
+import FlyButton from "@FlyUI/FlyButton.vue";
+import FlySpace from "@FlyUI/FlySpace.vue";
 import NoData from "./nodata.vue";
 import LiHeader from "./header.vue";
 import { useStore } from "vuex";
@@ -321,7 +321,7 @@ watch(
       }
     }
     .liquidity-content-core-btn {
-      .star-button {
+      .fly-button {
         width: 100%;
         padding: 15px 0px;
       }

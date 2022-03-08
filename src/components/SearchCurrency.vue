@@ -1,6 +1,6 @@
 <template>
   <div class="star-search" v-if="state.visible">
-    <star-dialog
+    <Fly-dialog
       :title="$t('选择代币')"
       :dialogVisible="state.visible"
       :isClickModal="false"
@@ -36,13 +36,13 @@
           :description="$t('暂无数据')"
         />
       </template>
-    </star-dialog>
+    </Fly-dialog>
   </div>
 </template>
 
 <script setup>
 /* eslint-disable */
-import starDialog from "@StarUI/StarDialog.vue";
+import FlyDialog from "@FlyUI/FlyDialog.vue";
 import {
   reactive,
   defineProps,
@@ -107,6 +107,12 @@ const handleSelect = (item) => {
 @import "~@/styles/variables.scss";
 @import "~@styles/mixin.scss";
 .star-search {
+  ::v-deep(.el-dialog) {
+    background-image: url("../../src/assets/common/bg.png");
+    background-position: top;
+    background-repeat: no-repeat;
+    background-size: 100%;
+  }
   ::v-deep(.el-dialog__body) {
     padding: 14px 0 32px;
   }
@@ -118,11 +124,12 @@ const handleSelect = (item) => {
     ::v-deep(.el-input__inner) {
       width: 388px;
       height: 44px;
-      background: #ededed;
-      box-shadow: 0px 1px 0px 0px rgba(255, 255, 255, 0.43),
-        0px -2px 0px 0px rgba(0, 0, 0, 0.13);
-      border-radius: 16px;
-      border-color: #ededed;
+      background: rgba(255, 255, 255, 0.08);
+      // box-shadow: 0px 1px 0px 0px rgba(255, 255, 255, 0.43),
+      //   0px -2px 0px 0px rgba(0, 0, 0, 0.13);
+      border-radius: 8px;
+      border: none;
+      // border-color: #ededed;
       font-size: 16px;
       font-weight: bold;
       color: #000;
@@ -135,8 +142,9 @@ const handleSelect = (item) => {
       display: flex;
       padding: 6px 28px;
       box-sizing: border-box;
+      color: $text-white-color;
       &:hover {
-        @include commonHoverStyle();
+        @include commonHoverStyle2();
       }
     }
     .icon {
