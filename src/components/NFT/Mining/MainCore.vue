@@ -56,7 +56,7 @@
                 if (el) state.shadowDOMs[i] = el;
               }
             "
-            v-if="state.listShow[i] === true"
+            v-if="d.hasNFT && state.listShow[i]"
             :class="$style['mining-core-container-slot-item-shadow-box']"
           >
             <star-button
@@ -218,7 +218,7 @@ onUnmounted(() => {
       :hover {
         cursor: pointer;
       }
-      display: inline-block;
+      float: left;
       height: 229px;
       width: 229px;
       margin-right: 13px;

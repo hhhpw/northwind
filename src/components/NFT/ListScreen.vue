@@ -47,7 +47,7 @@
       ></list-screen-open-status>
     </div>
     <!-- 收藏使用 -->
-    <star-space :size="15" v-if="props.isShowCollection"></star-space>
+    <!-- <star-space :size="15" v-if="props.isShowCollection"></star-space> -->
     <div class="nft-list-screen-collection" v-if="props.isShowCollection">
       <div class="nft-list-screen-collection-tabs">
         <div
@@ -65,7 +65,7 @@
         </div>
       </div>
       <list-screen-open-status
-        v-if="props.isShowOpenStatus"
+        v-show="props.isShowOpenStatus"
         :showTips="props.showTips"
         @clickRadio="clickRadio"
       ></list-screen-open-status>
@@ -265,20 +265,25 @@ const emits = defineEmits(["clickSelectJoint", "clickRadio", "changeTab"]);
     justify-content: space-between;
     .nft-list-screen-collection-tabs {
       display: flex;
+      flex: 3;
+      justify-content: center;
       .nft-list-screen-collection-item {
         cursor: pointer;
-        margin-right: 20px;
         padding-bottom: 8px;
-        color: $white;
+        color: #8c8b8c;
+        padding: 7px 18px;
         &.active {
-          border-bottom: 4px solid $border-orange-color;
-          color: $text-orange-color;
+          color: $white;
+          background: rgba(255, 255, 255, 0.1);
         }
         &:hover {
           cursor: pointer;
-          opacity: 0.65;
         }
       }
+    }
+    .nft-status {
+      flex: 1;
+      flex-direction: row-reverse;
     }
   }
 }

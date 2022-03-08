@@ -129,6 +129,7 @@ const drawProfit = () => {
       color: #170f00;
       text-align: center;
       line-height: 35px;
+      cursor: pointer;
     }
   }
 }

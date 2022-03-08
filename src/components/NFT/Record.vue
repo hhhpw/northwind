@@ -24,7 +24,7 @@
         <span>{{ d.name }}</span>
       </div>
       <template v-if="props.type === 'purchase'">
-        <p class="record-wrap-tr-td status" :style="setColor(d.state)">
+        <p class="record-wrap-tr-td price">
           {{ $t(setState(d.state)) }}
         </p>
         <p class="record-wrap-tr-td price">
@@ -87,17 +87,6 @@ const setState = (state) => {
   return STATE[state] || "";
 };
 
-const setColor = (state) => {
-  if (state === "OVER_PRICE") {
-    return {
-      color: "#f36346",
-    };
-  }
-  return {
-    color: "#26bb8f",
-  };
-};
-
 const props = defineProps({
   data: Object,
   type: String,
@@ -148,7 +137,6 @@ const pushPage = (detail) => {
   width: 100%;
   height: auto;
   border-radius: 8px;
-  padding: 32px 0;
   box-sizing: border-box;
   .record-wrap-th {
     display: flex;
