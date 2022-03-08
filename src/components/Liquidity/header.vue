@@ -3,27 +3,25 @@
     <div class="liquidity-content-header-left">
       <template v-if="state.poolType === 'init'">
         <span>{{ $t("您的流动性") }}</span>
-        <ElTooltip effect="light" placement="right-start">
-          <template #content>
-            <div :style="'max-width:400px'">
-              {{
-                $t(
-                  "添加流动性可以获得手续费分红或空投代币收益，实际获得的数量将和在流动性资金池中的份额成正比。同时还可以获得LP Tokens。"
-                )
-              }}
-            </div>
-          </template>
-          <template #default>
-            <svg-icon name="f-question" class="question"></svg-icon>
-          </template>
-        </ElTooltip>
+        <Fly-tool-tip
+          :placeString="
+            $t(
+              '添加流动性可以获得手续费分红或空投代币收益，实际获得的数量将和在流动性资金池中的份额成正比。同时还可以获得LP Tokens。'
+            )
+          "
+          svgName="f-question"
+          :svgStyle="{
+            'margin-left': '3px',
+          }"
+        >
+        </Fly-tool-tip>
       </template>
       <template v-if="state.poolType === 'add'">
-        <svg-icon name="back" @click="back" class="back"></svg-icon>
+        <svg-icon name="f-back" @click="back" class="back"></svg-icon>
         <span>{{ $t("添加流动性") }}</span>
       </template>
       <template v-if="state.poolType === 'delete'">
-        <svg-icon name="back" @click="back" class="back"></svg-icon>
+        <svg-icon name="f-back" @click="back" class="back"></svg-icon>
         <span>{{ $t("移除流动性") }}</span>
       </template>
     </div>
@@ -38,6 +36,7 @@
 // import { ElTooltip } from "element-plus";
 import { computed, reactive } from "vue";
 import SvgIcon from "@components/SvgIcon/Index.vue";
+import FlyToolTip from "@FlyUI/FlyToolTip.vue";
 import { useStore } from "vuex";
 const store = useStore();
 
@@ -85,8 +84,8 @@ const showHistory = () => {
       font-weight: 600;
     }
     .back {
-      width: 50px;
-      height: 40px;
+      width: 24px;
+      height: 24px;
       margin-right: 10px;
     }
     .question {

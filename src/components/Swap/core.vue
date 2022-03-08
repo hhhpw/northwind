@@ -126,20 +126,19 @@
         >
           <span
             >{{ $t("滑点容差") }}
-            <ElTooltip effect="light" placement="right">
-              <template #content>
-                <div :style="'max-width:400px'">
-                  {{
-                    $t(
-                      "较高的滑点容差有助于交易成功。设置完成后，如果兑换率变动超过此百分比，则此次交易不会被执行。"
-                    )
-                  }}
-                </div>
-              </template>
-              <template #default>
-                <svg-icon name="f-question" class="question"></svg-icon>
-              </template>
-            </ElTooltip>
+            <Fly-tool-tip
+              :placeString="
+                $t(
+                  '较高的滑点容差有助于交易成功。设置完成后，如果兑换率变动超过此百分比，则此次交易不会被执行。'
+                )
+              "
+              placement="right"
+              svgName="f-question"
+              :svgStyle="{
+                'margin-right': '3px',
+              }"
+            >
+            </Fly-tool-tip>
           </span>
 
           <span>{{ `${state.settings.slippageTolerance}%` }}</span>
@@ -201,6 +200,7 @@ import { computed, reactive, watch, onUnmounted, onMounted } from "vue";
 import SvgIcon from "@components/SvgIcon/Index.vue";
 import FlyButton from "@FlyUI/FlyButton.vue";
 import FlySpace from "@FlyUI/FlySpace.vue";
+import FlyToolTip from "@FlyUI/FlyToolTip.vue";
 import { useStore } from "vuex";
 import FlyInput from "@FlyUI/FlyInput";
 import StarConfirm from "@StarUI/StarConfirm.vue";
@@ -552,7 +552,7 @@ onUnmounted(() => {
           width: 230px;
         }
         .swap-content-core-item-main-max {
-          color: $text-orange-color;
+          color: $text-orange-color2;
           font-size: 12px;
           margin-left: 6px;
           cursor: pointer;
