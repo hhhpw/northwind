@@ -27,15 +27,17 @@
                 baseData.type === 'composite_element'
               "
             >
-              <nft-card-item-tool-tip
-                :placeString="$t('metaverse.can be disassembled')"
-                svgName="clothes"
-                class="nft-blind-text-name-rarity-tooltip"
-                :svgStyle="{
-                  'margin-right': '3px',
-                }"
-              >
-              </nft-card-item-tool-tip>
+              <span class="icon-ui">
+                <nft-card-item-tool-tip
+                  :placeString="$t('metaverse.can be disassembled')"
+                  svgName="f-clothes"
+                  class="nft-blind-text-name-rarity-tooltip"
+                  :svgStyle="{
+                    'margin-right': '3px',
+                  }"
+                >
+                </nft-card-item-tool-tip>
+              </span>
             </span>
             <!-- 稀有值 -->
             <span
@@ -403,8 +405,13 @@ const actionsCall = (action) => {
     align-items: center;
   }
   .nft-blind-text-name-rarity {
-    color: #fb8000;
     display: flex;
+    .icon-ui {
+      width: 32px;
+      height: 23px;
+      background: rgba(251, 168, 0, 0.1);
+      border-radius: 12px;
+    }
     .nft-blind-text-name-rarity-tooltip {
       color: #391b0f;
     }

@@ -59,7 +59,7 @@
               max="999999999"
             >
             </star-input>
-            <span>{{ $t(state.current_currency) }}</span>
+            <span>STC</span>
           </div>
           <div v-if="state.errorInfo" class="error">
             *{{ $t("请输入价格") }}
@@ -98,16 +98,14 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits, reactive, watch, computed } from "vue";
+import { defineProps, defineEmits, reactive, watch } from "vue";
 import SvgIcon from "@components/SvgIcon/Index.vue";
 import StarButton from "@StarUI/StarButton.vue";
 import { BID_DIALOG_PARAMS } from "@constants/dialog.js";
 import StarInput from "@StarUI/StarInput.vue";
 import StarSelector from "@StarUI/StarSelector.vue";
-import { useStore } from "vuex";
 import { useI18n } from "vue-i18n";
 const { t } = useI18n();
-const store = useStore();
 
 const props = defineProps({
   dialogVisible: {
@@ -127,7 +125,6 @@ const props = defineProps({
   dialogParams: null,
 });
 const state = reactive({
-  current_currency: computed(() => store.state.StoreNFTDetail.sell_currency), // 当前选择出售币种
   visible: props.dialogVisible,
   isShowClose: props.isShowClose,
   typeIndex: 0,

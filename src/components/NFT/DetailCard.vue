@@ -244,7 +244,6 @@ import StarAmount from "@StarUI/StarAmount.vue";
 const store = useStore();
 let state = reactive({
   cross_bar_array: null,
-  contract_address: computed(() => store.state.StoreNFTDetail.contract_address),
   accounts: computed(() => store.state.StoreWallet.accounts),
   currLang: computed(() => store.state.StoreApp.currLang),
   isNFT: computed(() => {

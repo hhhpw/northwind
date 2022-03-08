@@ -56,45 +56,32 @@ const btnClick = (d) => {
 </script>
 <style lang="scss" scoped>
 @import "~@/styles/variables.scss";
+@import "~@/styles/_vars.scss";
 .star-exchange-button {
-  background: #e9ded1;
-  border-radius: 24px;
+  border-radius: 4px;
   display: inline-flex;
-  box-shadow: 0px 1px 0px 0px rgba(255, 255, 255, 0.5), 0px -1px 0px 0px #d4c1aa;
   width: 252px;
-  height: 48px;
+  height: 50px;
   .star-exchange-button-item {
     -webkit-box-align: center;
     align-items: center;
     border: 0px;
-    border-radius: 16px;
     cursor: pointer;
     display: inline-flex;
     font-family: inherit;
     font-size: 16px;
-    font-weight: 600;
+    font-weight: 400;
     -webkit-box-pack: center;
-    justify-content: center;
-    letter-spacing: 0.03em;
     line-height: 1;
     opacity: 1;
     outline: 0px;
-    transition: background-color 0.2s ease 0s, opacity 0.2s ease 0s;
-    padding: 0px 16px;
-    background-color: transparent;
-    width: 120px;
-    height: 46px;
+    margin: 0px 29px;
+    height: 48px;
     margin-top: 1px;
-    color: $text-brown-color;
+    color: #8c8b8c;
     &.is-active {
-      background-color: rgb(122, 110, 170);
-      background: linear-gradient(180deg, #fdf8f3 0%, #f9efe4 100%);
-      box-shadow: 0px 2px 4px 0px #dfcdb9, 0px 1px 0px 0px $white;
-      border-radius: 24px;
-      margin: 0 2px;
-    }
-    &:hover {
-      opacity: 0.65;
+      color: #fff;
+      border-bottom: 2px solid #fff;
     }
   }
 }

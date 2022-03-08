@@ -22,7 +22,6 @@ watchEffect(() => {
 .app-main {
   margin: 0 auto;
   margin-top: 70px;
-  width: 1400px;
-  // border: 1px solid red;
+  width: 1200px;
 }
 </style>

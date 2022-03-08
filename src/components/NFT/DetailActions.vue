@@ -169,7 +169,6 @@ import NftBidInfo from "./DetailsUI/NFTBidInfo.vue";
 let state = reactive({
   value: "",
   isShowSearchDialog: false, // 是否出现币种弹窗
-  current_currency: computed(() => store.state.StoreNFTDetail.sell_currency), // 当前选择出售币种
   buy_back_price: "", // 平台回购单独取价格
   accounts: computed(() => store.state.StoreWallet.accounts),
 });
@@ -200,7 +199,6 @@ const showCurrencyListDialog = () => {
 const handleSelectCurrency = (item) => {
   const { shortName } = item;
   state.isShowSearchDialog = false;
-  store.commit("StoreNFTDetail/SELL_CURRENCY", shortName);
 };
 // 关闭币种选择弹窗
 const handleClose = () => {

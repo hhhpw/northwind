@@ -45,15 +45,18 @@
         </div>
         <div :class="$style['item-content-info-flag']">
           <!-- 可分解标示 -->
-          <nft-card-item-tool-tip
+          <div
+            :class="$style['icon-ui']"
             v-if="showDisassembledIcon(itemData.type)"
-            :placeString="$t('metaverse.can be disassembled')"
-            svgName="clothes"
-            :svgStyle="{
-              'margin-right': '8px',
-            }"
           >
-          </nft-card-item-tool-tip>
+            <nft-card-item-tool-tip
+              :placeString="$t('metaverse.can be disassembled')"
+              svgName="f-clothes"
+              :svgStyle="'width:20px;height:20px;'"
+            >
+            </nft-card-item-tool-tip>
+          </div>
+
           <!-- 稀有值 -->
           <div
             v-if="showRarityIcon(itemData.type, itemData?.score)"
@@ -61,7 +64,8 @@
           >
             <nft-card-item-tool-tip
               :placeString="$t('NFT稀有值')"
-              svgName="rarity"
+              svgName="f-rarity"
+              :svgStyle="'width:20px;height:20px;'"
             >
             </nft-card-item-tool-tip>
             <star-amount
@@ -292,13 +296,11 @@ $black: #010e22;
 .nft-card-item {
   min-height: 370px;
   width: 279px;
-  background: $white;
-  box-shadow: 0px 8px 16px 0px rgba(223, 205, 185, 0.46), 0px 1px 0px 0px $white;
+  background: linear-gradient(180deg, #3e3e3e 0%, #3e3e3e 0%, #252525 100%);
   border-radius: 16px;
   font-size: 14px;
   user-select: none;
   margin-bottom: 20px;
-  // padding-bottom: 10px;
   overflow: hidden;
   margin-right: 20px;
   &:hover {
@@ -310,9 +312,9 @@ $black: #010e22;
     height: 279px;
     position: relative;
     cursor: pointer;
-    border-bottom: 0.5px solid #d1d1d1;
     border-top-left-radius: $border-radius;
     border-top-right-radius: $border-radius;
+    background: #e8906c;
     img {
       cursor: pointer;
       max-width: 279px;
@@ -348,7 +350,9 @@ $black: #010e22;
         display: flex;
         flex-direction: column;
         .item-content-info-data-name {
+          font-size: 14px;
           font-weight: bold;
+          color: $white;
         }
         .item-content-info-data-address {
           color: #7f7f7f;
@@ -357,10 +361,27 @@ $black: #010e22;
       }
       .item-content-info-flag {
         display: flex;
+        .icon-ui {
+          text-align: center;
+          width: 32px;
+          height: 23px;
+          background: rgba(251, 168, 0, 0.1);
+          border-radius: 12px;
+          margin-right: 8px;
+          .svg-icon {
+            width: 20px;
+            height: 20px;
+          }
+        }
         .item-content-info-flag-score {
-          color: #fb8000;
           font-weight: bold;
           display: flex;
+          padding: 0 10px;
+          background: rgba(251, 168, 0, 0.1);
+          border-radius: 12px;
+          height: 23px;
+          line-height: 23px;
+          color: #fba800;
         }
       }
     }
@@ -377,7 +398,7 @@ $black: #010e22;
           color: $gray;
         }
         span:nth-child(2) {
-          color: $black;
+          color: $white;
         }
       }
       .item-content-slots-market {
@@ -393,7 +414,7 @@ $black: #010e22;
             color: $gray;
           }
           span:nth-child(2) {
-            color: $black;
+            color: $white;
           }
         }
       }

@@ -12,7 +12,6 @@ const props = defineProps({
 });
 </script>
 <style lang="scss" scoped>
-$normal-bg-color: linear-gradient(256deg, #fdd300 0%, #fba800 100%);
 $text-brow-color: #744600;
 .fly-button {
   padding: 15px 25px;
@@ -31,7 +30,7 @@ $text-brow-color: #744600;
 }
 .fly-button.normal {
   color: $text-brow-color;
-  background-color: $normal-bg-color;
+  background: linear-gradient(256deg, #fdd300 0%, #fba800 100%);
   box-shadow: 0px 12px 15px 0px rgba(253, 168, 0, 0.39);
 }
 .fly-button.dark {
