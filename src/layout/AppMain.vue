@@ -21,7 +21,7 @@ watchEffect(() => {
 <style lang="scss" module>
 .app-main {
   margin: 0 auto;
-  margin-top: 70px;
+  margin-top: 100px;
   width: 1200px;
   padding-bottom: 80px;
 }

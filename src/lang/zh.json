@@ -379,7 +379,9 @@
     "enter the name (1-10 English characters)": "輸入名字（1-20英文字符）",
     "can be disassembled": "可重組",
     "casting cost": "鑄造費用:{amount} {currency}",
-    "whether to generate character NFT": "是否生成NFT角色卡牌"
+    "whether to generate character NFT": "是否生成NFT角色卡牌",
+    "铸造费用": "铸造费用",
+    "确认铸造": "确认铸造"
   },
   "nftproperty": {
     "Fur": "皮毛",

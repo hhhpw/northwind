@@ -56,18 +56,14 @@
   <validate-error-modal></validate-error-modal>
 </template>
 <script setup>
-/* eslint-disable */
-import { computed, reactive, watch } from "vue";
+import { computed, reactive } from "vue";
 import FlyButton from "@FlyUI/FlyButton.vue";
 import FlyAmount from "@FlyUI/FlyAmount.vue";
-import utilsFormat from "@utils/format";
 import SvgIcon from "@components/SvgIcon/Index.vue";
 import FlySpace from "@FlyUI/FlySpace.vue";
 import { useStore } from "vuex";
 import connectLogic from "@hooks/useMyWallet";
-import utilsRegExp from "@utils/regexp.js";
 import ValidateErrorModal from "./ValidateErrorModal.vue";
-import SelectSuffix from "@components/SelectSuffix.vue";
 const store = useStore();
 const { connectWallet } = connectLogic(store);
 
@@ -86,46 +82,11 @@ const state = reactive({
   nameValue: "",
   professionValue: "Adventurer",
 });
-
-const selectGender = (gender) => {
-  state.genderValue = gender;
-};
-
-const validateParams = (flag) => {
-  if (!flag) return;
-  try {
-    if (
-      utilsRegExp.isChinese(state.nameValue) ||
-      (state.nameValue && state.nameValue.length > 20) ||
-      (state.nameValue && state.nameValue.length < 1) ||
-      !state.nameValue
-    ) {
-      throw new Error("error");
-    }
-    store.dispatch("StoreMeta/canCreateNFT", {
-      userAddress: state.accounts[0],
-      customName: state.nameValue,
-      sex: state.genderValue === "male" ? 1 : 0,
-      occupation: state.professionValue,
-      groupId: state.selectedElementList[0].groupId,
-      elementList: state.selectedElementList,
-    });
-  } catch (e) {
-    store.commit("StoreMeta/SET_CALLBACK_DIALOG_PARAMS_STATUS", {
-      dialogVisible: true,
-      text: utilsFormat.computedLangCtx(
-        "the role card name is 1-10 English characters or special symbols"
-      ),
-    });
-  }
-};
-const handleValidateClose = () => {
-  // state.errorDialogVisible = false;
-};
 </script>
 
 <style lang="scss" module>
 .compose-container {
+  margin-left: 60px;
   .role-box {
     position: relative;
     text-align: center;
@@ -163,47 +124,12 @@ const handleValidateClose = () => {
     flex-direction: column;
     align-items: center;
     background: rgba(0, 0, 0, 0.4);
-    .detail-info {
-      display: flex;
-      width: 245px;
-      justify-content: space-between;
-      .role-gender {
-        display: flex;
-        .role-gender-item {
-          width: 40px;
-          height: 32px;
-          text-align: center;
-          line-height: 32px;
-          border: 1px solid #f3e6d7;
-          transition: all ease 0.2s;
-          color: #391b0f;
-          &.selected-gender {
-            background: #fb8000;
-            color: #ffffff;
-          }
-        }
-        .role-gender-male {
-          border-top-left-radius: 8px;
-          border-bottom-left-radius: 8px;
-          border-right: none;
-        }
-        .role-gender-female {
-          background: #fcf7f1;
-          border-top-right-radius: 8px;
-          border-bottom-right-radius: 8px;
-        }
-      }
-    }
     .create-btn {
       width: 426px;
       padding: 0px;
       height: 60px;
       line-height: 60px;
       font-size: 16px;
-    }
-    .disabled {
-      background: rgba(213, 213, 213, 1);
-      color: rgba(172, 172, 172, 1);
     }
   }
 }
