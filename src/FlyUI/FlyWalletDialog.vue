@@ -47,6 +47,7 @@
           />
           <p
             class="fly-wallet-dialog-content-core-text"
+            :class="{ error: props.dialogParams.dialogStatus === 'failed' }"
             v-if="props.dialogParams.dialogText"
           >
             {{
@@ -127,7 +128,6 @@
 // 公共的钱包操作反馈
 import { defineProps, defineEmits, reactive, computed, watchEffect } from "vue";
 import SvgIcon from "@components/SvgIcon/Index.vue";
-// import StarButton from "@StarUI/StarButton.vue";
 import FlyButton from "@FlyUI/FlyButton.vue";
 import { useStore } from "vuex";
 import dialogOnGoingImg from "../assets/nft/confirm-logo.gif";
@@ -179,6 +179,7 @@ const setDiaglogStyle = computed(() => {
 });
 
 const renderContentImg = (type) => {
+  console.log("====type====", type);
   const obj = {
     ongoing: dialogOnGoingImg,
     failed: dialogFailedImg,
@@ -242,7 +243,7 @@ const emits = defineEmits(["handleClose", "handleSucceed", "handleFailed"]);
 .fly-wallet-dialog {
   ::v-deep(.el-dialog) {
     background-color: $black;
-    border-radius: 34px;
+    border-radius: 16px;
     .el-dialog__headerbtn:focus .el-dialog__close,
     .el-dialog__headerbtn:hover .el-dialog__close {
       color: $btn-orange-bgcolor;
@@ -257,8 +258,8 @@ const emits = defineEmits(["handleClose", "handleSucceed", "handleFailed"]);
     align-items: center;
     font-weight: bold;
     .fly-wallet-dialog-header-svg {
-      width: 36px;
-      height: 36px;
+      width: 28px;
+      height: 28px;
       &:hover {
         opacity: 0.7;
       }
@@ -293,7 +294,7 @@ const emits = defineEmits(["handleClose", "handleSucceed", "handleFailed"]);
     // transform-origin: right center;
     width: 323px;
     height: 109px;
-    background: rgba(175, 138, 51, 0.7);
+    background: rgba(175, 138, 51, 0.2);
     border-radius: 16px;
     margin: 0 auto;
     margin-top: 20px;
@@ -305,10 +306,10 @@ const emits = defineEmits(["handleClose", "handleSucceed", "handleFailed"]);
       display: flex;
       align-items: center;
       justify-content: flex-start;
-      color: #000928;
       overflow: hidden;
+      color: #fff;
       &.loading-div {
-        color: #fff;
+        color: rgba(139, 139, 139, 0.9);
         font-size: 16px;
       }
       img {

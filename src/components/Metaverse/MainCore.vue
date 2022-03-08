@@ -16,7 +16,8 @@
   </div>
   <selector-modal></selector-modal>
   <wallet-operate-modal></wallet-operate-modal>
-  <second-confirm-modal></second-confirm-modal>
+  <!-- <second-confirm-modal></second-confirm-modal> -->
+  <nft-create-modal></nft-create-modal>
 </template>
 <script setup>
 /* eslint-disable*/
@@ -28,6 +29,7 @@ import ElementComposePanel from "./ElementComposePanel.vue";
 import SelectorModal from "@components/Metaverse/SelectorModal.vue";
 import WalletOperateModal from "./WalletOperateModal.vue";
 import SecondConfirmModal from "./SecondConfirmModal.vue";
+import NftCreateModal from "./NftCreateModal.vue";
 import HeroInfo from "@components/Metaverse/HeroInfo.vue";
 import UserHeroCard from "@components/Metaverse/UserHeroCard.vue";
 import StarLoadingFish from "@StarUI/StarLoadingFish.vue";

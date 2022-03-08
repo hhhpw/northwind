@@ -1,10 +1,10 @@
 <template>
   <div class="liquidity-container">
-    <star-space :size="20"></star-space>
+    <Fly-space :size="20"></Fly-space>
     <!-- <div class="liquidity-container-btnwarp">
       <star-change-button :activeIndex="1"></star-change-button>
     </div> -->
-    <star-space :size="25"></star-space>
+    <Fly-space :size="25"></Fly-space>
     <star-swap-card class="liquidity-container-card">
       <liquidity-core class="liquidity-container-core"></liquidity-core>
     </star-swap-card>
@@ -20,7 +20,7 @@ import LiquidityCore from "@components/Liquidity/core.vue";
 import LiquidityTransitionCard from "@components/Liquidity/transitioncard.vue";
 import StarSwapCard from "@StarUI/StarSwapCard.vue";
 // import StarChangeButton from "@StarUI/StarChangeButton.vue";
-import StarSpace from "@StarUI/StarSpace.vue";
+import FlySpace from "@FlyUI/FlySpace.vue";
 import { useStore } from "vuex";
 const store = useStore();
 let state = reactive({

@@ -36,7 +36,7 @@
         <img :src="d.image" />
       </div>
       <div :class="$style['role-character-add']" @click="changeMainType">
-        {{ $t("角色卡牌制作") }}
+        {{ $t("metaverse.character nft making") }}
       </div>
     </div>
   </div>
@@ -98,19 +98,19 @@ const pushHeroDetail = (payload) => {
   // width: 1100px;
   height: 150px;
   box-sizing: border-box;
-  border: 1px solid red;
+  // border: 1px solid red;
   display: flex;
   overflow-x: scroll;
   padding-right: 20px;
   &::-webkit-scrollbar {
-    height: 5px;
+    // height: 1px;
     // background-color: #ffecd4;
-    border-radius: 20px;
+    // border-radius: 20px;
   }
   &::-webkit-scrollbar-thumb {
     // background: rgba(255, 255, 255, 0.5);
-    border-radius: 20px;
-    width: 80%;
+    // border-radius: 20px;
+    // width: 80%;
   }
   .role-no-character {
     font-size: 14px;
@@ -128,7 +128,6 @@ const pushHeroDetail = (payload) => {
     .role-character-item {
       width: 150px;
       height: 150px;
-      border-radius: 6px;
       overflow: hidden;
       position: relative;
       background: #000000;
@@ -144,20 +143,17 @@ const pushHeroDetail = (payload) => {
         height: 100%;
         top: 0;
         left: 0;
-        // background: rgba(0, 0, 0, 0.5);
         color: #fff;
         display: none;
         font-size: 14px;
         padding-left: 10px;
         padding-top: 10px;
+        background: rgba(0, 0, 0, 0.2);
         p {
           @include textOverflow();
           width: 90%;
         }
       }
-
-      // border: 2px solid #fb8000;
-      // cursor: pointer;
       img {
         width: 100%;
         height: 100%;
@@ -169,7 +165,7 @@ const pushHeroDetail = (payload) => {
       width: 150px;
       height: 150px;
       cursor: pointer;
-      background: #000000;
+      background: rgba(255, 255, 255, 0.3);
       color: #ffffff;
       font-size: 16px;
       text-align: center;

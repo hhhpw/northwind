@@ -1,10 +1,10 @@
 <template>
   <div class="star-history">
-    <star-dialog
+    <Fly-dialog
       :title="props.historyType === 'swap' ? $t('兑换记录') : $t('流动性记录')"
       :dialogVisible="state.visible"
       @handleClose="handleClose"
-      :width="640"
+      :width="440"
     >
       <template #content>
         <div class="list trade-list" v-show="props.historyType === 'swap'">
@@ -29,7 +29,7 @@
                     item.tokenInX > 0 ? item.tokenCodeX : item.tokenCodeY
                   }}</span>
                 </p>
-                <svg-icon name="arrows" class="icon"></svg-icon>
+                <svg-icon name="f-arrows" class="icon"></svg-icon>
                 <p class="text-right">
                   <span class="token-number">{{
                     utilsNumber.formatNumberMeta(
@@ -57,7 +57,14 @@
           <ElEmpty
             v-if="state.totalSwapList.length === 0"
             :description="$t('暂无数据')"
-          />
+          >
+            <template v-slot:image>
+              <svg-icon
+                name="empty"
+                style="width: 100%; height: 80px"
+              ></svg-icon>
+            </template>
+          </ElEmpty>
         </div>
         <div
           class="list liquidity-list"
@@ -111,15 +118,23 @@
           <ElEmpty
             v-if="state.totalLiquidityList.length === 0"
             :description="$t('暂无数据')"
-          />
+          >
+            <template v-slot:image>
+              <svg-icon
+                name="empty"
+                class="icon"
+                style="width: 100%; height: 80px"
+              ></svg-icon>
+            </template>
+          </ElEmpty>
         </div>
       </template>
-    </star-dialog>
+    </Fly-dialog>
   </div>
 </template>
 
 <script setup>
-import starDialog from "@StarUI/StarDialog.vue";
+import FlyDialog from "@FlyUI/FlyDialog.vue";
 import {
   reactive,
   defineProps,
@@ -206,6 +221,12 @@ const handleClose = () => {
 <style lang="scss" scoped>
 @import "~@/styles/variables.scss";
 .star-history {
+  ::v-deep(.el-dialog) {
+    background-image: url("../../src/assets/common/bg.png");
+    background-position: top;
+    background-repeat: no-repeat;
+    background-size: 100%;
+  }
   ::v-deep(.el-dialog__body) {
     padding: 15px 28px;
   }
@@ -224,7 +245,7 @@ const handleClose = () => {
       }
       .date {
         font-size: 14px;
-        color: #b2b2b2;
+        color: $text-gray2-color;
         line-height: 20px;
         float: left;
       }
@@ -258,7 +279,7 @@ const handleClose = () => {
     }
     span {
       font-size: 16px;
-      color: $text-black-color;
+      color: $text-gray2-color;
       line-height: 22px;
       margin-right: 10px;
     }

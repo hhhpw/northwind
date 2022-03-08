@@ -45,7 +45,7 @@ $text-brow-color: #744600;
 }
 .fly-button.success_ghost {
   color: $theme_light-color;
-  // background-color: $theme_gray_color;
+  background-color: transparent;
   border: 1px solid $theme_light-color;
 }
 .fly-button.light {

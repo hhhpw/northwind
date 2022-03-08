@@ -27,75 +27,30 @@
     </div>
     <fly-space :size="20"></fly-space>
     <div :class="$style['info-box']">
-      <!-- <ElInput
-        :placeholder="$t('metaverse.enter the name (1-10 English characters)')"
-        v-model="state.nameValue"
-      >
-      </ElInput> -->
-      <!-- <fly-space
- :size="20"></fly-space
-> -->
-      <!-- <div :class="$style['detail-info']" class="detail-info">
-        <div :class="$style['role-gender']">
-          <div
-            v-for="(d, i) in state.genderLabels"
-            :key="i"
-            @click="selectGender(d)"
-            :class="[
-              $style['role-gender-item'],
-              $style[`role-gender-${d}`],
-              $style[state.genderValue === d ? 'selected-gender' : ''],
-            ]"
-          >
-            <svg-icon :name="d"></svg-icon>
-          </div>
-        </div>
-        <ElSelect
-          v-model="state.professionValue"
-          :suffix-icon="SelectSuffix"
-          :popper-append-to-body="false"
-        >
-          <ElOption
-            v-for="d in state.metaData.occupations"
-            :key="d.value"
-            :label="state.currLang === 'zh' ? d.cnDesc : d.desc"
-            :value="d.value"
-          ></ElOption>
-        </ElSelect>
-      </div> -->
       <fly-space :size="20"></fly-space>
-      <fly-button
-        v-if="state.walletStatus === 'connected'"
-        :class="[$style['create-btn']]"
-      >
-        {{ $t("下一步") }}
-      </fly-button>
-
-      <fly-button v-else @click="connectWallet" :class="[$style['create-btn']]">
-        {{ $t("链接钱包") }}
-      </fly-button>
-      <!-- <fly-button
-        v-if="state.walletStatus === 'connected'"
-        :class="[
-          $style['create-btn'],
-          $style[!state.canGenerated ? 'disabled' : ''],
-        ]"
-        :type="state.canGenerated ? 'normal' : ''"
-        @click="validateParams(state.canGenerated)"
-        :style="{
-          'font-size': state.currLang === 'zh' ? '15px' : '13px',
-        }"
-        >{{
-          $t("metaverse.generate character NFT") +
-          ` (${state.metaData.compositeFee}) STC`
-        }}</fly-button
-      >
-      <star-button
-        v-if="state.walletStatus !== 'connected'"
-        :class="$style['create-btn']"
-        @click="connectWallet"
-        >{{ $t("链接钱包") }}</star-button
-      > -->
+      <template v-if="state.walletStatus === 'connected'">
+        <fly-button
+          v-if="
+            state.selectedElementList && state.selectedElementList.length > 0
+          "
+          :class="[$style['create-btn']]"
+          @click="
+            store.commit('StoreMeta/SET_CREATE_DIALOG_PARAMS', {
+              dialogVisible: true,
+            })
+          "
+        >
+          {{ $t("下一步") }}
+        </fly-button>
+        <fly-button v-else type="disabled" :class="[$style['create-btn']]">
+          {{ $t("下一步") }}
+        </fly-button>
+      </template>
+      <template v-else>
+        <fly-button @click="connectWallet" :class="[$style['create-btn']]">
+          {{ $t("链接钱包") }}
+        </fly-button>
+      </template>
     </div>
   </div>
   <validate-error-modal></validate-error-modal>
@@ -169,93 +124,6 @@ const handleValidateClose = () => {
 };
 </script>
 
-<style lang="scss" scoped>
-$bgColor: rgba(235, 213, 189, 1);
-$borderColor: #ebd5bd;
-$fontColor: #391b0f;
-$bgColor2: #fcf7f1;
-
-.compose-container {
-  margin-left: 40px;
-  ::v-deep(.el-input) {
-    border: none;
-    border-color: transparent;
-    width: 245px;
-    height: 40px;
-  }
-  ::v-deep(.el-input::hover) {
-    border: none;
-    border-color: transparent;
-  }
-  ::v-deep(.el-input__inner) {
-    background: #f3e6d7;
-    border: none;
-    color: $fontColor;
-    height: 40px;
-  }
-  ::v-deep(.el-input__inner:focus) {
-    border: none;
-    border-color: transparent;
-  }
-  ::v-deep(.el-input__inner::placeholder) {
-    color: rgba(57, 27, 15, 0.4);
-    font-size: 10px;
-    // transform: scale(0.8);
-    // margin-left: 100px;
-  }
-}
-.detail-info {
-  ::v-deep(.el-input) {
-    border: none;
-    width: 130px;
-    border: 1px solid $borderColor;
-    border-radius: 8px;
-    overflow: hidden;
-    background-color: $bgColor2;
-    height: 32px;
-  }
-  ::v-deep(.el-input::hover) {
-    border: 1px solid $borderColor;
-  }
-  ::v-deep(.el-input__inner) {
-    background: #fff;
-    height: 32px;
-    color: $fontColor;
-    background-color: $bgColor2;
-  }
-  ::v-deep(.el-input__inner:focus) {
-  }
-  ::v-deep(.el-input__inner::placeholder) {
-    color: $fontColor;
-  }
-  ::v-deep(.el-select__popper.el-popper[role="tooltip"]) {
-    border: none;
-  }
-  ::v-deep(.el-select-dropdown) {
-    background-color: #fcf7f1;
-    border: none;
-    .el-select-dropdown__item.selected {
-      color: $fontColor;
-      background-color: $borderColor;
-    }
-    .el-select-dropdown__item.hover {
-      color: $fontColor;
-      background-color: rgba(235, 213, 189, 0.6) !important;
-    }
-    .el-select-dropdown__item:hover {
-      color: $fontColor;
-      background-color: rgba(235, 213, 189, 0.3);
-    }
-  }
-  ::v-deep(.el-popper.is-light .el-popper__arrow::before) {
-    background-color: $bgColor2;
-  }
-  ::v-deep(.el-select__popper.el-popper[role="tooltip"]
-      .el-popper__arrow::before) {
-    border: none;
-  }
-}
-</style>
 <style lang="scss" module>
 .compose-container {
   .role-box {
@@ -331,7 +199,7 @@ $bgColor2: #fcf7f1;
       padding: 0px;
       height: 60px;
       line-height: 60px;
-      font-size: 15px;
+      font-size: 16px;
     }
     .disabled {
       background: rgba(213, 213, 213, 1);

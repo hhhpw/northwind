@@ -14,7 +14,7 @@
             </div>
           </template>
           <template #default>
-            <svg-icon name="question" class="question"></svg-icon>
+            <svg-icon name="f-question" class="question"></svg-icon>
           </template>
         </ElTooltip>
       </template>
@@ -29,8 +29,8 @@
     </div>
 
     <div class="liquidity-content-header-right">
-      <svg-icon name="setting" @click="showSetting"></svg-icon>
-      <svg-icon name="record" @click="showHistory"></svg-icon>
+      <svg-icon name="f-setting" @click="showSetting"></svg-icon>
+      <svg-icon name="f-record" @click="showHistory"></svg-icon>
     </div>
   </div>
 </template>
@@ -70,10 +70,12 @@ const showHistory = () => {
 };
 </script>
 <style lang="scss" scoped>
+@import "~@/styles/variables.scss";
 .liquidity-content-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  color: $text-white-color;
   .liquidity-content-header-left {
     display: flex;
     align-items: center;

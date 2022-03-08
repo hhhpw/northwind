@@ -8,7 +8,11 @@
   cursor: pointer;
   background-color: $hover-bg-color;
 }
-
+@mixin commonHoverStyle2 {
+  cursor: pointer;
+  background-color:  $hover-bg-color2;
+ 
+}
 @mixin textOverflow {
   white-space: nowrap;
   text-overflow: ellipsis;
