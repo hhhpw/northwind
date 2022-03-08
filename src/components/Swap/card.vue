@@ -12,25 +12,23 @@
               state.focusType === "from" ? $t("最小接收量") : $t("最大发送量")
             }`
           }}</span>
-
-          <ElTooltip effect="light" placement="right">
-            <template #content>
-              <div :style="'max-width:400px'">
-                {{
-                  state.focusType === "from"
-                    ? $t(
-                        "此次交易收到的最小数量，由于在您的订单确认之前市场会有变化，导致的最终兑换比例会有不同。"
-                      )
-                    : $t(
-                        "此次交易卖出的最大数量，由于在您的订单确认之前市场会有变化，导致的最终兑换比例会有不同。"
-                      )
-                }}
-              </div>
-            </template>
-            <template #default>
-              <svg-icon name="f-question" class="question"></svg-icon>
-            </template>
-          </ElTooltip>
+          <Fly-tool-tip
+            placement="right"
+            :placeString="
+              state.focusType === 'from'
+                ? $t(
+                    '此次交易收到的最小数量，由于在您的订单确认之前市场会有变化，导致的最终兑换比例会有不同。'
+                  )
+                : $t(
+                    '此次交易卖出的最大数量，由于在您的订单确认之前市场会有变化，导致的最终兑换比例会有不同。'
+                  )
+            "
+            svgName="f-question"
+            :svgStyle="{
+              'margin-left': '3px',
+            }"
+          >
+          </Fly-tool-tip>
         </p>
         <p v-if="state.focusType === 'from'">
           {{ state.swapCalcalatorData.minReceived }}
@@ -52,36 +50,35 @@
       <div class="swap-datamenu-price-impact">
         <p>
           <span>{{ $t("价格影响") }}</span>
-          <ElTooltip effect="light" placement="right-start">
-            <template #content>
-              <div :style="'max-width:400px'">
-                {{
-                  $t(
-                    "即此次兑换对市场内代币均价的影响，价格影响为换入币种价格的影响。"
-                  )
-                }}
-              </div>
-            </template>
-            <template #default>
-              <svg-icon name="f-question" class="question"></svg-icon>
-            </template>
-          </ElTooltip>
+
+          <Fly-tool-tip
+            placement="right"
+            :placeString="
+              $t(
+                '即此次兑换对市场内代币均价的影响，价格影响为换入币种价格的影响。'
+              )
+            "
+            svgName="f-question"
+            :svgStyle="{
+              'margin-left': '3px',
+            }"
+          >
+          </Fly-tool-tip>
         </p>
         <p>{{ priceVisible(state.swapCalcalatorData.priceImpact) }}</p>
       </div>
       <div class="swap-datamenu-fee">
         <p>
           <span>{{ $t("路径") }}</span>
-          <ElTooltip effect="light" placement="right-start">
-            <template #content>
-              <div :style="'max-width:400px'">
-                {{ $t("兑换将通过此路径进行以获得最优的价格。") }}
-              </div>
-            </template>
-            <template #default>
-              <svg-icon name="f-question" class="question"></svg-icon>
-            </template>
-          </ElTooltip>
+          <Fly-tool-tip
+            :placeString="$t('兑换将通过此路径进行以获得最优的价格。')"
+            svgName="f-question"
+            placement="right"
+            :svgStyle="{
+              'margin-left': '3px',
+            }"
+          >
+          </Fly-tool-tip>
         </p>
         <p>{{ renderPath(state.swapCalcalatorData.path) }}</p>
       </div>
@@ -89,7 +86,7 @@
   </div>
 </template>
 <script setup>
-import SvgIcon from "@components/SvgIcon/Index.vue";
+import FlyToolTip from "@FlyUI/FlyToolTip.vue";
 import { computed, reactive } from "vue";
 // import { ElTooltip } from "element-plus";
 import { useStore } from "vuex";

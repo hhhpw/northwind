@@ -1,20 +1,14 @@
 <template>
-  <div>
-    <ElTooltip
-      effect="dark"
-      :placement="props.placement"
-      :append-to-body="false"
-    >
-      <template #content>
-        <span :class="props.contentClassName">
-          {{ props.placeString }}
-        </span>
-      </template>
-      <template #default>
-        <svg-icon :name="props.svgName" :style="props.svgStyle">></svg-icon>
-      </template>
-    </ElTooltip>
-  </div>
+  <ElTooltip effect="dark" v-bind="$attrs" :append-to-body="false">
+    <template #content>
+      <span :class="props.contentClassName">
+        {{ props.placeString }}
+      </span>
+    </template>
+    <template #default>
+      <svg-icon :name="props.svgName" :style="props.svgStyle">></svg-icon>
+    </template>
+  </ElTooltip>
 </template>
 <script setup>
 import SvgIcon from "@components/SvgIcon/Index.vue";
@@ -30,9 +24,6 @@ const props = defineProps({
   },
   svgStyle: {
     type: Object,
-  },
-  placement: {
-    type: String,
   },
 });
 </script>

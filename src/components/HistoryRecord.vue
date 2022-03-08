@@ -94,7 +94,7 @@
                   }}</span>
                   <span class="m-l-0 m-token">{{ item.tokenCodeX }}</span>
                 </p>
-                <svg-icon name="cross" class="icon"></svg-icon>
+                <svg-icon name="f-cross" class="icon"></svg-icon>
                 <p class="p-r">
                   <span class="m-r-0 m-token">{{ item.tokenCodeY }}</span>
                   <span class="amount">{{
@@ -302,6 +302,7 @@ const handleClose = () => {
       p {
         float: left;
         overflow: hidden;
+        color: $text-white-color;
         .amount {
           width: auto;
           max-width: 163px;
@@ -329,6 +330,7 @@ const handleClose = () => {
       .p-r {
         width: 40%;
         float: right;
+        color: $text-white-color;
         .amount {
           text-align: right;
           float: right;

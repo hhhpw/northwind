@@ -29,9 +29,9 @@ const delPool = (item) => {
   font-size: 14px;
   .loop-list-item {
     width: 100%;
-    background: $btn-gray2-bgcolor;
+    // background: $btn-gray2-bgcolor;
     height: 40px;
-    border-radius: 16px;
+    // border-radius: 16px;
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -52,11 +52,12 @@ const delPool = (item) => {
       text-align: right;
       flex: 1;
       cursor: pointer;
-      color: $text-orange-color;
+      color: $text-orange-color2;
     }
   }
   .loop-list-item:not(:last-child) {
-    margin-bottom: 12px;
+    // margin-bottom: 12px;
+    border-bottom: 0.5px solid #3e3e3e;
   }
 }
 </style>

@@ -1,37 +1,25 @@
 <template>
   <div class="liquidity-content-core-delete">
-    <div class="liquidity-content-core-delete-tips">
-      <span>{{ $t("请输入需要移除的LP数量") }}</span>
-      <ElTooltip effect="light" placement="right-start">
-        <template #content>
-          <div :style="'max-width: 400px'">
-            {{
-              $t(
-                "移除流动性资金将会根据LP Token数量按当前流动性资金池中的代币兑换比例换回代币"
-              )
-            }}
-          </div>
-        </template>
-        <template #default>
-          <svg-icon name="question" class="question"></svg-icon>
-        </template>
-      </ElTooltip>
-    </div>
-    <star-space :size="20"></star-space>
     <div class="liquidity-content-core-delete-input">
       <div class="liquidity-content-core-delete-title">
         <span v-if="state.lpDelInfo.poolAmount">
           {{ $t("余额") }}: {{ state.lpDelInfo.poolAmount }}
         </span>
+        <span
+          class="liquidity-content-core-max"
+          @click="setToInputValueMax(state.lpDelInfo.poolAmount)"
+        >
+          MAX
+        </span>
       </div>
       <div class="liquidity-content-core-delete-main">
-        <star-input
+        <Fly-input
           class="liquidity-content-core-delete-main-input"
           placeholder="0.0"
           :value="state.inpVal"
           :max="state.lpDelInfo.poolAmount"
           @inputEvent="inputEvent($event)"
-        ></star-input>
+        ></Fly-input>
         <div class="liquidity-content-core-delete-main-currencyselect">
           <span>
             {{ state.lpDelInfo.lpToken }}
@@ -40,7 +28,7 @@
         </div>
       </div>
     </div>
-    <star-space :size="20"></star-space>
+    <star-space :size="36"></star-space>
     <div class="liquidity-content-core-delete-item">
       <span>
         {{ state.lpDelInfo.A.data }}
@@ -48,7 +36,7 @@
       <span>{{ state.lpDelInfo.A.key }}</span>
     </div>
     <div class="change-content">
-      <svg-icon name="cross" class="icon"></svg-icon>
+      <svg-icon name="f-cross" class="icon"></svg-icon>
     </div>
     <div class="liquidity-content-core-delete-item">
       <span>
@@ -63,7 +51,8 @@ import { computed, reactive, onUnmounted, onMounted } from "vue";
 import SvgIcon from "@components/SvgIcon/Index.vue";
 import StarSpace from "@StarUI/StarSpace.vue";
 import { useStore } from "vuex";
-import StarInput from "@StarUI/StarInput";
+import utilsNumber from "@utils/number";
+import FlyInput from "@FlyUI/FlyInput";
 // import { ElTooltip } from "element-plus";
 const store = useStore();
 
@@ -77,7 +66,11 @@ let state = reactive({
 const inputEvent = (val) => {
   store.dispatch("StoreLiquidity/setDelPoolTokenData", { value: val });
 };
-
+const setToInputValueMax = (value) => {
+  if (value && utilsNumber.bigNum(value).gt(0)) {
+    store.dispatch("StoreLiquidity/setDelPoolTokenData", { value: value });
+  }
+};
 // delete或add去循环请求最新的XY
 onMounted(() => {
   store.dispatch("StoreLiquidity/getLiquidityXYThrottle");
@@ -107,23 +100,17 @@ onUnmounted(() => {
 }
 
 .change-content {
-  padding: 20px 0px;
   text-align: center;
+  padding: 20px 0;
   .icon {
     cursor: default;
+    width: 9px;
   }
 }
 .liquidity-content-core-delete {
-  .liquidity-content-core-delete-tips {
-    margin-left: 20px;
-    .question {
-      margin-left: 5px;
-    }
-  }
   .liquidity-content-core-delete-item {
-    color: $text-black-color;
+    color: $text-white-color;
     width: 100%;
-    background: $btn-gray2-bgcolor;
     height: 60px;
     border-radius: 16px;
     display: flex;
@@ -135,10 +122,13 @@ onUnmounted(() => {
       font-size: 20px;
     }
     span:first-child {
-      color: $text-gray-color;
+      color: $text-white-color;
     }
     span:last-child {
-      color: $text-black-color;
+      color: $text-white-color;
+    }
+    &:last-child {
+      margin-bottom: 16px;
     }
   }
 }
@@ -149,11 +139,16 @@ onUnmounted(() => {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  border-radius: 19px;
-  border: 1px solid #ededed;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.08);
   .liquidity-content-core-delete-title {
     display: flex;
+    font-size: 14px;
     justify-content: flex-end;
+    .liquidity-content-core-max {
+      color: $text-orange-color2;
+      margin-left: 4px;
+    }
   }
   .liquidity-content-core-delete-main {
     display: flex;
@@ -162,7 +157,10 @@ onUnmounted(() => {
     height: 50px;
     .liquidity-content-core-delete-main-input {
       ::v-deep(.el-input__inner) {
-        border-color: #fff;
+        border: none;
+        background: none;
+        color: $text-white-color;
+        font-size: 24px;
       }
       width: 230px;
     }

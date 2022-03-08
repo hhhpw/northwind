@@ -1,7 +1,25 @@
 <template>
   <div class="liquidity-content">
     <li-header></li-header>
-    <Fly-space :size="20"></Fly-space>
+    <template v-if="state.poolType === 'delete'">
+      <div class="liquidity-content-core-delete-tips">
+        <span>{{ $t("请输入需要移除的LP数量") }}</span>
+        <Fly-tool-tip
+          :placeString="
+            $t(
+              '移除流动性资金将会根据LP Token数量按当前流动性资金池中的代币兑换比例换回代币'
+            )
+          "
+          svgName="f-question"
+          placement="right"
+          :svgStyle="{
+            'margin-left': '3px',
+          }"
+        >
+        </Fly-tool-tip>
+      </div>
+    </template>
+    <Fly-space :size="40"></Fly-space>
     <div class="liquidity-content-core">
       <template v-if="state.poolType === 'init'">
         <no-data v-if="!state.hasLiquidity"></no-data>
@@ -18,7 +36,6 @@
       <Fly-space :size="20"></Fly-space>
       <div class="liquidity-content-core-btn">
         <Fly-button
-          type="dark"
           v-if="
             state.walletStatus === 'unConnected' && state.poolType === 'add'
           "
@@ -77,6 +94,7 @@
 <script setup>
 import { computed, reactive, onMounted, watch } from "vue";
 import StarConfirm from "@StarUI/StarConfirm.vue";
+import FlyToolTip from "@FlyUI/FlyToolTip.vue";
 import FlyButton from "@FlyUI/FlyButton.vue";
 import FlySpace from "@FlyUI/FlySpace.vue";
 import NoData from "./nodata.vue";
@@ -161,7 +179,7 @@ const btnStatus = computed(() => {
     state.delInpVal &&
     utilsNumber.bigNum(state.delInpVal).gt(0)
   ) {
-    return { type: "light", text: t("移除"), flag: "3" };
+    return { type: "normal", text: t("移除"), flag: "3" };
   }
   if (
     state.poolType === "delete" &&
@@ -171,11 +189,11 @@ const btnStatus = computed(() => {
   }
   // 有流动池且连接
   if (state.hasLiquidity && state.poolType === "init") {
-    return { type: "light", text: t("添加流动性"), flag: "1" };
+    return { type: "normal", text: t("添加流动性"), flag: "1" };
   }
 
   if (state.poolType === "add" && state.from.inputVal && state.to.inputVal) {
-    return { type: "light", text: t("添加"), flag: "2" };
+    return { type: "normal", text: t("添加"), flag: "2" };
   }
 
   // 连接状态、币种信息inputVal即可
@@ -267,7 +285,14 @@ watch(
 }
 .liquidity-content {
   width: 100%;
-  color: $text-black-color;
+  color: $text-white-color;
+  .liquidity-content-core-delete-tips {
+    margin-left: 34px;
+    font-size: 14px;
+    .question {
+      margin-left: 5px;
+    }
+  }
   .liquidity-content-header {
     display: flex;
     align-items: center;
