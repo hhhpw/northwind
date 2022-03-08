@@ -4,7 +4,7 @@ import { isNil } from "lodash";
 import { ElNotification } from "element-plus";
 import utilsTool from "@utils/tool";
 import CONSTANTS_STAR_MASK from "@constants/starmask";
-import StarButton from "@StarUI/StarButton.vue";
+import FlyButton from "@FlyUI/FlyButton.vue";
 // import utilsRouter from "@utils/router.js";
 import CONSTANTS_TOKENS from "@constants/token";
 import utilsFormat from "@utils/format";
@@ -130,7 +130,7 @@ export default function connectLogic(store) {
           style: {
             position: "relative",
             "font-size": "14px",
-            color: "#FFFFFF",
+            // color: "#FFFFFF",
           },
         },
         [
@@ -138,7 +138,7 @@ export default function connectLogic(store) {
             "p",
             {
               style: {
-                color: "#fb8000",
+                color: "#fba800",
                 "font-weight": "500",
               },
             },
@@ -160,11 +160,11 @@ export default function connectLogic(store) {
           //   CONSTANTS_STAR_MASK.PLUGIN_URL
           // ),
           h(
-            StarButton,
+            FlyButton,
             {
-              type: "dark",
+              type: "success_ghost",
               style: {
-                padding: "10px 15px",
+                padding: "10px 35px",
                 // "margin-left": "200px",
                 "margin-top": "20px",
                 width: "auto",

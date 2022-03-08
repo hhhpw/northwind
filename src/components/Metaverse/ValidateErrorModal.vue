@@ -14,16 +14,16 @@
         <p>
           {{ state.callBackDialogParams.text }}
         </p>
-        <star-button class="button" type="red" @click="handleClose">
+        <fly-button class="button" type="danger_ghost" @click="handleClose">
           {{ $t("确认") }}
-        </star-button>
+        </fly-button>
       </div>
     </ElDialog>
   </div>
 </template>
 <script setup>
 import { computed, reactive } from "vue";
-import StarButton from "@StarUI/StarButton.vue";
+import FlyButton from "@FlyUI/FlyButton.vue";
 import { useStore } from "vuex";
 const store = useStore();
 const state = reactive({
@@ -41,11 +41,8 @@ const handleClose = () => {
 <style lang="scss" scoped>
 .meta-error-validate-modal {
   ::v-deep(.el-dialog) {
-    border-radius: 34px;
-    .el-dialog__headerbtn:focus .el-dialog__close,
-    .el-dialog__headerbtn:hover .el-dialog__close {
-      color: $btn-orange-bgcolor;
-    }
+    border-radius: 16px;
+    background: linear-gradient(180deg, #3e3e3e 0%, #3e3e3e 0%, #252525 100%);
   }
   ::v-deep(.el-dialog__body) {
     padding-top: 0px !important;
@@ -60,9 +57,9 @@ const handleClose = () => {
     p {
       width: 100%;
       text-align: center;
-      // color: #391b0f;
       font-size: 16px;
       margin: 60px 0px;
+      color: #fff;
     }
     .button {
       width: 70%;

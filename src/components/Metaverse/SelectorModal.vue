@@ -3,7 +3,7 @@
     <ElDialog
       v-model="state.selectorDialogParams.dialogVisible"
       custom-class="star-dialog-el"
-      width="868px"
+      width="672px"
       :before-close="handleClose"
       :close-on-press-escape="false"
       :close-on-click-modal="false"
@@ -19,7 +19,7 @@
             </p>
           </div>
           <svg-icon
-            name="dialog-close"
+            name="f-dialog-close"
             class="meta-nft-selector-modal-header-svg"
             @click.stop="handleClose"
           ></svg-icon>
@@ -39,27 +39,27 @@
         >
           <div class="card-wrap-item-box">
             <img :src="d.image" />
-            <div class="card-wrap-item-box-shadow">
-              <svg-icon
-                name="white-rarity"
-                class="card-wrap-item-box-svg"
-              ></svg-icon>
-              <star-amount
-                :value="d?.score"
-                :formatOptions="{ precision: 0, trailingZero: false }"
-              ></star-amount>
+            <div class="card-wrap-item-box-info">
+              <p>
+                <span>{{ $t("算力") }}:</span>
+                <fly-amount
+                  :value="d?.score"
+                  :formatOptions="{ precision: 0, trailingZero: false }"
+                ></fly-amount>
+              </p>
+              <p>
+                {{ d.customName }}
+              </p>
             </div>
-          </div>
-          <p class="card-wrap-item-text">
-            {{ d.customName }}
-          </p>
-          <div v-show="d.isShow">
-            <star-button
-              type="dark"
-              class="card-wrap-item-btn"
-              @click="brakeDownNFT(d)"
-              >{{ $t("metaverse.disassemble") }}</star-button
-            >
+            <div v-show="d.isShow">
+              <div class="card-wrap-item-box-shadow">
+                <fly-button
+                  class="card-wrap-item-btn"
+                  @click="brakeDownNFT(d)"
+                  >{{ $t("metaverse.disassemble") }}</fly-button
+                >
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -79,8 +79,8 @@
 /* eslint-disable */
 import { computed, onMounted, reactive, watchEffect } from "vue";
 import SvgIcon from "@components/SvgIcon/Index.vue";
-import StarButton from "@StarUI/StarButton.vue";
-import StarAmount from "@StarUI/StarAmount.vue";
+import FlyButton from "@FlyUI/FlyButton.vue";
+import FlyAmount from "@FlyUI/FlyAmount.vue";
 import { useStore } from "vuex";
 import utilsRouter from "@utils/router";
 const store = useStore();
@@ -117,7 +117,8 @@ const pushMarket = () => {
 <style lang="scss" scoped>
 .meta-nft-selector-modal {
   ::v-deep(.el-dialog) {
-    border-radius: 8px;
+    background: linear-gradient(180deg, #3e3e3e 0%, #3e3e3e 0%, #252525 100%);
+    border-radius: 16px;
     .el-dialog__headerbtn:focus .el-dialog__close,
     .el-dialog__headerbtn:hover .el-dialog__close {
       color: $btn-orange-bgcolor;
@@ -138,15 +139,15 @@ const pushMarket = () => {
     align-items: flex-start;
     justify-content: space-between;
     margin-bottom: 20px;
+    margin-top: 15px;
     .meta-nft-selector-modal-header-text {
+      color: #fff;
       p:first-child {
         font-weight: 500;
-        color: #391b0f;
         font-size: 20px;
       }
       p:last-child {
         font-size: 14px;
-        color: #8b8b8b;
       }
     }
     .meta-nft-selector-modal-header-svg {
@@ -165,18 +166,19 @@ const pushMarket = () => {
     max-height: 60vh;
     height: 60vh;
     overflow: scroll;
-
     .card-wrap-item {
-      padding: 24px 20px;
-      margin-bottom: 15px;
-      margin-left: 14px;
+      // padding-left: 2px;
+      // padding: 0px 10px;
+      margin-bottom: 10px;
+      margin-right: 15px;
+      height: auto;
       text-align: center;
-      border: 2px solid transparent;
-      // width: 120px;
-      height: 220px;
+      height: 200px;
       &:hover {
-        border: 2px solid #ff9534;
         cursor: pointer;
+      }
+      &:nth-child(4n + 4) {
+        margin-right: 0px;
       }
       .card-wrap-item-box {
         position: relative;
@@ -185,39 +187,47 @@ const pushMarket = () => {
         img {
           width: 144px;
           height: 144px;
-          border-radius: 8px;
         }
+        .card-wrap-item-box-info {
+          color: #fff;
+          font-size: 14px;
+          p {
+            text-align: left;
+          }
+        }
+
         .card-wrap-item-box-shadow {
           position: absolute;
           background: rgba(0, 0, 0, 0.4);
-          border-radius: 16px;
           color: #fff;
-          width: 60px;
-          bottom: 10px;
-          left: 42px;
-          .card-wrap-item-box-svg {
-            font-size: 12px;
-          }
-          span {
-            margin-left: 5px;
-            font-size: 12px;
+          width: 100%;
+          height: 100%;
+          left: 0;
+          top: 0px; // bottom: 10px;
+          // left: 42px;
+          .card-wrap-item-btn {
+            margin-top: 10px;
+            width: 110px;
+            padding: 8px;
+            border-radius: 5px;
+            font-size: 14px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -70%);
+            color: #fff;
+            &:hover {
+              opacity: 1;
+            }
           }
         }
       }
       .card-wrap-item-text {
         font-size: 14px;
-        color: #391b0f;
         text-align: center;
         text-align: left;
         margin-left: 5px;
         margin-top: 10px;
-      }
-      .card-wrap-item-btn {
-        margin-top: 10px;
-        width: 120px;
-        padding: 8px;
-        border-radius: 5px;
-        font-size: 14px;
       }
     }
   }

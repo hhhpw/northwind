@@ -47,17 +47,15 @@ const state = reactive({
 </script>
 <style lang="scss" module>
 .hero-info {
-  // background-image: url("../../assets/metaverse/right-bg.png");
-  // background-repeat: no-repeat;
-  // background-size: 100% 100%;
-  // width: 400px;
-  width: calc(100% - 500px);
-  margin-left: 50px;
-  padding: 30px;
+  background-image: url("../../assets/metaverse/right-bg.png");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  width: 400px;
+  margin-left: 30px;
+  padding: 30px 45px;
   box-sizing: border-box;
   position: relative;
-  height: 436px;
-  background: linear-gradient(117deg, rgba(37, 37, 37, 0) 0%, #3e3e3e 100%);
+
   .wrap {
     width: 100%;
     display: flex;
@@ -67,27 +65,27 @@ const state = reactive({
   }
   .hero-info-skills {
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     img {
-      width: 100px;
-      height: 72px;
-      margin-right: 10px;
+      width: 70px;
     }
-    padding-bottom: 20px;
-    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 40px;
+    border-bottom: 2px solid #f2decb;
   }
 
   .hero-info-occupations {
     overflow: hidden;
     width: 100%;
     position: relative;
-    padding-bottom: 20px;
+    padding-bottom: 40px;
     margin-top: 30px;
-    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 2px solid #f2decb;
+    // margin-top: 30px;
+    // justify-content: flex-start;
     .hero-info-occupations-item {
       // width: 25%;
       // margin-left: 6%;
-      margin-right: 10px;
+      margin-right: 6%;
       float: left;
       text-align: center;
       position: relative;
@@ -95,11 +93,10 @@ const state = reactive({
     }
     img {
       display: inline-block;
-      width: 100px;
-      height: 72px;
+      width: 70px;
     }
     p {
-      color: rgba(255, 255, 255, 0.6);
+      color: #391b0f;
       font-size: 12px;
     }
     .hero-info-occupations-item-num {
@@ -111,8 +108,7 @@ const state = reactive({
       background-color: rgba(255, 255, 255, 0.5);
       width: 60%;
       border-radius: 10px;
-      // color: #391b0f;
-      color: rgba(255, 255, 255, 0.6);
+      color: #391b0f;
     }
   }
 
@@ -121,8 +117,7 @@ const state = reactive({
     margin-top: 30px;
     justify-content: flex-start;
     img {
-      width: 100px;
-      height: 72px;
+      width: 70px;
       margin-right: 10px;
     }
     padding-bottom: 40px;
@@ -135,6 +130,7 @@ const state = reactive({
     bottom: 0;
     left: 0;
     right: 0;
+    border-radius: 16px;
     transform: scale(0.925, 0.95);
     z-index: 9;
     cursor: not-allowed;
@@ -144,11 +140,9 @@ const state = reactive({
       color: #fff;
       text-align: center;
       position: absolute;
-      // bottom: 20px;
-      top: 50%;
+      bottom: 20px;
       left: 0;
       right: 0;
-      font-size: 24px;
     }
   }
 }

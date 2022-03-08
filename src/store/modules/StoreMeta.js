@@ -22,6 +22,10 @@ const INIT_CALL_BACK_DIALOG_PARAMS = {
   text: "",
 };
 
+const INIT_CREAT_NFT_DIALOG_PARAMS = {
+  dialogVisible: false,
+};
+
 const handleWalletCloseEvent = (commit) => {
   commit(types.SET_WALLET_DIALOG_PARAMS_STATUS, {
     dialogVisible: false,
@@ -41,8 +45,8 @@ const StoreMeta = {
   state: {
     heroInfo: null,
     metaData: null,
-    secondDialogParams: SECOND_DIALOG_PARAMS,
     selectorDialogParams: INIT_SELECTOR_DIALOG_PARAMS,
+    createNFTDialogParams: INIT_CREAT_NFT_DIALOG_PARAMS,
     dialogParams: WALLET_DIALOG_PARAMS,
     callBackDialogParams: INIT_CALL_BACK_DIALOG_PARAMS,
     selectedElementList: [],
@@ -77,7 +81,6 @@ const StoreMeta = {
     [types.CLEAR_DATA](state) {
       state.heroInfo = null;
       state.metaData = null;
-      state.secondDialogParams = SECOND_DIALOG_PARAMS;
       state.selectorDialogParams = INIT_SELECTOR_DIALOG_PARAMS;
       state.dialogParams = WALLET_DIALOG_PARAMS;
       state.callBackDialogParams = INIT_CALL_BACK_DIALOG_PARAMS;
@@ -87,6 +90,14 @@ const StoreMeta = {
       state.allSplitNFT = [];
       state.allElements = null;
       state.loadingStatus = true;
+      state.createNFTDialogParams = INIT_CREAT_NFT_DIALOG_PARAMS;
+    },
+    [types.SET_CREATE_DIALOG_PARAMS](state, payload) {
+      state.createNFTDialogParams = Object.assign(
+        {},
+        INIT_CREAT_NFT_DIALOG_PARAMS,
+        payload
+      );
     },
     [types.SET_CURR_NFT_PROPERTY](state, payload) {
       state.currProto = payload;
@@ -112,13 +123,6 @@ const StoreMeta = {
         state.heroInfo = null;
         window.location.reload();
       }
-    },
-    [types.SET_SECOND_DIALOG_PARAMS_STATUS](state, payload) {
-      state.secondDialogParams = Object.assign(
-        {},
-        state.secondDialogParams,
-        payload
-      );
     },
     [types.CHANGE_OPERATE_STATUS](state, payload) {
       state.type = payload;
@@ -188,7 +192,6 @@ const StoreMeta = {
 
     // 生成
     async generateNFTRole({ rootState, commit, state, dispatch }, payload) {
-      commit(types.SET_SECOND_DIALOG_PARAMS_STATUS, SECOND_DIALOG_PARAMS);
       commit(types.SET_WALLET_DIALOG_PARAMS_STATUS, {
         dialogVisible: true,
         isShowClose: false,
@@ -299,6 +302,9 @@ const StoreMeta = {
                   }),
                   type: "generated",
                 });
+                commit(types.SET_CREATE_DIALOG_PARAMS, {
+                  dialogVisible: false,
+                });
               };
               setTimeout(() => {
                 commit(types.SET_WALLET_DIALOG_PARAMS_STATUS, {
@@ -331,24 +337,6 @@ const StoreMeta = {
           handleClose: () => handleWalletCloseEvent(commit),
         });
       }
-    },
-
-    canCreateNFT({ commit, dispatch }, payload) {
-      const handleClose = () => {
-        commit(types.SET_SECOND_DIALOG_PARAMS_STATUS, {
-          dialogVisible: false,
-        });
-      };
-      commit(types.SET_SECOND_DIALOG_PARAMS_STATUS, {
-        dialogVisible: true,
-        confirmText: utilsFormat.computedLangCtx("确认"),
-        cancelText: utilsFormat.computedLangCtx("取消"),
-        handleCancel: handleClose,
-        handleClose: handleClose,
-        handleConfirm: () => {
-          dispatch("generateNFTRole", payload);
-        },
-      });
     },
 
     // 获取NFT

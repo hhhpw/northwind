@@ -117,9 +117,8 @@ $mainHeight: 460px;
   width: 522px;
   height: 520px;
   background: linear-gradient(117deg, #3e3e3e 0%, rgba(37, 37, 37, 0) 100%);
-  // width: 600px;
-  // height: 600px;
-  padding: 30px;
+  padding: 16px;
+  padding-top: 0px;
   box-sizing: border-box;
   .main {
     height: $mainHeight;
@@ -149,15 +148,13 @@ $mainHeight: 460px;
     .main-item-pos {
       float: left;
       &:not(:nth-child(4n + 1)) {
-        margin-left: 33px;
+        margin-left: 25px;
       }
     }
     .main-item {
       cursor: pointer;
-      // height: 100%;
       margin-top: 20px;
       float: left;
-
       .main-item-img {
         width: 102px;
         height: 102px;

@@ -71,6 +71,10 @@ const changeProperty = (d, i) => {
     font-size: 14px;
     border-left: 1px solid transparent;
     position: relative;
+    margin-top: 4px;
+    &:first-child {
+      margin-top: 0px;
+    }
     &:hover {
       @include activeBtnStyle();
     }
@@ -78,7 +82,7 @@ const changeProperty = (d, i) => {
   .property-item-active {
     background: linear-gradient(129deg, #4a4a4a 0%, #3c3c3c 100%);
     .property-item-active-block {
-      left: 1px;
+      left: 0px;
       position: absolute;
       width: 1px;
       height: 100%;

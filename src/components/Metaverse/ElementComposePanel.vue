@@ -27,82 +27,43 @@
     </div>
     <fly-space :size="20"></fly-space>
     <div :class="$style['info-box']">
-      <!-- <ElInput
-        :placeholder="$t('metaverse.enter the name (1-10 English characters)')"
-        v-model="state.nameValue"
-      >
-      </ElInput> -->
-      <!-- <fly-space
- :size="20"></fly-space
-> -->
-      <!-- <div :class="$style['detail-info']" class="detail-info">
-        <div :class="$style['role-gender']">
-          <div
-            v-for="(d, i) in state.genderLabels"
-            :key="i"
-            @click="selectGender(d)"
-            :class="[
-              $style['role-gender-item'],
-              $style[`role-gender-${d}`],
-              $style[state.genderValue === d ? 'selected-gender' : ''],
-            ]"
-          >
-            <svg-icon :name="d"></svg-icon>
-          </div>
-        </div>
-        <ElSelect
-          v-model="state.professionValue"
-          :suffix-icon="SelectSuffix"
-          :popper-append-to-body="false"
-        >
-          <ElOption
-            v-for="d in state.metaData.occupations"
-            :key="d.value"
-            :label="state.currLang === 'zh' ? d.cnDesc : d.desc"
-            :value="d.value"
-          ></ElOption>
-        </ElSelect>
-      </div> -->
       <fly-space :size="20"></fly-space>
-      <fly-button
-        v-if="state.walletStatus === 'connected'"
-        :class="[
-          $style['create-btn'],
-          $style[!state.canGenerated ? 'disabled' : ''],
-        ]"
-        :type="state.canGenerated ? 'normal' : ''"
-        @click="validateParams(state.canGenerated)"
-        :style="{
-          'font-size': state.currLang === 'zh' ? '15px' : '13px',
-        }"
-        >{{
-          $t("metaverse.generate character NFT") +
-          ` (${state.metaData.compositeFee}) STC`
-        }}</fly-button
-      >
-      <star-button
-        v-if="state.walletStatus !== 'connected'"
-        :class="$style['create-btn']"
-        @click="connectWallet"
-        >{{ $t("链接钱包") }}</star-button
-      >
+      <template v-if="state.walletStatus === 'connected'">
+        <fly-button
+          v-if="
+            state.selectedElementList && state.selectedElementList.length > 0
+          "
+          :class="[$style['create-btn']]"
+          @click="
+            store.commit('StoreMeta/SET_CREATE_DIALOG_PARAMS', {
+              dialogVisible: true,
+            })
+          "
+        >
+          {{ $t("下一步") }}
+        </fly-button>
+        <fly-button v-else type="disabled" :class="[$style['create-btn']]">
+          {{ $t("下一步") }}
+        </fly-button>
+      </template>
+      <template v-else>
+        <fly-button @click="connectWallet" :class="[$style['create-btn']]">
+          {{ $t("链接钱包") }}
+        </fly-button>
+      </template>
     </div>
   </div>
   <validate-error-modal></validate-error-modal>
 </template>
 <script setup>
-/* eslint-disable */
-import { computed, reactive, watch } from "vue";
+import { computed, reactive } from "vue";
 import FlyButton from "@FlyUI/FlyButton.vue";
 import FlyAmount from "@FlyUI/FlyAmount.vue";
-import utilsFormat from "@utils/format";
 import SvgIcon from "@components/SvgIcon/Index.vue";
 import FlySpace from "@FlyUI/FlySpace.vue";
 import { useStore } from "vuex";
 import connectLogic from "@hooks/useMyWallet";
-import utilsRegExp from "@utils/regexp.js";
 import ValidateErrorModal from "./ValidateErrorModal.vue";
-import SelectSuffix from "@components/SelectSuffix.vue";
 const store = useStore();
 const { connectWallet } = connectLogic(store);
 
@@ -121,133 +82,11 @@ const state = reactive({
   nameValue: "",
   professionValue: "Adventurer",
 });
-
-const selectGender = (gender) => {
-  state.genderValue = gender;
-};
-
-const validateParams = (flag) => {
-  if (!flag) return;
-  try {
-    if (
-      utilsRegExp.isChinese(state.nameValue) ||
-      (state.nameValue && state.nameValue.length > 20) ||
-      (state.nameValue && state.nameValue.length < 1) ||
-      !state.nameValue
-    ) {
-      throw new Error("error");
-    }
-    store.dispatch("StoreMeta/canCreateNFT", {
-      userAddress: state.accounts[0],
-      customName: state.nameValue,
-      sex: state.genderValue === "male" ? 1 : 0,
-      occupation: state.professionValue,
-      groupId: state.selectedElementList[0].groupId,
-      elementList: state.selectedElementList,
-    });
-  } catch (e) {
-    store.commit("StoreMeta/SET_CALLBACK_DIALOG_PARAMS_STATUS", {
-      dialogVisible: true,
-      text: utilsFormat.computedLangCtx(
-        "the role card name is 1-10 English characters or special symbols"
-      ),
-    });
-  }
-};
-const handleValidateClose = () => {
-  // state.errorDialogVisible = false;
-};
 </script>
 
-<style lang="scss" scoped>
-$bgColor: rgba(235, 213, 189, 1);
-$borderColor: #ebd5bd;
-$fontColor: #391b0f;
-$bgColor2: #fcf7f1;
-
-.compose-container {
-  margin-left: 40px;
-  ::v-deep(.el-input) {
-    border: none;
-    border-color: transparent;
-    width: 245px;
-    height: 40px;
-  }
-  ::v-deep(.el-input::hover) {
-    border: none;
-    border-color: transparent;
-  }
-  ::v-deep(.el-input__inner) {
-    background: #f3e6d7;
-    border: none;
-    color: $fontColor;
-    height: 40px;
-  }
-  ::v-deep(.el-input__inner:focus) {
-    border: none;
-    border-color: transparent;
-  }
-  ::v-deep(.el-input__inner::placeholder) {
-    color: rgba(57, 27, 15, 0.4);
-    font-size: 10px;
-    // transform: scale(0.8);
-    // margin-left: 100px;
-  }
-}
-.detail-info {
-  ::v-deep(.el-input) {
-    border: none;
-    width: 130px;
-    border: 1px solid $borderColor;
-    border-radius: 8px;
-    overflow: hidden;
-    background-color: $bgColor2;
-    height: 32px;
-  }
-  ::v-deep(.el-input::hover) {
-    border: 1px solid $borderColor;
-  }
-  ::v-deep(.el-input__inner) {
-    background: #fff;
-    height: 32px;
-    color: $fontColor;
-    background-color: $bgColor2;
-  }
-  ::v-deep(.el-input__inner:focus) {
-  }
-  ::v-deep(.el-input__inner::placeholder) {
-    color: $fontColor;
-  }
-  ::v-deep(.el-select__popper.el-popper[role="tooltip"]) {
-    border: none;
-  }
-  ::v-deep(.el-select-dropdown) {
-    background-color: #fcf7f1;
-    border: none;
-    .el-select-dropdown__item.selected {
-      color: $fontColor;
-      background-color: $borderColor;
-    }
-    .el-select-dropdown__item.hover {
-      color: $fontColor;
-      background-color: rgba(235, 213, 189, 0.6) !important;
-    }
-    .el-select-dropdown__item:hover {
-      color: $fontColor;
-      background-color: rgba(235, 213, 189, 0.3);
-    }
-  }
-  ::v-deep(.el-popper.is-light .el-popper__arrow::before) {
-    background-color: $bgColor2;
-  }
-  ::v-deep(.el-select__popper.el-popper[role="tooltip"]
-      .el-popper__arrow::before) {
-    border: none;
-  }
-}
-</style>
 <style lang="scss" module>
 .compose-container {
+  margin-left: 60px;
   .role-box {
     position: relative;
     text-align: center;
@@ -285,47 +124,12 @@ $bgColor2: #fcf7f1;
     flex-direction: column;
     align-items: center;
     background: rgba(0, 0, 0, 0.4);
-    .detail-info {
-      display: flex;
-      width: 245px;
-      justify-content: space-between;
-      .role-gender {
-        display: flex;
-        .role-gender-item {
-          width: 40px;
-          height: 32px;
-          text-align: center;
-          line-height: 32px;
-          border: 1px solid #f3e6d7;
-          transition: all ease 0.2s;
-          color: #391b0f;
-          &.selected-gender {
-            background: #fb8000;
-            color: #ffffff;
-          }
-        }
-        .role-gender-male {
-          border-top-left-radius: 8px;
-          border-bottom-left-radius: 8px;
-          border-right: none;
-        }
-        .role-gender-female {
-          background: #fcf7f1;
-          border-top-right-radius: 8px;
-          border-bottom-right-radius: 8px;
-        }
-      }
-    }
     .create-btn {
-      width: 245px;
+      width: 426px;
       padding: 0px;
-      height: 40px;
-      line-height: 40px;
-      font-size: 15px;
-    }
-    .disabled {
-      background: rgba(213, 213, 213, 1);
-      color: rgba(172, 172, 172, 1);
+      height: 60px;
+      line-height: 60px;
+      font-size: 16px;
     }
   }
 }

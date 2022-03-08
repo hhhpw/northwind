@@ -1,5 +1,5 @@
 <template>
-  <star-wallet-dialog
+  <fly-wallet-dialog
     :dialogParams="state.dialogParams"
     @handleFailed="state.dialogParams?.handleFailed"
     @handleClose="state.dialogParams?.handleClose"
@@ -17,12 +17,12 @@
         </div>
       </div>
     </template>
-  </star-wallet-dialog>
+  </fly-wallet-dialog>
 </template>
 <script setup>
 /* eslint-disable */
 import { computed, onMounted, reactive, watch } from "vue";
-import StarWalletDialog from "@StarUI/StarWalletDialog.vue";
+import FlyWalletDialog from "@FlyUI/FlyWalletDialog.vue";
 import { useStore } from "vuex";
 const store = useStore();
 const state = reactive({
