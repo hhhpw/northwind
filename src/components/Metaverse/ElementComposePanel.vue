@@ -66,6 +66,16 @@
       <fly-space :size="20"></fly-space>
       <fly-button
         v-if="state.walletStatus === 'connected'"
+        :class="[$style['create-btn']]"
+      >
+        {{ $t("下一步") }}
+      </fly-button>
+
+      <fly-button v-else @click="connectWallet" :class="[$style['create-btn']]">
+        {{ $t("链接钱包") }}
+      </fly-button>
+      <!-- <fly-button
+        v-if="state.walletStatus === 'connected'"
         :class="[
           $style['create-btn'],
           $style[!state.canGenerated ? 'disabled' : ''],
@@ -85,7 +95,7 @@
         :class="$style['create-btn']"
         @click="connectWallet"
         >{{ $t("链接钱包") }}</star-button
-      >
+      > -->
     </div>
   </div>
   <validate-error-modal></validate-error-modal>
@@ -317,10 +327,10 @@ $bgColor2: #fcf7f1;
       }
     }
     .create-btn {
-      width: 245px;
+      width: 426px;
       padding: 0px;
-      height: 40px;
-      line-height: 40px;
+      height: 60px;
+      line-height: 60px;
       font-size: 15px;
     }
     .disabled {

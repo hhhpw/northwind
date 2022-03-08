@@ -23,5 +23,6 @@ watchEffect(() => {
   margin: 0 auto;
   margin-top: 70px;
   width: 1200px;
+  padding-bottom: 80px;
 }
 </style>
