@@ -3,7 +3,7 @@
     :class="$style['screen-data-container']"
     v-if="state.igoList && state.igoList.length > 0"
   >
-    <p :class="$style['screen-data-container-title']">IGOs</p>
+    <!-- <p :class="$style['screen-data-container-title']">IGOs</p> -->
     <div :class="$style['data']">
       <div
         :class="$style['data-block']"
@@ -200,8 +200,8 @@ watch(
   background-image: url("../../assets/igo/kg-content-main.png");
   background-repeat: no-repeat;
   background-size: contain;
-  width: 90%;
-  margin: 0 auto;
+  width: 100%;
+  margin: -240px auto 0;
   overflow: hidden;
   .screen-data-container-title {
     color: #fec944;
@@ -212,7 +212,7 @@ watch(
     font-family: DenmarkRegular;
   }
   .data {
-    margin: 0 auto;
+    margin: 25px auto 15px;
     width: calc(100% - 60px);
     overflow-x: scroll;
     .data-block {
