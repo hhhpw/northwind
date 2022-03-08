@@ -114,7 +114,7 @@ const formatDate = (date) => {
 
 const setTh = (type) => {
   if (type === "purchase") {
-    return ["NFT", "状态", "我的出价", "出价时间"];
+    return ["NFT", "状态", "我的出价", "成交时间"];
   }
   if (type === "sell") {
     return ["NFT", "成交价", "手续费", "成交时间"];
@@ -145,37 +145,27 @@ const pushPage = (detail) => {
 <style lang="scss" scoped>
 @import "~@/styles/variables.scss";
 .collection-record-card {
-  background-color: #fffaf3;
   width: 100%;
   height: auto;
-  box-shadow: 0px 8px 16px 0px rgba(223, 205, 185, 0.46),
-    0px 1px 0px 0px #ffffff;
-  border-radius: 34px;
-  padding: 32px;
+  border-radius: 8px;
+  padding: 32px 0;
   box-sizing: border-box;
   .record-wrap-th {
     display: flex;
-    .record-wrap-th-item:first-child {
-      flex: 1.8;
-    }
-    .record-wrap-th-item:not(:first-child) {
-      text-align: right;
-      flex: 1;
-    }
 
     .record-wrap-th-item {
+      flex: 1;
       font-size: 14px;
       text-align: center;
-      color: $text-brown-color;
+      color: $white;
     }
   }
   .record-wrap-tr {
     display: flex;
     margin-top: 20px;
-    padding-bottom: 15px;
     align-items: center;
     cursor: pointer;
-    border-bottom: 2px solid $border-gray-color;
+    background: rgba(255, 255, 255, 0.09);
     &:hover {
       opacity: 0.7;
       transition: all ease-in-out 0.3s;
@@ -184,7 +174,7 @@ const pushPage = (detail) => {
       width: 120px;
       height: 120px;
       vertical-align: middle;
-      border-radius: 16px;
+      border-radius: 8px;
       + span {
         margin-left: 32px;
       }
@@ -194,17 +184,12 @@ const pushPage = (detail) => {
       text-align: center;
       &:first-child {
         text-align: left;
-        flex: 1.8;
-      }
-      &:not(:first-child) {
-        text-align: right;
-        flex: 1;
       }
       &.date,
       &.price,
       &.name {
         font-size: 14px;
-        color: #000;
+        color: $white;
         font-weight: 600;
       }
     }

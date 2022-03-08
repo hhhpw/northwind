@@ -384,7 +384,7 @@ const clickRadio = (data) => {
   padding-bottom: 30px;
 }
 .list-box {
-  width: 900px;
+  width: 1200px;
   padding: 20px 0;
   display: flex;
   justify-content: flex-start;
