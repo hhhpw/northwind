@@ -102,6 +102,7 @@ const pushHeroDetail = (payload) => {
   display: flex;
   overflow-x: scroll;
   padding-right: 20px;
+  border-bottom: 1px solid rgba(151, 151, 151, 1);
   &::-webkit-scrollbar {
     // height: 1px;
     // background-color: #ffecd4;
@@ -117,8 +118,8 @@ const pushHeroDetail = (payload) => {
     color: #8b8b8b;
     align-self: center;
     p:first-child {
-      color: #391b0f;
       font-size: 20px;
+      color: $theme-light-color;
       font-weight: 500;
     }
   }

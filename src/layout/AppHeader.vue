@@ -98,6 +98,8 @@ const isActivePath = (path) => {
   width: 100%;
   color: $white;
   position: fixed;
+  border-bottom: 1px solid rgba(51, 51, 51, 1);
+  box-sizing: content-box;
   top: 0;
   line-height: 73px;
   display: flex;
