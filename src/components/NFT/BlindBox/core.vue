@@ -111,11 +111,11 @@
             }}
           </p> -->
           <Fly-space :size="10"></Fly-space>
-          <star-input-number
+          <fly-input-number
             width="100%"
             :value="state.inputVal"
             @inputEvent="inputEvent"
-          ></star-input-number>
+          ></fly-input-number>
           <Fly-space :size="10"></Fly-space>
           <div class="nft-blindbox-core-buy-dialog-content-details">
             <span>{{ t("总价") }}：{{ totalCost }} STC</span>
@@ -174,7 +174,7 @@ import NFT_CONSTANTS from "@constants/nft.js";
 import NftDialog from "@components/NFT/NFTDialog.vue";
 import FlySpace from "@FlyUI/FlySpace.vue";
 import FlyButton from "@FlyUI/FlyButton.vue";
-import StarInputNumber from "@StarUI/StarInputNumber.vue";
+import FlyInputNumber from "@FlyUI/FlyInutNumber.vue";
 import { useStore } from "vuex";
 import { useI18n } from "vue-i18n";
 import utilsDate from "@utils/date.js";

@@ -86,7 +86,6 @@ import { useStore } from "vuex";
 import { useI18n } from "vue-i18n";
 import { dialogEventMaps } from "./dialog";
 import utilsFormat from "@utils/format";
-import StarInputNumber from "@StarUI/StarInputNumber";
 import NFT_CONSTANTS from "@constants/nft.js";
 const { t } = useI18n();
 const route = useRoute();

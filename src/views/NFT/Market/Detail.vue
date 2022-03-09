@@ -44,12 +44,12 @@
           </div>
           <fly-space :size="24"></fly-space>
           <div class="quotation-input-box">
-            <star-input-number
+            <fly-input-number
               width="100%"
               :value="state.quotation_inputVal"
               @inputEvent="inputEvent"
               :max="999999999"
-            ></star-input-number>
+            ></fly-input-number>
             <fly-space :size="10"></fly-space>
             <div style="text-align: right">
               {{ t("钱包余额") + " : " + userAmount }}
@@ -100,12 +100,12 @@
         <template #core>
           <fly-space :size="24"></fly-space>
           <div class="quotation-input-box">
-            <star-input-number
+            <fly-input-number
               width="100%"
               :value="editState.edit_price_inputVal"
               @inputEvent="editInputEvent"
               :max="999999999"
-            ></star-input-number>
+            ></fly-input-number>
             <fly-space :size="10"></fly-space>
             <div style="text-align: right">
               {{ t("最高出价") }}
@@ -189,7 +189,7 @@ import NFT_CONSTANTS from "@constants/nft.js";
 import FlyButton from "@FlyUI/FlyButton.vue";
 import StarLoadingFish from "@StarUI/StarLoadingFish.vue";
 import FlyConfirm from "@FlyUI/FlyConfirm";
-import StarInputNumber from "@StarUI/StarInputNumber";
+import FlyInputNumber from "@FlyUI/FlyInutNumber.vue";
 import utilsFormat from "@utils/format";
 import utilsRegexp from "@utils/regexp";
 import FlySpace from "@FlyUI/FlySpace.vue";
