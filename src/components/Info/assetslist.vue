@@ -87,7 +87,14 @@
             state.queryParams.hasNext,
           ]"
         ></fly-pagination> -->
-        <pagination></pagination>
+        <pagination
+          @pageEvent="pageEvent"
+          :disabled="[
+            state.queryParams.pageNum === 1,
+            state.queryParams.hasNext,
+          ]"
+          :assetsList="state.assetsList"
+        ></pagination>
       </div>
     </div>
     <fly-loading-fish
@@ -111,12 +118,16 @@ let state = reactive({
 });
 
 onMounted(() => {
-  store.dispatch("StoreInfo/getAssetsList", { type: "init" });
+  store.dispatch("StoreInfo/getAssetsList", { type: "init", currentPage: 1 });
 });
 
-// const pageEvent = (type) => {
-//   store.dispatch("StoreInfo/getAssetsList", { type });
-// };
+const pageEvent = (args) => {
+  console.log("args:====", args);
+  store.dispatch("StoreInfo/getAssetsList", {
+    type: args.type,
+    currentPage: args.currentPage,
+  });
+};
 </script>
 <style lang="scss" module>
 .container-list {

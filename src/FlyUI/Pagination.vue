@@ -5,16 +5,38 @@
       class="white-list-tool"
       background
       hide-on-single-page
-      :page-size="10"
+      :page-size="20"
       layout="prev, pager, next"
-      :total="50"
-      prev-text="上一页"
-      next-text="下一页"
+      :total="props.assetsList.length"
+      :prev-text="$t('上一页')"
+      :next-text="$t('下一页')"
+      v-model:currentPage="currentPage"
+      @current-change="handleCurrentChange"
+      @prev-click="pagiEvent({ type: 'prev', currentPage: currentPage })"
+      @next-click="pagiEvent({ type: 'next', currentPage: currentPage })"
     ></ElPagination>
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { defineEmits, defineProps, ref } from "vue";
+
+let props = defineProps({
+  assetsList: {
+    type: Array,
+    default: () => [],
+  },
+});
+
+let currentPage = ref(1);
+
+const emits = defineEmits(["pageEvent"]);
+
+const pagiEvent = (args) => emits("pageEvent", args);
+const handleCurrentChange = (val) => {
+  emits("pageEvent", { type: "current", currentPage: val });
+};
+</script>
 
 <style>
 .white-list-tool.is-background .btn-prev {
