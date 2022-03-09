@@ -1,6 +1,6 @@
 <template>
   <div class="mining-second-dialog">
-    <star-second-dialog
+    <fly-second-dialog
       :dialogParams="state.secondDialogParams"
       @handleClose="state.secondDialogParams?.handleClose"
       @handleConfirm="state.secondDialogParams?.handleConfirm"
@@ -58,12 +58,12 @@
           }}
         </p>
       </template>
-    </star-second-dialog>
+    </fly-second-dialog>
   </div>
 </template>
 <script setup>
 /* eslint-disable */
-import StarSecondDialog from "@StarUI/StarSecondDialog.vue";
+import FlySecondDialog from "@FlyUI/FlySecondDialog.vue";
 import CONSTANTS_DIALOG from "@constants/dialog.js";
 import FlyAmount from "@FlyUI/FlyAmount";
 import { computed, onMounted, reactive, watch } from "vue";

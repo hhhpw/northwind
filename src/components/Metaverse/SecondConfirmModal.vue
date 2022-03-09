@@ -1,6 +1,6 @@
 <template>
   <div :class="$style['metaverse-second-confirm']">
-    <star-second-dialog
+    <fly-second-dialog
       :dialogParams="state.secondDialogParams"
       @handleClose="state.secondDialogParams?.handleClose"
       @handleConfirm="state.secondDialogParams?.handleConfirm"
@@ -19,13 +19,13 @@
           </p>
         </div>
       </template>
-    </star-second-dialog>
+    </fly-second-dialog>
   </div>
 </template>
 <script setup>
 /* eslint-disable */
-import { computed, onMounted, reactive, watch } from "vue";
-import StarSecondDialog from "@StarUI/StarSecondDialog.vue";
+import { computed, reactive } from "vue";
+import FlySecondDialog from "@FlyUI/FlySecondDialog.vue";
 import { useStore } from "vuex";
 const store = useStore();
 
