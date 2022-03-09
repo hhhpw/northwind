@@ -11,12 +11,14 @@
     <swap-transition-card
       class="swap-container-transition-card"
     ></swap-transition-card>
+    <special-bg></special-bg>
   </div>
 </template>
 <script setup>
 import SwapCore from "@components/Swap/core.vue";
 import SwapTransitionCard from "@components/Swap/card.vue";
 import StarSwapCard from "@StarUI/StarSwapCard.vue";
+import SpecialBg from "@components/SpecialBg.vue";
 // import StarChangeButton from "@StarUI/StarChangeButton.vue";
 import FlySpace from "@FlyUI/FlySpace.vue";
 // const test = (type) => {

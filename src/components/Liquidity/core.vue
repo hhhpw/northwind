@@ -63,7 +63,7 @@
       @handleClose="handleClose('isShowHistoryRecordDialog')"
     >
     </history-record>
-    <star-confirm
+    <!-- <star-confirm
       :dialogVisible="state.isShowConfirm"
       @handleClose="handleClose('isShowConfirm')"
     >
@@ -88,12 +88,21 @@
           $t("确认")
         }}</Fly-button>
       </template>
-    </star-confirm>
+    </star-confirm> -->
+    <Fly-wallet-dialog
+      :dialogParams="state.walletDialogParams"
+      @handleFailed="handleConfirm"
+      @handleClose="handleConfirm"
+      @handleSucceed="handleConfirm"
+    >
+    </Fly-wallet-dialog>
   </div>
 </template>
 <script setup>
 import { computed, reactive, onMounted, watch } from "vue";
-import StarConfirm from "@StarUI/StarConfirm.vue";
+import FlyWalletDialog from "@FlyUI/FlyWalletDialog.vue";
+
+// import StarConfirm from "@StarUI/StarConfirm.vue";
 import FlyToolTip from "@FlyUI/FlyToolTip.vue";
 import FlyButton from "@FlyUI/FlyButton.vue";
 import FlySpace from "@FlyUI/FlySpace.vue";
@@ -132,6 +141,9 @@ let state = reactive({
   accounts: computed(() => store.state.StoreWallet.accounts),
   isShowConfirm: computed(() => store.state.StoreLiquidity.isShowConfirm),
   delInpVal: computed(() => store.state.StoreLiquidity.delInpVal),
+  walletDialogParams: computed(
+    () => store.state.StoreLiquidity.walletDialogParams
+  ),
 });
 
 const { connectWallet } = connectLogic(store);
@@ -154,6 +166,10 @@ const handleClose = (type) => {
 const handleConfirm = () => {
   store.commit("StoreLiquidity/CHANGE_CONFIRM_VISIBLE", false);
   store.commit("StoreLiquidity/CHANGE_POOL_TYPE", "init");
+  store.commit("StoreLiquidity/SET_WALLET_DIALOG_PARAMS", {
+    dialogVisible: false,
+    isShowClose: false,
+  });
 };
 
 const handleSelectCurrency = (item) => {

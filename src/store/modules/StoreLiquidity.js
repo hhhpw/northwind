@@ -5,6 +5,8 @@ import utilsNumber from "@utils/number";
 import { has, get, cloneDeep, isNil } from "lodash";
 import Wallet from "../../wallet/index";
 import liquidityApi from "@api/liquidity.js";
+import utilsTool from "@utils/tool.js";
+import { WALLET_DIALOG_PARAMS } from "@constants/dialog.js";
 function formatLiquidityInfo(c1, c2, tokensInfo, fValue, tValue, flag) {
   let result = [];
   result[0] = {
@@ -177,6 +179,7 @@ const StoreLiquidity = {
     lpDelInfo: null,
     totalLiquidityList: [],
     lpTokenAmount: null,
+    walletDialogParams: WALLET_DIALOG_PARAMS,
   },
   mutations: {
     [types.SET_LPTOKEN_TOTAL_AMOUNT](state, payload) {
@@ -188,6 +191,13 @@ const StoreLiquidity = {
       state.lpDelInfo = null;
       state.poolType = "init";
       state.lpTokenAmount = null;
+    },
+    [types.SET_WALLET_DIALOG_PARAMS](state, payload) {
+      state.walletDialogParams = Object.assign(
+        {},
+        state.walletDialogParams,
+        payload
+      );
     },
     [types.CLEAR_ADD_INFO](state) {
       state.addToken = null;
@@ -760,6 +770,11 @@ const StoreLiquidity = {
     },
 
     async addLiquidity({ state, rootState, commit }) {
+      commit(types.SET_WALLET_DIALOG_PARAMS, WALLET_DIALOG_PARAMS);
+      commit(types.SET_WALLET_DIALOG_PARAMS, {
+        dialogVisible: true,
+        isShowClose: false,
+      });
       const slippageTolerance = utilsNumber
         .bigNum(rootState.StoreApp.settings.slippageTolerance)
         .div(100);
@@ -784,18 +799,49 @@ const StoreLiquidity = {
           precision: 0,
         }
       ).text;
-      const params = {
-        provider: rootState.StoreWallet.stcProvider,
-        tokens: [state.from.token, state.to.token],
-        amounts: [x1, y1, x2, y2],
-      };
-      const res = await Wallet.addLiquidity(params);
-      if (res) {
-        commit(types.CHANGE_CONFIRM_VISIBLE, true);
+      try {
+        const params = {
+          provider: rootState.StoreWallet.stcProvider,
+          tokens: [state.from.token, state.to.token],
+          amounts: [x1, y1, x2, y2],
+        };
+        const hash = await Wallet.addLiquidity(params);
+        if (hash) {
+          commit(types.SET_WALLET_DIALOG_PARAMS, {
+            phase1: "succeed",
+          });
+          let res = await utilsTool.getChainTransactionInfo({ txnHash: hash });
+          if (res?.status === "Executed") {
+            commit(types.SET_WALLET_DIALOG_PARAMS, {
+              phase2: "succeed",
+            });
+            setTimeout(() => {
+              commit(types.SET_WALLET_DIALOG_PARAMS, {
+                isShowClose: true,
+                dialogStatus: "succeed",
+              });
+            }, 1500);
+          }
+        } else {
+          commit(types.SET_WALLET_DIALOG_PARAMS, {
+            isShowClose: true,
+            dialogStatus: "failed",
+          });
+        }
+      } catch (error) {
+        commit(types.SET_WALLET_DIALOG_PARAMS, {
+          isShowClose: true,
+          dialogStatus: "failed",
+        });
       }
     },
 
     async delLiquidity({ state, rootState, commit }) {
+      commit(types.SET_WALLET_DIALOG_PARAMS, WALLET_DIALOG_PARAMS);
+      commit(types.SET_WALLET_DIALOG_PARAMS, {
+        dialogVisible: true,
+        isShowClose: false,
+      });
       const slippageTolerance = utilsNumber
         .bigNum(rootState.StoreApp.settings.slippageTolerance)
         .div(100);
@@ -824,14 +870,40 @@ const StoreLiquidity = {
         .bigNum(state.delInpVal)
         .times(Math.pow(10, 9))
         .toString();
-      const params = {
-        provider: rootState.StoreWallet.stcProvider,
-        tokens: [state.lpDelInfo.A.token, state.lpDelInfo.B.token],
-        amounts: [lpAmount, x2, y2],
-      };
-      const res = await Wallet.delLiquidity(params);
-      if (res) {
-        commit(types.CHANGE_CONFIRM_VISIBLE, true);
+      try {
+        const params = {
+          provider: rootState.StoreWallet.stcProvider,
+          tokens: [state.lpDelInfo.A.token, state.lpDelInfo.B.token],
+          amounts: [lpAmount, x2, y2],
+        };
+        const hash = await Wallet.delLiquidity(params);
+        if (hash) {
+          commit(types.SET_WALLET_DIALOG_PARAMS, {
+            phase1: "succeed",
+          });
+          let res = await utilsTool.getChainTransactionInfo({ txnHash: hash });
+          if (res?.status === "Executed") {
+            commit(types.SET_WALLET_DIALOG_PARAMS, {
+              phase2: "succeed",
+            });
+            setTimeout(() => {
+              commit(types.SET_WALLET_DIALOG_PARAMS, {
+                isShowClose: true,
+                dialogStatus: "succeed",
+              });
+            }, 1500);
+          }
+        } else {
+          commit(types.SET_WALLET_DIALOG_PARAMS, {
+            isShowClose: true,
+            dialogStatus: "failed",
+          });
+        }
+      } catch (error) {
+        commit(types.SET_WALLET_DIALOG_PARAMS, {
+          isShowClose: true,
+          dialogStatus: "failed",
+        });
       }
     },
 
