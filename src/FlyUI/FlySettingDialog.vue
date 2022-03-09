@@ -165,8 +165,9 @@ $marginBtm: 20px;
 .fly-setting {
   ::v-deep(.el-dialog) {
     background-image: url("../../src/assets/common/bg.png");
+    background-position: top;
     background-repeat: no-repeat;
-    background-size: 100% 100%;
+    background-size: 100% auto;
   }
   ::v-deep(.el-dialog__header) {
     padding: 30px 25px 0px;

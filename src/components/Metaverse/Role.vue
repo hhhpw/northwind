@@ -95,13 +95,12 @@ const pushHeroDetail = (payload) => {
 @import "~@/styles/mixin.scss";
 
 .role {
-  // width: 1100px;
-  height: 150px;
+  height: 180px;
   box-sizing: border-box;
-  // border: 1px solid red;
   display: flex;
   overflow-x: scroll;
   padding-right: 20px;
+  padding-bottom: 30px;
   border-bottom: 1px solid rgba(151, 151, 151, 1);
   &::-webkit-scrollbar {
     // height: 1px;
