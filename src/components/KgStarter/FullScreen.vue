@@ -20,45 +20,10 @@
   </div>
 </template>
 <script setup>
-/* eslint-disable */
-import { computed, onMounted, reactive, watch } from "vue";
 import ScreenData from "./ScreenData.vue";
-import { ref, nextTick } from "vue";
-import { random } from "lodash";
-let bgDOM = ref(null);
-nextTick(() => {
-  const randomBg = (num) => {
-    bgDOM.value.style["background-image"] =
-      "url(" + require(`../../assets/igo/kg-bg-${num}.jpeg`) + ")";
-    num = num === 2 ? 1 : num + 1;
-    setTimeout(() => randomBg(num), num === 2 ? 50 : random(1000, 2000));
-  };
-  randomBg(1);
-});
 </script>
-<style scoped>
-/* ::-webkit-scrollbar {
-  width: 3px;
-  height: 3px;
-  background: none !important;
-}
-
-::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0);
-  background: none !important;
-} */
-</style>
+<style scoped></style>
 <style lang="scss" module>
-// ::-webkit-scrollbar-track {
-//   border-radius: 10px;
-//   box-shadow: inset 0 0 6px rgba(0, 0, 0, 0);
-// }
-// ::-webkit-scrollbar-thumb {
-//   border-radius: 10px;
-//   box-shadow: inset 0 0 6px rgba(0, 0, 0, 0);
-//   background: rgba(0, 0, 0, 0.7);
-// }
 .full-screen-container {
   position: absolute;
   left: 0;

@@ -96,7 +96,7 @@
         </div>
       </div>
       <div class="star-wallet-dialog-footer">
-        <star-button
+        <fly-button
           @click="emits('handleSucceed')"
           class="star-wallet-dialog-footer-button"
           type="green"
@@ -106,8 +106,8 @@
           "
         >
           {{ props.dialogParams.successBtnText }}
-        </star-button>
-        <star-button
+        </fly-button>
+        <fly-button
           type="red"
           class="star-wallet-dialog-footer-button"
           @click="emits('handleFailed')"
@@ -117,7 +117,7 @@
           "
         >
           {{ props.dialogParams.failedBtnText }}
-        </star-button>
+        </fly-button>
       </div>
     </ElDialog>
   </div>
@@ -127,7 +127,7 @@
 // 公共的钱包操作反馈
 import { defineProps, defineEmits, reactive, computed, watchEffect } from "vue";
 import SvgIcon from "@components/SvgIcon/Index.vue";
-import StarButton from "@StarUI/StarButton.vue";
+import FlyButton from "@FlyUI/FlyButton.vue";
 import { useStore } from "vuex";
 import dialogOnGoingImg from "../assets/nft/confirm-logo.gif";
 import dialogFailedImg from "../assets/nft/dialog-error.png";

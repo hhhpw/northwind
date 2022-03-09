@@ -32,10 +32,10 @@
                 style="margin-right: 3px; margin-left: 5px"
               ></svg-icon>
               <span>{{ $t("算力") }}:</span>
-              <star-amount
+              <fly-amount
                 :value="d.score"
                 :formatOptions="{ precision: 2, trailingZero: true }"
-              ></star-amount>
+              ></fly-amount>
             </div>
           </div>
           <div
@@ -56,10 +56,10 @@
                 if (el) state.shadowDOMs[i] = el;
               }
             "
-            v-if="state.listShow[i] === true"
+            v-if="d.hasNFT && state.listShow[i]"
             :class="$style['mining-core-container-slot-item-shadow-box']"
           >
-            <star-button
+            <fly-button
               :class="$style['mining-core-container-slot-item-shadow-box-btn']"
               @click.stop.prevent="
                 store.dispatch('StoreNFTMining/removeNFT', {
@@ -70,7 +70,7 @@
                   body: d.nftBody,
                 })
               "
-              >{{ $t("赎回") }}</star-button
+              >{{ $t("赎回") }}</fly-button
             >
           </div>
         </div>
@@ -113,12 +113,12 @@ import SelectorModal from "./SelectorModal.vue";
 import TotalPowerCard from "./TotalCard.vue";
 import UserPowerCard from "./UserPowerCard.vue";
 import changeSlotBgFunc from "./changeSlotBgFunc";
-import StarButton from "@StarUI/StarButton.vue";
+import FlyButton from "@FlyUI/FlyButton.vue";
 import CONSTANTS_DIALOG from "@constants/dialog.js";
 import SecondDialog from "./SecondDialog.vue";
 import RewardDialog from "./RewardDialog.vue";
 import SvgIcon from "@components/SvgIcon/Index.vue";
-import StarAmount from "@StarUI/StarAmount.vue";
+import FlyAmount from "@FlyUI/FlyAmount";
 import StarLoadingFish from "@StarUI/StarLoadingFish.vue";
 import Wallet from "@wallet";
 import { useStore } from "vuex";
@@ -218,7 +218,7 @@ onUnmounted(() => {
       :hover {
         cursor: pointer;
       }
-      display: inline-block;
+      float: left;
       height: 229px;
       width: 229px;
       margin-right: 13px;

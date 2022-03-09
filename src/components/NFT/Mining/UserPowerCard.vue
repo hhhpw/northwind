@@ -4,23 +4,23 @@
       <div :class="$style['my-power-item']">
         <p :class="$style['title']">{{ $t("nftmining.my-mining-power") }}</p>
         <p v-if="state.walletStatus !== 'connected'">- -</p>
-        <star-amount
+        <fly-amount
           :class="$style['amount']"
           v-else
           :value="state.miningData.userScore"
           :formatOptions="{ precision: 2, trailingZero: true }"
-        ></star-amount>
+        ></fly-amount>
       </div>
       <div :class="$style['my-power-item']">
         <p :class="$style['title']">{{ $t("收益") }}</p>
         <p v-if="state.walletStatus !== 'connected'">- -</p>
-        <star-amount
+        <fly-amount
           :class="$style['amount']"
           v-else
           :value="state.miningData.currentReward"
           :formatOptions="{ precision: 2, trailingZero: true }"
           displaySuffix="STC"
-        ></star-amount>
+        ></fly-amount>
       </div>
     </div>
     <div :class="$style['my-power-content']">
@@ -29,7 +29,7 @@
           {{ $t("nftmining.my-mining-year-profit") }}
         </p>
         <p v-if="state.walletStatus !== 'connected'">- -</p>
-        <star-amount
+        <fly-amount
           v-else
           :class="$style['amount']"
           :value="state.miningData.userApr"
@@ -38,7 +38,7 @@
             trailingZero: true,
             percentStyle: true,
           }"
-        ></star-amount>
+        ></fly-amount>
       </div>
       <div :class="$style['my-power-button']">
         <div :class="$style['button']" ref="buttonDOM" @click="drawProfit">
@@ -51,7 +51,7 @@
 <script setup>
 /* eslint-disable */
 import { computed, onMounted, reactive, watch, nextTick, ref } from "vue";
-import StarAmount from "@StarUI/StarAmount.vue";
+import FlyAmount from "@FlyUI/FlyAmount";
 import { useStore } from "vuex";
 import connectLogic from "@hooks/useMyWallet";
 import btnBg from "../../../assets/nft/mining-nft-btn.png";
@@ -129,6 +129,7 @@ const drawProfit = () => {
       color: #170f00;
       text-align: center;
       line-height: 35px;
+      cursor: pointer;
     }
   }
 }

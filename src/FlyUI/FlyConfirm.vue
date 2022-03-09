@@ -1,6 +1,6 @@
 <template>
-  <div class="star-refresh">
-    <star-dialog
+  <div class="fly-refresh">
+    <fly-dialog
       :title="!props.isCustomTitle ? $t(props.title || '') : props.title"
       :dialogVisible="state.visible"
       @handleClose="handleClose"
@@ -18,12 +18,12 @@
           <slot name="footer"></slot>
         </div>
       </template>
-    </star-dialog>
+    </fly-dialog>
   </div>
 </template>
 
 <script setup>
-import starDialog from "@StarUI/StarDialog.vue";
+import FlyDialog from "@FlyUI/FlyDialog.vue";
 import { reactive, defineProps, watch, defineEmits } from "vue";
 
 let state = reactive({
@@ -74,7 +74,7 @@ const handleClose = () => {
 
 <style lang="scss" scoped>
 @import "~@/styles/variables.scss";
-.star-refresh {
+.fly-refresh {
   position: relative;
   z-index: 122;
   ::v-deep(.el-dialog__header) {

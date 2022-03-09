@@ -6,17 +6,6 @@
   <template
     v-if="!state.onSellIsLoading && selling_data && selling_data.length > 0"
   >
-    <!-- <list-blind-box-item
-      v-for="d in selling_data"
-      :key="d.id"
-      cardType="collection"
-      sellType="selling"
-      :baseData="d"
-      @actionsCall="actionsCall"
-      :price="d.sellPrice"
-      @watchDetail="() => emits('watchDetail', d, 'selling')"
-    ></list-blind-box-item> -->
-
     <nft-card-item
       v-for="d in selling_data"
       :key="d.id"

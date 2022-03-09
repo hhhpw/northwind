@@ -4,7 +4,7 @@
     <!-- <div class="swap-container-btnwarp">
       <star-change-button :activeIndex="0"></star-change-button>
     </div> -->
-    <star-space :size="25"></star-space>
+    <fly-space :size="25"></fly-space>
     <star-swap-card class="swap-container-card">
       <swap-core class="swap-container-core"></swap-core>
     </star-swap-card>

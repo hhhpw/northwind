@@ -22,7 +22,7 @@
       </template>
     </star-nft>
     <div class="confirm-alert">
-      <star-confirm
+      <Fly-confirm
         :dialogVisible="state.quotation_show"
         :title="t('报价')"
         :isCustomContent="true"
@@ -42,7 +42,7 @@
             {{ utilsFormat.formatPrice(state.box_detail.topBidPrice) }}
             STC
           </div>
-          <star-space :size="24"></star-space>
+          <fly-space :size="24"></fly-space>
           <div class="quotation-input-box">
             <star-input-number
               width="100%"
@@ -50,7 +50,7 @@
               @inputEvent="inputEvent"
               :max="999999999"
             ></star-input-number>
-            <star-space :size="10"></star-space>
+            <fly-space :size="10"></fly-space>
             <div style="text-align: right">
               {{ t("钱包余额") + " : " + userAmount }}
               STC
@@ -70,7 +70,7 @@
           </div>
         </template>
         <template #footer>
-          <star-button
+          <fly-button
             @click="bidPrice"
             type="dark"
             style="
@@ -79,12 +79,12 @@
               padding-right: 0px;
               font-size: 14px;
             "
-            >{{ $t("出价") }}</star-button
+            >{{ $t("出价") }}</fly-button
           >
         </template>
-      </star-confirm>
+      </Fly-confirm>
       <!-- 修改报价 -->
-      <star-confirm
+      <Fly-confirm
         :dialogVisible="editState.edit_price_show"
         :title="t('修改售价')"
         :isCustomContent="true"
@@ -98,7 +98,7 @@
         "
       >
         <template #core>
-          <star-space :size="24"></star-space>
+          <fly-space :size="24"></fly-space>
           <div class="quotation-input-box">
             <star-input-number
               width="100%"
@@ -106,7 +106,7 @@
               @inputEvent="editInputEvent"
               :max="999999999"
             ></star-input-number>
-            <star-space :size="10"></star-space>
+            <fly-space :size="10"></fly-space>
             <div style="text-align: right">
               {{ t("最高出价") }}
               {{
@@ -126,7 +126,7 @@
           </div>
         </template>
         <template #footer>
-          <star-button
+          <fly-button
             @click="changeBidPrice"
             type="dark"
             style="
@@ -135,10 +135,10 @@
               padding-right: 0px;
               font-size: 14px;
             "
-            >{{ $t("确认") }}</star-button
+            >{{ $t("确认") }}</fly-button
           >
         </template>
-      </star-confirm>
+      </Fly-confirm>
 
       <!-- dialogVisible单独抽出来是因为该值为modelValue属性 -->
       <nft-dialog
@@ -186,13 +186,13 @@ import {
 } from "vue";
 import { useNFT } from "../../../hooks/useNFT";
 import NFT_CONSTANTS from "@constants/nft.js";
-import StarButton from "@StarUI/StarButton.vue";
+import FlyButton from "@FlyUI/FlyButton.vue";
 import StarLoadingFish from "@StarUI/StarLoadingFish.vue";
-import StarConfirm from "@StarUI/StarConfirm";
+import FlyConfirm from "@FlyUI/FlyConfirm";
 import StarInputNumber from "@StarUI/StarInputNumber";
 import utilsFormat from "@utils/format";
 import utilsRegexp from "@utils/regexp";
-import StarSpace from "@StarUI/StarSpace.vue";
+import FlySpace from "@FlyUI/FlySpace.vue";
 import StarNft from "@StarUI/StarNFT.vue";
 // import detailCard from "@components/NFT/DetailCard.vue";
 import detailCard from "@components/NFT/Details.vue";

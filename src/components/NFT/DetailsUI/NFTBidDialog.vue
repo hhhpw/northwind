@@ -51,14 +51,14 @@
             }}
           </p>
           <div class="bid-price">
-            <star-input
+            <fly-input
               class="bid-price-input"
               :value="String(state.price || '')"
               @inputEvent="inputEvent"
               validateType="integer"
               max="999999999"
             >
-            </star-input>
+            </fly-input>
             <span>STC</span>
           </div>
           <div v-if="state.errorInfo" class="error">
@@ -85,13 +85,13 @@
         </div>
       </div>
       <div class="nft-bid-dialog-footer">
-        <star-button
+        <fly-button
           @click="handleConfirm"
           class="nft-bid-dialog-footer-button"
           v-if="props.dialogParams.confirmText"
         >
           {{ props.dialogParams.confirmText }}
-        </star-button>
+        </fly-button>
       </div>
     </ElDialog>
   </div>
@@ -100,9 +100,9 @@
 <script setup>
 import { defineProps, defineEmits, reactive, watch } from "vue";
 import SvgIcon from "@components/SvgIcon/Index.vue";
-import StarButton from "@StarUI/StarButton.vue";
+import FlyButton from "@FlyUI/FlyButton.vue";
 import { BID_DIALOG_PARAMS } from "@constants/dialog.js";
-import StarInput from "@StarUI/StarInput.vue";
+import FlyInput from "@FlyUI/FlyInput.vue";
 import StarSelector from "@StarUI/StarSelector.vue";
 import { useI18n } from "vue-i18n";
 const { t } = useI18n();

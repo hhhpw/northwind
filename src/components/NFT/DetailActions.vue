@@ -156,7 +156,7 @@
 <script setup>
 /* eslint-disable */
 import { reactive, computed, defineEmits, defineProps, onMounted } from "vue";
-import StarInput from "@StarUI/StarInput.vue";
+import FlyInput from "@FlyUI/FlyInput.vue";
 import SvgIcon from "@components/SvgIcon/Index.vue";
 import SearchCurrency from "@components/SearchCurrency";
 import { useRoute } from "vue-router";
@@ -164,7 +164,6 @@ const route = useRoute();
 import { useStore } from "vuex";
 const store = useStore();
 import utilsFormat from "@utils/format";
-import StarButton from "@StarUI/StarButton.vue";
 import NftBidInfo from "./DetailsUI/NFTBidInfo.vue";
 let state = reactive({
   value: "",
@@ -250,7 +249,7 @@ const handleCloseQuotation = () => {
   background: #ffffff;
   border-radius: 4px;
 
-  .trade-star-input {
+  .trade-fly-input {
     height: 60px;
     line-height: 60px;
     position: absolute;

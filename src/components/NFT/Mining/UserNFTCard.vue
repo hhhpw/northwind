@@ -11,18 +11,18 @@
         <img :src="d.imageLink" />
         <p :class="$style['card-wrap-item-text']">
           {{ $t("nftmining.mining-power") }}：
-          <star-amount
+          <fly-amount
             :value="d.score"
             :formatOptions="{
               precision: 2,
               trailingZero: true,
             }"
           >
-          </star-amount>
+          </fly-amount>
         </p>
       </div>
       <div v-show="d.isShow" :class="$style['stake-show']">
-        <star-button
+        <fly-button
           :class="$style['card-wrap-item-btn']"
           @click="
             store.dispatch('StoreNFTMining/stakeNFT', {
@@ -32,7 +32,7 @@
               body: d.nftBody,
             })
           "
-          >{{ $t("质押") }}</star-button
+          >{{ $t("质押") }}</fly-button
         >
       </div>
     </div>
@@ -42,8 +42,8 @@
 <script setup>
 import { computed, reactive } from "vue";
 import { useStore } from "vuex";
-import StarButton from "@StarUI/StarButton.vue";
-import StarAmount from "@StarUI/StarAmount.vue";
+import FlyButton from "@FlyUI/FlyButton.vue";
+import FlyAmount from "@FlyUI/FlyAmount";
 import UserNoNft from "./UserNoNFT.vue";
 
 const store = useStore();

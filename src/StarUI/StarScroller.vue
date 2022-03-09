@@ -8,11 +8,11 @@
   >
     <slot name="list"></slot>
     <div v-if="data.is_loading">
-      <star-space :size="20"></star-space>
+      <fly-space :size="20"></fly-space>
       <p class="text">{{ $t("加载中") }}...</p>
     </div>
     <div v-if="data.noMore">
-      <star-space :size="20"></star-space>
+      <fly-space :size="20"></fly-space>
       <p class="text">{{ $t("没有数据了") }}</p>
     </div>
   </div>
@@ -21,7 +21,7 @@
 <script setup>
 // 这个组件就别用了，实在改不动了
 import { computed, defineProps, defineEmits, reactive, watch } from "vue";
-import StarSpace from "@StarUI/StarSpace.vue";
+import FlySpace from "@FlyUI/FlySpace.vue";
 const props = defineProps({
   loading: {
     type: Boolean,

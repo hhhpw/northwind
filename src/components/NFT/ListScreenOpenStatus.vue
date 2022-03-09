@@ -17,7 +17,7 @@
       </span>
     </div>
     <div v-if="props.showTips">
-      {{ $t("费率") }} {{ NFT_CONSTANTS.NFT_GAS_FEE * 100 }}%
+      <span>{{ $t("费率") }} {{ NFT_CONSTANTS.NFT_GAS_FEE * 100 }}%</span>
       <ElTooltip effect="light" placement="left-start">
         <template #default>
           <svg-icon name="question" class="question"></svg-icon>
@@ -45,11 +45,11 @@ const props = defineProps({
 let state = reactive({
   radios: [
     {
-      name: "未打开",
+      name: "NFT",
       isOpen: true,
     },
     {
-      name: "已打开",
+      name: "盲盒",
       isOpen: true,
     },
   ],
@@ -68,9 +68,10 @@ const emits = defineEmits(["clickRadio"]);
 @import "~@/styles/variables.scss";
 .nft-status {
   display: flex;
+  color: $white;
   .nft-status-item {
     display: flex;
-    margin-right: 10px;
+    margin-right: 24px;
     span {
       color: $white;
     }
@@ -79,8 +80,6 @@ const emits = defineEmits(["clickRadio"]);
       cursor: pointer;
       width: 20px;
       height: 20px;
-      background: #f9efe4;
-      border: 2px solid #e9ded1;
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -90,10 +89,10 @@ const emits = defineEmits(["clickRadio"]);
       .nft-status-item-circle-inner {
         width: 14px;
         height: 14px;
-        background: $nft-radio-bgcolor;
+        background: rgba(251, 168, 0, 0.2);
         border-radius: 50%;
         &.active {
-          background: $text-orange-color;
+          background: #fba800;
         }
       }
     }

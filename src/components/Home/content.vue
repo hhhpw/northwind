@@ -72,7 +72,7 @@
         :class="$style['content-container-datas-item']"
         class="wow animate__animated animate__slideInUp"
       >
-        <star-amount
+        <fly-amount
           :value="d.value"
           :displayPreFix="i !== 2 ? '$' : ''"
           :formatOptions="{
@@ -81,7 +81,7 @@
             grouped: true,
             trailingZero: false,
           }"
-        ></star-amount>
+        ></fly-amount>
         <p>{{ $t(d.desc) }}</p>
       </div>
     </div>
@@ -92,7 +92,7 @@ import { onMounted, reactive } from "vue";
 import { WOW } from "wowjs";
 import utilsRouter from "@utils/router";
 import utilsTool from "@utils/tool";
-import StarAmount from "@StarUI/StarAmount";
+import FlyAmount from "@FlyUI/FlyAmount";
 import commonApi from "@api/common";
 import { useI18n } from "vue-i18n";
 const { t } = useI18n();

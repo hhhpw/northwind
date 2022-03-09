@@ -22,16 +22,6 @@
           >
             <template #content>
               <div class="blind-box-list-content">
-                <!-- <list-blind-box-item
-                  v-for="(blind, i) in state.marketList"
-                  :key="i"
-                  class="list-blind-box-item"
-                  cardType="market"
-                  sellType="sell"
-                  :hasBtn="false"
-                  :baseData="blind"
-                  @watchDetail="watchDetail(blind)"
-                ></list-blind-box-item> -->
                 <nft-card-item
                   v-for="(blind, i) in state.marketList"
                   :key="i"

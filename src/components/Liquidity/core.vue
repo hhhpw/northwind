@@ -102,7 +102,6 @@
 import { computed, reactive, onMounted, watch } from "vue";
 import FlyWalletDialog from "@FlyUI/FlyWalletDialog.vue";
 
-// import StarConfirm from "@StarUI/StarConfirm.vue";
 import FlyToolTip from "@FlyUI/FlyToolTip.vue";
 import FlyButton from "@FlyUI/FlyButton.vue";
 import FlySpace from "@FlyUI/FlySpace.vue";

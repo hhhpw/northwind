@@ -4,15 +4,15 @@
     class="compose-container"
     v-if="state.metaData"
   >
-    <star-space :size="15"></star-space>
+    <fly-space :size="15"></fly-space>
     <div :class="$style['role-box']">
       <div :class="$style['role-box-score']">
         <svg-icon name="white-rarity" style="margin-right: 3px"></svg-icon>
-        <star-amount
+        <fly-amount
           :value="state.totalScore"
           :formatOptions="{ precision: 0, trailingZero: true }"
         >
-        </star-amount>
+        </fly-amount>
       </div>
       <!-- <img src="../../assets/metaverse/right-empty-box.png" /> -->
       <template
@@ -26,14 +26,14 @@
         />
       </template>
     </div>
-    <star-space :size="20"></star-space>
+    <fly-space :size="20"></fly-space>
     <div :class="$style['info-box']">
       <ElInput
         :placeholder="$t('metaverse.enter the name (1-10 English characters)')"
         v-model="state.nameValue"
       >
       </ElInput>
-      <star-space :size="20"></star-space>
+      <fly-space :size="20"></fly-space>
       <div :class="$style['detail-info']" class="detail-info">
         <div :class="$style['role-gender']">
           <div
@@ -62,8 +62,8 @@
           ></ElOption>
         </ElSelect>
       </div>
-      <star-space :size="20"></star-space>
-      <star-button
+      <fly-space :size="20"></fly-space>
+      <fly-button
         v-if="state.walletStatus === 'connected'"
         :class="[
           $style['create-btn'],
@@ -77,14 +77,14 @@
         >{{
           $t("metaverse.generate character NFT") +
           ` (${state.metaData.compositeFee}) STC`
-        }}</star-button
+        }}</fly-button
       >
-      <star-button
+      <fly-button
         v-if="state.walletStatus !== 'connected'"
         :class="$style['create-btn']"
         type="dark"
         @click="connectWallet"
-        >{{ $t("链接钱包") }}</star-button
+        >{{ $t("链接钱包") }}</fly-button
       >
     </div>
   </div>
@@ -93,11 +93,11 @@
 <script setup>
 /* eslint-disable */
 import { computed, reactive, watch } from "vue";
-import StarButton from "@StarUI/StarButton.vue";
-import StarAmount from "@StarUI/StarAmount.vue";
+import FlyButton from "@FlyUI/FlyButton.vue";
+import FlyAmount from "@FlyUI/FlyAmount";
 import utilsFormat from "@utils/format";
 import SvgIcon from "@components/SvgIcon/Index.vue";
-import StarSpace from "@StarUI/StarSpace.vue";
+import FlySpace from "@FlyUI/FlySpace.vue";
 import { useStore } from "vuex";
 import connectLogic from "@hooks/useMyWallet";
 import utilsRegExp from "@utils/regexp.js";

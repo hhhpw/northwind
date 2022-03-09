@@ -82,13 +82,13 @@
               <span class="title">{{ $t("稀有值") }}</span>
               <span class="value">
                 <svg-icon name="rarity" style="margin-right: 4px"></svg-icon>
-                <star-amount
+                <fly-amount
                   :value="props.box_detail?.score"
                   :formatOptions="{
                     precision: 2,
                   }"
                 >
-                </star-amount>
+                </fly-amount>
               </span>
             </div>
 
@@ -238,8 +238,7 @@ const { t } = useI18n();
 import utilsTools from "@utils/tool";
 import NftDetailHistory from "./DetailsUI/NFTDetailHistory.vue";
 import NftDetailTab from "./DetailsUI/NFTDetailTab.vue";
-import StarAmount from "@StarUI/StarAmount.vue";
-// import StarSpace from "@StarUI/StarSpace.vue";
+import FlyAmount from "@FlyUI/FlyAmount";
 
 const store = useStore();
 let state = reactive({
