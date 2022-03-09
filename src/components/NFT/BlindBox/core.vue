@@ -10,12 +10,12 @@
           <p class="nft-blindbox-core-header-right-title">
             {{ state.blindBoxData.name }}
           </p>
-          <star-space :size="40"></star-space>
+          <Fly-space :size="40"></Fly-space>
           <p class="nft-blindbox-core-header-right-price">
             <span>{{ $t("售价") }}</span>
             <span> {{ state.blindBoxData.sellingPrice }} STC</span>
           </p>
-          <star-space :size="10"></star-space>
+          <Fly-space :size="10"></Fly-space>
           <p
             class="nft-blindbox-core-header-right-quantity"
             v-if="state.remainQuantity"
@@ -23,7 +23,7 @@
             <span>{{ $t("剩余数量") }}</span>
             <span>{{ state.remainQuantity }}</span>
           </p>
-          <star-space :size="60"></star-space>
+          <Fly-space :size="60"></Fly-space>
           <template v-if="state.walletStatus === 'unConnected'">
             <star-button
               type="light"
@@ -70,14 +70,14 @@
           </template>
         </div>
       </div>
-      <star-space :size="40"></star-space>
+      <Fly-space :size="40"></Fly-space>
       <div class="nft-blindbox-core-introduces">
         <div v-for="(d, i) in state.blindBoxData.introduces" :key="i">
-          <star-space :size="30" v-if="i !== 0"></star-space>
+          <Fly-space :size="30" v-if="i !== 0"></Fly-space>
           <p class="nft-blindbox-core-introduces-title">
             {{ t(`${d.title}`) }}
           </p>
-          <star-space :size="15"></star-space>
+          <Fly-space :size="15"></Fly-space>
           <p
             class="nft-blindbox-core-introduces-desc"
             v-html="
@@ -110,13 +110,13 @@
               })
             }}
           </p> -->
-          <star-space :size="10"></star-space>
+          <Fly-space :size="10"></Fly-space>
           <star-input-number
             width="100%"
             :value="state.inputVal"
             @inputEvent="inputEvent"
           ></star-input-number>
-          <star-space :size="10"></star-space>
+          <Fly-space :size="10"></Fly-space>
           <div class="nft-blindbox-core-buy-dialog-content-details">
             <span>{{ t("总价") }}：{{ totalCost }} STC</span>
             <span>{{ t("钱包余额") }}：{{ userAmount }} STC</span>
@@ -172,7 +172,7 @@ import {
 import FlyConfirm from "@FlyUI/FlyConfirm";
 import NFT_CONSTANTS from "@constants/nft.js";
 import NftDialog from "@components/NFT/NFTDialog.vue";
-import StarSpace from "@StarUI/StarSpace.vue";
+import FlySpace from "@FlyUI/FlySpace.vue";
 import StarButton from "@StarUI/StarButton.vue";
 import StarInputNumber from "@StarUI/StarInputNumber.vue";
 import { useStore } from "vuex";

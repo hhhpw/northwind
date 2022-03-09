@@ -239,7 +239,6 @@ import utilsTools from "@utils/tool";
 import NftDetailHistory from "./DetailsUI/NFTDetailHistory.vue";
 import NftDetailTab from "./DetailsUI/NFTDetailTab.vue";
 import StarAmount from "@StarUI/StarAmount.vue";
-// import StarSpace from "@StarUI/StarSpace.vue";
 
 const store = useStore();
 let state = reactive({

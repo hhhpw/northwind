@@ -42,7 +42,7 @@
             {{ utilsFormat.formatPrice(state.box_detail.topBidPrice) }}
             STC
           </div>
-          <star-space :size="24"></star-space>
+          <fly-space :size="24"></fly-space>
           <div class="quotation-input-box">
             <star-input-number
               width="100%"
@@ -50,7 +50,7 @@
               @inputEvent="inputEvent"
               :max="999999999"
             ></star-input-number>
-            <star-space :size="10"></star-space>
+            <fly-space :size="10"></fly-space>
             <div style="text-align: right">
               {{ t("钱包余额") + " : " + userAmount }}
               STC
@@ -98,7 +98,7 @@
         "
       >
         <template #core>
-          <star-space :size="24"></star-space>
+          <fly-space :size="24"></fly-space>
           <div class="quotation-input-box">
             <star-input-number
               width="100%"
@@ -106,7 +106,7 @@
               @inputEvent="editInputEvent"
               :max="999999999"
             ></star-input-number>
-            <star-space :size="10"></star-space>
+            <fly-space :size="10"></fly-space>
             <div style="text-align: right">
               {{ t("最高出价") }}
               {{
@@ -192,7 +192,7 @@ import FlyConfirm from "@FlyUI/FlyConfirm";
 import StarInputNumber from "@StarUI/StarInputNumber";
 import utilsFormat from "@utils/format";
 import utilsRegexp from "@utils/regexp";
-import StarSpace from "@StarUI/StarSpace.vue";
+import FlySpace from "@FlyUI/FlySpace.vue";
 import StarNft from "@StarUI/StarNFT.vue";
 // import detailCard from "@components/NFT/DetailCard.vue";
 import detailCard from "@components/NFT/Details.vue";

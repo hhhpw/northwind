@@ -21,18 +21,18 @@
           >
             <img :src="d.seriesLogo" alt="" />
             <div class="nft-blindbox-list-item-right">
-              <star-space :size="15"></star-space>
+              <fly-space :size="15"></fly-space>
               <p class="nft-blindbox-list-item-right-title">
                 {{ d.seriesName }}-{{ d.name }}
               </p>
-              <star-space :size="10"></star-space>
+              <fly-space :size="10"></fly-space>
               <p
                 class="nft-blindbox-list-item-right-status"
                 :class="sellInfo.status"
               >
                 {{ $t(sellInfo.text) }}
               </p>
-              <star-space :size="30"></star-space>
+              <fly-space :size="30"></fly-space>
               <p class="nft-blindbox-list-item-right-countdown">
                 {{
                   (state.timers &&
@@ -64,7 +64,7 @@
 </template>
 <script setup>
 import { computed, onMounted, reactive, onUnmounted, watch } from "vue";
-import StarSpace from "@StarUI/StarSpace.vue";
+import FlySpace from "@FlyUI/FlySpace.vue";
 import utilsDate from "@utils/date.js";
 import { isUndefined, cloneDeep } from "lodash";
 import dayjs from "dayjs";

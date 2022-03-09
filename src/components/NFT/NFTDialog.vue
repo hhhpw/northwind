@@ -49,10 +49,10 @@
               )
             "
           />
-          <star-space
+          <fly-space
             :size="15"
             v-if="props.dialogParams.dialogStatus !== 'ongoing'"
-          ></star-space>
+          ></fly-space>
           <p
             class="nft-dialog-content-core-text"
             v-if="props.dialogParams.dialogText"
@@ -64,10 +64,10 @@
             }}
           </p>
         </div>
-        <star-space
+        <fly-space
           :size="20"
           v-if="!props.dialogParams.customImgUrl"
-        ></star-space>
+        ></fly-space>
         <div
           class="nft-dialog-content-feedback"
           :style="{ width: setDiaglogStyle.feedBackWith }"
@@ -130,7 +130,7 @@
 <script setup>
 import { defineProps, defineEmits, reactive, watch, computed } from "vue";
 import SvgIcon from "@components/SvgIcon/Index.vue";
-import StarSpace from "@StarUI/StarSpace.vue";
+import FlySpace from "@FlyUI/FlySpace.vue";
 import StarButton from "@StarUI/StarButton.vue";
 import { useStore } from "vuex";
 // import { ElDialog } from "element-plus";

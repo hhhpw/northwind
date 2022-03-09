@@ -33,11 +33,11 @@
       <div class="nft-dialog-content">
         <div class="nft-dialog-content-core">
           <img src="../../assets/nft/dialog-error.png" />
-          <star-space :size="15"></star-space>
+          <fly-space :size="15"></fly-space>
           <p class="nft-dialog-content-core-text">
             {{ props.dialogParams.text }}
           </p>
-          <star-space :size="4"></star-space>
+          <fly-space :size="4"></fly-space>
           <p class="nft-dialog-content-core-subtext">
             {{ props.dialogParams.subText }}
           </p>
@@ -59,7 +59,7 @@
 <script setup>
 import { defineProps, defineEmits, reactive, watch } from "vue";
 import SvgIcon from "@components/SvgIcon/Index.vue";
-import StarSpace from "@StarUI/StarSpace.vue";
+import FlySpace from "@FlyUI/FlySpace.vue";
 import StarButton from "@StarUI/StarButton.vue";
 // import { ElDialog } from "element-plus";
 

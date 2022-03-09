@@ -1,6 +1,6 @@
 <template>
   <div class="no-liquidity-data">
-    <!-- <star-space :size="40"></star-space> -->
+    <!-- <fly-space :size="40"></fly-space> -->
     <!-- <p>未找到流動性 您可以添加流動性以獲取LP Token並享受額外代幣激勵</p> -->
     <p>{{ $t("未找到流动性") }}</p>
     <p>{{ $t("您可以添加流动性以获取LP Token并享受额外代币激励") }}</p>

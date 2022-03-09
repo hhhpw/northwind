@@ -20,11 +20,11 @@
           >
             <img :src="d.seriesLogo" alt="" />
             <div class="nft-gallery-list-item-right">
-              <star-space :size="15"></star-space>
+              <fly-space :size="15"></fly-space>
               <p class="nft-gallery-list-item-right-title">
                 {{ d.seriesName }}-{{ d.name }}
               </p>
-              <star-space :size="5"></star-space>
+              <fly-space :size="5"></fly-space>
               <p>
                 <a class="nft-gallery-import" @click="importBlindBox(d)">{{
                   $t("导入盲盒地址")
@@ -33,7 +33,7 @@
                   $t("导入陈列室")
                 }}</a>
               </p>
-              <star-space :size="15"></star-space>
+              <fly-space :size="15"></fly-space>
               <p class="nft-gallery-address-info">
                 <label for="" class="address">{{ $t("盲盒代币地址") }}:</label>
                 <span>{{ d.boxToken }}</span>
@@ -69,7 +69,7 @@
 </template>
 <script setup>
 import { computed, onMounted, reactive, onUnmounted } from "vue";
-import StarSpace from "@StarUI/StarSpace.vue";
+import FlySpace from "@FlyUI/FlySpace.vue";
 import { cloneDeep } from "lodash";
 import StarLoadingFish from "@StarUI/StarLoadingFish.vue";
 import StarScroll from "@StarUI/StarScroll.vue";
