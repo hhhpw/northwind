@@ -1,6 +1,6 @@
 <template>
   <div>
-    <star-scroll
+    <fly-scroll
       :hasMore="state.listStatus.hasMore"
       :isLoading="state.listStatus.isLoading"
       :isShowMore="false"
@@ -50,7 +50,7 @@
           </div>
         </div>
       </template>
-    </star-scroll>
+    </fly-scroll>
     <fly-loading-fish
       style="margin-top: 30px"
       gifType="white"
@@ -72,7 +72,7 @@ import { computed, onMounted, reactive, onUnmounted } from "vue";
 import FlySpace from "@FlyUI/FlySpace.vue";
 import { cloneDeep } from "lodash";
 import FlyLoadingFish from "@FlyUI/FlyLoadingFish.vue";
-import StarScroll from "@StarUI/StarScroll.vue";
+import FlyScroll from "@FlyUI/FlyScroll.vue";
 import NftDialog from "@components/NFT/NFTDialog.vue";
 import { useStore } from "vuex";
 const store = useStore();

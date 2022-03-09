@@ -1,6 +1,6 @@
 <template>
   <div v-if="state.goods_history_list && state.goods_history_list.length > 0">
-    <star-scroller
+    <fly-scroller
       :noMore="false"
       :loading="false"
       @loadMore="loadMore"
@@ -24,7 +24,7 @@
           }}</span>
         </div>
       </template>
-    </star-scroller>
+    </fly-scroller>
   </div>
 </template>
 <script setup>
@@ -32,7 +32,7 @@ import { onMounted, reactive, watch, ref } from "vue";
 import utilsFormat from "@utils/format";
 import dayjs from "dayjs";
 import commonApi from "@api/common";
-import StarScroller from "@StarUI/StarScroller.vue";
+import FlyScroller from "@FlyUI/FlyScroller.vue";
 import { useRoute } from "vue-router";
 const route = useRoute();
 const state = reactive({

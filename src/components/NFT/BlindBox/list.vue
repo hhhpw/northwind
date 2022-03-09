@@ -1,6 +1,6 @@
 <template>
   <div>
-    <star-scroll
+    <fly-scroll
       :hasMore="state.listStatus.hasMore"
       :isLoading="state.listStatus.isLoading"
       :isShowMore="false"
@@ -54,7 +54,7 @@
           </div>
         </div>
       </template>
-    </star-scroll>
+    </fly-scroll>
     <fly-loading-fish
       style="margin-top: 30px"
       gifType="white"
@@ -70,7 +70,7 @@ import { isUndefined, cloneDeep } from "lodash";
 import dayjs from "dayjs";
 import utilsFormat from "@utils/format";
 import FlyLoadingFish from "@FlyUI/FlyLoadingFish.vue";
-import StarScroll from "@StarUI/StarScroll.vue";
+import FlyScroll from "@FlyUI/FlyScroll.vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 const store = useStore();

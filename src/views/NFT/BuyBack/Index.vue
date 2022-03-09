@@ -7,7 +7,7 @@
       <template #nft-header v-if="state.coreType !== 'card'">
         <nft-selector @filterEvent="changeListQuery"></nft-selector>
         <div class="blind-box-list">
-          <star-scroll
+          <fly-scroll
             :hasMore="state.listStatus.hasMore"
             :isLoading="state.listStatus.isLoading"
             @loadMore="loadMore"
@@ -30,7 +30,7 @@
                 </nft-card-item>
               </div>
             </template>
-          </star-scroll>
+          </fly-scroll>
           <fly-loading-fish v-if="state.firstLoading"></fly-loading-fish>
           <empty
             v-if="
@@ -64,7 +64,7 @@ import NftNoConnectedWallet from "@components/NFT/NFTNoConnectedWallet.vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 import Empty from "@components/NFT/Empty.vue";
-import StarScroll from "@StarUI/StarScroll.vue";
+import FlyScroll from "@FlyUI/FlyScroll.vue";
 import NftSelector from "@components/NFT/NFTSelector.vue";
 import FlyLoadingFish from "@FlyUI/FlyLoadingFish.vue";
 import NftCardItem from "@components/NFT/NFTCardItem.vue";
