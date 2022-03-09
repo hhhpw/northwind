@@ -18,15 +18,6 @@
           >
             <template #content>
               <div class="blind-box-list-content">
-                <!-- <list-blind-box-item
-                  v-for="(blind, i) in state.buyBackList"
-                  :key="i"
-                  class="list-blind-box-item"
-                  cardType="buyback"
-                  sellType=""
-                  :baseData="blind"
-                  @watchDetail="watchDetail(blind )"
-                ></list-blind-box-item> -->
                 <nft-card-item
                   v-for="(blind, i) in state.buyBackList"
                   :key="i"
@@ -127,7 +118,7 @@ const loadMore = () => {
       flex-wrap: wrap;
       padding-top: 20px;
       .list-blind-box-item {
-        margin-right: 30px;
+        margin-right: 28px;
         &:nth-child(4n) {
           margin-right: 0;
         }

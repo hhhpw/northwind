@@ -11,17 +11,6 @@
     </template>
   </empty>
   <template v-if="!state.isLoading && unsold_data && unsold_data.length > 0">
-    <!-- <list-blind-box-item
-      v-for="d in unsold_data"
-      :key="d.id"
-      cardType="collection"
-      :sellType="d.sellType"
-      :hasBtn="false"
-      :baseData="d"
-      @actionsCall="actionsCall"
-      @watchDetail="() => emits('watchDetail', d, 'unsold')"
-    ></list-blind-box-item> -->
-
     <nft-card-item
       v-for="d in unsold_data"
       :key="d.id"
