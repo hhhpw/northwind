@@ -93,7 +93,7 @@ onUnmounted(() => {
 @import "~@/styles/variables.scss";
 @import "~@/styles/mixin.scss";
 .liquidity-content-core-btn {
-  .star-button {
+  .fly-button {
     width: 100%;
     padding: 15px 0px;
   }

@@ -100,7 +100,7 @@
         </div>
       </div>
       <div class="nft-dialog-footer">
-        <star-button
+        <fly-button
           @click="() => emits('handleSuccess')"
           class="nft-dialog-footer-button"
           type="green"
@@ -110,8 +110,8 @@
           "
         >
           {{ props.dialogParams.successBtnText }}
-        </star-button>
-        <star-button
+        </fly-button>
+        <fly-button
           type="red"
           class="nft-dialog-footer-button"
           @click="() => emits('handleFailed')"
@@ -121,7 +121,7 @@
           "
         >
           {{ props.dialogParams.failedBtnText }}
-        </star-button>
+        </fly-button>
       </div>
     </ElDialog>
   </div>
@@ -131,7 +131,7 @@
 import { defineProps, defineEmits, reactive, watch, computed } from "vue";
 import SvgIcon from "@components/SvgIcon/Index.vue";
 import FlySpace from "@FlyUI/FlySpace.vue";
-import StarButton from "@StarUI/StarButton.vue";
+import FlyButton from "@FlyUI/FlyButton.vue";
 import { useStore } from "vuex";
 // import { ElDialog } from "element-plus";
 import dialogOnGoingImg from "../../assets/nft/confirm-logo.gif";

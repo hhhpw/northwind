@@ -63,7 +63,7 @@
         </ElSelect>
       </div>
       <fly-space :size="20"></fly-space>
-      <star-button
+      <fly-button
         v-if="state.walletStatus === 'connected'"
         :class="[
           $style['create-btn'],
@@ -77,14 +77,14 @@
         >{{
           $t("metaverse.generate character NFT") +
           ` (${state.metaData.compositeFee}) STC`
-        }}</star-button
+        }}</fly-button
       >
-      <star-button
+      <fly-button
         v-if="state.walletStatus !== 'connected'"
         :class="$style['create-btn']"
         type="dark"
         @click="connectWallet"
-        >{{ $t("链接钱包") }}</star-button
+        >{{ $t("链接钱包") }}</fly-button
       >
     </div>
   </div>
@@ -93,7 +93,7 @@
 <script setup>
 /* eslint-disable */
 import { computed, reactive, watch } from "vue";
-import StarButton from "@StarUI/StarButton.vue";
+import FlyButton from "@FlyUI/FlyButton.vue";
 import FlyAmount from "@FlyUI/FlyAmount";
 import utilsFormat from "@utils/format";
 import SvgIcon from "@components/SvgIcon/Index.vue";

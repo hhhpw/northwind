@@ -44,13 +44,13 @@
         </div>
       </div>
       <div class="nft-dialog-footer">
-        <star-button
+        <fly-button
           type="red"
           class="nft-dialog-footer-button"
           @click="() => emits('handleConfirm')"
         >
           {{ $t(dialogParams.btnText) }}
-        </star-button>
+        </fly-button>
       </div>
     </ElDialog>
   </div>
@@ -60,7 +60,7 @@
 import { defineProps, defineEmits, reactive, watch } from "vue";
 import SvgIcon from "@components/SvgIcon/Index.vue";
 import FlySpace from "@FlyUI/FlySpace.vue";
-import StarButton from "@StarUI/StarButton.vue";
+import FlyButton from "@FlyUI/FlyButton.vue";
 // import { ElDialog } from "element-plus";
 
 const props = defineProps({

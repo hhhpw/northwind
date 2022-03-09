@@ -164,7 +164,6 @@ const route = useRoute();
 import { useStore } from "vuex";
 const store = useStore();
 import utilsFormat from "@utils/format";
-import StarButton from "@StarUI/StarButton.vue";
 import NftBidInfo from "./DetailsUI/NFTBidInfo.vue";
 let state = reactive({
   value: "",

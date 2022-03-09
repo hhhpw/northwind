@@ -70,7 +70,7 @@
           </div>
         </template>
         <template #footer>
-          <star-button
+          <fly-button
             @click="bidPrice"
             type="dark"
             style="
@@ -79,7 +79,7 @@
               padding-right: 0px;
               font-size: 14px;
             "
-            >{{ $t("出价") }}</star-button
+            >{{ $t("出价") }}</fly-button
           >
         </template>
       </Fly-confirm>
@@ -126,7 +126,7 @@
           </div>
         </template>
         <template #footer>
-          <star-button
+          <fly-button
             @click="changeBidPrice"
             type="dark"
             style="
@@ -135,7 +135,7 @@
               padding-right: 0px;
               font-size: 14px;
             "
-            >{{ $t("确认") }}</star-button
+            >{{ $t("确认") }}</fly-button
           >
         </template>
       </Fly-confirm>
@@ -186,7 +186,7 @@ import {
 } from "vue";
 import { useNFT } from "../../../hooks/useNFT";
 import NFT_CONSTANTS from "@constants/nft.js";
-import StarButton from "@StarUI/StarButton.vue";
+import FlyButton from "@FlyUI/FlyButton.vue";
 import StarLoadingFish from "@StarUI/StarLoadingFish.vue";
 import FlyConfirm from "@FlyUI/FlyConfirm";
 import StarInputNumber from "@StarUI/StarInputNumber";

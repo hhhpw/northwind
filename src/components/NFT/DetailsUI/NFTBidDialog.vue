@@ -85,13 +85,13 @@
         </div>
       </div>
       <div class="nft-bid-dialog-footer">
-        <star-button
+        <fly-button
           @click="handleConfirm"
           class="nft-bid-dialog-footer-button"
           v-if="props.dialogParams.confirmText"
         >
           {{ props.dialogParams.confirmText }}
-        </star-button>
+        </fly-button>
       </div>
     </ElDialog>
   </div>
@@ -100,7 +100,7 @@
 <script setup>
 import { defineProps, defineEmits, reactive, watch } from "vue";
 import SvgIcon from "@components/SvgIcon/Index.vue";
-import StarButton from "@StarUI/StarButton.vue";
+import FlyButton from "@FlyUI/FlyButton.vue";
 import { BID_DIALOG_PARAMS } from "@constants/dialog.js";
 import StarInput from "@StarUI/StarInput.vue";
 import StarSelector from "@StarUI/StarSelector.vue";

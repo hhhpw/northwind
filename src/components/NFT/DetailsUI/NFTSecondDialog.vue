@@ -37,22 +37,22 @@
         </p>
       </div>
       <div class="nft-second-dialog-footer">
-        <star-button
+        <fly-button
           @click="emits('handleConfirm')"
           class="nft-second-dialog-footer-button"
           type="green"
           v-if="props.dialogParams.confirmText"
         >
           {{ props.dialogParams.confirmText }}
-        </star-button>
-        <star-button
+        </fly-button>
+        <fly-button
           type="red"
           class="nft-second-dialog-footer-button"
           @click="emits('handleCancel')"
           v-if="props.dialogParams.cancelText"
         >
           {{ props.dialogParams.cancelText }}
-        </star-button>
+        </fly-button>
       </div>
     </ElDialog>
   </div>
@@ -61,7 +61,7 @@
 <script setup>
 import { defineProps, defineEmits, reactive, watch } from "vue";
 import SvgIcon from "@components/SvgIcon/Index.vue";
-import StarButton from "@StarUI/StarButton.vue";
+import FlyButton from "@FlyUI/FlyButton.vue";
 // import { ElDialog } from "element-plus";
 
 const props = defineProps({

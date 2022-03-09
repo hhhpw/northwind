@@ -59,7 +59,7 @@
             v-if="d.hasNFT && state.listShow[i]"
             :class="$style['mining-core-container-slot-item-shadow-box']"
           >
-            <star-button
+            <fly-button
               :class="$style['mining-core-container-slot-item-shadow-box-btn']"
               @click.stop.prevent="
                 store.dispatch('StoreNFTMining/removeNFT', {
@@ -70,7 +70,7 @@
                   body: d.nftBody,
                 })
               "
-              >{{ $t("赎回") }}</star-button
+              >{{ $t("赎回") }}</fly-button
             >
           </div>
         </div>
@@ -113,7 +113,7 @@ import SelectorModal from "./SelectorModal.vue";
 import TotalPowerCard from "./TotalCard.vue";
 import UserPowerCard from "./UserPowerCard.vue";
 import changeSlotBgFunc from "./changeSlotBgFunc";
-import StarButton from "@StarUI/StarButton.vue";
+import FlyButton from "@FlyUI/FlyButton.vue";
 import CONSTANTS_DIALOG from "@constants/dialog.js";
 import SecondDialog from "./SecondDialog.vue";
 import RewardDialog from "./RewardDialog.vue";

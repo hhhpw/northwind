@@ -159,14 +159,14 @@
             v-if="props.sellType === 'selling'"
             :class="$style['item-content-slots-collection-btns']"
           >
-            <star-button
+            <fly-button
               type="light"
               :style="{ width: Number(baseData.offerPrice) <= 0 ? '100%' : '' }"
               :class="$style['item-content-slots-collection-selling-btn']"
               @click="actionsCall('CancelSell')"
-              >{{ $t("取消出售") }}</star-button
+              >{{ $t("取消出售") }}</fly-button
             >
-            <star-button
+            <fly-button
               v-if="Number(baseData.offerPrice) > 0"
               type="dark"
               :class="[
@@ -180,7 +180,7 @@
                   baseData.offerPrice
                 )} ${utilsFormat.getTokenCurrency(baseData.payToken)}`
               }}
-            </star-button>
+            </fly-button>
           </div>
         </div>
       </div>
@@ -191,7 +191,7 @@
 /* eslint-disable */
 import { defineProps, reactive, computed, defineEmits, onUnmounted } from "vue";
 import { useStore } from "vuex";
-import StarButton from "@StarUI/StarButton.vue";
+import FlyButton from "@FlyUI/FlyButton.vue";
 import Confirm from "@components/NFT/Confirm";
 import utilsFormat from "@utils/format";
 import SvgIcon from "@components/SvgIcon/Index.vue";

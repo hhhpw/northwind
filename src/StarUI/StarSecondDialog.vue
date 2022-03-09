@@ -46,7 +46,7 @@
             props.dialogParams.confirmText && props.dialogParams.cancelText)
         "
       >
-        <star-button
+        <fly-button
           @click="emits('handleConfirm')"
           class="star-second-dialog-footer-button"
           type="green"
@@ -54,8 +54,8 @@
           v-if="props.dialogParams.confirmText"
         >
           {{ props.dialogParams.confirmText }}
-        </star-button>
-        <star-button
+        </fly-button>
+        <fly-button
           type="red"
           class="star-second-dialog-footer-button"
           @click="emits('handleCancel')"
@@ -63,7 +63,7 @@
           :style="{ width: isSingleBtn ? '35%' : '80%' }"
         >
           {{ props.dialogParams.cancelText }}
-        </star-button>
+        </fly-button>
       </div>
     </ElDialog>
   </div>
@@ -73,7 +73,7 @@
 // 二次弹窗
 import { defineProps, defineEmits, reactive, watchEffect } from "vue";
 import SvgIcon from "@components/SvgIcon/Index.vue";
-import StarButton from "@StarUI/StarButton.vue";
+import FlyButton from "@FlyUI/FlyButton.vue";
 
 const props = defineProps({
   dialogParams: {

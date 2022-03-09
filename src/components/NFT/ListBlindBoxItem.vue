@@ -157,23 +157,23 @@
       </div>
       <div class="nft-blind-text-btn" v-if="props.hasBtn === true">
         <div class="nft-blind-text-one" v-if="props.sellType === 'sell'">
-          <star-button
+          <fly-button
             type="dark"
             class="nft-blind-text-one-btn"
             @click="actionsCall('CancelSell')"
-            >{{ $t("取消出售") }}</star-button
+            >{{ $t("取消出售") }}</fly-button
           >
         </div>
         <div class="nft-blind-text-one" v-if="props.sellType === 'sold'">
-          <star-button
+          <fly-button
             type="dark"
             class="nft-blind-text-one-btn"
             @click="CancelSell('AcceptBid')"
-            >{{ $t("确认") }}</star-button
+            >{{ $t("确认") }}</fly-button
           >
         </div>
         <div class="nft-blind-text-two" v-if="props.sellType === 'selling'">
-          <star-button
+          <fly-button
             v-if="Number(baseData.offerPrice) > 0"
             type="light"
             class="nft-blind-text-two-btn nft-blind-text-two-btn-light"
@@ -184,14 +184,14 @@
                 baseData.offerPrice
               )} ${utilsFormat.getTokenCurrency(baseData.payToken)}`
             }}
-          </star-button>
+          </fly-button>
 
-          <star-button
+          <fly-button
             type="dark"
             :style="{ width: Number(baseData.offerPrice) <= 0 ? '100%' : '' }"
             class="nft-blind-text-two-btn"
             @click="actionsCall('CancelSell')"
-            >{{ $t("取消出售") }}</star-button
+            >{{ $t("取消出售") }}</fly-button
           >
         </div>
       </div>
@@ -210,7 +210,7 @@
 /* eslint-disable */
 import { defineProps, reactive, computed, defineEmits } from "vue";
 import { useStore } from "vuex";
-import StarButton from "@StarUI/StarButton.vue";
+import FlyButton from "@FlyUI/FlyButton.vue";
 import Confirm from "@components/NFT/Confirm";
 import utilsFormat from "@utils/format";
 import SvgIcon from "@components/SvgIcon/Index.vue";

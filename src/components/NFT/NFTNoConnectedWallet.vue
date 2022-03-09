@@ -2,14 +2,14 @@
   <div class="nft-no-data">
     <div class="nft-no-data-box">
       <div class="nft-no-data-text">{{ $t("没有数据,请连接钱包") }}</div>
-      <star-button type="dark" class="nft-no-data-btn" @click="connectWallet">
+      <fly-button type="dark" class="nft-no-data-btn" @click="connectWallet">
         {{ $t("连接钱包") }}
-      </star-button>
+      </fly-button>
     </div>
   </div>
 </template>
 <script setup>
-import StarButton from "@StarUI/StarButton.vue";
+import FlyButton from "@FlyUI/FlyButton.vue";
 import connectLogic from "@hooks/useMyWallet";
 import { useStore } from "vuex";
 const store = useStore();

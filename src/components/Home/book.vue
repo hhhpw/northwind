@@ -13,9 +13,9 @@
         />
       </div>
       <div ref="btnDOM">
-        <star-button :class="$style.btn" type="dark" @click="pushPage">
+        <fly-button :class="$style.btn" type="dark" @click="pushPage">
           <span>{{ $t("了解更多") }}</span>
-        </star-button>
+        </fly-button>
       </div>
     </div>
   </div>
@@ -31,7 +31,7 @@ import {
   computed,
 } from "vue";
 import CONSTANTS_HOME from "@constants/home";
-import StarButton from "@StarUI/StarButton.vue";
+import FlyButton from "@FlyUI/FlyButton.vue";
 import utilsDOM from "@utils/dom";
 import utilsTool from "@utils/tool";
 import { useStore } from "vuex";

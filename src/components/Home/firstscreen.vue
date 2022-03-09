@@ -45,7 +45,7 @@
         :class="$style['screen-container-main-desc']"
       />
       <div :class="$style['screen-container-main-footer']">
-        <star-button
+        <fly-button
           type="dark"
           :class="$style['screen-container-main-footer-btn']"
           @click="btnClick"
@@ -56,7 +56,7 @@
           <span v-else>
             {{ $t("立即交易") }}
           </span>
-        </star-button>
+        </fly-button>
       </div>
     </div>
     <!-- <div :class="$style['video-mask']" v-if="state.isShowVideo">
@@ -87,7 +87,7 @@ import {
   watch,
   watchEffect,
 } from "vue";
-import StarButton from "@StarUI/StarButton.vue";
+import FlyButton from "@FlyUI/FlyButton.vue";
 import HOME_CONSTANTS from "@constants/home";
 import { useStore } from "vuex";
 import utilsRouter from "@utils/router";
