@@ -1,6 +1,6 @@
 <template>
   <div class="star-setting">
-    <star-dialog
+    <fly-dialog
       :title="$t('设置')"
       :dialogVisible="state.visible"
       @handleClose="handleClose"
@@ -78,12 +78,12 @@
           </p>
         </div>
       </template>
-    </star-dialog>
+    </fly-dialog>
   </div>
 </template>
 
 <script setup>
-import starDialog from "@StarUI/StarDialog.vue";
+import FlyDialog from "@FlyUI/FlyDialog.vue";
 import { reactive, defineProps, watch, defineEmits, computed } from "vue";
 // import { ElRadioGroup, ElRadioButton, ElInput, ElTooltip } from "element-plus";
 import session from "@utils/session";
