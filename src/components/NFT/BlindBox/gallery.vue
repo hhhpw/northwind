@@ -51,11 +51,11 @@
         </div>
       </template>
     </star-scroll>
-    <star-loading-fish
+    <fly-loading-fish
       style="margin-top: 30px"
       gifType="white"
       v-if="state.firstLoading"
-    ></star-loading-fish>
+    ></fly-loading-fish>
     <nft-dialog
       :dialogVisible="state.dialogParams.isShow"
       :isShowClose="!(state.dialogParams.dialogStatus === 'ongoing')"
@@ -71,7 +71,7 @@
 import { computed, onMounted, reactive, onUnmounted } from "vue";
 import FlySpace from "@FlyUI/FlySpace.vue";
 import { cloneDeep } from "lodash";
-import StarLoadingFish from "@StarUI/StarLoadingFish.vue";
+import FlyLoadingFish from "@FlyUI/FlyLoadingFish.vue";
 import StarScroll from "@StarUI/StarScroll.vue";
 import NftDialog from "@components/NFT/NFTDialog.vue";
 import { useStore } from "vuex";

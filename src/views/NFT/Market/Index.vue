@@ -35,7 +35,7 @@
               </div>
             </template>
           </star-scroll>
-          <star-loading-fish v-if="state.firstLoading"></star-loading-fish>
+          <fly-loading-fish v-if="state.firstLoading"></fly-loading-fish>
           <empty
             v-if="
               !state.firstLoading &&
@@ -70,7 +70,7 @@ import NftSelector from "@components/NFT/NFTSelector.vue";
 // import ListBlindBoxItem from "@components/NFT/ListBlindBoxItem.vue";
 import StarScroll from "@StarUI/StarScroll.vue";
 import Empty from "@components/NFT/Empty.vue";
-import StarLoadingFish from "@StarUI/StarLoadingFish.vue";
+import FlyLoadingFish from "@FlyUI/FlyLoadingFish.vue";
 import NftCardItem from "@components/NFT/NFTCardItem.vue";
 import { useStore } from "vuex";
 const store = useStore();

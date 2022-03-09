@@ -55,11 +55,11 @@
         </div>
       </template>
     </star-scroll>
-    <star-loading-fish
+    <fly-loading-fish
       style="margin-top: 30px"
       gifType="white"
       v-if="state.firstLoading"
-    ></star-loading-fish>
+    ></fly-loading-fish>
   </div>
 </template>
 <script setup>
@@ -69,7 +69,7 @@ import utilsDate from "@utils/date.js";
 import { isUndefined, cloneDeep } from "lodash";
 import dayjs from "dayjs";
 import utilsFormat from "@utils/format";
-import StarLoadingFish from "@StarUI/StarLoadingFish.vue";
+import FlyLoadingFish from "@FlyUI/FlyLoadingFish.vue";
 import StarScroll from "@StarUI/StarScroll.vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";

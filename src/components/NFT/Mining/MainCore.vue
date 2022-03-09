@@ -84,7 +84,7 @@
   >
     {{ $t("nftmining.nft-slot-desc") }}
   </p>
-  <star-loading-fish v-if="state.isLoading"></star-loading-fish>
+  <fly-loading-fish v-if="state.isLoading"></fly-loading-fish>
 
   <selector-modal
     :dialogParams="state.selectorDialogParams"
@@ -119,7 +119,7 @@ import SecondDialog from "./SecondDialog.vue";
 import RewardDialog from "./RewardDialog.vue";
 import SvgIcon from "@components/SvgIcon/Index.vue";
 import FlyAmount from "@FlyUI/FlyAmount";
-import StarLoadingFish from "@StarUI/StarLoadingFish.vue";
+import FlyLoadingFish from "@FlyUI/FlyLoadingFish.vue";
 import Wallet from "@wallet";
 import { useStore } from "vuex";
 

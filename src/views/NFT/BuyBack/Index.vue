@@ -31,7 +31,7 @@
               </div>
             </template>
           </star-scroll>
-          <star-loading-fish v-if="state.firstLoading"></star-loading-fish>
+          <fly-loading-fish v-if="state.firstLoading"></fly-loading-fish>
           <empty
             v-if="
               !state.firstLoading &&
@@ -66,7 +66,7 @@ import { useRouter } from "vue-router";
 import Empty from "@components/NFT/Empty.vue";
 import StarScroll from "@StarUI/StarScroll.vue";
 import NftSelector from "@components/NFT/NFTSelector.vue";
-import StarLoadingFish from "@StarUI/StarLoadingFish.vue";
+import FlyLoadingFish from "@FlyUI/FlyLoadingFish.vue";
 import NftCardItem from "@components/NFT/NFTCardItem.vue";
 
 const router = useRouter();

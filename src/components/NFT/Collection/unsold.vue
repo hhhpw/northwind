@@ -1,5 +1,5 @@
 <template>
-  <star-loading-fish v-if="state.isLoading" class="loading"></star-loading-fish>
+  <fly-loading-fish v-if="state.isLoading" class="loading"></fly-loading-fish>
   <empty v-if="!state.isLoading && unsold_data && unsold_data.length === 0">
     <template #content>
       <p style="color: #8b8b8b">
@@ -28,7 +28,7 @@
 <script setup>
 import Empty from "@components/NFT/Empty.vue";
 // import ListBlindBoxItem from "@components/NFT/ListBlindBoxItem.vue";
-import StarLoadingFish from "@StarUI/StarLoadingFish.vue";
+import FlyLoadingFish from "@FlyUI/FlyLoadingFish.vue";
 import NftCardItem from "@components/NFT/NFTCardItem.vue";
 
 import { computed, defineEmits, reactive } from "vue";

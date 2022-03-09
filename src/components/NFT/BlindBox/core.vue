@@ -91,7 +91,7 @@
         </div>
       </div>
     </div>
-    <star-loading-fish v-else></star-loading-fish>
+    <fly-loading-fish v-else></fly-loading-fish>
     <Fly-confirm
       :title="t('购买盲盒')"
       :dialogVisible="state.isShowBuyModal"
@@ -185,7 +185,7 @@ import utilsFormat from "@utils/format";
 import connectLogic from "@hooks/useMyWallet";
 import CONSTANTS_TOKENS from "@constants/token";
 import NftSoldOutDialog from "@components/NFT/NFTSoldOutDialog.vue";
-import StarLoadingFish from "@StarUI/StarLoadingFish.vue";
+import FlyLoadingFish from "@FlyUI/FlyLoadingFish.vue";
 import utilsRegexp from "@utils/regexp";
 const store = useStore();
 const router = useRouter();

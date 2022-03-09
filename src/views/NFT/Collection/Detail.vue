@@ -18,7 +18,7 @@
           fromView="collection"
         ></detailCard>
       </div>
-      <star-loading-fish v-else></star-loading-fish>
+      <fly-loading-fish v-else></fly-loading-fish>
     </template>
   </star-nft>
 
@@ -72,7 +72,7 @@ import {
   watch,
 } from "vue";
 import StarNft from "@StarUI/StarNFT.vue";
-import StarLoadingFish from "@StarUI/StarLoadingFish.vue";
+import FlyLoadingFish from "@FlyUI/FlyLoadingFish.vue";
 // import DetailCard from "@components/NFT/DetailCard.vue";
 import detailCard from "@components/NFT/Details.vue";
 import utilsNumber from "@utils/number";

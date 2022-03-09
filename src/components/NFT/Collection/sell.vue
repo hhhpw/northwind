@@ -1,8 +1,8 @@
 <template>
-  <star-loading-fish
+  <fly-loading-fish
     v-if="state.onSellIsLoading"
     class="loading"
-  ></star-loading-fish>
+  ></fly-loading-fish>
   <template
     v-if="!state.onSellIsLoading && selling_data && selling_data.length > 0"
   >
@@ -37,7 +37,7 @@
 <script setup>
 import Empty from "@components/NFT/Empty.vue";
 // import ListBlindBoxItem from "@components/NFT/ListBlindBoxItem.vue";
-import StarLoadingFish from "@StarUI/StarLoadingFish.vue";
+import FlyLoadingFish from "@FlyUI/FlyLoadingFish.vue";
 import NftCardItem from "@components/NFT/NFTCardItem.vue";
 import { computed, defineEmits, reactive } from "vue";
 import { useStore } from "vuex";

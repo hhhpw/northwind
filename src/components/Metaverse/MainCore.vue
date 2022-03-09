@@ -1,5 +1,5 @@
 <template>
-  <star-loading-fish v-if="state.loadingStatus"></star-loading-fish>
+  <fly-loading-fish v-if="state.loadingStatus"></fly-loading-fish>
   <div :class="$style.wrap" v-else>
     <role></role>
     <div :class="$style.main">
@@ -32,7 +32,7 @@ import SecondConfirmModal from "./SecondConfirmModal.vue";
 import NftCreateModal from "./NftCreateModal.vue";
 import HeroInfo from "@components/Metaverse/HeroInfo.vue";
 import UserHeroCard from "@components/Metaverse/UserHeroCard.vue";
-import StarLoadingFish from "@StarUI/StarLoadingFish.vue";
+import FlyLoadingFish from "@FlyUI/FlyLoadingFish.vue";
 import { useStore } from "vuex";
 const store = useStore();
 

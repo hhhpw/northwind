@@ -18,7 +18,7 @@
           cardType="market"
           :blind_box_type="state.blind_box_type"
         ></detailCard>
-        <star-loading-fish v-else></star-loading-fish>
+        <fly-loading-fish v-else></fly-loading-fish>
       </template>
     </star-nft>
     <div class="confirm-alert">
@@ -187,7 +187,7 @@ import {
 import { useNFT } from "../../../hooks/useNFT";
 import NFT_CONSTANTS from "@constants/nft.js";
 import FlyButton from "@FlyUI/FlyButton.vue";
-import StarLoadingFish from "@StarUI/StarLoadingFish.vue";
+import FlyLoadingFish from "@FlyUI/FlyLoadingFish.vue";
 import FlyConfirm from "@FlyUI/FlyConfirm";
 import FlyInputNumber from "@FlyUI/FlyInutNumber.vue";
 import utilsFormat from "@utils/format";
