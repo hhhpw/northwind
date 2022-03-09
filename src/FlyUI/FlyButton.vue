@@ -52,7 +52,6 @@ $text-brow-color: #744600;
   color: $text-orange-color;
   border: 1px solid $border-orange-color;
   padding: 14px 25px;
-  background-color: #fff;
 }
 .fly-button.disabled {
   background: $gray_light;

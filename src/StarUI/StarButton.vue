@@ -40,7 +40,7 @@ const props = defineProps({
   color: $text-orange-color;
   border: 1px solid $border-orange-color;
   padding: 14px 25px;
-  background-color: #fff;
+  background: none;
 }
 .star-button.disabled {
   // background-color: $btn-gray-bgcolor;
