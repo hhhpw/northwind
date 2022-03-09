@@ -1,6 +1,6 @@
 <template>
   <div class="market-detail" v-if="state.box_detail">
-    <star-nft
+    <fly-nft
       class="blind-box-container"
       coreType="card"
       :cardTypeParams="{ minHeight: '800px' }"
@@ -20,7 +20,7 @@
         ></detailCard>
         <fly-loading-fish v-else></fly-loading-fish>
       </template>
-    </star-nft>
+    </fly-nft>
     <div class="confirm-alert">
       <Fly-confirm
         :dialogVisible="state.quotation_show"
@@ -193,7 +193,7 @@ import FlyInputNumber from "@FlyUI/FlyInutNumber.vue";
 import utilsFormat from "@utils/format";
 import utilsRegexp from "@utils/regexp";
 import FlySpace from "@FlyUI/FlySpace.vue";
-import StarNft from "@StarUI/StarNFT.vue";
+import FlyNft from "@FlyUI/FlyNFT.vue";
 // import detailCard from "@components/NFT/DetailCard.vue";
 import detailCard from "@components/NFT/Details.vue";
 import NftDialog from "@components/NFT/NFTDialog.vue";

@@ -1,15 +1,15 @@
 <template>
   <div class="mining-container">
-    <star-nft coreType="list" class="mining-container-nft">
+    <fly-nft coreType="list" class="mining-container-nft">
       <template #nft-list>
         <mining-core></mining-core>
       </template>
-    </star-nft>
+    </fly-nft>
   </div>
 </template>
 <script setup>
 /* eslint-disable */
-import StarNft from "@StarUI/StarNFT.vue";
+import FlyNft from "@FlyUI/FlyNFT.vue";
 import { computed, onMounted, reactive, defineProps, defineEmits } from "vue";
 import MiningCore from "@components/NFT/Mining/MainCore.vue";
 </script>

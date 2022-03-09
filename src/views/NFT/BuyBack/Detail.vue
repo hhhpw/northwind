@@ -1,6 +1,6 @@
 <template>
   <div class="buy-back-detail">
-    <star-nft
+    <fly-nft
       class="blind-box-container"
       coreType="card"
       :cardTypeParams="{ minHeight: '800px' }"
@@ -16,7 +16,7 @@
         ></detailCard>
         <fly-loading-fish v-else></fly-loading-fish>
       </template>
-    </star-nft>
+    </fly-nft>
 
     <nft-dialog
       :dialogVisible="state.dialogParams.isShow"
@@ -41,7 +41,7 @@
 <script setup>
 import { reactive, onMounted, ref, computed, watch, onUnmounted } from "vue";
 import NFT_CONSTANTS from "@constants/nft.js";
-import StarNft from "@StarUI/StarNFT.vue";
+import FlyNft from "@FlyUI/FlyNFT.vue";
 // import detailCard from "@components/NFT/DetailCard.vue";
 import detailCard from "@components/NFT/Details.vue";
 import { useRoute, useRouter } from "vue-router";

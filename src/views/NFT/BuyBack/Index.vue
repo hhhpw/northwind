@@ -1,6 +1,6 @@
 <template>
   <div class="recovery-container">
-    <star-nft
+    <fly-nft
       class="blind-box-container"
       v-if="state.walletStatus === 'connected'"
     >
@@ -47,18 +47,18 @@
           </empty>
         </div>
       </template>
-    </star-nft>
+    </fly-nft>
 
-    <star-nft class="blind-box-container" :coreType="state.coreType" v-else>
+    <fly-nft class="blind-box-container" :coreType="state.coreType" v-else>
       <template #nft-no-data>
         <nft-no-connected-wallet class="no-data"></nft-no-connected-wallet>
       </template>
-    </star-nft>
+    </fly-nft>
   </div>
 </template>
 <script setup>
 import { reactive, computed, onUnmounted } from "vue";
-import StarNft from "@StarUI/StarNFT.vue";
+import FlyNft from "@FlyUI/FlyNFT.vue";
 import NftNoConnectedWallet from "@components/NFT/NFTNoConnectedWallet.vue";
 // import ListBlindBoxItem from "@components/NFT/ListBlindBoxItem.vue";
 import { useStore } from "vuex";

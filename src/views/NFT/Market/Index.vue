@@ -1,6 +1,6 @@
 <template>
   <div class="market-container">
-    <star-nft
+    <fly-nft
       class="blind-box-container"
       v-if="state.walletStatus === 'connected'"
     >
@@ -51,19 +51,19 @@
           </empty>
         </div>
       </template>
-    </star-nft>
-    <star-nft
+    </fly-nft>
+    <fly-nft
       class="blind-box-container"
       v-if="state.walletStatus !== 'connected'"
     >
       <template #nft-no-data>
         <nft-no-connected-wallet class="no-data"></nft-no-connected-wallet>
       </template>
-    </star-nft>
+    </fly-nft>
   </div>
 </template>
 <script setup>
-import StarNft from "@StarUI/StarNFT.vue";
+import FlyNft from "@FlyUI/FlyNFT.vue";
 import { reactive, computed, onUnmounted } from "vue";
 import NftNoConnectedWallet from "@components/NFT/NFTNoConnectedWallet.vue";
 import NftSelector from "@components/NFT/NFTSelector.vue";

@@ -1,10 +1,10 @@
 <template>
-  <div class="star-nft">
+  <div class="fly-nft">
     <fly-space :size="25"></fly-space>
     <flyUI-change-button
       :activeIndex="state.activeIndex"
       :tabs="state.tabs"
-      class="star-nft-header"
+      class="fly-nft-header"
     ></flyUI-change-button>
     <fly-space :size="25"></fly-space>
     <slot name="nft-header"></slot>
@@ -107,10 +107,10 @@ onMounted(() => {
 <style lang="scss" scoped>
 @import "~@/styles/variables.scss";
 @import "~@/styles/_vars.scss";
-.star-nft {
+.fly-nft {
   width: 1200px;
   background: $black;
-  .star-nft-header {
+  .fly-nft-header {
     width: 100%;
     background: #191919;
   }
