@@ -1,5 +1,5 @@
 <template>
-  <div class="star-refresh">
+  <div class="fly-refresh">
     <star-dialog
       :title="!props.isCustomTitle ? $t(props.title || '') : props.title"
       :dialogVisible="state.visible"
@@ -74,7 +74,7 @@ const handleClose = () => {
 
 <style lang="scss" scoped>
 @import "~@/styles/variables.scss";
-.star-refresh {
+.fly-refresh {
   position: relative;
   z-index: 122;
   ::v-deep(.el-dialog__header) {

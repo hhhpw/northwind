@@ -63,7 +63,7 @@
       @handleClose="handleClose('isShowHistoryRecordDialog')"
     >
     </history-record>
-    <star-confirm
+    <Fly-confirm
       :dialogVisible="state.isShowConfirm"
       @handleClose="handleClose('isShowConfirm')"
     >
@@ -88,12 +88,12 @@
           $t("确认")
         }}</Fly-button>
       </template>
-    </star-confirm>
+    </Fly-confirm>
   </div>
 </template>
 <script setup>
 import { computed, reactive, onMounted, watch } from "vue";
-import StarConfirm from "@StarUI/StarConfirm.vue";
+import FlyConfirm from "@FlyUI/FlyConfirm";
 import FlyToolTip from "@FlyUI/FlyToolTip.vue";
 import FlyButton from "@FlyUI/FlyButton.vue";
 import FlySpace from "@FlyUI/FlySpace.vue";

@@ -92,7 +92,7 @@
       </div>
     </div>
     <star-loading-fish v-else></star-loading-fish>
-    <star-confirm
+    <Fly-confirm
       :title="t('购买盲盒')"
       :dialogVisible="state.isShowBuyModal"
       class="nft-blindbox-core-buy-dialog"
@@ -141,7 +141,7 @@
           </star-button>
         </div>
       </template>
-    </star-confirm>
+    </Fly-confirm>
     <nft-dialog
       :dialogVisible="state.dialogParams.isShow"
       :isShowClose="!(state.dialogParams.dialogStatus === 'ongoing')"
@@ -169,7 +169,7 @@ import {
   watch,
   onBeforeMount,
 } from "vue";
-import StarConfirm from "@StarUI/StarConfirm";
+import FlyConfirm from "@FlyUI/FlyConfirm";
 import NFT_CONSTANTS from "@constants/nft.js";
 import NftDialog from "@components/NFT/NFTDialog.vue";
 import StarSpace from "@StarUI/StarSpace.vue";

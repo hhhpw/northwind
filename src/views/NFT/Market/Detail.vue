@@ -22,7 +22,7 @@
       </template>
     </star-nft>
     <div class="confirm-alert">
-      <star-confirm
+      <Fly-confirm
         :dialogVisible="state.quotation_show"
         :title="t('报价')"
         :isCustomContent="true"
@@ -82,9 +82,9 @@
             >{{ $t("出价") }}</star-button
           >
         </template>
-      </star-confirm>
+      </Fly-confirm>
       <!-- 修改报价 -->
-      <star-confirm
+      <Fly-confirm
         :dialogVisible="editState.edit_price_show"
         :title="t('修改售价')"
         :isCustomContent="true"
@@ -138,7 +138,7 @@
             >{{ $t("确认") }}</star-button
           >
         </template>
-      </star-confirm>
+      </Fly-confirm>
 
       <!-- dialogVisible单独抽出来是因为该值为modelValue属性 -->
       <nft-dialog
@@ -188,7 +188,7 @@ import { useNFT } from "../../../hooks/useNFT";
 import NFT_CONSTANTS from "@constants/nft.js";
 import StarButton from "@StarUI/StarButton.vue";
 import StarLoadingFish from "@StarUI/StarLoadingFish.vue";
-import StarConfirm from "@StarUI/StarConfirm";
+import FlyConfirm from "@FlyUI/FlyConfirm";
 import StarInputNumber from "@StarUI/StarInputNumber";
 import utilsFormat from "@utils/format";
 import utilsRegexp from "@utils/regexp";

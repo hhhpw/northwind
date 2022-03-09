@@ -159,7 +159,7 @@
         </div>
       </div>
     </div>
-    <star-confirm
+    <Fly-confirm
       :dialogVisible="state.isShowConfirm"
       @handleClose="handleClose('isShowConfirm')"
     >
@@ -177,7 +177,7 @@
           $t("确认")
         }}</Fly-button>
       </template>
-    </star-confirm>
+    </Fly-confirm>
     <history-record
       :dialogVisible="state.isShowHistoryDialog"
       :historyType="'swap'"
@@ -203,7 +203,7 @@ import FlySpace from "@FlyUI/FlySpace.vue";
 import FlyToolTip from "@FlyUI/FlyToolTip.vue";
 import { useStore } from "vuex";
 import FlyInput from "@FlyUI/FlyInput";
-import StarConfirm from "@StarUI/StarConfirm.vue";
+import FlyConfirm from "@FlyUI/FlyConfirm";
 import utilsNumber from "@utils/number";
 import SearchCurrency from "../SearchCurrency";
 import HistoryRecord from "../HistoryRecord.vue";

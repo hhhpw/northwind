@@ -1,6 +1,6 @@
 <template>
   <div class="confirm">
-    <star-confirm
+    <Fly-confirm
       :dialogVisible="props.dialogVisible"
       @handleClose="handleClose"
       :isShowClose="props.isShowClose"
@@ -56,12 +56,12 @@
           >
         </div>
       </template>
-    </star-confirm>
+    </Fly-confirm>
   </div>
 </template>
 <script setup>
 import StarButton from "@StarUI/StarButton.vue";
-import StarConfirm from "@StarUI/StarConfirm";
+import FlyConfirm from "@FlyUI/FlyConfirm";
 import { defineProps, defineEmits } from "vue";
 
 const props = defineProps({

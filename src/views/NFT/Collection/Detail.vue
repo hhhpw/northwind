@@ -87,7 +87,6 @@ import { useI18n } from "vue-i18n";
 import { dialogEventMaps } from "./dialog";
 import utilsFormat from "@utils/format";
 import StarButton from "@StarUI/StarButton.vue";
-import StarConfirm from "@StarUI/StarConfirm";
 import StarInputNumber from "@StarUI/StarInputNumber";
 import StarSpace from "@StarUI/StarSpace.vue";
 import NFT_CONSTANTS from "@constants/nft.js";
