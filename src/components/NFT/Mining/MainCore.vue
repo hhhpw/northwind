@@ -32,10 +32,10 @@
                 style="margin-right: 3px; margin-left: 5px"
               ></svg-icon>
               <span>{{ $t("算力") }}:</span>
-              <star-amount
+              <fly-amount
                 :value="d.score"
                 :formatOptions="{ precision: 2, trailingZero: true }"
-              ></star-amount>
+              ></fly-amount>
             </div>
           </div>
           <div
@@ -118,7 +118,7 @@ import CONSTANTS_DIALOG from "@constants/dialog.js";
 import SecondDialog from "./SecondDialog.vue";
 import RewardDialog from "./RewardDialog.vue";
 import SvgIcon from "@components/SvgIcon/Index.vue";
-import StarAmount from "@StarUI/StarAmount.vue";
+import FlyAmount from "@FlyUI/FlyAmount";
 import StarLoadingFish from "@StarUI/StarLoadingFish.vue";
 import Wallet from "@wallet";
 import { useStore } from "vuex";

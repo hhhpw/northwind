@@ -8,11 +8,11 @@
     <div :class="$style['role-box']">
       <div :class="$style['role-box-score']">
         <svg-icon name="white-rarity" style="margin-right: 3px"></svg-icon>
-        <star-amount
+        <fly-amount
           :value="state.totalScore"
           :formatOptions="{ precision: 0, trailingZero: true }"
         >
-        </star-amount>
+        </fly-amount>
       </div>
       <!-- <img src="../../assets/metaverse/right-empty-box.png" /> -->
       <template
@@ -94,7 +94,7 @@
 /* eslint-disable */
 import { computed, reactive, watch } from "vue";
 import StarButton from "@StarUI/StarButton.vue";
-import StarAmount from "@StarUI/StarAmount.vue";
+import FlyAmount from "@FlyUI/FlyAmount";
 import utilsFormat from "@utils/format";
 import SvgIcon from "@components/SvgIcon/Index.vue";
 import FlySpace from "@FlyUI/FlySpace.vue";

@@ -54,14 +54,14 @@
                 class="nft-blind-text-name-rarity-tooltip"
               >
               </nft-card-item-tool-tip>
-              <star-amount
+              <fly-amount
                 style="margin-left: 3px"
                 :value="baseData?.score"
                 :formatOptions="{
                   precision: 2,
                 }"
               >
-              </star-amount>
+              </fly-amount>
             </span>
           </span>
         </div>
@@ -214,7 +214,7 @@ import StarButton from "@StarUI/StarButton.vue";
 import Confirm from "@components/NFT/Confirm";
 import utilsFormat from "@utils/format";
 import SvgIcon from "@components/SvgIcon/Index.vue";
-import StarAmount from "@StarUI/StarAmount";
+import FlyAmount from "@FlyUI/FlyAmount";
 import NftCardItemToolTip from "./NFTCardItemToolTip.vue";
 const store = useStore();
 const props = defineProps({
