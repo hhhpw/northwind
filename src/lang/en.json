@@ -201,6 +201,7 @@
     "请耐心等待网络确认": "Please wait until network confirm the transaction",
     "开启中": "Opening",
     "上架中": "Item listing",
+    "已上架": "Listing Succeeded",
     "商品下架失败": "Removing item failed",
     "商品下架成功": "Removing item succeed",
     "提交失败": "Submission failed",
@@ -297,7 +298,7 @@
     "距离结束": "Will be close in",
     "天": "day",
     "起拍价": "Auction Start Price",
-    "拍卖时间": "Auction Start Time",
+    "拍卖时间": "Auction Time",
     "提交": "Submit"
   },
   "farms": {
