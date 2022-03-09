@@ -388,17 +388,21 @@ $black: #010e22;
     .item-content-slots {
       .item-content-slots-buyback {
         margin: 10px 0px;
-        text-align: center;
+        text-align: left;
         display: block;
         font-size: 14px;
+        display: flex;
         span {
+          flex: 1;
           font-weight: $fontWeight;
+          justify-content: space-between;
         }
         span:first-child {
           color: $gray;
         }
         span:nth-child(2) {
           color: $white;
+          text-align: right;
         }
       }
       .item-content-slots-market {
