@@ -48,13 +48,9 @@
           <p
             class="fly-wallet-dialog-content-core-text"
             :class="{ error: props.dialogParams.dialogStatus === 'failed' }"
-            v-if="props.dialogParams.dialogText"
+            v-if="stateText"
           >
-            {{
-              props.dialogParams.dialogStatus === "ongoing"
-                ? props.dialogParams.dialogText + "..."
-                : props.dialogParams.dialogText
-            }}
+            {{ stateText }}
           </p>
         </div>
         <slot name="fly-wallet-dialog-custom-content"></slot>
@@ -106,7 +102,7 @@
             props.dialogParams.dialogStatus === 'succeed'
           "
         >
-          {{ props.dialogParams.successBtnText }}
+          {{ props.dialogParams.successBtnText || "确认" }}
         </fly-button>
         <fly-button
           type="danger_ghost"
@@ -117,7 +113,7 @@
             props.dialogParams.dialogStatus === 'failed'
           "
         >
-          {{ props.dialogParams.failedBtnText }}
+          {{ props.dialogParams.failedBtnText || "确认" }}
         </fly-button>
       </div>
     </ElDialog>
@@ -158,6 +154,21 @@ const props = defineProps({
 const state = reactive({
   currLang: computed(() => store.state.StoreApp.currLang),
   visible: false,
+});
+const stateText = computed(() => {
+  let str = "";
+  switch (props.dialogParams.dialogStatus) {
+    case "ongoing":
+      str = props.dialogParams.dialogTex;
+      break;
+    case "succeed":
+      str = props.dialogParams.successText;
+      break;
+    case "failed":
+      str = props.dialogParams.failedText;
+      break;
+  }
+  return str;
 });
 watchEffect(() => {
   if (props.dialogParams) {
@@ -242,8 +253,11 @@ const emits = defineEmits(["handleClose", "handleSucceed", "handleFailed"]);
 
 .fly-wallet-dialog {
   ::v-deep(.el-dialog) {
-    background-color: $black;
-    border-radius: 16px;
+    background-image: url("../../src/assets/common/bg.png");
+    background-position: top;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    border-radius: 23px;
     .el-dialog__headerbtn:focus .el-dialog__close,
     .el-dialog__headerbtn:hover .el-dialog__close {
       color: $btn-orange-bgcolor;

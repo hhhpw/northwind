@@ -179,7 +179,12 @@ const StoreLiquidity = {
     lpDelInfo: null,
     totalLiquidityList: [],
     lpTokenAmount: null,
-    walletDialogParams: WALLET_DIALOG_PARAMS,
+    walletDialogParams: {
+      ...WALLET_DIALOG_PARAMS,
+      dialogText: "正在添加流动性",
+      successBtnText: "流动性添加成功",
+      failedBtnText: "流动性添加失败",
+    },
   },
   mutations: {
     [types.SET_LPTOKEN_TOTAL_AMOUNT](state, payload) {
@@ -770,7 +775,12 @@ const StoreLiquidity = {
     },
 
     async addLiquidity({ state, rootState, commit }) {
-      commit(types.SET_WALLET_DIALOG_PARAMS, WALLET_DIALOG_PARAMS);
+      commit(types.SET_WALLET_DIALOG_PARAMS, {
+        ...WALLET_DIALOG_PARAMS,
+        dialogText: "正在添加流动性",
+        successBtnText: "流动性添加成功",
+        failedBtnText: "流动性添加失败",
+      });
       commit(types.SET_WALLET_DIALOG_PARAMS, {
         dialogVisible: true,
         isShowClose: false,
@@ -837,7 +847,12 @@ const StoreLiquidity = {
     },
 
     async delLiquidity({ state, rootState, commit }) {
-      commit(types.SET_WALLET_DIALOG_PARAMS, WALLET_DIALOG_PARAMS);
+      commit(types.SET_WALLET_DIALOG_PARAMS, {
+        ...WALLET_DIALOG_PARAMS,
+        dialogText: "正在添加流动性",
+        successBtnText: "流动性添加成功",
+        failedBtnText: "流动性添加失败",
+      });
       commit(types.SET_WALLET_DIALOG_PARAMS, {
         dialogVisible: true,
         isShowClose: false,
