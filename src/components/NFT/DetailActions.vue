@@ -67,6 +67,9 @@
         class="blind-offer-actions button-style"
         v-if="props.box_detail.onSell"
       >
+        <span class="cancel-sell" @click="actionsCall('CancelSell')">{{
+          $t("取消出售")
+        }}</span>
         <span
           v-if="props.box_detail.sellType === 2"
           :style="{
@@ -85,17 +88,7 @@
             }
           "
           >{{ $t("接受报价") }}
-          {{
-            formatPriceWithLength(
-              props.box_detail.topBidPrice,
-              props.box_detail.payTokenPrecision
-            )
-          }}
-          {{ utilsFormat.getTokenCurrency(props.box_detail.payToken) }}
         </span>
-        <span class="cancel-sell" @click="actionsCall('CancelSell')">{{
-          $t("取消出售")
-        }}</span>
       </div>
       <div v-else>
         <div class="sold-out button-style">
@@ -343,6 +336,9 @@ const handleCloseQuotation = () => {
   display: flex;
   justify-content: space-between;
   margin-top: 36px;
+  :first-child {
+    margin-right: 17px;
+  }
   span {
     cursor: pointer;
     flex: 1;
