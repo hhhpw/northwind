@@ -1,12 +1,28 @@
 <template>
   <div class="home-wrap">
-    <first-page v-if="state.showTab == 0"></first-page>
-    <second-page v-if="state.showTab == 1"></second-page>
-    <third-page v-if="state.showTab == 2"></third-page>
-    <four-page v-if="state.showTab == 3"></four-page>
-    <five-page v-if="state.showTab == 4"></five-page>
-    <six-page v-if="state.showTab == 5"></six-page>
-    <seven-page v-if="state.showTab == 6"></seven-page>
+    <ElCarousel direction="vertical" :autoplay="false">
+      <ElCarouselItem>
+        <first-page></first-page>
+      </ElCarouselItem>
+      <ElCarouselItem>
+        <second-page></second-page>
+      </ElCarouselItem>
+      <ElCarouselItem>
+        <third-page></third-page>
+      </ElCarouselItem>
+      <ElCarouselItem>
+        <four-page></four-page>
+      </ElCarouselItem>
+      <ElCarouselItem>
+        <five-page></five-page>
+      </ElCarouselItem>
+      <ElCarouselItem>
+        <six-page></six-page>
+      </ElCarouselItem>
+      <ElCarouselItem>
+        <seven-page></seven-page>
+      </ElCarouselItem>
+    </ElCarousel>
   </div>
 </template>
 <script setup>
@@ -24,6 +40,14 @@ let state = reactive({
   showTab: 6,
 });
 </script>
+<style>
+.home-wrap .el-carousel {
+  height: 100%;
+}
+.home-wrap .el-carousel .el-carousel__container {
+  height: 100%;
+}
+</style>
 <style lang="scss" scoped>
 .home-wrap {
   width: 100%;
