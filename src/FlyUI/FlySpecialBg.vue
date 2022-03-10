@@ -24,6 +24,7 @@ import SvgIcon from "@components/SvgIcon/Index.vue";
 import { debounce } from "lodash";
 const props = defineProps({
   showSquare: {
+    //是否显示方块，默认不显示
     type: Boolean,
     default: () => false,
   },
