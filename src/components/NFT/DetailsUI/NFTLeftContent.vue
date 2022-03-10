@@ -54,22 +54,20 @@ const actionsCall = (action) => {
 </script>
 <style scoped lang="scss">
 .details-img-content {
-  width: 424px;
-  height: 424px;
-  background: #ffffff;
-  border-radius: 14px;
+  width: 599px;
+  height: 599px;
+  background: #e8906c;
+  border-radius: 8px;
   font-size: 0;
   overflow: hidden;
   img {
     width: 100%;
     height: 100%;
-    max-width: 424px;
-    max-height: 424px;
   }
   .unopen-blind {
     margin: 0 auto;
-    width: 424px;
-    height: 424px;
+    width: 599px;
+    height: 599px;
     background: rgba(235, 235, 235, 0.22);
     text-align: center;
     line-height: 424px;

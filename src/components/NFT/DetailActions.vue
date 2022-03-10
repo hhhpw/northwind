@@ -34,11 +34,7 @@
         :box_detail="props.box_detail"
         :sellType="props.box_detail.sellType"
       ></nft-bid-info>
-      <div
-        class="blind-offer-actions button-style"
-        v-if="props.box_detail"
-        :style="{ 'margin-top': props.isNFT ? '10px' : '20px' }"
-      >
+      <div class="blind-offer-actions button-style" v-if="props.box_detail">
         <span
           class="purchase"
           v-if="props.box_detail.sellType === 1"
@@ -70,7 +66,6 @@
       <div
         class="blind-offer-actions button-style"
         v-if="props.box_detail.onSell"
-        :style="{ 'margin-top': props.isNFT ? '10px' : '20px' }"
       >
         <span
           v-if="props.box_detail.sellType === 2"
@@ -294,8 +289,6 @@ const handleCloseQuotation = () => {
 }
 .button-style {
   width: 100%;
-  position: absolute;
-  bottom: 0;
 }
 .blind-buttons {
   display: flex;
@@ -314,8 +307,6 @@ const handleCloseQuotation = () => {
 
 .on-offer-blind {
   height: 100%;
-  display: flex;
-  flex-flow: column;
   justify-content: space-between;
   position: relative;
 }
@@ -350,26 +341,28 @@ const handleCloseQuotation = () => {
 .blind-offer-actions {
   display: flex;
   justify-content: space-between;
+  margin-top: 32px;
   span {
     cursor: pointer;
     flex: 1;
     display: inline-block;
-    height: 46px;
-    line-height: 46px;
+    height: 56px;
+    line-height: 56px;
     text-align: center;
-    margin-right: 16px;
-    border-radius: 4px;
-    background: #f88000;
-    color: #ffffff;
+    border-radius: 8px;
+    background: linear-gradient(256deg, #fdd300 0%, #fba800 100%);
+    box-shadow: 0px 12px 15px 0px rgba(253, 168, 0, 0.39);
+    color: #a03300;
     font-size: 16px;
     font-weight: 600;
   }
 }
 .cancel-sell {
   cursor: pointer;
-  background: #fff !important;
-  color: #f88000 !important;
-  border: 1px solid #f88000;
+  background: none !important;
+  box-shadow: none !important;
+  border: 1px solid #fba800;
+  color: #fba800 !important;
 }
 .sold-out {
   flex: 1;
@@ -432,8 +425,9 @@ const handleCloseQuotation = () => {
     }
   }
   .recovery-actions {
-    background: #f88000;
-    color: #ffffff;
+    background: linear-gradient(256deg, #fdd300 0%, #fba800 100%);
+    box-shadow: 0px 12px 15px 0px rgba(253, 168, 0, 0.39);
+    color: #a03300;
   }
   .price-content-style {
     text-align: left;

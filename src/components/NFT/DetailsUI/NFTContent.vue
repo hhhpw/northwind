@@ -111,10 +111,10 @@ watchEffect(() => {
 </script>
 <style lang="scss" scoped>
 .details-content {
-  margin-top: 48px;
-  color: #3f1c09;
+  margin-top: 70px;
+  color: #ffffff;
   .detail-specific-info-container {
-    margin-top: 36px;
+    margin-top: 16px;
     font-size: 14px;
     font-weight: 500;
     .specific-history {

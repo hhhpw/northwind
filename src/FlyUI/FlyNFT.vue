@@ -115,13 +115,10 @@ onMounted(() => {
     background: #191919;
   }
   .nft-card-core {
-    background: #ffffff;
     width: 100%;
     height: auto;
-    box-shadow: 0px 8px 16px 0px rgba(223, 205, 185, 0.46),
-      0px 1px 0px 0px #ffffff;
     border-radius: 34px;
-    padding: 32px;
+    padding: 35px 0;
     box-sizing: border-box;
   }
 }

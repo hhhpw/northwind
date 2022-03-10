@@ -19,8 +19,6 @@ import MiningCore from "@components/NFT/Mining/MainCore.vue";
   .mining-container-nft {
     margin: 0 auto;
     padding-bottom: 30px;
-    .nft-card-core {
-    }
   }
 }
 </style>

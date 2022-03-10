@@ -73,7 +73,7 @@ let props = defineProps({
 <style lang="scss" scoped>
 .nft-bid-info {
   display: flex;
-  background: #fafafa;
+  background: #37322c;
   border-radius: 8px;
   padding: 17px 0;
   margin-bottom: 20px;
@@ -88,12 +88,12 @@ let props = defineProps({
       label,
       span {
         display: block;
-        color: #161311;
-        font-size: 14px;
-        font-weight: bold;
+        color: $white;
+        font-size: 12px;
       }
       .price-value {
         font-size: 20px;
+        font-weight: 500;
       }
     }
     .once-price {
