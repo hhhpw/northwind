@@ -36,27 +36,16 @@ const posGradient = reactive({
   left: -1112,
   top: -1010,
 });
-let open = true;
+// let open = true;
 const debouMove = debounce((e) => {
-  const clientWidth = document.documentElement.clientWidth;
   const scroll_top = document.documentElement.scrollTop;
-  if (open) {
-    if (clientWidth / 2 > e.pageX) {
-      return;
-    }
-    open = false;
-  } else {
-    if (clientWidth / 2 < e.pageX) {
-      return;
-    }
-    open = true;
-  }
+
   pos.left = e.pageX - 500;
   pos.top = e.pageY - scroll_top - 256;
 
   posGradient.left = e.pageX - 1112;
   posGradient.top = e.pageY - scroll_top - 1010;
-});
+}, 2000);
 onMounted(() => {
   document.addEventListener("mousemove", debouMove);
 });
