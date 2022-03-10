@@ -22,7 +22,7 @@
     <Fly-space :size="40"></Fly-space>
     <div class="liquidity-content-core">
       <template v-if="state.poolType === 'init'">
-        <no-data v-if="!state.hasLiquidity"></no-data>
+        <no-data v-if="state.poolList && !state.hasLiquidity"></no-data>
         <template v-if="state.hasLiquidity">
           <pool-list :data="state.poolList"></pool-list>
         </template>
@@ -99,7 +99,7 @@
   </div>
 </template>
 <script setup>
-import { computed, reactive, onMounted, watch } from "vue";
+import { computed, reactive, watch } from "vue";
 import FlyWalletDialog from "@FlyUI/FlyWalletDialog.vue";
 
 import FlyToolTip from "@FlyUI/FlyToolTip.vue";
@@ -261,13 +261,11 @@ const btnClickEvent = (flag) => {
   }
 };
 
-onMounted(() => {
-  store.dispatch(
-    "StoreLiquidity/getAllPoolListByUser",
-    state.accounts[0] || null
-  );
-  store.dispatch("StoreCommon/getCurrencyList");
-});
+store.dispatch(
+  "StoreLiquidity/getAllPoolListByUser",
+  state.accounts[0] || null
+);
+store.dispatch("StoreCommon/getCurrencyList");
 
 // 钱包链接
 watch(

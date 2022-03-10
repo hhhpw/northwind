@@ -6,8 +6,10 @@ export const WALLET_DIALOG_PARAMS = {
   dialogText: "", // 购买中... 等类似文案
   phase1: "loading", // loading succeed
   phase2: "loading", // loading succeed
-  successBtnText: "",
-  failedBtnText: "",
+  successBtnText: "确认",
+  failedBtnText: "确认",
+  successText: "",
+  failedText: "",
   handleFailed: null, // funciton
   handleSucceed: null,
   handleClose: null,

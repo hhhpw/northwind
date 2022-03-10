@@ -228,6 +228,8 @@ import utilsTool from "@utils/tool.js";
 const { t } = useI18n();
 const store = useStore();
 import Wallet from "../../wallet/index";
+
+import { WALLET_DIALOG_PARAMS } from "@constants/dialog.js";
 // import SettingDialog from "../SettingDialog.vue";
 // import commonApi from "@api/common";
 // import { ElTooltip } from "element-plus";
@@ -459,15 +461,11 @@ const changeAmountScale = (value, scale) => {
 };
 
 const dialogSetting = reactive({
-  dialogVisible: false,
-  isShowClose: false, // 弹窗关闭icon
-  hasTitle: false,
-  dialogStatus: "ongoing", //ongoing  failed  succeed
+  ...WALLET_DIALOG_PARAMS,
   dialogText: `正在兑换`, // 购买中等
-  phase1: "loading", // loading succeed
-  phase2: "loading", // loading succeed
-  successBtnText: `兑换成功`,
-  failedBtnText: `兑换失败`,
+  successText: `兑换成功`,
+  failedText: `兑换失败`,
+  isShowClose: false,
 });
 const handleSucceed = () => {
   window.location.reload();

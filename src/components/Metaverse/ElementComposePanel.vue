@@ -40,10 +40,10 @@
             })
           "
         >
-          {{ $t("下一步") }}
+          {{ $t("metaverse.next") }}
         </fly-button>
         <fly-button v-else type="disabled" :class="[$style['create-btn']]">
-          {{ $t("下一步") }}
+          {{ $t("metaverse.next") }}
         </fly-button>
       </template>
       <template v-else>
