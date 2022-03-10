@@ -64,7 +64,7 @@
         </div>
       </div>
       <div class="no-nft-data" v-else>
-        <img src="../../assets/metaverse/no-nft-data.png" />
+        <img src="../../assets/nft/empty.png" />
         <p style="color: #8b8b8b">
           {{ $t("metaverse.no NFT available") }}
         </p>
@@ -155,11 +155,7 @@ const pushMarket = () => {
       height: 30px;
     }
   }
-  .nft-mining-selector-empty-link {
-    color: rgb(251, 128, 0);
-    border-bottom: 1px dashed rgb(251, 128, 0);
-    cursor: pointer;
-  }
+
   .card-wrap {
     display: flex;
     flex-wrap: wrap;
@@ -241,12 +237,12 @@ const pushMarket = () => {
     img {
       display: inline-block;
       margin-bottom: 20px;
-      width: 110px;
-      height: 110px;
+      width: 90px;
+      height: 90px;
     }
     .no-nft-data-link {
-      color: rgb(251, 128, 0);
-      border-bottom: 1px dashed rgb(251, 128, 0);
+      color: #fba800;
+      border-bottom: 1px dashed #fba800;
       cursor: pointer;
     }
   }

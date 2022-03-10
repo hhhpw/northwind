@@ -1,5 +1,5 @@
 <template>
-  <star-nft
+  <fly-nft
     class="blind-box-container"
     coreType="card"
     :cardTypeParams="{ minHeight: '800px' }"
@@ -7,7 +7,7 @@
     <template #nft-card>
       <core></core>
     </template>
-  </star-nft>
+  </fly-nft>
 </template>
 
 <style lang="scss" scoped>
@@ -18,6 +18,6 @@
 </style>
 
 <script setup>
-import StarNft from "@StarUI/StarNFT.vue";
+import FlyNft from "@FlyUI/FlyNFT.vue";
 import core from "@components/NFT/BlindBox/core.vue";
 </script>

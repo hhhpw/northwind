@@ -383,8 +383,9 @@
     "can be disassembled": "Can be disassembled",
     "casting cost": "Mint fee:{amount} {currency}",
     "whether to generate character NFT": "Generate character NFT?",
-    "铸造费用": "铸造费用",
-    "确认铸造": "确认铸造"
+    "minting fees": "Minting fees",
+    "next": "Next",
+    "confirm minting": "Confirm minting"
   },
   "nftproperty": {
     "Fur": "Fur",

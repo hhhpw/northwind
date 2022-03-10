@@ -1,5 +1,5 @@
 <template>
-  <star-nft
+  <fly-nft
     class="blind-box-container"
     coreType="list"
     :cardStyleType="false"
@@ -12,7 +12,7 @@
         <span>{{ $t("导入合约地址") }}</span>
       </div>
     </template>
-  </star-nft>
+  </fly-nft>
 </template>
 
 <style lang="scss" scoped>
@@ -46,7 +46,7 @@
 </style>
 
 <script setup>
-import StarNft from "@StarUI/StarNFT.vue";
+import FlyNft from "@FlyUI/FlyNFT.vue";
 import list from "@components/NFT/BlindBox/list.vue";
 import { useRouter } from "vue-router";
 const router = useRouter();

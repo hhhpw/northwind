@@ -3,7 +3,7 @@
     <div :class="$style['role-box-score']" v-if="state.heroInfo">
       <svg-icon name="f-rarity" style="margin-right: 3px"></svg-icon>
       <fly-amount
-        :value="state.heroInfo.score"
+        :value="state.totalScore || state.heroInfo.score"
         :formatOptions="{ precision: 0, trailingZero: true }"
       >
       </fly-amount>
@@ -20,6 +20,7 @@ const store = useStore();
 const state = reactive({
   heroInfo: computed(() => store.state.StoreMeta.heroInfo),
   currLang: computed(() => store.state.StoreApp.currLang),
+  totalScore: computed(() => store.getters["StoreMeta/totalScore"]),
 });
 </script>
 <style lang="scss" module>

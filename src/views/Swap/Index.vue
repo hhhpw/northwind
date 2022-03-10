@@ -5,9 +5,9 @@
       <star-change-button :activeIndex="0"></star-change-button>
     </div> -->
     <fly-space :size="25"></fly-space>
-    <star-swap-card class="swap-container-card">
+    <fly-swap-card class="swap-container-card">
       <swap-core class="swap-container-core"></swap-core>
-    </star-swap-card>
+    </fly-swap-card>
     <swap-transition-card
       class="swap-container-transition-card"
     ></swap-transition-card>
@@ -17,7 +17,7 @@
 <script setup>
 import SwapCore from "@components/Swap/core.vue";
 import SwapTransitionCard from "@components/Swap/card.vue";
-import StarSwapCard from "@StarUI/StarSwapCard.vue";
+import FlySwapCard from "@FlyUI/FlySwapCard.vue";
 import SpecialBg from "@components/SpecialBg.vue";
 // import StarChangeButton from "@StarUI/StarChangeButton.vue";
 import FlySpace from "@FlyUI/FlySpace.vue";

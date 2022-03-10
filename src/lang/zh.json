@@ -381,8 +381,9 @@
     "can be disassembled": "可重組",
     "casting cost": "鑄造費用:{amount} {currency}",
     "whether to generate character NFT": "是否生成NFT角色卡牌",
-    "铸造费用": "铸造费用",
-    "确认铸造": "确认铸造"
+    "minting fees": "鑄造费用",
+    "next": "下一步",
+    "confirm minting": "確認鑄造"
   },
   "nftproperty": {
     "Fur": "皮毛",

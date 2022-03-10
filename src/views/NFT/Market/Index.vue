@@ -1,13 +1,13 @@
 <template>
   <div class="market-container">
-    <star-nft
+    <fly-nft
       class="blind-box-container"
       v-if="state.walletStatus === 'connected'"
     >
       <template #nft-header>
         <nft-selector @filterEvent="changeListQuery"></nft-selector>
         <div class="blind-box-list">
-          <star-scroll
+          <fly-scroll
             :hasMore="state.listStatus.hasMore"
             :isLoading="state.listStatus.isLoading"
             @loadMore="loadMore"
@@ -34,7 +34,7 @@
                 ></nft-card-item>
               </div>
             </template>
-          </star-scroll>
+          </fly-scroll>
           <fly-loading-fish v-if="state.firstLoading"></fly-loading-fish>
           <empty
             v-if="
@@ -51,24 +51,24 @@
           </empty>
         </div>
       </template>
-    </star-nft>
-    <star-nft
+    </fly-nft>
+    <fly-nft
       class="blind-box-container"
       v-if="state.walletStatus !== 'connected'"
     >
       <template #nft-no-data>
         <nft-no-connected-wallet class="no-data"></nft-no-connected-wallet>
       </template>
-    </star-nft>
+    </fly-nft>
   </div>
 </template>
 <script setup>
-import StarNft from "@StarUI/StarNFT.vue";
+import FlyNft from "@FlyUI/FlyNFT.vue";
 import { reactive, computed, onUnmounted } from "vue";
 import NftNoConnectedWallet from "@components/NFT/NFTNoConnectedWallet.vue";
 import NftSelector from "@components/NFT/NFTSelector.vue";
 // import ListBlindBoxItem from "@components/NFT/ListBlindBoxItem.vue";
-import StarScroll from "@StarUI/StarScroll.vue";
+import FlyScroll from "@FlyUI/FlyScroll.vue";
 import Empty from "@components/NFT/Empty.vue";
 import FlyLoadingFish from "@FlyUI/FlyLoadingFish.vue";
 import NftCardItem from "@components/NFT/NFTCardItem.vue";

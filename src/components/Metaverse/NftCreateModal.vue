@@ -15,7 +15,7 @@
           <div class="meta-nft-create-modal-header-text">
             <p>{{ $t("metaverse.generate character NFT") }}</p>
             <p style="margin-top: 5px">
-              {{ $t("metaverse.铸造费用") }} :
+              {{ $t("metaverse.minting fees") }} :
               {{ ` (${state?.metaData?.compositeFee}) STC` }}
             </p>
           </div>
@@ -86,7 +86,7 @@
           style="width: 100%; padding: 15px 0px"
           @click="validateParams(state.canGenerated)"
         >
-          {{ $t("metaverse.确认铸造11") }}
+          {{ $t("metaverse.confirm minting") }}
         </fly-button>
       </div>
     </ElDialog>

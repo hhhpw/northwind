@@ -68,13 +68,13 @@
             <p>
               {{ $t(BID_DIALOG_PARAMS.AUCTIONPRICE[1]) }}
             </p>
-            <star-selector
+            <fly-selector
               :items="timeOptions"
               @emit="handleTime"
               :value="state.endDay"
               class="bid-time-change"
               :width="`100%`"
-            ></star-selector>
+            ></fly-selector>
           </div>
           <div class="bid-text">
             <p>{{ $t("说明") }}:</p>
@@ -103,7 +103,7 @@ import SvgIcon from "@components/SvgIcon/Index.vue";
 import FlyButton from "@FlyUI/FlyButton.vue";
 import { BID_DIALOG_PARAMS } from "@constants/dialog.js";
 import FlyInput from "@FlyUI/FlyInput.vue";
-import StarSelector from "@StarUI/StarSelector.vue";
+import FlySelector from "@FlyUI/FlySelector.vue";
 import { useI18n } from "vue-i18n";
 const { t } = useI18n();
 

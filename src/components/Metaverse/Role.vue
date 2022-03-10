@@ -130,7 +130,7 @@ const pushHeroDetail = (payload) => {
       height: 150px;
       overflow: hidden;
       position: relative;
-      background: #000000;
+      background: rgba(255, 255, 255, 0.12);
       &:not(:first-child) {
         margin-left: 15px;
       }

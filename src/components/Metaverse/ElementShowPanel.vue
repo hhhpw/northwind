@@ -8,13 +8,13 @@
           :key="i"
           @click="selectElement(d, i)"
         >
-          <div :class="$style['main-item-img']">
+          <div
+            :class="$style['main-item-img']"
+            :style="{
+              border: i === state.activeElement ? '1px solid #ffa400' : '',
+            }"
+          >
             <img :src="d.image" :class="$style['main-item-img-element']" />
-            <img
-              :class="$style['main-item-img-active']"
-              src="../../assets/metaverse/selected.png"
-              v-show="i === state.activeElement"
-            />
             <svg-icon name="arrow"></svg-icon>
           </div>
           <div :class="$style['main-item-info']">
