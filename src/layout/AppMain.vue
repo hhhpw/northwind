@@ -24,5 +24,7 @@ watchEffect(() => {
   margin-top: 100px;
   width: 1200px;
   padding-bottom: 80px;
+  display: grid;
+  height: 100%;
 }
 </style>
