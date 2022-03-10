@@ -77,6 +77,7 @@ let props = defineProps({
   border-radius: 8px;
   padding: 17px 0;
   margin-bottom: 20px;
+  margin-top: 20px;
   .price {
     display: flex;
     flex: 1;
@@ -89,7 +90,7 @@ let props = defineProps({
       span {
         display: block;
         color: $white;
-        font-size: 12px;
+        font-size: 14px;
       }
       .price-value {
         font-size: 20px;

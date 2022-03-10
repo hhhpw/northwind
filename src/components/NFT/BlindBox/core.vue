@@ -10,12 +10,7 @@
           <p class="nft-blindbox-core-header-right-title">
             {{ state.blindBoxData.name }}
           </p>
-          <Fly-space :size="40"></Fly-space>
-          <p class="nft-blindbox-core-header-right-price">
-            <span>{{ $t("售价") }}</span>
-            <span> {{ state.blindBoxData.sellingPrice }} STC</span>
-          </p>
-          <Fly-space :size="10"></Fly-space>
+          <Fly-space :size="36"></Fly-space>
           <p
             class="nft-blindbox-core-header-right-quantity"
             v-if="state.remainQuantity"
@@ -23,7 +18,15 @@
             <span>{{ $t("剩余数量") }}</span>
             <span>{{ state.remainQuantity }}</span>
           </p>
-          <Fly-space :size="60"></Fly-space>
+          <Fly-space :size="36"></Fly-space>
+          <div class="nft-blindbox-core-price-content">
+            <p class="nft-blindbox-core-header-right-price">
+              <span>{{ $t("售价") }}</span>
+              <span> {{ state.blindBoxData.sellingPrice }} STC</span>
+            </p>
+          </div>
+
+          <Fly-space :size="36"></Fly-space>
           <template v-if="state.walletStatus === 'unConnected'">
             <fly-button
               type="light"
@@ -70,14 +73,14 @@
           </template>
         </div>
       </div>
-      <Fly-space :size="40"></Fly-space>
+      <Fly-space :size="70"></Fly-space>
       <div class="nft-blindbox-core-introduces">
         <div v-for="(d, i) in state.blindBoxData.introduces" :key="i">
-          <Fly-space :size="30" v-if="i !== 0"></Fly-space>
+          <Fly-space :size="68" v-if="i !== 0"></Fly-space>
           <p class="nft-blindbox-core-introduces-title">
             {{ t(`${d.title}`) }}
           </p>
-          <Fly-space :size="15"></Fly-space>
+          <Fly-space :size="16"></Fly-space>
           <p
             class="nft-blindbox-core-introduces-desc"
             v-html="
@@ -380,10 +383,9 @@ onUnmounted(() => {
   .nft-blindbox-core-header {
     display: flex;
     .nft-blindbox-core-header-left {
-      background: #ebebeb;
-      width: 424px;
-      height: 424px;
-      background: #ffffff;
+      background: #e8906c;
+      width: 599px;
+      height: 599px;
       border-radius: 14px;
       font-size: 0;
       overflow: hidden;
@@ -397,47 +399,51 @@ onUnmounted(() => {
       img {
         width: 100%;
         height: 100%;
-        max-width: 424px;
-        max-height: 424px;
       }
     }
     .nft-blindbox-core-header-right {
-      color: $text-brown-color;
-      margin-left: 33px;
+      width: 521px;
+      color: #fafafa;
+      margin-left: 80px;
       position: relative;
       .nft-blindbox-core-header-right-title {
         font-size: 32px;
         font-family: PingFangSC-Semibold, PingFang SC;
       }
+      .nft-blindbox-core-price-content {
+        height: 39px;
+        padding: 18px 0;
+        background: #2c2720;
+        border-radius: 8px;
+        padding-left: 16px;
+      }
       .nft-blindbox-core-header-right-price {
-        font-size: 24px;
+        font-size: 20px;
         font-weight: bold;
         margin-bottom: 16px;
         span {
           display: block;
         }
         :first-child {
-          font-size: 14px;
+          font-size: 12px;
         }
       }
       .nft-blindbox-core-header-right-quantity {
-        font-size: 24px;
+        font-size: 14px;
         font-weight: bold;
         span {
           display: block;
         }
         :first-child {
-          font-size: 14px;
+          font-size: 12px;
         }
       }
       .nft-blindbox-core-header-right-button {
-        width: 370px;
-        height: 46px;
-        line-height: 46px;
+        width: 100%;
+        height: 56px;
+        line-height: 56px;
         padding: 0px;
         border-radius: 4px;
-        position: absolute;
-        bottom: 0;
       }
       .nft-blindbox-core-header-right-button.light {
         background-color: transparent;
@@ -447,7 +453,7 @@ onUnmounted(() => {
   .nft-blindbox-core-introduces {
     color: $text-black-color;
     font-size: 14px;
-    color: #391b0f;
+    color: #ffffff;
     .nft-blindbox-core-introduces-title {
       font-size: 24px;
     }
