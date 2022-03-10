@@ -6,7 +6,7 @@
     @handleSucceed="state.dialogParams?.handleSucceed"
   >
     <template
-      #star-wallet-dialog-custom-content
+      #fly-wallet-dialog-custom-content
       v-if="state.dialogParams.isUseCustomContent"
     >
       <div class="break-down-nft-content">
@@ -20,8 +20,7 @@
   </fly-wallet-dialog>
 </template>
 <script setup>
-/* eslint-disable */
-import { computed, onMounted, reactive, watch } from "vue";
+import { computed, reactive } from "vue";
 import FlyWalletDialog from "@FlyUI/FlyWalletDialog.vue";
 import { useStore } from "vuex";
 const store = useStore();
@@ -35,15 +34,16 @@ const state = reactive({
   p,
   span {
     text-align: center;
-    color: #969696;
     font-size: 16px;
+    color: #fff;
   }
   div {
+    margin-top: 10px;
     display: flex;
     margin-bottom: 10px;
     justify-content: space-between;
-    span + span {
-      color: #000;
+    span {
+      color: rgba(255, 255, 255, 0.8);
     }
   }
   div:last-child {
