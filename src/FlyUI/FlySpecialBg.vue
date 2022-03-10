@@ -3,12 +3,12 @@
     <SvgIcon
       name="beathImage"
       class="beathImage"
-      :style="{ top: pos.top, left: pos.left }"
+      :style="`transform: translate(${pos.left}px, ${pos.top}px)`"
     ></SvgIcon>
     <SvgIcon
       name="gradient"
       class="gradient"
-      :style="{ top: posGradient.top, left: posGradient.left }"
+      :style="`transform: translate(${posGradient.left}px, ${posGradient.top}px)`"
     ></SvgIcon>
     <div class="animation" v-if="props.showSquare">
       <SvgIcon name="squareLeft" class="squareLeft"></SvgIcon>
@@ -33,15 +33,16 @@ const pos = reactive({
   top: -256,
 });
 const posGradient = reactive({
-  left: -875,
+  left: -1112,
   top: -1010,
 });
 const debouMove = debounce((e) => {
+  const scroll_top = document.documentElement.scrollTop;
   pos.left = e.pageX - 500;
-  pos.top = e.pageY - 256;
+  pos.top = e.pageY - scroll_top - 256;
 
-  posGradient.left = e.pageX - 875;
-  posGradient.top = e.pageY - 1010;
+  posGradient.left = e.pageX - 1112;
+  posGradient.top = e.pageY - scroll_top - 1010;
 });
 onMounted(() => {
   document.addEventListener("mousemove", debouMove);
@@ -69,14 +70,19 @@ onBeforeMount(() => {
     width: 1000px;
     height: 512px;
     animation: 3s infinite beath;
+    transform-origin: 50% 50%;
     transition: 50s all linear;
+    left: 0;
+    top: 0;
   }
   .gradient {
     position: absolute;
+    left: 0;
+    top: 0;
     // top: 100px;
     // left: 100px;
-    width: 1750px;
-    height: 2019px;
+    width: 2225px;
+    height: 2020px;
     transition: 50s all linear;
   }
   .animation {
