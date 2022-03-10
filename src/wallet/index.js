@@ -439,7 +439,7 @@ const importGallery = async ({
 const sellboxPrice = async ({ provider, tyArgs, args, type }) => {
   try {
     console.log("type", type);
-    const funcId = process.env[`VUE_APP_BLIND_BOX_${type}_FUNCTION_ID`];
+    const funcId = process.env[`VUE_APP_BLIND_BOX_BID_PRICE_SELL_FUNCTION_ID`];
     console.log(funcId, tyArgs, args);
     const scriptFunction = await utils.tx.encodeScriptFunctionByResolve(
       funcId,

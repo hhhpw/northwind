@@ -1,6 +1,6 @@
 <template>
   <div class="mining-second-dialog">
-    <star-second-dialog
+    <fly-second-dialog
       :dialogParams="state.secondDialogParams"
       @handleClose="state.secondDialogParams?.handleClose"
       @handleConfirm="state.secondDialogParams?.handleConfirm"
@@ -22,12 +22,12 @@
               <p class="mining-second-dialog-content-block-item-label">
                 {{ $t("farms.farm-swap-draw") }}
               </p>
-              <star-amount
+              <fly-amount
                 class="mining-second-dialog-content-block-item-amount"
                 :value="state.secondDialogParams.dataParams.draw"
                 :formatOptions="{ precision: 4, trailingZero: true }"
                 displaySuffix="STC"
-              ></star-amount>
+              ></fly-amount>
             </div>
             <div
               class="mining-second-dialog-content-block-item"
@@ -36,12 +36,12 @@
               <p class="mining-second-dialog-content-block-item-label">
                 {{ $t("farms.farm-swap-draw-gas") }}
               </p>
-              <star-amount
+              <fly-amount
                 class="mining-second-dialog-content-block-item-amount"
                 :value="state.secondDialogParams.dataParams.gas"
                 :formatOptions="{ precision: 4, trailingZero: true }"
                 displaySuffix="STC"
-              ></star-amount>
+              ></fly-amount>
             </div>
           </div>
         </div>
@@ -58,14 +58,14 @@
           }}
         </p>
       </template>
-    </star-second-dialog>
+    </fly-second-dialog>
   </div>
 </template>
 <script setup>
 /* eslint-disable */
-import StarSecondDialog from "@StarUI/StarSecondDialog.vue";
+import FlySecondDialog from "@FlyUI/FlySecondDialog.vue";
 import CONSTANTS_DIALOG from "@constants/dialog.js";
-import StarAmount from "@StarUI/StarAmount.vue";
+import FlyAmount from "@FlyUI/FlyAmount";
 import { computed, onMounted, reactive, watch } from "vue";
 import { useStore } from "vuex";
 

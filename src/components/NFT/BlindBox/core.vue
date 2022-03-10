@@ -10,12 +10,12 @@
           <p class="nft-blindbox-core-header-right-title">
             {{ state.blindBoxData.name }}
           </p>
-          <star-space :size="40"></star-space>
+          <Fly-space :size="40"></Fly-space>
           <p class="nft-blindbox-core-header-right-price">
             <span>{{ $t("售价") }}</span>
             <span> {{ state.blindBoxData.sellingPrice }} STC</span>
           </p>
-          <star-space :size="10"></star-space>
+          <Fly-space :size="10"></Fly-space>
           <p
             class="nft-blindbox-core-header-right-quantity"
             v-if="state.remainQuantity"
@@ -23,18 +23,18 @@
             <span>{{ $t("剩余数量") }}</span>
             <span>{{ state.remainQuantity }}</span>
           </p>
-          <star-space :size="60"></star-space>
+          <Fly-space :size="60"></Fly-space>
           <template v-if="state.walletStatus === 'unConnected'">
-            <star-button
+            <fly-button
               type="light"
               class="nft-blindbox-core-header-right-button light"
               @click="connectWallet"
             >
               {{ $t("链接钱包") }}
-            </star-button>
+            </fly-button>
           </template>
           <template v-if="state.walletStatus === 'connected'">
-            <star-button
+            <fly-button
               type="brown"
               class="nft-blindbox-core-header-right-button"
               :style="{ cursor: 'default' }"
@@ -45,8 +45,8 @@
               "
             >
               <p>{{ t("即将到来") }}： {{ state.sellingTime }}</p>
-            </star-button>
-            <star-button
+            </fly-button>
+            <fly-button
               type="dark"
               class="nft-blindbox-core-header-right-button"
               @click="changeBuyModalStatus(true)"
@@ -58,26 +58,26 @@
               "
             >
               {{ $t("购买") }}
-            </star-button>
-            <star-button
+            </fly-button>
+            <fly-button
               type="disabled"
               class="nft-blindbox-core-header-right-button"
               v-if="productStatus === 'sellout'"
               :style="{ cursor: 'default' }"
             >
               {{ $t("售罄") }}
-            </star-button>
+            </fly-button>
           </template>
         </div>
       </div>
-      <star-space :size="40"></star-space>
+      <Fly-space :size="40"></Fly-space>
       <div class="nft-blindbox-core-introduces">
         <div v-for="(d, i) in state.blindBoxData.introduces" :key="i">
-          <star-space :size="30" v-if="i !== 0"></star-space>
+          <Fly-space :size="30" v-if="i !== 0"></Fly-space>
           <p class="nft-blindbox-core-introduces-title">
             {{ t(`${d.title}`) }}
           </p>
-          <star-space :size="15"></star-space>
+          <Fly-space :size="15"></Fly-space>
           <p
             class="nft-blindbox-core-introduces-desc"
             v-html="
@@ -91,8 +91,8 @@
         </div>
       </div>
     </div>
-    <star-loading-fish v-else></star-loading-fish>
-    <star-confirm
+    <fly-loading-fish v-else></fly-loading-fish>
+    <Fly-confirm
       :title="t('购买盲盒')"
       :dialogVisible="state.isShowBuyModal"
       class="nft-blindbox-core-buy-dialog"
@@ -110,13 +110,13 @@
               })
             }}
           </p> -->
-          <star-space :size="10"></star-space>
-          <star-input-number
+          <Fly-space :size="10"></Fly-space>
+          <fly-input-number
             width="100%"
             :value="state.inputVal"
             @inputEvent="inputEvent"
-          ></star-input-number>
-          <star-space :size="10"></star-space>
+          ></fly-input-number>
+          <Fly-space :size="10"></Fly-space>
           <div class="nft-blindbox-core-buy-dialog-content-details">
             <span>{{ t("总价") }}：{{ totalCost }} STC</span>
             <span>{{ t("钱包余额") }}：{{ userAmount }} STC</span>
@@ -133,15 +133,15 @@
       </template>
       <template #footer>
         <div class="nft-blindbox-core-buy-dialog-footer">
-          <star-button type="light" @click="changeBuyModalStatus(false)">
+          <fly-button type="light" @click="changeBuyModalStatus(false)">
             {{ t("取消") }}
-          </star-button>
-          <star-button type="dark" @click="buyBlindBox">
+          </fly-button>
+          <fly-button type="dark" @click="buyBlindBox">
             {{ t("确认") }}
-          </star-button>
+          </fly-button>
         </div>
       </template>
-    </star-confirm>
+    </Fly-confirm>
     <nft-dialog
       :dialogVisible="state.dialogParams.isShow"
       :isShowClose="!(state.dialogParams.dialogStatus === 'ongoing')"
@@ -169,12 +169,12 @@ import {
   watch,
   onBeforeMount,
 } from "vue";
-import StarConfirm from "@StarUI/StarConfirm";
+import FlyConfirm from "@FlyUI/FlyConfirm";
 import NFT_CONSTANTS from "@constants/nft.js";
 import NftDialog from "@components/NFT/NFTDialog.vue";
-import StarSpace from "@StarUI/StarSpace.vue";
-import StarButton from "@StarUI/StarButton.vue";
-import StarInputNumber from "@StarUI/StarInputNumber.vue";
+import FlySpace from "@FlyUI/FlySpace.vue";
+import FlyButton from "@FlyUI/FlyButton.vue";
+import FlyInputNumber from "@FlyUI/FlyInutNumber.vue";
 import { useStore } from "vuex";
 import { useI18n } from "vue-i18n";
 import utilsDate from "@utils/date.js";
@@ -185,7 +185,7 @@ import utilsFormat from "@utils/format";
 import connectLogic from "@hooks/useMyWallet";
 import CONSTANTS_TOKENS from "@constants/token";
 import NftSoldOutDialog from "@components/NFT/NFTSoldOutDialog.vue";
-import StarLoadingFish from "@StarUI/StarLoadingFish.vue";
+import FlyLoadingFish from "@FlyUI/FlyLoadingFish.vue";
 import utilsRegexp from "@utils/regexp";
 const store = useStore();
 const router = useRouter();
@@ -482,7 +482,7 @@ onUnmounted(() => {
   .nft-blindbox-core-buy-dialog-footer {
     display: flex;
     justify-content: space-between;
-    .star-button {
+    .fly-button {
       width: 35%;
     }
   }

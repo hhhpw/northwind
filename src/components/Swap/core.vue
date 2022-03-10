@@ -159,7 +159,7 @@
         </div>
       </div>
     </div>
-    <star-confirm
+    <!-- <star-confirm
       :dialogVisible="state.isShowConfirm"
       @handleClose="handleClose('isShowConfirm')"
     >
@@ -177,7 +177,19 @@
           $t("确认")
         }}</Fly-button>
       </template>
-    </star-confirm>
+    </star-confirm> -->
+
+    <!-- <TransactionDialog
+      :text="'兑换'"
+      v-bind="dialogSetting"
+    ></TransactionDialog> -->
+    <Fly-wallet-dialog
+      :dialogParams="dialogSetting"
+      @handleFailed="handleSucceed"
+      @handleClose="handleSucceed"
+      @handleSucceed="handleSucceed"
+    >
+    </Fly-wallet-dialog>
     <history-record
       :dialogVisible="state.isShowHistoryDialog"
       :historyType="'swap'"
@@ -197,19 +209,22 @@
 </template>
 <script setup>
 import { computed, reactive, watch, onUnmounted, onMounted } from "vue";
+import FlyWalletDialog from "@FlyUI/FlyWalletDialog.vue";
 import SvgIcon from "@components/SvgIcon/Index.vue";
 import FlyButton from "@FlyUI/FlyButton.vue";
 import FlySpace from "@FlyUI/FlySpace.vue";
 import FlyToolTip from "@FlyUI/FlyToolTip.vue";
 import { useStore } from "vuex";
 import FlyInput from "@FlyUI/FlyInput";
-import StarConfirm from "@StarUI/StarConfirm.vue";
+// import TransactionDialog from "@components/TransactionDialog.vue";
+// import StarConfirm from "@StarUI/StarConfirm.vue";
 import utilsNumber from "@utils/number";
 import SearchCurrency from "../SearchCurrency";
 import HistoryRecord from "../HistoryRecord.vue";
 import { useI18n } from "vue-i18n"; //要在js中使用国际化
 import { debounce } from "lodash";
 import connectLogic from "@hooks/useMyWallet";
+import utilsTool from "@utils/tool.js";
 const { t } = useI18n();
 const store = useStore();
 import Wallet from "../../wallet/index";
@@ -408,9 +423,9 @@ const handleClose = (type) => {
   }
 };
 
-const handleConfirm = () => {
-  store.commit("StoreSwap/CHANGE_CONFIRM_VISIBLE", false);
-};
+// const handleConfirm = () => {
+//   store.commit("StoreSwap/CHANGE_CONFIRM_VISIBLE", false);
+// };
 
 const showCurrencyListDialog = (type) => {
   state.isShowSearchDialog = true;
@@ -442,8 +457,25 @@ const changeAmountScale = (value, scale) => {
     { precision: 0, round: "floor" }
   ).text;
 };
+
+const dialogSetting = reactive({
+  dialogVisible: false,
+  isShowClose: false, // 弹窗关闭icon
+  hasTitle: false,
+  dialogStatus: "ongoing", //ongoing  failed  succeed
+  dialogText: `正在兑换`, // 购买中等
+  phase1: "loading", // loading succeed
+  phase2: "loading", // loading succeed
+  successBtnText: `兑换成功`,
+  failedBtnText: `兑换失败`,
+});
+const handleSucceed = () => {
+  window.location.reload();
+};
 const swapFunc = async (status) => {
   if (status.isClick) {
+    dialogSetting.dialogVisible = true;
+    dialogSetting.dialogStatus = "ongoing";
     let wallet = reactive({
       provider: computed(() => store.state.StoreWallet.stcProvider),
     });
@@ -465,16 +497,32 @@ const swapFunc = async (status) => {
         changeAmountScale(state.to.inputVal, state.to.exchangePrecision),
       ];
     }
-    const params = {
-      provider: wallet.provider,
-      tokenCode: state.swapCalcalatorData.fullPath,
-      amount,
-      focusType: state.focusType,
-    };
-    const res = await Wallet.swapToken(params);
+    try {
+      const params = {
+        provider: wallet.provider,
+        tokenCode: state.swapCalcalatorData.fullPath,
+        amount,
+        focusType: state.focusType,
+      };
 
-    if (res) {
-      store.commit("StoreSwap/CHANGE_CONFIRM_VISIBLE", true);
+      const hash = await Wallet.swapToken(params);
+      if (hash) {
+        dialogSetting.phase1 = "succeed";
+        let res = await utilsTool.getChainTransactionInfo({ txnHash: hash });
+        if (res?.status === "Executed") {
+          dialogSetting.phase2 = "succeed";
+          setTimeout(() => {
+            dialogSetting.isShowClose = true;
+            dialogSetting.dialogStatus = "succeed";
+          }, 1500);
+        }
+      } else {
+        dialogSetting.isShowClose = true;
+        dialogSetting.dialogStatus = "failed";
+      }
+    } catch (error) {
+      dialogSetting.isShowClose = true;
+      dialogSetting.dialogStatus = "failed";
     }
   }
 };

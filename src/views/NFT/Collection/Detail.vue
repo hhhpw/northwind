@@ -1,5 +1,5 @@
 <template>
-  <star-nft
+  <fly-nft
     class="blind-box-container"
     :coreType="state.coreType"
     v-if="state.walletStatus === 'connected'"
@@ -18,9 +18,9 @@
           fromView="collection"
         ></detailCard>
       </div>
-      <star-loading-fish v-else></star-loading-fish>
+      <fly-loading-fish v-else></fly-loading-fish>
     </template>
-  </star-nft>
+  </fly-nft>
 
   <nft-dialog
     :dialogVisible="state.dialogEvent && state.dialogParams.isShow"
@@ -71,8 +71,8 @@ import {
   onUnmounted,
   watch,
 } from "vue";
-import StarNft from "@StarUI/StarNFT.vue";
-import StarLoadingFish from "@StarUI/StarLoadingFish.vue";
+import FlyNft from "@FlyUI/FlyNFT.vue";
+import FlyLoadingFish from "@FlyUI/FlyLoadingFish.vue";
 // import DetailCard from "@components/NFT/DetailCard.vue";
 import detailCard from "@components/NFT/Details.vue";
 import utilsNumber from "@utils/number";
@@ -86,10 +86,6 @@ import { useStore } from "vuex";
 import { useI18n } from "vue-i18n";
 import { dialogEventMaps } from "./dialog";
 import utilsFormat from "@utils/format";
-import StarButton from "@StarUI/StarButton.vue";
-import StarConfirm from "@StarUI/StarConfirm";
-import StarInputNumber from "@StarUI/StarInputNumber";
-import StarSpace from "@StarUI/StarSpace.vue";
 import NFT_CONSTANTS from "@constants/nft.js";
 const { t } = useI18n();
 const route = useRoute();
@@ -440,7 +436,7 @@ const bidPricConfirm = (objs) => {
 .blind-box-container {
   margin: 0 auto;
   padding-bottom: 30px;
-  .star-nft {
+  .fly-nft {
     .nft-card-core {
       min-height: 600px;
     }

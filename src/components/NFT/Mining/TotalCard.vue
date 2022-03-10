@@ -5,18 +5,18 @@
         <p :class="$style['title']">
           {{ $t("nftmining.total-mining-power") }}
         </p>
-        <star-amount
+        <fly-amount
           :value="state.miningData.totalScore"
           :class="$style['amount']"
           :formatOptions="{
             precision: 2,
             trailingZero: false,
           }"
-        ></star-amount>
+        ></fly-amount>
       </div>
       <div :class="$style['header-content']">
         <p :class="$style['title']">{{ $t("日产量") }}</p>
-        <star-amount
+        <fly-amount
           :class="$style['amount']"
           :value="state.miningData.dailyTotalOutput"
           displaySuffix="STC"
@@ -24,7 +24,7 @@
             precision: 2,
             trailingZero: true,
           }"
-        ></star-amount>
+        ></fly-amount>
       </div>
     </div>
     <div :class="$style['footer']">
@@ -33,7 +33,7 @@
           {{ $t("平均年化收益率") }}
         </p>
 
-        <star-amount
+        <fly-amount
           :class="[$style['amount'], $style['amount-color']]"
           :value="state.miningData.avgApr"
           :formatOptions="{
@@ -41,7 +41,7 @@
             trailingZero: true,
             percentStyle: true,
           }"
-        ></star-amount>
+        ></fly-amount>
       </div>
     </div>
   </div>
@@ -49,7 +49,7 @@
 <script setup>
 /* eslint-disable */
 import { computed, onMounted, reactive, watch } from "vue";
-import StarAmount from "@StarUI/StarAmount.vue";
+import FlyAmount from "@FlyUI/FlyAmount";
 import { useStore } from "vuex";
 const store = useStore();
 let state = reactive({

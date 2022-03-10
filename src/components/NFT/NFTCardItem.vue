@@ -68,14 +68,14 @@
               :svgStyle="'width:20px;height:20px;'"
             >
             </nft-card-item-tool-tip>
-            <star-amount
+            <fly-amount
               style="margin-left: 3px"
               :value="itemData?.score"
               :formatOptions="{
                 precision: 2,
               }"
             >
-            </star-amount>
+            </fly-amount>
           </div>
         </div>
       </div>
@@ -159,14 +159,14 @@
             v-if="props.sellType === 'selling'"
             :class="$style['item-content-slots-collection-btns']"
           >
-            <star-button
+            <fly-button
               type="light"
               :style="{ width: Number(baseData.offerPrice) <= 0 ? '100%' : '' }"
               :class="$style['item-content-slots-collection-selling-btn']"
               @click="actionsCall('CancelSell')"
-              >{{ $t("取消出售") }}</star-button
+              >{{ $t("取消出售") }}</fly-button
             >
-            <star-button
+            <fly-button
               v-if="Number(baseData.offerPrice) > 0"
               type="dark"
               :class="[
@@ -180,7 +180,7 @@
                   baseData.offerPrice
                 )} ${utilsFormat.getTokenCurrency(baseData.payToken)}`
               }}
-            </star-button>
+            </fly-button>
           </div>
         </div>
       </div>
@@ -191,11 +191,11 @@
 /* eslint-disable */
 import { defineProps, reactive, computed, defineEmits, onUnmounted } from "vue";
 import { useStore } from "vuex";
-import StarButton from "@StarUI/StarButton.vue";
+import FlyButton from "@FlyUI/FlyButton.vue";
 import Confirm from "@components/NFT/Confirm";
 import utilsFormat from "@utils/format";
 import SvgIcon from "@components/SvgIcon/Index.vue";
-import StarAmount from "@StarUI/StarAmount";
+import FlyAmount from "@FlyUI/FlyAmount";
 import NftCardItemToolTip from "./NFTCardItemToolTip.vue";
 import { useNFT } from "../../hooks/useNFT";
 import NFT_CONSTANTS from "@constants/nft.js";

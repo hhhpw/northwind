@@ -1,6 +1,6 @@
 <template>
   <div>
-    <star-scroll
+    <fly-scroll
       :hasMore="state.listStatus.hasMore"
       :isLoading="state.listStatus.isLoading"
       :isShowMore="false"
@@ -20,11 +20,11 @@
           >
             <img :src="d.seriesLogo" alt="" />
             <div class="nft-gallery-list-item-right">
-              <star-space :size="15"></star-space>
+              <fly-space :size="15"></fly-space>
               <p class="nft-gallery-list-item-right-title">
                 {{ d.seriesName }}-{{ d.name }}
               </p>
-              <star-space :size="5"></star-space>
+              <fly-space :size="5"></fly-space>
               <p>
                 <a class="nft-gallery-import" @click="importBlindBox(d)">{{
                   $t("导入盲盒地址")
@@ -33,7 +33,7 @@
                   $t("导入陈列室")
                 }}</a>
               </p>
-              <star-space :size="15"></star-space>
+              <fly-space :size="15"></fly-space>
               <p class="nft-gallery-address-info">
                 <label for="" class="address">{{ $t("盲盒代币地址") }}:</label>
                 <span>{{ d.boxToken }}</span>
@@ -50,12 +50,12 @@
           </div>
         </div>
       </template>
-    </star-scroll>
-    <star-loading-fish
+    </fly-scroll>
+    <fly-loading-fish
       style="margin-top: 30px"
       gifType="white"
       v-if="state.firstLoading"
-    ></star-loading-fish>
+    ></fly-loading-fish>
     <nft-dialog
       :dialogVisible="state.dialogParams.isShow"
       :isShowClose="!(state.dialogParams.dialogStatus === 'ongoing')"
@@ -69,10 +69,10 @@
 </template>
 <script setup>
 import { computed, onMounted, reactive, onUnmounted } from "vue";
-import StarSpace from "@StarUI/StarSpace.vue";
+import FlySpace from "@FlyUI/FlySpace.vue";
 import { cloneDeep } from "lodash";
-import StarLoadingFish from "@StarUI/StarLoadingFish.vue";
-import StarScroll from "@StarUI/StarScroll.vue";
+import FlyLoadingFish from "@FlyUI/FlyLoadingFish.vue";
+import FlyScroll from "@FlyUI/FlyScroll.vue";
 import NftDialog from "@components/NFT/NFTDialog.vue";
 import { useStore } from "vuex";
 const store = useStore();

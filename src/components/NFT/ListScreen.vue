@@ -21,7 +21,7 @@
       </div>
     </div>
     <!-- 排序 -->
-    <star-space :size="15" v-if="props.isShowSort"></star-space>
+    <fly-space :size="15" v-if="props.isShowSort"></fly-space>
     <div class="nft-list-screen-sort" v-if="props.isShowSort">
       <div class="nft-list-screen-sort-tabs">
         <span class="nft-list-screen-sort-tabs-title">
@@ -47,7 +47,7 @@
       ></list-screen-open-status>
     </div>
     <!-- 收藏使用 -->
-    <!-- <star-space :size="15" v-if="props.isShowCollection"></star-space> -->
+    <!-- <fly-space :size="15" v-if="props.isShowCollection"></fly-space> -->
     <div class="nft-list-screen-collection" v-if="props.isShowCollection">
       <div class="nft-list-screen-collection-tabs">
         <div
@@ -82,7 +82,7 @@ import {
   watch,
 } from "vue";
 import { useStore } from "vuex";
-import StarSpace from "@StarUI/StarSpace.vue";
+import FlySpace from "@FlyUI/FlySpace.vue";
 import ListScreenOpenStatus from "./ListScreenOpenStatus.vue";
 const store = useStore();
 const props = defineProps({

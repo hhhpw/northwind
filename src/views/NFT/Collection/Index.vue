@@ -1,6 +1,6 @@
 <template>
   <div class="list">
-    <star-nft
+    <fly-nft
       class="blind-box-container"
       coreType="list"
       v-if="state.walletStatus === 'connected'"
@@ -47,15 +47,15 @@
           ></sell-record>
         </div>
       </template>
-    </star-nft>
-    <star-nft
+    </fly-nft>
+    <fly-nft
       class="blind-box-container"
       v-if="state.walletStatus !== 'connected'"
     >
       <template #nft-no-data>
         <nft-no-connected-wallet class="no-data"></nft-no-connected-wallet>
       </template>
-    </star-nft>
+    </fly-nft>
     <nft-dialog
       :dialogVisible="state.dialogEvent && state.dialogParams.isShow"
       :isShowClose="!(state.dialogParams.dialogStatus === 'ongoing')"
@@ -90,7 +90,7 @@
 
 <script setup>
 import { reactive, computed, onMounted, onUnmounted, watch, ref } from "vue";
-import StarNft from "@StarUI/StarNFT.vue";
+import FlyNft from "@FlyUI/FlyNFT.vue";
 import NftNoConnectedWallet from "@components/NFT/NFTNoConnectedWallet.vue";
 import ListScreen from "@components/NFT/ListScreen.vue";
 import { useStore } from "vuex";

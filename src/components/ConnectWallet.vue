@@ -1,12 +1,12 @@
 <template>
   <div class="star-connect-wallet">
-    <star-button
+    <fly-button
       type="dark"
       v-if="state.walletStatus === 'unConnected'"
       @click="connectWalletMethod"
     >
       {{ $t("连接钱包") }}
-    </star-button>
+    </fly-button>
     <div
       class="star-connect-wallet-connected"
       v-if="state.walletStatus === 'connected'"
@@ -28,7 +28,7 @@
 </template>
 <script setup>
 import { computed, onMounted, reactive } from "vue";
-import StarButton from "@StarUI/StarButton.vue";
+import FlyButton from "@FlyUI/FlyButton.vue";
 import { useStore } from "vuex";
 import connectLogic from "@hooks/useMyWallet";
 import utilsFormat from "@utils/format";
@@ -86,7 +86,7 @@ $h: 35px;
     transform: translateX(20px);
     opacity: 0;
   }
-  .star-button {
+  .fly-button {
     height: $h;
     box-sizing: border-box;
     padding: 0px 16px;

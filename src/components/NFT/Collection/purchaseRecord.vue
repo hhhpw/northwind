@@ -1,5 +1,5 @@
 <template>
-  <star-loading-fish v-if="state.isLoading" class="loading"></star-loading-fish>
+  <fly-loading-fish v-if="state.isLoading" class="loading"></fly-loading-fish>
   <template
     v-if="
       !state.isLoading && state.purchaseData && state.purchaseData.length > 0
@@ -35,7 +35,7 @@
 <script setup>
 import Empty from "@components/NFT/Empty.vue";
 import Record from "@components/NFT/Record.vue";
-import StarLoadingFish from "@StarUI/StarLoadingFish.vue";
+import FlyLoadingFish from "@FlyUI/FlyLoadingFish.vue";
 import { computed, defineEmits, reactive } from "vue";
 import { useStore } from "vuex";
 const store = useStore();

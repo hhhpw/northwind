@@ -6,17 +6,17 @@
   >
     <slot name="content"> </slot>
     <div v-if="state.isLoading" class="star-scroll-wrap-loading">
-      <star-space :size="5"></star-space>
+      <fly-space :size="5"></fly-space>
       <p v-if="props.textLoading" class="text">{{ $t("加载中") }}...</p>
-      <star-loading-fish v-if="props.imgLoading" :gifType="props.gifType">
-      </star-loading-fish>
+      <fly-loading-fish v-if="props.imgLoading" :gifType="props.gifType">
+      </fly-loading-fish>
       <!-- <img v-if="props.imgLoading" src="../assets/nft/loading-c.gif" /> -->
     </div>
     <div
       v-if="!state.hasMore && props.isShowMore"
       class="star-scroll-wrap-more"
     >
-      <star-space :size="20"></star-space>
+      <fly-space :size="20"></fly-space>
       <p class="text">{{ $t("没有数据了") }}</p>
     </div>
   </div>
@@ -33,8 +33,8 @@ import {
   onMounted,
   onUnmounted,
 } from "vue";
-import StarSpace from "@StarUI/StarSpace.vue";
-import StarLoadingFish from "@StarUI/StarLoadingFish.vue";
+import FlySpace from "@FlyUI/FlySpace.vue";
+import FlyLoadingFish from "@FlyUI/FlyLoadingFish.vue";
 const props = defineProps({
   isLoading: {
     type: Boolean,

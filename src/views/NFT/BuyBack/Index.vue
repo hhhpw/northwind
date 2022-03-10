@@ -1,13 +1,13 @@
 <template>
   <div class="recovery-container">
-    <star-nft
+    <fly-nft
       class="blind-box-container"
       v-if="state.walletStatus === 'connected'"
     >
       <template #nft-header v-if="state.coreType !== 'card'">
         <nft-selector @filterEvent="changeListQuery"></nft-selector>
         <div class="blind-box-list">
-          <star-scroll
+          <fly-scroll
             :hasMore="state.listStatus.hasMore"
             :isLoading="state.listStatus.isLoading"
             @loadMore="loadMore"
@@ -30,8 +30,8 @@
                 </nft-card-item>
               </div>
             </template>
-          </star-scroll>
-          <star-loading-fish v-if="state.firstLoading"></star-loading-fish>
+          </fly-scroll>
+          <fly-loading-fish v-if="state.firstLoading"></fly-loading-fish>
           <empty
             v-if="
               !state.firstLoading &&
@@ -47,26 +47,26 @@
           </empty>
         </div>
       </template>
-    </star-nft>
+    </fly-nft>
 
-    <star-nft class="blind-box-container" :coreType="state.coreType" v-else>
+    <fly-nft class="blind-box-container" :coreType="state.coreType" v-else>
       <template #nft-no-data>
         <nft-no-connected-wallet class="no-data"></nft-no-connected-wallet>
       </template>
-    </star-nft>
+    </fly-nft>
   </div>
 </template>
 <script setup>
 import { reactive, computed, onUnmounted } from "vue";
-import StarNft from "@StarUI/StarNFT.vue";
+import FlyNft from "@FlyUI/FlyNFT.vue";
 import NftNoConnectedWallet from "@components/NFT/NFTNoConnectedWallet.vue";
 // import ListBlindBoxItem from "@components/NFT/ListBlindBoxItem.vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 import Empty from "@components/NFT/Empty.vue";
-import StarScroll from "@StarUI/StarScroll.vue";
+import FlyScroll from "@FlyUI/FlyScroll.vue";
 import NftSelector from "@components/NFT/NFTSelector.vue";
-import StarLoadingFish from "@StarUI/StarLoadingFish.vue";
+import FlyLoadingFish from "@FlyUI/FlyLoadingFish.vue";
 import NftCardItem from "@components/NFT/NFTCardItem.vue";
 
 const router = useRouter();

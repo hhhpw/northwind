@@ -5,9 +5,9 @@
       <star-change-button :activeIndex="1"></star-change-button>
     </div> -->
     <Fly-space :size="25"></Fly-space>
-    <star-swap-card class="liquidity-container-card">
+    <fly-swap-card class="liquidity-container-card">
       <liquidity-core class="liquidity-container-core"></liquidity-core>
-    </star-swap-card>
+    </fly-swap-card>
     <liquidity-transition-card
       v-if="state.poolType === 'add' || state.poolType === 'delete'"
       class="liquidity-container-transition-card"
@@ -18,7 +18,7 @@
 import { computed, reactive } from "vue";
 import LiquidityCore from "@components/Liquidity/core.vue";
 import LiquidityTransitionCard from "@components/Liquidity/transitioncard.vue";
-import StarSwapCard from "@StarUI/StarSwapCard.vue";
+import FlySwapCard from "@FlyUI/FlySwapCard.vue";
 // import StarChangeButton from "@StarUI/StarChangeButton.vue";
 import FlySpace from "@FlyUI/FlySpace.vue";
 import { useStore } from "vuex";

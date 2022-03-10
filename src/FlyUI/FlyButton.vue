@@ -49,10 +49,9 @@ $text-brow-color: #744600;
   border: 1px solid $theme_light-color;
 }
 .fly-button.light {
-  color: $text-orange-color;
-  border: 1px solid $border-orange-color;
+  color: $orange;
+  border: 1px solid $orange;
   padding: 14px 25px;
-  background-color: #fff;
 }
 .fly-button.disabled {
   background: $gray_light;

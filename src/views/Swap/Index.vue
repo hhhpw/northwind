@@ -4,19 +4,21 @@
     <!-- <div class="swap-container-btnwarp">
       <star-change-button :activeIndex="0"></star-change-button>
     </div> -->
-    <star-space :size="25"></star-space>
-    <star-swap-card class="swap-container-card">
+    <fly-space :size="25"></fly-space>
+    <fly-swap-card class="swap-container-card">
       <swap-core class="swap-container-core"></swap-core>
-    </star-swap-card>
+    </fly-swap-card>
     <swap-transition-card
       class="swap-container-transition-card"
     ></swap-transition-card>
+    <special-bg></special-bg>
   </div>
 </template>
 <script setup>
 import SwapCore from "@components/Swap/core.vue";
 import SwapTransitionCard from "@components/Swap/card.vue";
-import StarSwapCard from "@StarUI/StarSwapCard.vue";
+import FlySwapCard from "@FlyUI/FlySwapCard.vue";
+import SpecialBg from "@components/SpecialBg.vue";
 // import StarChangeButton from "@StarUI/StarChangeButton.vue";
 import FlySpace from "@FlyUI/FlySpace.vue";
 // const test = (type) => {

@@ -10,20 +10,7 @@ import { useStore } from "vuex";
 
 const store = useStore();
 
-// nextTick(() => {
-//   document.getElementsByTagName("body")[0].style.backgroundColor = "#f3d789";
-// });
 store.dispatch("StoreIGO/getIgoList");
-// let state = reactive({
-//   isFull: false,
-// });
-// const loadEnd = () => {
-//   state.isFull = true;
-// };
-
-// onUnmounted(() => {
-//   document.getElementsByTagName("body")[0].style.backgroundColor = "#f9efe4";
-// });
 </script>
 <style lang="scss" module>
 // ::-webkit-scrollbar {

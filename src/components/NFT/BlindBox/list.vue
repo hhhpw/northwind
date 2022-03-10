@@ -1,6 +1,6 @@
 <template>
   <div>
-    <star-scroll
+    <fly-scroll
       :hasMore="state.listStatus.hasMore"
       :isLoading="state.listStatus.isLoading"
       :isShowMore="false"
@@ -21,18 +21,18 @@
           >
             <img :src="d.seriesLogo" alt="" />
             <div class="nft-blindbox-list-item-right">
-              <star-space :size="15"></star-space>
+              <fly-space :size="15"></fly-space>
               <p class="nft-blindbox-list-item-right-title">
                 {{ d.seriesName }}-{{ d.name }}
               </p>
-              <star-space :size="10"></star-space>
+              <fly-space :size="10"></fly-space>
               <p
                 class="nft-blindbox-list-item-right-status"
                 :class="sellInfo.status"
               >
                 {{ $t(sellInfo.text) }}
               </p>
-              <star-space :size="30"></star-space>
+              <fly-space :size="30"></fly-space>
               <p class="nft-blindbox-list-item-right-countdown">
                 {{
                   (state.timers &&
@@ -54,23 +54,23 @@
           </div>
         </div>
       </template>
-    </star-scroll>
-    <star-loading-fish
+    </fly-scroll>
+    <fly-loading-fish
       style="margin-top: 30px"
       gifType="white"
       v-if="state.firstLoading"
-    ></star-loading-fish>
+    ></fly-loading-fish>
   </div>
 </template>
 <script setup>
 import { computed, onMounted, reactive, onUnmounted, watch } from "vue";
-import StarSpace from "@StarUI/StarSpace.vue";
+import FlySpace from "@FlyUI/FlySpace.vue";
 import utilsDate from "@utils/date.js";
 import { isUndefined, cloneDeep } from "lodash";
 import dayjs from "dayjs";
 import utilsFormat from "@utils/format";
-import StarLoadingFish from "@StarUI/StarLoadingFish.vue";
-import StarScroll from "@StarUI/StarScroll.vue";
+import FlyLoadingFish from "@FlyUI/FlyLoadingFish.vue";
+import FlyScroll from "@FlyUI/FlyScroll.vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 const store = useStore();

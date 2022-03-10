@@ -86,10 +86,10 @@
       </div>
     </div>
 
-    <star-space :size="20"></star-space>
+    <Fly-space :size="20"></Fly-space>
     <div class="liquidity-content-core-card" v-if="pollDetailData">
       <p>{{ $t("价格与资金池份额") }}</p>
-      <star-space :size="15"></star-space>
+      <Fly-space :size="15"></Fly-space>
       <div class="liquidity-content-core-card-detail">
         <div
           v-for="(d, i) in pollDetailData"
@@ -120,7 +120,7 @@
 <script setup>
 import { computed, reactive, onUnmounted, onMounted, watch } from "vue";
 import SvgIcon from "@components/SvgIcon/Index.vue";
-import StarSpace from "@StarUI/StarSpace.vue";
+import FlySpace from "@FlyUI/FlySpace.vue";
 import { useStore } from "vuex";
 import FlyInput from "@FlyUI/FlyInput";
 import utilsNumber from "@utils/number";

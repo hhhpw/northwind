@@ -28,7 +28,7 @@
         </div>
       </div>
     </div>
-    <star-space :size="36"></star-space>
+    <fly-space :size="36"></fly-space>
     <div class="liquidity-content-core-delete-item">
       <span>
         {{ state.lpDelInfo.A.data }}
@@ -49,7 +49,7 @@
 <script setup>
 import { computed, reactive, onUnmounted, onMounted } from "vue";
 import SvgIcon from "@components/SvgIcon/Index.vue";
-import StarSpace from "@StarUI/StarSpace.vue";
+import FlySpace from "@FlyUI/FlySpace.vue";
 import { useStore } from "vuex";
 import utilsNumber from "@utils/number";
 import FlyInput from "@FlyUI/FlyInput";
@@ -93,7 +93,7 @@ onUnmounted(() => {
 @import "~@/styles/variables.scss";
 @import "~@/styles/mixin.scss";
 .liquidity-content-core-btn {
-  .star-button {
+  .fly-button {
     width: 100%;
     padding: 15px 0px;
   }

@@ -1,6 +1,6 @@
 <template>
   <div class="confirm">
-    <star-confirm
+    <Fly-confirm
       :dialogVisible="props.dialogVisible"
       @handleClose="handleClose"
       :isShowClose="props.isShowClose"
@@ -34,34 +34,34 @@
       </template>
       <template #footer>
         <div class="confirm-foot-btn" v-if="props.cType === 'secondConfirm'">
-          <star-button @click="handleConfirm" class="confirm-btn">{{
+          <fly-button @click="handleConfirm" class="confirm-btn">{{
             $t("确认")
-          }}</star-button>
-          <star-button @click="handleClose" class="cancel-btn">{{
+          }}</fly-button>
+          <fly-button @click="handleClose" class="cancel-btn">{{
             $t("取消")
-          }}</star-button>
+          }}</fly-button>
         </div>
         <div class="confirm-foot-btn-one">
-          <star-button
+          <fly-button
             @click="handleConfirm"
             class="confirm-btn-one-succ"
             v-if="props.cType === 'success' || props.cType === 'fallback'"
-            >{{ $t("确认") }}</star-button
+            >{{ $t("确认") }}</fly-button
           >
-          <star-button
+          <fly-button
             @click="handleConfirm"
             class="confirm-btn-one-fail"
             v-if="props.cType === 'fail'"
-            >{{ $t("确认") }}</star-button
+            >{{ $t("确认") }}</fly-button
           >
         </div>
       </template>
-    </star-confirm>
+    </Fly-confirm>
   </div>
 </template>
 <script setup>
-import StarButton from "@StarUI/StarButton.vue";
-import StarConfirm from "@StarUI/StarConfirm";
+import FlyButton from "@FlyUI/FlyButton.vue";
+import FlyConfirm from "@FlyUI/FlyConfirm";
 import { defineProps, defineEmits } from "vue";
 
 const props = defineProps({

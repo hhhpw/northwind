@@ -73,7 +73,7 @@
 // 二次弹窗
 import { defineProps, defineEmits, reactive, watchEffect } from "vue";
 import SvgIcon from "@components/SvgIcon/Index.vue";
-import FlyButton from "@StarUI/FlyButton.vue";
+import FlyButton from "@FlyUI/FlyButton.vue";
 
 const props = defineProps({
   dialogParams: {
