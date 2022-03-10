@@ -36,8 +36,21 @@ const posGradient = reactive({
   left: -1112,
   top: -1010,
 });
+let open = true;
 const debouMove = debounce((e) => {
+  const clientWidth = document.documentElement.clientWidth;
   const scroll_top = document.documentElement.scrollTop;
+  if (open) {
+    if (clientWidth / 2 > e.pageX) {
+      return;
+    }
+    open = false;
+  } else {
+    if (clientWidth / 2 < e.pageX) {
+      return;
+    }
+    open = true;
+  }
   pos.left = e.pageX - 500;
   pos.top = e.pageY - scroll_top - 256;
 
@@ -63,6 +76,12 @@ onBeforeMount(() => {
   align-items: center;
   justify-content: center;
   z-index: -1;
+  // 硬件加速
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
   .beathImage {
     position: absolute;
     // top: v-bind("pos.top");
