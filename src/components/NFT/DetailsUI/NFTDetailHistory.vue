@@ -154,7 +154,7 @@ const loadMore = async () => {
 <style lang="scss" scoped>
 .specific-history-item {
   font-weight: 400;
-  color: #000000;
+  color: #fff;
   margin-bottom: 16px;
   display: flex;
   span {
