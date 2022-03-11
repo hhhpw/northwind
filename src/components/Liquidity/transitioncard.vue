@@ -40,7 +40,7 @@ let state = reactive({
   padding: 30px 20px;
   width: 440px;
   border-radius: 34px;
-  background-color: #11100d;
+  background-color: #252525;
   transition: top 500ms ease-in-out 0s;
   display: inline-block;
   position: relative;
