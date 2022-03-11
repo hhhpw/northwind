@@ -34,11 +34,7 @@
         :box_detail="props.box_detail"
         :sellType="props.box_detail.sellType"
       ></nft-bid-info>
-      <div
-        class="blind-offer-actions button-style"
-        v-if="props.box_detail"
-        :style="{ 'margin-top': props.isNFT ? '10px' : '20px' }"
-      >
+      <div class="blind-offer-actions button-style" v-if="props.box_detail">
         <span
           class="purchase"
           v-if="props.box_detail.sellType === 1"
@@ -70,8 +66,10 @@
       <div
         class="blind-offer-actions button-style"
         v-if="props.box_detail.onSell"
-        :style="{ 'margin-top': props.isNFT ? '10px' : '20px' }"
       >
+        <span class="cancel-sell" @click="actionsCall('CancelSell')">{{
+          $t("取消出售")
+        }}</span>
         <span
           v-if="props.box_detail.sellType === 2"
           :style="{
@@ -90,17 +88,7 @@
             }
           "
           >{{ $t("接受报价") }}
-          {{
-            formatPriceWithLength(
-              props.box_detail.topBidPrice,
-              props.box_detail.payTokenPrecision
-            )
-          }}
-          {{ utilsFormat.getTokenCurrency(props.box_detail.payToken) }}
         </span>
-        <span class="cancel-sell" @click="actionsCall('CancelSell')">{{
-          $t("取消出售")
-        }}</span>
       </div>
       <div v-else>
         <div class="sold-out button-style">
@@ -231,6 +219,7 @@ const handleCloseQuotation = () => {
 .nft-goods-detail-action {
   flex: 1;
   position: relative;
+  margin-top: 15px;
 }
 .sell-blind {
   // border: 1px solid red;
@@ -287,15 +276,13 @@ const handleCloseQuotation = () => {
   line-height: 46px;
   text-align: center;
   font-weight: 600;
+  color: #000000;
   cursor: pointer;
-  background-color: #f88000;
-  color: #fff;
-  // margin-top: 20px;
+  background: linear-gradient(256deg, #fdd300 0%, #fba800 100%);
+  box-shadow: 0px 12px 15px 0px rgba(253, 168, 0, 0.39);
 }
 .button-style {
   width: 100%;
-  position: absolute;
-  bottom: 0;
 }
 .blind-buttons {
   display: flex;
@@ -314,8 +301,6 @@ const handleCloseQuotation = () => {
 
 .on-offer-blind {
   height: 100%;
-  display: flex;
-  flex-flow: column;
   justify-content: space-between;
   position: relative;
 }
@@ -350,26 +335,31 @@ const handleCloseQuotation = () => {
 .blind-offer-actions {
   display: flex;
   justify-content: space-between;
+  margin-top: 36px;
+  :first-child {
+    margin-right: 17px;
+  }
   span {
     cursor: pointer;
     flex: 1;
     display: inline-block;
-    height: 46px;
-    line-height: 46px;
+    height: 56px;
+    line-height: 56px;
     text-align: center;
-    margin-right: 16px;
-    border-radius: 4px;
-    background: #f88000;
-    color: #ffffff;
+    border-radius: 8px;
+    background: linear-gradient(256deg, #fdd300 0%, #fba800 100%);
+    box-shadow: 0px 12px 15px 0px rgba(253, 168, 0, 0.39);
+    color: #a03300;
     font-size: 16px;
     font-weight: 600;
   }
 }
 .cancel-sell {
   cursor: pointer;
-  background: #fff !important;
-  color: #f88000 !important;
-  border: 1px solid #f88000;
+  background: none !important;
+  box-shadow: none !important;
+  border: 1px solid #fba800;
+  color: #fba800 !important;
 }
 .sold-out {
   flex: 1;
@@ -395,45 +385,51 @@ const handleCloseQuotation = () => {
 .disabled-status {
   background: #d1d1d1 !important;
   color: #9e9e9e !important;
+  box-shadow: none !important;
 }
 .blind-recovery {
   height: 100%;
-  display: flex;
-  flex-flow: column;
   justify-content: space-between;
   position: relative;
   .recovery-price-count {
-    padding-top: 24px;
-    flex: 1;
+    width: 505px;
+    height: 43px;
+    display: flex;
     text-align: left;
     font-weight: 500;
+    justify-content: space-between;
+    padding: 18px 0;
+    background: #37322c;
+    border-radius: 8px;
+    padding-left: 16px;
     .recovery-price {
-      font-size: 24px;
-      color: #000000;
+      font-size: 20px;
+      color: #ffffff;
+      flex: 1;
       span {
         display: block;
       }
       :first-child {
-        font-size: 14px;
-        color: #3f1c09;
+        font-size: 12px;
       }
     }
     .holding-count {
-      margin-top: 16px;
-      font-size: 24px;
-      color: #3f1c09;
+      font-size: 20px;
+      flex: 1;
+      color: #ffffff;
       span {
         display: block;
       }
       :first-child {
-        font-size: 14px;
-        color: #3f1c09;
+        font-size: 12px;
       }
     }
   }
   .recovery-actions {
-    background: #f88000;
-    color: #ffffff;
+    background: linear-gradient(256deg, #fdd300 0%, #fba800 100%);
+    box-shadow: 0px 12px 15px 0px rgba(253, 168, 0, 0.39);
+    color: #a03300;
+    margin-top: 36px;
   }
   .price-content-style {
     text-align: left;

@@ -12,12 +12,14 @@
       v-if="state.poolType === 'add' || state.poolType === 'delete'"
       class="liquidity-container-transition-card"
     ></liquidity-transition-card>
+    <FlySpecialBg :showSquare="true"></FlySpecialBg>
   </div>
 </template>
 <script setup>
 import { computed, reactive } from "vue";
 import LiquidityCore from "@components/Liquidity/core.vue";
 import LiquidityTransitionCard from "@components/Liquidity/transitioncard.vue";
+import FlySpecialBg from "@FlyUI/FlySpecialBg.vue";
 import FlySwapCard from "@FlyUI/FlySwapCard.vue";
 // import StarChangeButton from "@StarUI/StarChangeButton.vue";
 import FlySpace from "@FlyUI/FlySpace.vue";
@@ -33,6 +35,9 @@ let state = reactive({
   // left: 50%;
   // display: inline-block;
   // transform: translate(-50%, 0);
+  justify-self: center;
+  align-self: center;
+  margin-top: -200px;
   .liquidity-container-btnwarp {
     display: flex;
     justify-content: center;

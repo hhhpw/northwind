@@ -12,7 +12,6 @@
     >
       <template #content>
         <div class="nft-gallery-list">
-          <h3>{{ $t("导入合约地址") }}</h3>
           <div
             v-for="(d, i) in state.listData"
             :key="i"
@@ -20,7 +19,6 @@
           >
             <img :src="d.seriesLogo" alt="" />
             <div class="nft-gallery-list-item-right">
-              <fly-space :size="15"></fly-space>
               <p class="nft-gallery-list-item-right-title">
                 {{ d.seriesName }}-{{ d.name }}
               </p>
@@ -33,7 +31,7 @@
                   $t("导入陈列室")
                 }}</a>
               </p>
-              <fly-space :size="15"></fly-space>
+              <fly-space :size="31"></fly-space>
               <p class="nft-gallery-address-info">
                 <label for="" class="address">{{ $t("盲盒代币地址") }}:</label>
                 <span>{{ d.boxToken }}</span>
@@ -139,7 +137,6 @@ onUnmounted(() => {
   margin-top: 20px;
 }
 .nft-gallery-list {
-  background: #fff;
   padding: 35px 32px;
   border-radius: 34px;
   h3 {
@@ -150,23 +147,22 @@ onUnmounted(() => {
     display: flex;
     justify-content: flex-start;
     label {
-      color: #8b8b8b;
+      color: #8c8b8c;
       font-size: 14px;
       min-width: 125px;
       display: block;
       float: left;
-      height: 40px;
-      line-height: 40px;
+      height: 24px;
+      line-height: 24px;
     }
     span {
-      color: $text-brown-color;
+      color: $white;
       font-size: 14px;
       margin-left: 20px;
       display: block;
       word-wrap: break-word;
       word-break: break-all;
       overflow: hidden;
-      margin-top: 8px;
     }
     .address {
       font-size: 12px;
@@ -180,21 +176,22 @@ onUnmounted(() => {
   cursor: pointer;
   border-radius: 16px;
   overflow: hidden;
-  background: #f7f7f7;
+  background: linear-gradient(180deg, #3e3e3e 0%, #3e3e3e 0%, #252525 100%);
   padding: 16px;
   img {
     width: 275px;
     height: 168px;
     margin: auto 0;
+    padding: 0;
   }
   .nft-gallery-list-item-right {
     text-align: left;
     width: calc(100% - 310px);
     position: relative;
     .nft-gallery-list-item-right-title {
-      color: $text-brown-color;
-      font-size: 16px;
-      font-weight: 600;
+      color: $white;
+      font-size: 14px;
+      font-weight: 500;
     }
   }
   .nft-gallery-import {
@@ -205,8 +202,8 @@ onUnmounted(() => {
     line-height: 28px;
     text-align: center;
     border-radius: 8px;
-    background: #f88000;
-    color: #ffffff;
+    background: linear-gradient(256deg, #fdd300 0%, #fba800 100%);
+    color: #000000;
     font-size: 8px;
     margin-right: 20px;
     padding: 1px 10px;

@@ -33,7 +33,7 @@
 <script setup>
 /* eslint-disable */
 import LeftContent from "./DetailsUI/NFTLeftContent.vue";
-import Info from "./DetailsUI/NFTInfo.vue";
+import Info from "./DetailsUI/NFTInfoRight.vue";
 import detailsContent from "./DetailsUI/NFTContent.vue";
 import { defineProps } from "vue";
 

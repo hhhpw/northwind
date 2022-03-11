@@ -40,7 +40,7 @@ const selectCrossTab = (id) => {
   .nft-detail-tab-item {
     font-size: 16px;
     font-weight: 500;
-    color: #3f1c09;
+    color: #ffffff;
     margin-right: 32px;
     position: relative;
     cursor: pointer;
@@ -55,7 +55,7 @@ const selectCrossTab = (id) => {
       left: 0%;
     }
     .selected_tab {
-      color: #3f1c09;
+      color: #ffffff;
     }
   }
 }

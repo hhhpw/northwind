@@ -11,14 +11,14 @@
     <swap-transition-card
       class="swap-container-transition-card"
     ></swap-transition-card>
-    <special-bg></special-bg>
+    <FlySpecialBg :showSquare="true"></FlySpecialBg>
   </div>
 </template>
 <script setup>
 import SwapCore from "@components/Swap/core.vue";
 import SwapTransitionCard from "@components/Swap/card.vue";
 import FlySwapCard from "@FlyUI/FlySwapCard.vue";
-import SpecialBg from "@components/SpecialBg.vue";
+import FlySpecialBg from "@FlyUI/FlySpecialBg.vue";
 // import StarChangeButton from "@StarUI/StarChangeButton.vue";
 import FlySpace from "@FlyUI/FlySpace.vue";
 // const test = (type) => {
@@ -41,6 +41,10 @@ import FlySpace from "@FlyUI/FlySpace.vue";
 </script>
 <style lang="scss" scoped>
 .swap-container {
+  justify-self: center;
+  align-self: center;
+  display: flex;
+  margin-top: -200px;
   .swap-container-btnwarp {
     display: flex;
     justify-content: center;

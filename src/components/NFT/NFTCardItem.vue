@@ -434,10 +434,13 @@ $black: #010e22;
           width: 48%;
           padding-left: 0;
           padding-right: 0;
+          background: none;
         }
         .item-content-slots-collection-selling-btn-light {
           // border: 1px solid $border-gray-color;
           // color: $text-black-color;
+          background: linear-gradient(256deg, #fdd300 0%, #fba800 100%);
+          color: #a03300;
         }
       }
     }
