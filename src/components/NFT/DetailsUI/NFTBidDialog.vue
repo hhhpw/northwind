@@ -33,48 +33,69 @@
             :class="state.typeIndex === i ? 'active' : ''"
           >
             {{ $t(item) }}
-            <svg-icon
-              name="bid-checked"
-              class="svg"
-              v-if="state.typeIndex === i"
-            ></svg-icon>
           </a>
         </div>
-        <div class="bid-content">
-          <p>
-            {{
-              $t(
-                state.typeIndex === 0
-                  ? BID_DIALOG_PARAMS.FIXEDPRICE[0]
-                  : BID_DIALOG_PARAMS.AUCTIONPRICE[0]
-              )
-            }}
-          </p>
-          <div class="bid-price">
-            <fly-input
-              class="bid-price-input"
-              :value="String(state.price || '')"
-              @inputEvent="inputEvent"
-              validateType="integer"
-              max="999999999"
-            >
-            </fly-input>
-            <span>STC</span>
+        <div class="sell-type-content">
+          <div class="fix-content" v-if="state.typeIndex === 0">
+            <p>
+              {{
+                $t(
+                  state.typeIndex === 0
+                    ? BID_DIALOG_PARAMS.FIXEDPRICE[0]
+                    : BID_DIALOG_PARAMS.AUCTIONPRICE[0]
+                )
+              }}
+            </p>
+            <div class="fix-input-box">
+              <fly-input
+                class="fix-price-input"
+                :value="String(state.price || '')"
+                @inputEvent="inputEvent"
+                validateType="integer"
+                max="999999999"
+              >
+              </fly-input>
+              <span>STC</span>
+            </div>
+          </div>
+          <div class="bid-content" v-if="state.typeIndex === 1">
+            <div class="bid-input-box">
+              <p>
+                {{
+                  $t(
+                    state.typeIndex === 0
+                      ? BID_DIALOG_PARAMS.FIXEDPRICE[0]
+                      : BID_DIALOG_PARAMS.AUCTIONPRICE[0]
+                  )
+                }}
+              </p>
+              <div class="bid-price-content-box">
+                <fly-input
+                  class="bid-price-input"
+                  :value="String(state.price || '')"
+                  @inputEvent="inputEvent"
+                  validateType="integer"
+                  max="999999999"
+                >
+                </fly-input>
+                <span>STC</span>
+              </div>
+            </div>
+            <div class="bid-time">
+              <p>
+                {{ $t(BID_DIALOG_PARAMS.AUCTIONPRICE[1]) }}
+              </p>
+              <fly-selector
+                :items="timeOptions"
+                @emit="handleTime"
+                :value="state.endDay"
+                class="bid-time-change"
+                :width="`100%`"
+              ></fly-selector>
+            </div>
           </div>
           <div v-if="state.errorInfo" class="error">
             *{{ $t("请输入价格") }}
-          </div>
-          <div class="bid-time" v-if="state.typeIndex === 1">
-            <p>
-              {{ $t(BID_DIALOG_PARAMS.AUCTIONPRICE[1]) }}
-            </p>
-            <fly-selector
-              :items="timeOptions"
-              @emit="handleTime"
-              :value="state.endDay"
-              class="bid-time-change"
-              :width="`100%`"
-            ></fly-selector>
           </div>
           <div class="bid-text">
             <p>{{ $t("说明") }}:</p>
@@ -199,17 +220,18 @@ const changeAction = (i) => {
 
 .nft-bid-dialog {
   ::v-deep(.el-dialog) {
-    border-radius: 34px;
+    border-radius: 16px;
+    background: linear-gradient(180deg, #3e3e3e 0%, #3e3e3e 0%, #252525 100%);
     .el-dialog__headerbtn:focus .el-dialog__close,
     .el-dialog__headerbtn:hover .el-dialog__close {
       color: $btn-orange-bgcolor;
     }
   }
   ::v-deep(.el-dialog__header) {
-    padding: 28px 24px 28px 42px !important;
+    padding: 32px 26px 24px 24px !important;
   }
   ::v-deep(.el-dialog__body) {
-    padding: 7px 28px 72px 42px !important;
+    padding: 0px 26px 55px 24px !important;
   }
 
   .nft-bid-dialog-header {
@@ -217,7 +239,7 @@ const changeAction = (i) => {
     justify-content: space-between;
     font-weight: bold;
     line-height: 36px;
-
+    color: #ffffff;
     span {
       font-size: 24px;
     }
@@ -232,26 +254,30 @@ const changeAction = (i) => {
   .nft-bid-dialog-content {
     p {
       font-size: 16px;
-      color: #010e22;
+      color: $white;
       font-weight: 600;
-      margin-bottom: 16px;
+      margin-bottom: 8px;
     }
     .bid-type {
       width: 100%;
-      overflow: hidden;
-      margin-bottom: 34px;
+      display: flex;
+      margin-bottom: 24px;
       a {
-        width: 298px;
-        height: 48px;
-        border: 1px solid #010e22;
-        line-height: 48px;
+        flex: 1;
+        height: 88px;
+        border: 1px solid $white;
+        line-height: 88px;
         text-align: center;
         float: right;
         position: relative;
-        border-radius: 5px;
-        color: #010e22;
+        color: $white;
         &:first-child {
           float: left;
+          border-radius: 8px 0px 0px 8px;
+          border-right: none;
+        }
+        &:last-child {
+          border-radius: 0px 8px 8px 0px;
         }
         &:hover {
           cursor: pointer;
@@ -263,61 +289,128 @@ const changeAction = (i) => {
         }
       }
       .active {
-        border: 1px solid #fb8000;
-        color: #fb8000;
+        border: 1px solid #fba800 !important;
+        background: rgba(251, 168, 0, 0.05);
+        color: #fba800;
       }
     }
-    .bid-price {
-      border: 1px solid #ededed;
-      height: 72px;
-      margin-bottom: 34px;
-      border-radius: 19px;
-      .bid-price-input {
-        width: 90%;
-        line-height: 72px;
-        font-size: 24px;
-        font-weight: 500px;
-        float: left;
+    .fix-content {
+      width: 100%;
+      overflow: hidden;
+      margin-bottom: 24px;
+      border-radius: 8px;
+      .fix-input-box {
+        width: 100%;
+        height: 88px;
+        line-height: 88px;
+        color: $white;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        .fix-price-input {
+          width: 90%;
+          float: left;
+        }
         ::v-deep(.el-input__inner) {
+          background: none;
           border: none;
-          color: #000;
-          border-radius: 19px;
+          height: 88px;
+          padding-left: 24px;
+          color: $white;
         }
       }
       span {
         display: inline-block;
-        line-height: 72px;
+        line-height: 88px;
+        color: $white;
+        font-size: 24px;
+      }
+    }
+    .bid-content {
+      color: $white;
+      margin-bottom: 24px;
+      .bid-input-box {
+        width: 372px;
+        display: inline-block;
+        border-radius: 8px;
+        .bid-price-content-box {
+          background: rgba(255, 255, 255, 0.1);
+        }
+        .bid-price-input {
+          width: 83%;
+          float: left;
+        }
+        ::v-deep(.el-input__inner) {
+          background: none;
+          border: none;
+          height: 88px;
+          padding-left: 24px;
+          color: $white;
+        }
+        span {
+          display: inline-block;
+          line-height: 88px;
+          font-size: 24px;
+          color: $white;
+        }
+      }
+      .bid-time {
+        width: 228px;
+        display: inline-block;
+        margin-left: 34px;
+        .bid-time-change {
+          width: 100%;
+          height: 88px;
+          line-height: 88px;
+          ::v-deep(.el-select .el-input__inner) {
+            height: 88px;
+            border-radius: 8px;
+            font-size: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: $white;
+            &:hover {
+              border-color: $white;
+            }
+          }
+          ::v-deep(.el-select__popper.el-popper[role="tooltip"]) {
+            background: linear-gradient(
+              180deg,
+              #3e3e3e 0%,
+              #3e3e3e 0%,
+              #252525 100%
+            );
+            color: $white;
+            border: none;
+          }
+          ::v-deep(.el-popper__arrow) {
+            display: none;
+          }
+          ::v-deep(.el-select-dropdown__item) {
+            height: 45px;
+            line-height: 45px;
+            &:hover {
+              background: rgba(251, 168, 0, 0.05);
+              color: #fba800;
+            }
+            color: $white;
+          }
+          ::v-deep(.el-select-dropdown__item.selected) {
+            background: rgba(251, 168, 0, 0.05);
+            color: #fba800;
+          }
+        }
       }
     }
     .error {
-      color: #fb8000;
-      margin-bottom: 10px;
+      color: #fba800;
+      margin-bottom: 24px;
     }
-    .bid-time {
-      margin-top: 24px;
-      margin-bottom: 34px;
-    }
-    .bid-time-change {
-      width: 100%;
-      height: 72px;
-      line-height: 72px;
-      margin-bottom: 10px;
-      ::v-deep(.el-select .el-input__inner) {
-        height: 72px;
-        border-radius: 19px;
-        &:hover {
-          border-color: #dcdfe6;
-        }
-      }
-      ::v-deep(.el-select-dropdown__item.selected) {
-        color: #000;
-      }
-    }
+
     .bid-text {
-      margin-bottom: 34px;
+      margin-bottom: 24px;
       p {
         font-size: 14px;
-        color: #7f7f7f;
+        color: $white;
         margin-bottom: 2px;
         font-weight: normal;
       }
@@ -333,10 +426,11 @@ const changeAction = (i) => {
       user-select: none;
       width: 100%;
       padding: 15px 15px;
-      font-size: 16px;
-      border-radius: 12px;
-      background: #fb8000;
-      color: #fff;
+      font-size: 20px;
+      border-radius: 8px;
+      background: linear-gradient(256deg, #fdd300 0%, #fba800 100%);
+      box-shadow: 0px 12px 15px 0px rgba(253, 168, 0, 0.39);
+      color: #a03300;
     }
   }
 }

@@ -2,7 +2,7 @@
   <div class="nft-second-dialog">
     <ElDialog
       v-model="state.visible"
-      :width="`${props.width ? props.width + 'px' : '440px'}`"
+      :width="`${props.width ? props.width + 'px' : '424px'}`"
       custom-class="star-dialog-el"
       :before-close="handleClose"
       :close-on-press-escape="false"
@@ -28,6 +28,8 @@
           :src="props.dialogParams.imgUrl"
           v-if="props.dialogParams.imgUrl"
         />
+      </div>
+      <div class="nft-second-dialog-footer">
         <p v-if="props.dialogParams.text">{{ props.dialogParams.text }}</p>
         <p
           v-if="props.dialogParams.gasInfo"
@@ -35,24 +37,22 @@
         >
           {{ props.dialogParams.gasInfo }}
         </p>
-      </div>
-      <div class="nft-second-dialog-footer">
-        <fly-button
-          @click="emits('handleConfirm')"
-          class="nft-second-dialog-footer-button"
-          type="green"
-          v-if="props.dialogParams.confirmText"
-        >
-          {{ props.dialogParams.confirmText }}
-        </fly-button>
-        <fly-button
-          type="red"
-          class="nft-second-dialog-footer-button"
-          @click="emits('handleCancel')"
-          v-if="props.dialogParams.cancelText"
-        >
-          {{ props.dialogParams.cancelText }}
-        </fly-button>
+        <div class="nft-second-buttons">
+          <fly-button
+            class="nft-second-dialog-footer-button"
+            @click="emits('handleCancel')"
+            v-if="props.dialogParams.cancelText"
+          >
+            {{ props.dialogParams.cancelText }}
+          </fly-button>
+          <fly-button
+            @click="emits('handleConfirm')"
+            class="nft-second-dialog-footer-button"
+            v-if="props.dialogParams.confirmText"
+          >
+            {{ props.dialogParams.confirmText }}
+          </fly-button>
+        </div>
       </div>
     </ElDialog>
   </div>
@@ -111,12 +111,22 @@ const handleClose = () => {
 @import "~@/styles/variables.scss";
 
 .nft-second-dialog {
+  border-radius: 16px;
   ::v-deep(.el-dialog) {
     border-radius: 34px;
+    background: linear-gradient(180deg, #3e3e3e 0%, #3e3e3e 0%, #252525 100%);
     .el-dialog__headerbtn:focus .el-dialog__close,
     .el-dialog__headerbtn:hover .el-dialog__close {
       color: $btn-orange-bgcolor;
     }
+  }
+  ::v-deep(.el-dialog__header) {
+    padding: 24px;
+    padding-bottom: 8px;
+  }
+  ::v-deep(.el-dialog__body) {
+    padding: 24px;
+    padding-top: 0px;
   }
   .star-dialog-el {
     ::v-deep(.el-dialog__header) {
@@ -138,29 +148,38 @@ const handleClose = () => {
   .nft-second-dialog-content {
     text-align: center;
     user-select: none;
+    height: 376px;
+    background: #e8906c;
     img {
-      width: 80%;
-      border-radius: 16px;
+      width: 100%;
     }
-    p {
-      margin-top: 20px;
-      font-size: 16px;
-      color: #010e22;
-      font-weight: 600;
-    }
+  }
+
+  .nft-second-dialog-footer {
+    width: 100%;
+    margin-top: 16px;
     .nft-second-dialog-content-gas {
       margin-top: 3px;
       font-size: 13px;
       color: #969696;
     }
-  }
-
-  .nft-second-dialog-footer {
-    width: 90%;
-    margin-top: 20px;
-    margin-left: 5%;
-    display: flex;
-    justify-content: space-around;
+    p {
+      font-size: 20px;
+      color: #ffffff;
+      font-weight: 500;
+      text-align: center;
+    }
+    .nft-second-buttons {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 16px;
+      margin-bottom: 24px;
+      :first-child {
+        border: 1px solid #fba800;
+        background: none;
+        color: #fba800;
+      }
+    }
     .nft-second-dialog-footer-button {
       user-select: none;
       // padding-right: 0px;
@@ -168,7 +187,8 @@ const handleClose = () => {
       padding: 15px 15px;
       width: 35%;
       font-size: 16px;
-      border-radius: 12px;
+      border-radius: 8px;
+      box-shadow: none;
     }
   }
 }
