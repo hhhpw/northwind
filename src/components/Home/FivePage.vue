@@ -34,7 +34,7 @@
       justify-content: center;
       p:first-child {
         font-size: 24px;
-        font-family: Denmark;
+        font-family: DenmarkRegular;
         color: #feffff;
         line-height: 29px;
       }

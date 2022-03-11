@@ -9,12 +9,14 @@
           Starcoin here
         </p>
       </div>
-      <img src="../../assets/home/new-home/third-cat.png" alt="" />
+      <img :src="HOME_CONSTANTS.THIRD_CAT" alt="" />
     </div>
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import HOME_CONSTANTS from "@constants/home";
+</script>
 <style lang="scss" scoped>
 .wrap {
   width: 100%;
@@ -34,7 +36,7 @@
       justify-content: center;
       p:first-child {
         font-size: 24px;
-        font-family: Denmark;
+        font-family: DenmarkRegular;
         color: #feffff;
         line-height: 29px;
       }

@@ -3,21 +3,25 @@
   <div class="second-wrap">
     <div class="content-wrap">
       <img class="bg" src="../../assets/home/new-home/second-bg.png" alt="" />
-      <img
-        class="cat"
-        src="../../assets/home/new-home/second-img1.png"
-        alt=""
-      />
-      <img
-        class="desc"
-        src="../../assets/home/new-home/second-desc.png"
-        alt=""
-      />
+      <img class="cat" :src="HOME_CONSTANTS.RUNNING_CAT" alt="" />
+      <div class="desc-wrap">
+        <img
+          class="desc"
+          src="../../assets/home/new-home/second-desc.png"
+          alt=""
+        />
+        <div class="click-area" @click.stop="handleLearnMore"></div>
+      </div>
     </div>
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import HOME_CONSTANTS from "@constants/home";
+const handleLearnMore = () => {
+  console.log("handle learn more");
+};
+</script>
 <style lang="scss" scoped>
 .second-wrap {
   width: 100%;
@@ -29,21 +33,34 @@
     width: 90%;
     height: fit-content;
     position: relative;
+    margin-top: -10%;
     .bg {
       width: 100%;
     }
     .cat {
       position: absolute;
-      top: 33%;
-      left: 26%;
-      width: 14%;
-    }
-    .desc {
+      top: 20%;
+      left: 10%;
       width: 40%;
-      height: 90%;
+    }
+    .desc-wrap {
+      width: 40%;
+      height: fit-content;
       position: absolute;
       right: 10%;
-      bottom: -10%;
+      bottom: -20%;
+      .desc {
+        width: 100%;
+      }
+      .click-area {
+        position: absolute;
+        bottom: 10%;
+        left: 5%;
+        width: 50%;
+        height: 13%;
+        z-index: 10;
+        cursor: pointer;
+      }
     }
   }
 }

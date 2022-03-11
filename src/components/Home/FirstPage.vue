@@ -5,14 +5,21 @@
       <div class="desc">
         <span>Fishing Crypto with kiko</span>
         <span>Swap，earn and win crypto on a safe and creative multiverse</span>
-        <button>Swap Now</button>
+        <div @click="handleGoSwap">Swap Now</div>
       </div>
-      <img src="../../assets/home/new-home/cat.png" alt="" />
+      <img :src="HOME_CONSTANTS.PLUTUS_CAT" alt="" />
     </div>
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { useRouter } from "vue-router";
+import HOME_CONSTANTS from "@constants/home";
+const router = useRouter();
+const handleGoSwap = () => {
+  router.push("/swap");
+};
+</script>
 <style lang="scss" scoped>
 .first-wrap {
   width: 100%;
@@ -36,7 +43,7 @@
       flex-direction: column;
       span:first-child {
         font-size: 40px;
-        font-family: Denmark;
+        font-family: DenmarkRegular;
         color: #ffffff;
         line-height: 64px;
       }
@@ -48,7 +55,7 @@
         color: #ffffff;
         line-height: 22px;
       }
-      button {
+      & > div {
         width: 190px;
         height: 50px;
         background-image: url("../../assets/home/new-home/btn-bg.png");
@@ -57,8 +64,14 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-top: 30%;
+        margin-top: 47px;
         border: none;
+        font-size: 20px;
+        font-family: PingFangSC-Semibold, PingFang SC;
+        font-weight: 600;
+        color: #000000;
+        line-height: 28px;
+        cursor: pointer;
       }
     }
     img {

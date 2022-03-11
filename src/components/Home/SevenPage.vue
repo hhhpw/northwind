@@ -8,16 +8,18 @@
         <div class="bottom-left">
           <img src="../../assets/home/new-home/cat-bottom.png" alt="" />
           <div>
-            <img src="../../assets/home/new-home/kikoverse.png" alt="" />
+            <img src="../../assets/home/new-home/kikoverse.svg" alt="" />
             <span>Fishing Crypto with kiko</span>
           </div>
         </div>
         <div class="bottom-right">
           <ul>
-            <li v-for="(item, index) in state.mediumList" :key="index">
-              <div class="img-wrap">
-                <img :src="item.img" alt="" />
-              </div>
+            <li
+              v-for="(item, index) in state.mediumList"
+              :key="index"
+              @click="pushPage(item)"
+            >
+              <img :src="item.img" alt="" />
               <span>{{ item.text }}</span>
             </li>
           </ul>
@@ -39,25 +41,33 @@
 </template>
 
 <script setup>
-import { reactive } from "vue";
+import { computed, reactive } from "vue";
+import { useStore } from "vuex";
+import utilsTool from "@utils/tool.js";
+const store = useStore();
 
 let state = reactive({
   mediumList: [
     {
-      img: require("../../assets/home/new-home/twitter.png"),
+      img: require("../../assets/home/new-home/twitter.svg"),
       text: "Twitter",
+      url: "https://twitter.com/Kiko_verse",
     },
     {
-      img: require("../../assets/home/new-home/telegram.png"),
+      img: require("../../assets/home/new-home/telegram.svg"),
       text: "Telegram",
+      url: "https://t.me/kikoswap",
+      enUrl: "https://t.me/kikoverseEnglish",
     },
     {
-      img: require("../../assets/home/new-home/medium.png"),
+      img: require("../../assets/home/new-home/medium.svg"),
       text: "Medium",
+      url: "https://medium.com/@KikoResearch",
     },
     {
-      img: require("../../assets/home/new-home/medium.png"),
+      img: require("../../assets/home/new-home/discord.svg"),
       text: "discord",
+      url: "https://discord.com/invite/45pPRYMMjk",
     },
   ],
   dataList: [
@@ -74,8 +84,17 @@ let state = reactive({
       text: "VolumeHolders",
     },
   ],
+  currLang: computed(() => store.state.StoreApp.currLang),
 });
+
+const pushPage = (item) => {
+  state.currLang === "zh"
+    ? utilsTool.openNewWindow(item.url)
+    : (item?.enUrl && utilsTool.openNewWindow(item?.enUrl)) ||
+      utilsTool.openNewWindow(item.url);
+};
 </script>
+
 <style lang="scss" scoped>
 .seven-wrap {
   width: 100%;
@@ -85,7 +104,7 @@ let state = reactive({
   align-items: center;
   position: relative;
   .bg {
-    width: 80%;
+    width: 60%;
     height: 100%;
   }
   .coin {
@@ -148,20 +167,10 @@ let state = reactive({
             align-items: center;
             list-style-type: none;
             margin-left: 36px;
-            .img-wrap {
+            cursor: pointer;
+            img {
               width: 32px;
               height: 32px;
-              background: rgba(209, 210, 222, 0.2);
-              border-radius: 50%;
-              position: relative;
-              img {
-                width: 19px;
-                height: 15px;
-                position: absolute;
-                left: 50%;
-                top: 50%;
-                transform: translate(-50%, -50%);
-              }
             }
             span {
               margin-top: 4px;

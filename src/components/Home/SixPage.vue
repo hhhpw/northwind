@@ -30,7 +30,7 @@
     background: rgba(254, 201, 73, 0.14);
     border-radius: 53px;
     img {
-      width: 80%;
+      width: 120%;
     }
   }
   .quare {
