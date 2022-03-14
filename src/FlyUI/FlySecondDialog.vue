@@ -114,6 +114,7 @@ const emits = defineEmits(["handleClose", "handleCancel", "handleConfirm"]);
 .fly-second-dialog {
   ::v-deep(.el-dialog) {
     background: linear-gradient(180deg, #3e3e3e 0%, #3e3e3e 0%, #252525 100%);
+    height: 440px;
     border-radius: 16px;
     .el-dialog__headerbtn:focus .el-dialog__close,
     .el-dialog__headerbtn:hover .el-dialog__close {

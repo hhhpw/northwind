@@ -82,7 +82,7 @@ const store = useStore();
 .mining-second-dialog {
 }
 .mining-dialog-box {
-  ::v-deep(.el-dialog .fly-dialog-el) {
+  ::v-deep(.fly-dialog-el) {
     height: 373px !important;
   }
 }
@@ -104,7 +104,7 @@ const store = useStore();
   .mining-second-dialog-content-block {
     margin-top: 20px;
     .mining-second-dialog-content-block-item {
-      padding: 5px 20px;
+      padding: 8px 20px;
       display: flex;
       justify-content: space-between;
       .mining-second-dialog-content-block-item-label {
@@ -113,7 +113,7 @@ const store = useStore();
         font-size: 16px;
       }
       .mining-second-dialog-content-block-item-amount {
-        color: #000928;
+        color: #ffffff;
         font-size: 16px;
         font-weight: 600;
       }

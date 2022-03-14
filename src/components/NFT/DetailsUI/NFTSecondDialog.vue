@@ -152,6 +152,7 @@ const handleClose = () => {
     background: #e8906c;
     img {
       width: 100%;
+      height: 100%;
     }
   }
 
