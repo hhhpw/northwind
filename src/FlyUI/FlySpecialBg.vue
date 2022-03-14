@@ -1,15 +1,22 @@
 <template>
   <div class="special-bg">
-    <SvgIcon
-      name="beathImage"
-      class="beathImage"
-      :style="`transform: translate(${pos.left}px, ${pos.top}px)`"
-    ></SvgIcon>
-    <SvgIcon
-      name="gradient"
-      class="gradient"
-      :style="`transform: translate(${posGradient.left}px, ${posGradient.top}px)`"
-    ></SvgIcon>
+    <template v-if="!props.isAvatar">
+      <SvgIcon
+        name="beathImage"
+        class="beathImage"
+        :style="`transform: translate(${pos.left}px, ${pos.top}px)`"
+      ></SvgIcon>
+      <SvgIcon
+        name="gradient"
+        class="gradient"
+        :style="`transform: translate(${posGradient.left}px, ${posGradient.top}px)`"
+      ></SvgIcon>
+    </template>
+
+    <template v-else class="avatarBg">
+      <SvgIcon name="beathImage" class="avatarBg-breath"></SvgIcon>
+      <SvgIcon name="gradient" class="avatarBg-gradient"></SvgIcon>
+    </template>
     <div class="animation" v-if="props.showSquare">
       <SvgIcon name="squareLeft" class="squareLeft"></SvgIcon>
       <SvgIcon name="squareMiddle" class="squareMiddle"></SvgIcon>
@@ -25,6 +32,10 @@ import { debounce } from "lodash";
 const props = defineProps({
   showSquare: {
     //是否显示方块，默认不显示
+    type: Boolean,
+    default: () => false,
+  },
+  isAvatar: {
     type: Boolean,
     default: () => false,
   },
@@ -119,6 +130,22 @@ onBeforeMount(() => {
       animation: 3s ease-in-out 0.33s infinite normal none running uvIwZ;
     }
   }
+}
+
+// .avatarBg-
+.avatarBg-breath {
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
+  width: 1000px;
+  height: 512px;
+}
+.avatarBg-gradient {
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
+  width: 2225px;
+  height: 2020px;
 }
 
 @keyframes beath {
