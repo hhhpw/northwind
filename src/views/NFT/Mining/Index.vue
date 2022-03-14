@@ -1,5 +1,6 @@
 <template>
   <div class="mining-container">
+    <FlySpecialBg></FlySpecialBg>
     <fly-nft coreType="list" class="mining-container-nft">
       <template #nft-list>
         <mining-core></mining-core>
@@ -12,6 +13,7 @@
 import FlyNft from "@FlyUI/FlyNFT.vue";
 import { computed, onMounted, reactive, defineProps, defineEmits } from "vue";
 import MiningCore from "@components/NFT/Mining/MainCore.vue";
+import FlySpecialBg from "@FlyUI/FlySpecialBg.vue";
 </script>
 
 <style lang="scss" scoped>

@@ -244,6 +244,22 @@ const getCountDownDetails = (timestamp) => {
   return countdownStr;
 };
 
+const imageisExist = (url) => {
+  return new Promise((resolve, reject) => {
+    const image = new Image();
+
+    image.onload = function () {
+      if (this.complete === true) {
+        resolve(image);
+      }
+    };
+    image.onerror = function () {
+      reject("load failed");
+    };
+    image.src = url;
+  });
+};
+
 export default {
   openNewWindow,
   hexCharCodeToStr,
@@ -257,4 +273,5 @@ export default {
   getChainTransactionInfo,
   getCountDown,
   getCountDownDetails,
+  imageisExist,
 };

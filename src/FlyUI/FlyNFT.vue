@@ -109,7 +109,6 @@ onMounted(() => {
 @import "~@/styles/_vars.scss";
 .fly-nft {
   width: 1200px;
-  background: $black;
   .fly-nft-header {
     width: 100%;
     background: #191919;

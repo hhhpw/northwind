@@ -9,7 +9,11 @@
           Starcoin here
         </p>
       </div>
-      <img :src="HOME_CONSTANTS.THIRD_CAT" alt="" />
+      <img
+        v-image="HOME_CONSTANTS.THIRD_CAT"
+        :default-img="defaultImg"
+        alt=""
+      />
     </div>
     <div class="bg"></div>
   </div>
@@ -17,6 +21,7 @@
 
 <script setup>
 import HOME_CONSTANTS from "@constants/home";
+const defaultImg = require("../../assets/home/new-home/third-cat.png");
 </script>
 <style lang="scss" scoped>
 .wrap {

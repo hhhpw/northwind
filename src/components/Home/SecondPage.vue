@@ -3,7 +3,12 @@
   <div class="second-wrap">
     <div class="content-wrap">
       <img class="bg" src="../../assets/home/new-home/second-bg.png" alt="" />
-      <img class="cat" :src="HOME_CONSTANTS.RUNNING_CAT" alt="" />
+      <img
+        class="cat"
+        v-image="HOME_CONSTANTS.RUNNING_CAT"
+        :default-img="defaultImg"
+        alt=""
+      />
       <div class="desc-wrap">
         <img
           class="desc"
@@ -18,6 +23,8 @@
 
 <script setup>
 import HOME_CONSTANTS from "@constants/home";
+
+const defaultImg = require("../../assets/home/new-home/second-img1.png");
 const handleLearnMore = () => {
   console.log("handle learn more");
 };

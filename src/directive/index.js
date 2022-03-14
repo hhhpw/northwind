@@ -13,4 +13,25 @@ export default (app) => {
   app.directive("img-lazy-load", {
     mounted(el, binding) {},
   });
+  app.directive("image", {
+    mounted(el, binding) {
+      let placeholderImage = el.getAttribute("default-img");
+      let defaultImage = el.getAttribute("default-img");
+      let errorImage = el.getAttribute("error-img");
+
+      el.setAttribute("src", defaultImage || placeholderImage);
+
+      let realImageUrl = binding.value;
+      if (realImageUrl) {
+        utilsTools
+          .imageisExist(realImageUrl)
+          .then(() => {
+            el.setAttribute("src", realImageUrl);
+          })
+          .catch(() => {
+            el.setAttribute("src", errorImage || placeholderImage);
+          });
+      }
+    },
+  });
 };
