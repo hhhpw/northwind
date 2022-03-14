@@ -134,7 +134,7 @@ import FlySpace from "@FlyUI/FlySpace.vue";
 import FlyButton from "@FlyUI/FlyButton.vue";
 import { useStore } from "vuex";
 // import { ElDialog } from "element-plus";
-import dialogOnGoingImg from "../../assets/nft/confirm-logo.gif";
+// import dialogOnGoingImg from "//static.kikoswap.com/img/loading.webp";
 import dialogFailedImg from "../../assets/nft/dialog-error.png";
 import dialogSuccessImg from "../../assets/nft/dialog-ok.png";
 import dialogLoadingImg from "../../assets/nft/dialog-loading.png";
@@ -216,7 +216,7 @@ const setDiaglogStyle = computed(() => {
 
 const renderContentImg = (type, customImgUrl) => {
   const obj = {
-    ongoing: customImgUrl || dialogOnGoingImg,
+    ongoing: customImgUrl || "//static.kikoswap.com/img/loading.webp",
     failed: dialogFailedImg,
     success: customImgUrl || dialogSuccessImg,
   };
