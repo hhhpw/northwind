@@ -10,6 +10,11 @@
       class="gradient"
       :style="`transform: translate(${posGradient.left}px, ${posGradient.top}px)`"
     ></SvgIcon>
+
+    <!-- <template v-else class="avatarBg">
+      <SvgIcon name="beathImage" class="avatarBg-breath"></SvgIcon>
+      <SvgIcon name="gradient" class="avatarBg-gradient"></SvgIcon>
+    </template>-->
     <div class="animation" v-if="props.showSquare">
       <SvgIcon name="squareLeft" class="squareLeft"></SvgIcon>
       <SvgIcon name="squareMiddle" class="squareMiddle"></SvgIcon>
@@ -28,6 +33,10 @@ const props = defineProps({
     type: Boolean,
     default: () => false,
   },
+  // isAvatar: {
+  //   type: Boolean,
+  //   default: () => false,
+  // },
 });
 const pos = reactive({
   left: -500,
@@ -125,6 +134,22 @@ onBeforeMount(() => {
       animation: 3s ease-in-out 0.33s infinite normal none running uvIwZ;
     }
   }
+}
+
+// .avatarBg-
+.avatarBg-breath {
+  position: absolute;
+  right: -100px;
+  bottom: -200px;
+  width: 700px;
+  height: 512px;
+}
+.avatarBg-gradient {
+  position: absolute;
+  right: -400px;
+  bottom: -200px;
+  width: 1000px;
+  height: 500px;
 }
 
 @keyframes beath {

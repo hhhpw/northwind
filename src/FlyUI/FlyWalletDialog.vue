@@ -50,7 +50,7 @@
             :class="{ error: props.dialogParams.dialogStatus === 'failed' }"
             v-if="stateText"
           >
-            {{ stateText }}
+            {{ $t(stateText) }}
           </p>
         </div>
         <slot name="fly-wallet-dialog-custom-content"></slot>
@@ -102,7 +102,7 @@
             props.dialogParams.dialogStatus === 'succeed'
           "
         >
-          {{ props.dialogParams.successBtnText || "确认" }}
+          {{ $t(props.dialogParams.successBtnText) || $t("确认") }}
         </fly-button>
         <fly-button
           type="danger_ghost"
@@ -113,7 +113,7 @@
             props.dialogParams.dialogStatus === 'failed'
           "
         >
-          {{ props.dialogParams.failedBtnText || "确认" }}
+          {{ $t(props.dialogParams.failedBtnText) || $t("确认") }}
         </fly-button>
       </div>
     </ElDialog>
@@ -159,7 +159,7 @@ const stateText = computed(() => {
   let str = "";
   switch (props.dialogParams.dialogStatus) {
     case "ongoing":
-      str = props.dialogParams.dialogTex;
+      str = props.dialogParams.dialogText;
       break;
     case "succeed":
       str = props.dialogParams.successText;

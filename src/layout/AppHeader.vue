@@ -1,7 +1,7 @@
 <template>
   <div :class="$style['app-header']">
-    <div :class="$style['app-header-logo']">
-      <img src="../assets/sidebar/logo.png" @click="pushPage('/')" />
+    <div :class="$style['app-header-logo']" @click="pushPage('/')">
+      <img src="../assets/home/new-home/cat-bottom.png" alt="" />
       <span>KikoVerse</span>
     </div>
     <div :class="$style['app-header-menu']">
@@ -107,6 +107,7 @@ const isActivePath = (path) => {
   z-index: 2000;
   .app-header-logo {
     display: flex;
+    cursor: pointer;
     align-items: center;
     img {
       width: 47px;

@@ -51,7 +51,8 @@
           </div>
 
           <div class="footer">
-            <div class="flex-style">
+            <div>
+              <!-- <div class="flex-style"> -->
               <span style="margin-right: 5px; font-size: 16px; color: #fff">{{
                 $t("多节点兑换")
               }}</span>
@@ -60,6 +61,7 @@
                 svgName="f-question"
                 :svgStyle="{
                   'margin-right': '3px',
+                  'font-size': '14px',
                 }"
               >
               </fly-tool-tip>
@@ -168,6 +170,9 @@ $marginBtm: 20px;
     background-position: top;
     background-repeat: no-repeat;
     background-size: 100% auto;
+  }
+  ::v-deep(.el-radio-button__original-radio:checked + .el-radio-button__inner) {
+    box-shadow: none;
   }
   ::v-deep(.el-dialog__header) {
     padding: 30px 25px 0px;
@@ -323,8 +328,10 @@ $marginBtm: 20px;
     .switchSlippage {
       cursor: pointer;
       img {
-        width: 60px;
-        height: 35px;
+        width: 55px;
+        // height: 25px;
+        // width: 60px;
+        // height: 35px;
       }
     }
   }

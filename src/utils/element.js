@@ -15,6 +15,8 @@ import {
   ElSelect,
   ElOption,
   ElPagination,
+  ElCarousel,
+  ElCarouselItem,
 } from "element-plus";
 
 const EleUI = [
@@ -34,6 +36,8 @@ const EleUI = [
   ElSelect,
   ElOption,
   ElPagination,
+  ElCarousel,
+  ElCarouselItem,
 ];
 
 export default (app) => {
