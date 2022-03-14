@@ -182,8 +182,8 @@ const StoreLiquidity = {
     walletDialogParams: {
       ...WALLET_DIALOG_PARAMS,
       dialogText: "正在添加流动性",
-      successBtnText: "流动性添加成功",
-      failedBtnText: "流动性添加失败",
+      successText: "流动性添加成功",
+      failedText: "流动性添加失败",
     },
   },
   mutations: {
@@ -778,8 +778,8 @@ const StoreLiquidity = {
       commit(types.SET_WALLET_DIALOG_PARAMS, {
         ...WALLET_DIALOG_PARAMS,
         dialogText: "正在添加流动性",
-        successBtnText: "流动性添加成功",
-        failedBtnText: "流动性添加失败",
+        successText: "流动性添加成功",
+        failedText: "流动性添加失败",
       });
       commit(types.SET_WALLET_DIALOG_PARAMS, {
         dialogVisible: true,
@@ -850,8 +850,8 @@ const StoreLiquidity = {
       commit(types.SET_WALLET_DIALOG_PARAMS, {
         ...WALLET_DIALOG_PARAMS,
         dialogText: "正在添加流动性",
-        successBtnText: "流动性添加成功",
-        failedBtnText: "流动性添加失败",
+        successText: "流动性添加成功",
+        failedText: "流动性添加失败",
       });
       commit(types.SET_WALLET_DIALOG_PARAMS, {
         dialogVisible: true,
