@@ -1,5 +1,6 @@
 <template>
   <div class="recovery-container">
+    <FlySpecialBg></FlySpecialBg>
     <fly-nft
       class="blind-box-container"
       v-if="state.walletStatus === 'connected'"
@@ -68,7 +69,7 @@ import FlyScroll from "@FlyUI/FlyScroll.vue";
 import NftSelector from "@components/NFT/NFTSelector.vue";
 import FlyLoadingFish from "@FlyUI/FlyLoadingFish.vue";
 import NftCardItem from "@components/NFT/NFTCardItem.vue";
-
+import FlySpecialBg from "@FlyUI/FlySpecialBg.vue";
 const router = useRouter();
 const store = useStore();
 let state = reactive({

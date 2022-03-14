@@ -1,5 +1,6 @@
 <template>
   <div class="list">
+    <FlySpecialBg></FlySpecialBg>
     <fly-nft
       class="blind-box-container"
       coreType="list"
@@ -107,6 +108,7 @@ import sellRecord from "@components/NFT/Collection/sellRecord.vue";
 import purchaseRecord from "@components/NFT/Collection/purchaseRecord.vue";
 import { dialogEventMaps } from "./dialog";
 import NFT_CONSTANTS from "@constants/nft.js";
+import FlySpecialBg from "@FlyUI/FlySpecialBg.vue";
 import qs from "qs";
 const { t } = useI18n();
 const store = useStore();

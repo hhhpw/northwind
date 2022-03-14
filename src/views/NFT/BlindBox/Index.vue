@@ -1,18 +1,21 @@
 <template>
-  <fly-nft
-    class="blind-box-container"
-    coreType="list"
-    :cardStyleType="false"
-    :listTypeParams="{ minHeight: '800px' }"
-  >
-    <template #nft-list>
-      <list></list>
-      <div class="import" @click="handlePush()">
-        <svg-icon name="address" class="svg"></svg-icon>
-        <span>{{ $t("导入合约地址") }}</span>
-      </div>
-    </template>
-  </fly-nft>
+  <div class="blind-container">
+    <FlySpecialBg></FlySpecialBg>
+    <fly-nft
+      class="blind-box-container"
+      coreType="list"
+      :cardStyleType="false"
+      :listTypeParams="{ minHeight: '800px' }"
+    >
+      <template #nft-list>
+        <list></list>
+        <div class="import" @click="handlePush()">
+          <svg-icon name="address" class="svg"></svg-icon>
+          <span>{{ $t("导入合约地址") }}</span>
+        </div>
+      </template>
+    </fly-nft>
+  </div>
 </template>
 
 <style lang="scss" scoped>
@@ -50,6 +53,7 @@ import FlyNft from "@FlyUI/FlyNFT.vue";
 import list from "@components/NFT/BlindBox/list.vue";
 import { useRouter } from "vue-router";
 import SvgIcon from "@components/SvgIcon/Index.vue";
+import FlySpecialBg from "@FlyUI/FlySpecialBg.vue";
 const router = useRouter();
 
 const handlePush = () => {
