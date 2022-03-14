@@ -17,7 +17,7 @@
           </span>
           <svg-icon
             v-if="state.isShowClose"
-            name="dialog-close"
+            name="f-dialog-close"
             class="svg"
             @click.stop="handleClose"
           ></svg-icon>

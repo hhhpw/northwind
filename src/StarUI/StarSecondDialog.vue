@@ -20,7 +20,7 @@
           <slot name="star-second-dialog-header-title"></slot>
           <svg-icon
             v-if="state.isShowClose"
-            name="dialog-close"
+            name="f-dialog-close"
             class="svg"
             @click.stop="() => emits('handleClose')"
           ></svg-icon>
