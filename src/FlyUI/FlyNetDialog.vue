@@ -10,9 +10,9 @@
       :show-close="false"
     >
       <div class="fly-net-dialog-content">
-        <fly-space :size="50"></fly-space>
+        <fly-space :size="86"></fly-space>
         <img src="../assets/common/net-error.png" />
-        <fly-space :size="40"></fly-space>
+        <fly-space :size="30"></fly-space>
         <p class="fly-net-dialog-content-text">{{ $t("网络错误") }}</p>
         <p style="font-size: 14px">
           {{ $t("请切换正确的钱包网络") }}
@@ -44,6 +44,7 @@ watch(
 .fly-net-dialog {
   ::v-deep(.el-dialog) {
     border-radius: 16px;
+    height: 373px;
     background: linear-gradient(180deg, #3e3e3e 0%, #3e3e3e 0%, #252525 100%);
   }
   ::v-deep(.el-dialog__body) {

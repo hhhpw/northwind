@@ -11,45 +11,129 @@
       v-if="state.listData && state.listData.length > 0 && !state.firstLoading"
     >
       <template #content>
-        <div class="nft-blindbox-list">
+        <div
+          class="nft-blindbox-list"
+          :style="
+            state.onSellOrWillSellData.length === 0 ? 'padding-top:55px' : ''
+          "
+        >
           <div
-            v-for="(d, i) in state.listData"
+            v-for="(d, i) in state.onSellOrWillSellData"
             :key="i"
-            class="nft-blindbox-list-item"
             :set="(sellInfo = sellStatus(d.type, d.sellingTime))"
             @click="pushDetailPage(d.id)"
+            class="nft-blindbox-list-item"
           >
-            <img :src="d.seriesLogo" alt="" />
-            <div class="nft-blindbox-list-item-right">
-              <fly-space :size="15"></fly-space>
-              <p class="nft-blindbox-list-item-right-title">
-                {{ d.seriesName }}-{{ d.name }}
-              </p>
-              <fly-space :size="10"></fly-space>
+            <div
+              v-if="sellInfo.status !== 'sellout'"
+              class="nft-blindbox-content-box"
+            >
               <p
                 class="nft-blindbox-list-item-right-status"
                 :class="sellInfo.status"
               >
                 {{ $t(sellInfo.text) }}
               </p>
-              <fly-space :size="30"></fly-space>
-              <p class="nft-blindbox-list-item-right-countdown">
-                {{
-                  (state.timers &&
-                    state.timers[i] &&
-                    state.timers[i].loaded &&
-                    state.timers[i].countdown) ||
-                  ""
-                }}
+              <div class="nft-blindbox-content">
+                <div class="nft-blindbox-list-item-right">
+                  <p class="nft-blindbox-list-item-right-title">
+                    {{ d.seriesName }}-{{ d.name }}
+                  </p>
+                  <fly-space :size="32"></fly-space>
+                  <div class="nft-blindbox-list-item-right-detail">
+                    <div class="details-item-info">
+                      <p>{{ $t("售价") }}：</p>
+                      <span>
+                        {{ d.sellingPrice }}
+                        {{ utilsFormat.getTokenCurrency(d.payToken) }}
+                      </span>
+                    </div>
+                    <div class="details-item-info">
+                      <p>{{ $t("发行数量") }}：</p>
+                      <span>
+                        {{ d.seriesQuantity }}
+                      </span>
+                    </div>
+                    <div class="details-item-info">
+                      <p>{{ $t("剩余数量") }}：</p>
+                      <span>
+                        {{ d.amount }}
+                      </span>
+                    </div>
+                  </div>
+                  <fly-space :size="25"></fly-space>
+
+                  <p
+                    class="nft-blindbox-list-item-right-countdown"
+                    v-if="sellInfo.status === 'willsell'"
+                  >
+                    <span>{{ $t("发售倒计时") }}:</span>
+                    <span class="countdown">{{
+                      (state.timers &&
+                        state.timers[i] &&
+                        state.timers[i].loaded &&
+                        state.timers[i].countdown) ||
+                      ""
+                    }}</span>
+                  </p>
+                  <div
+                    v-if="sellInfo.status === 'selling'"
+                    class="buy-button actions-button"
+                    @click="pushDetailPage(d.id)"
+                  >
+                    {{ $t("购买") }}
+                  </div>
+                </div>
+                <img :src="d.seriesLogo" alt="" />
+              </div>
+            </div>
+          </div>
+          <div
+            class="nft-soldout-blindbox-item"
+            v-for="(d, i) in state.soldOutData"
+            :key="i"
+            :set="(sellInfo = sellStatus(d.type, d.sellingTime))"
+            @click="pushDetailPage(d.id)"
+          >
+            <div class="nft-soldout-content-box">
+              <p
+                v-if="i === 0"
+                class="nft-soldout-title-status"
+                :class="sellInfo.status"
+              >
+                {{ $t("往期回顾") }}
               </p>
-              <p class="nft-blindbox-list-item-right-detail">
-                <span>{{ $t("发行数量") }}：{{ d.seriesQuantity }}</span>
-                <span>{{ $t("剩余数量") }}：{{ d.amount }}</span>
-                <span
-                  >{{ $t("售价") }}：{{ d.sellingPrice }}
-                  {{ utilsFormat.getTokenCurrency(d.payToken) }}</span
-                >
-              </p>
+              <img :src="d.seriesLogo" alt="" />
+              <div class="nft-soldout-blindbox-content">
+                <p class="item-content-title">
+                  {{ d.seriesName }}-{{ d.name }}
+                </p>
+                <fly-space :size="32"></fly-space>
+                <div class="item-content-info">
+                  <div class="details-item-info">
+                    <p>{{ $t("售价") }}：</p>
+                    <span>
+                      {{ d.sellingPrice }}
+                      {{ utilsFormat.getTokenCurrency(d.payToken) }}
+                    </span>
+                  </div>
+                  <div class="details-item-info">
+                    <p>{{ $t("发行数量") }}：</p>
+                    <span>
+                      {{ d.seriesQuantity }}
+                    </span>
+                  </div>
+                  <div class="details-item-info">
+                    <p>{{ $t("剩余数量") }}：</p>
+                    <span>
+                      {{ d.amount }}
+                    </span>
+                  </div>
+                </div>
+                <p class="nft-soldout-status" :class="sellInfo.status">
+                  {{ $t(sellInfo.text) }}
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -81,6 +165,9 @@ let state = reactive({
   timers: null,
   listStatus: computed(() => store.state.StoreBlindBox.listStatus),
   firstLoading: computed(() => store.state.StoreBlindBox.firstLoading),
+  hasOnSellOrWillSell: true,
+  onSellOrWillSellData: [],
+  soldOutData: [],
 });
 
 const formateDate = (obj) => {
@@ -118,6 +205,8 @@ watch(
     state.timers.map((d) => {
       if (d.type === "willsell") {
         d.countdown = d.sellingTime;
+      } else if (d.type === "sellout") {
+        state.hasOnSellOrWillSell = false;
       } else {
         d.countdown = "";
       }
@@ -126,6 +215,21 @@ watch(
   }
 );
 
+watch(
+  () => state.listData,
+  () => {
+    let newListData = state.listData.map((d) => {
+      return {
+        ...d,
+        status: sellStatus(d.type, d.sellingTime).status,
+      };
+    });
+    state.onSellOrWillSellData = newListData.filter(
+      (d) => d.status !== "sellout"
+    );
+    state.soldOutData = newListData.filter((d) => d.status === "sellout");
+  }
+);
 onMounted(async () => {
   if (!state.listData || (state.listData && state.listData.length === 0)) {
     const data = await store.dispatch("StoreBlindBox/getOfferingList", {
@@ -136,6 +240,8 @@ onMounted(async () => {
       state.timers.map((d) => {
         if (d.type === "willsell") {
           d.countdown = d.sellingTime;
+        } else if (d.type === "sellout") {
+          state.hasOnSellOrWillSell = false;
         } else {
           d.countdown = "";
         }
@@ -163,18 +269,18 @@ const sellStatus = (type, sellingTime) =>
         if (dayjs().isAfter(sellingTime)) {
           return {
             status: "selling",
-            text: "售卖中",
+            text: "正在发售",
           };
         }
         return {
           status: "willsell",
-          text: "即将出售",
+          text: "即将发售",
         };
       }
       if (type === "selling") {
         return {
           status: "selling",
-          text: "售卖中",
+          text: "正在发售",
         };
       }
       if (type === "sellout") {
@@ -188,59 +294,142 @@ const sellStatus = (type, sellingTime) =>
 </script>
 <style lang="scss" scoped>
 @import "~@/styles/variables.scss";
-.nft-blindbox-list-item:not(:first-child) {
-  margin-top: 20px;
-}
-.nft-blindbox-list-item {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  cursor: pointer;
-  border-radius: 16px;
-  overflow: hidden;
-  background-color: #fff;
-  &:hover {
-    opacity: 0.9;
+.nft-blindbox-list {
+  margin-top: 47px;
+  position: relative;
+  .nft-blindbox-list-item-right-status {
+    font-size: 24px;
+    color: $white;
   }
-  img {
-    width: 360px;
-    height: 220px;
+  .nft-blindbox-list-item:not(:first-child) {
+    margin-top: 20px;
   }
-  .nft-blindbox-list-item-right {
-    text-align: left;
-    width: calc(100% - 400px);
-    .nft-blindbox-list-item-right-title {
-      color: $text-brown-color;
-      font-size: 32px;
-      font-weight: 600;
+  .nft-blindbox-list-item {
+    width: 100%;
+    cursor: pointer;
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 72px;
+    &:hover {
+      opacity: 0.9;
     }
-    .nft-blindbox-list-item-right-status {
-      font-size: 20px;
-      &.willsell {
-        color: $text-green-color;
-      }
-      &.selling {
-        color: $text-orange-color;
-      }
-      &.sellout {
-        color: $text-gray4-color;
-      }
+    .nft-blindbox-content-box {
+      position: relative;
     }
+    .nft-blindbox-content {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      margin-top: 24px;
+    }
+    img {
+      width: 600px;
+      height: 326px;
+      border-radius: 16px;
+    }
+    .nft-blindbox-list-item-right {
+      text-align: left;
+      width: calc(100% - 672px);
+      height: 243px;
+      background: linear-gradient(180deg, #3e3e3e 0%, #3e3e3e 0%, #252525 100%);
+      position: relative;
+      top: 16px;
+      border-top-left-radius: 16px;
+      border-bottom-left-radius: 16px;
+      padding-left: 73px;
+      padding-top: 51px;
+      .nft-blindbox-list-item-right-title {
+        color: $white;
+        font-size: 32px;
+        font-weight: 600;
+      }
+      .nft-blindbox-list-item-right-detail {
+        display: flex;
+        color: $white;
+        font-size: 14px;
+        justify-content: space-between;
 
-    .nft-blindbox-list-item-right-countdown,
-    .nft-blindbox-list-item-right-detail {
-      color: $text-brown-color;
-      font-size: 14px;
-    }
-    .nft-blindbox-list-item-right-countdown {
-      font-size: 24px;
-      height: 33px;
-    }
-    .nft-blindbox-list-item-right-detail {
-      // margin-top: 33px;
-      span + span {
-        margin-left: 20px;
+        .details-item-info {
+          flex: 1;
+          span {
+            font-size: 20px;
+          }
+        }
       }
+      .nft-blindbox-list-item-right-countdown {
+        font-size: 24px;
+        color: $white;
+        span {
+          font-size: 14px;
+          display: block;
+        }
+        .countdown {
+          font-size: 18px;
+        }
+      }
+      .buy-button {
+        width: 217px;
+        color: $white;
+        padding: 10px 0;
+        background: linear-gradient(256deg, #fdd300 0%, #fba800 100%);
+        box-shadow: 0px 12px 15px 0px rgba(253, 168, 0, 0.39);
+        border-radius: 16px;
+        text-align: center;
+      }
+    }
+  }
+  .nft-soldout-blindbox-item {
+    width: 368px;
+    height: 445px;
+    float: left;
+    margin-right: 47px;
+    background: linear-gradient(180deg, #3e3e3e 0%, #3e3e3e 0%, #252525 100%);
+    border-radius: 16px;
+    margin-bottom: 40px;
+    &:nth-child(3n) {
+      margin-right: 0;
+    }
+    img {
+      width: 368px;
+      height: 200px;
+      border-top-left-radius: 16px;
+      border-top-right-radius: 16px;
+    }
+    .nft-soldout-title-status {
+      position: absolute;
+      color: $white;
+      top: 0;
+      font-size: 24px;
+    }
+    .item-content-title {
+      color: $white;
+      font-size: 20px;
+      text-indent: 30px;
+      margin-top: 18px;
+    }
+    .item-content-info {
+      width: 309px;
+      display: flex;
+      color: $white;
+      justify-content: space-between;
+      margin: 0 30px;
+      padding-bottom: 30px;
+      .details-item-info {
+        flex: 1;
+        p {
+          font-size: 14px;
+        }
+        span {
+          font-size: 18px;
+        }
+      }
+      border-bottom: 2px solid rgba(255, 255, 255, 0.14);
+    }
+    .nft-soldout-status {
+      text-align: center;
+      font-size: 20px;
+      color: $white;
+      margin-top: 20px;
     }
   }
 }

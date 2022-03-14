@@ -155,7 +155,7 @@ const emits = defineEmits(["handleClose", "handleConfirm"]);
       }
       .nft-dialog-content-core-text {
         font-size: 20px;
-        color: $text-black-color;
+        color: #fba800;
         font-weight: 600;
       }
       .nft-dialog-content-core-subtext {
