@@ -107,6 +107,7 @@ const isActivePath = (path) => {
   z-index: 2000;
   .app-header-logo {
     display: flex;
+    cursor: pointer;
     align-items: center;
     img {
       width: 47px;
