@@ -9,12 +9,14 @@
           Starcoin here
         </p>
       </div>
-      <img src="../../assets/home/new-home/five-cat.png" alt="" />
+      <img :src="HOME_CONSTANTS.LIQUIDITY_CAT" alt="" />
     </div>
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import HOME_CONSTANTS from "@constants/home";
+</script>
 <style lang="scss" scoped>
 .wrap {
   width: 100%;
@@ -47,6 +49,9 @@
         color: #feffff;
         line-height: 20px;
       }
+    }
+    & > img {
+      width: 70%;
     }
   }
 }

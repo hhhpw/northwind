@@ -24,7 +24,7 @@ watchEffect(() => {
 .app-main-home {
   width: 100%;
   height: calc(100vh - 74px);
-  margin-top: 74px;
+  padding-top: 74px;
 }
 .app-main {
   margin: 0 auto;

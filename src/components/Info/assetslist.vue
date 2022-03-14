@@ -88,12 +88,12 @@
           ]"
         ></fly-pagination> -->
         <pagination
-          @pageEvent="pageEvent"
-          :disabled="[
-            state.queryParams.pageNum === 1,
-            state.queryParams.hasNext,
-          ]"
+          :total="state.assetsList.length"
           :assetsList="state.assetsList"
+          v-model:currentPage="currentPage"
+          @current-change="handleCurrentChange"
+          @prev-click="pageEvent({ type: 'prev', currentPage: currentPage })"
+          @next-click="pageEvent({ type: 'next', currentPage: currentPage })"
         ></pagination>
       </div>
     </div>
@@ -103,7 +103,7 @@
   </div>
 </template>
 <script setup>
-import { computed, onMounted, reactive } from "vue";
+import { computed, onMounted, reactive, ref } from "vue";
 import FlySpace from "@FlyUI/FlySpace.vue";
 // import FlyPagination from "@FlyUI/FlyPagination.vue";
 import Pagination from "@FlyUI/Pagination.vue";
@@ -121,12 +121,17 @@ onMounted(() => {
   store.dispatch("StoreInfo/getAssetsList", { type: "init", currentPage: 1 });
 });
 
+let currentPage = ref(1);
+
 const pageEvent = (args) => {
-  console.log("args:====", args);
   store.dispatch("StoreInfo/getAssetsList", {
     type: args.type,
     currentPage: args.currentPage,
   });
+};
+
+const handleCurrentChange = (val) => {
+  pageEvent({ type: "current", currentPage: val });
 };
 </script>
 <style lang="scss" module>

@@ -2,7 +2,7 @@
 <template>
   <div class="wrap">
     <div class="content">
-      <img src="../../assets/home/new-home/four-cat.png" alt="" />
+      <img :src="HOME_CONSTANTS.PHOTO_CAT" alt="" />
       <div class="desc-wrap">
         <p>NFT Market</p>
         <p>
@@ -11,10 +11,13 @@
         </p>
       </div>
     </div>
+    <div class="bg"></div>
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import HOME_CONSTANTS from "@constants/home";
+</script>
 <style lang="scss" scoped>
 .wrap {
   width: 100%;
@@ -22,6 +25,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
   .content {
     width: 70%;
     height: 60%;
@@ -48,6 +52,19 @@
         line-height: 20px;
       }
     }
+    & > img {
+      width: 70%;
+    }
+  }
+  .bg {
+    position: absolute;
+    left: 0;
+    top: 40%;
+    width: 30%;
+    height: 60%;
+    background: linear-gradient(166deg, #de7d00 0%, #feca4a 100%);
+    opacity: 0.43;
+    filter: blur(138px);
   }
 }
 </style>

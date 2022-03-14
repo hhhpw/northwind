@@ -8,6 +8,7 @@
         src="../../assets/home/new-home/six-quare.png"
         alt=""
       />
+      <div class="bg"></div>
     </div>
   </div>
 </template>
@@ -35,10 +36,19 @@
   }
   .quare {
     width: 30% !important;
-    height: 40%;
     position: absolute;
-    right: -6%;
-    top: 2%;
+    right: -7%;
+    top: -6%;
+  }
+  .bg {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 30%;
+    height: 40%;
+    background: linear-gradient(166deg, #de7d00 0%, #feca4a 100%);
+    opacity: 0.63;
+    filter: blur(138px);
   }
 }
 </style>

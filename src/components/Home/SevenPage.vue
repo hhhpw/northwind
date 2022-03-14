@@ -1,8 +1,28 @@
 <!-- seven screen page -->
 <template>
   <div class="seven-wrap">
-    <img class="bg" src="../../assets/home/new-home/seven-img.png" alt="" />
+    <div class="bg-wrap">
+      <img class="bg" src="../../assets/home/new-home/seven-img.png" alt="" />
+      <div class="data-wrap">
+        <ul>
+          <li v-for="(item, index) in state.dataSource" :key="index">
+            <fly-amount
+              :value="item.value"
+              :displayPreFix="index !== 2 ? '$' : ''"
+              :formatOptions="{
+                precision: 2,
+                compact: true,
+                grouped: true,
+                trailingZero: false,
+              }"
+            ></fly-amount>
+            <p>{{ $t(item.desc) }}</p>
+          </li>
+        </ul>
+      </div>
+    </div>
     <img class="coin" src="../../assets/home/new-home/seven-coin.png" alt="" />
+    <div class="shadow"></div>
     <div class="bottom-wrap">
       <div class="bottom-content">
         <div class="bottom-left">
@@ -26,24 +46,15 @@
         </div>
       </div>
     </div>
-    <div class="data-wrap">
-      <ul>
-        <li v-for="(item, index) in state.dataList" :key="index">
-          <div>
-            <span>$</span>
-            <span>{{ item.count }}</span>
-          </div>
-          <span class="desc">{{ item.text }}</span>
-        </li>
-      </ul>
-    </div>
   </div>
 </template>
 
 <script setup>
-import { computed, reactive } from "vue";
+import { computed, reactive, onMounted } from "vue";
 import { useStore } from "vuex";
 import utilsTool from "@utils/tool.js";
+import FlyAmount from "@FlyUI/FlyAmount";
+import commonApi from "@api/common";
 const store = useStore();
 
 let state = reactive({
@@ -70,21 +81,25 @@ let state = reactive({
       url: "https://discord.com/invite/45pPRYMMjk",
     },
   ],
-  dataList: [
-    {
-      count: "123,456",
-      text: "Total Value Locked",
-    },
-    {
-      count: "123,456",
-      text: "Total Trading",
-    },
-    {
-      count: "123,456",
-      text: "VolumeHolders",
-    },
-  ],
   currLang: computed(() => store.state.StoreApp.currLang),
+  dataSource: [],
+});
+
+onMounted(async () => {
+  const res = await commonApi.getVolumeData();
+  console.log("res:====", res);
+  if (res.code === 200) {
+    let data = Object.entries(res.data);
+    data = data.map((d, i) => {
+      return {
+        value: d[1],
+        desc:
+          i === 0 ? "总锁仓量" : i === 1 ? "总交易量" : i === 2 ? "用户数" : "",
+      };
+    });
+    state.dataSource = data;
+    console.log("dataSource:====", state.dataSource);
+  }
 });
 
 const pushPage = (item) => {
@@ -103,22 +118,69 @@ const pushPage = (item) => {
   flex-direction: column;
   align-items: center;
   position: relative;
-  .bg {
-    width: 60%;
-    height: 100%;
+  .bg-wrap {
+    width: 100%;
+    height: 72%;
+    position: relative;
+    .bg {
+      height: 70%;
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .data-wrap {
+      width: 100%;
+      position: absolute;
+      left: 50%;
+      top: 55%;
+      transform: translateX(-50%);
+      z-index: 11;
+      display: flex;
+      justify-content: center;
+      ul {
+        display: flex;
+        width: 60%;
+        justify-content: space-between;
+        li {
+          list-style-type: none;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          & > div {
+            font-size: 32px;
+            font-family: Denmark;
+            color: #ffffff;
+            line-height: 37px;
+            span:last-child {
+              margin-left: 4px;
+            }
+          }
+          span {
+            font-size: 32px;
+            font-family: DenmarkRegular;
+            color: #ffffff;
+            line-height: 37px;
+          }
+          p {
+            margin-top: 12px;
+            font-size: 14px;
+            font-family: DenmarkRegular;
+            color: #ffffff;
+            line-height: 16px;
+          }
+        }
+      }
+    }
   }
   .coin {
-    width: 474px;
-    height: 400px;
+    width: 30%;
     position: absolute;
-    top: 10%;
+    top: 0;
     left: 50%;
     transform: translateX(-50%);
   }
   .bottom-wrap {
-    position: absolute;
-    left: 0;
-    bottom: 0;
     width: 100%;
     height: 28%;
     background: #232323;
@@ -185,38 +247,16 @@ const pushPage = (item) => {
       }
     }
   }
-  .data-wrap {
+
+  .shadow {
     position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    ul {
-      display: flex;
-      width: 906px;
-      justify-content: space-between;
-      li {
-        list-style-type: none;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        & > div {
-          font-size: 32px;
-          font-family: Denmark;
-          color: #ffffff;
-          line-height: 37px;
-          span:last-child {
-            margin-left: 4px;
-          }
-        }
-        & > span {
-          margin-top: 12px;
-          font-size: 14px;
-          font-family: Denmark;
-          color: #ffffff;
-          line-height: 16px;
-        }
-      }
-    }
+    left: 0;
+    bottom: 10%;
+    width: 30%;
+    height: 40%;
+    background: linear-gradient(166deg, #de7d00 0%, #feca4a 100%);
+    opacity: 0.43;
+    filter: blur(138px);
   }
 }
 </style>

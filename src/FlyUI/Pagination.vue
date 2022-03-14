@@ -6,7 +6,7 @@
     <ElPagination
       background
       hide-on-single-page
-      :page-size="20"
+      :page-size="10"
       layout="prev, pager, next"
       :prev-text="$t('上一页')"
       :next-text="$t('下一页')"

@@ -30,9 +30,9 @@ const handleGoSwap = () => {
   position: relative;
   .content-wrap {
     width: 70%;
-    height: 60%;
+    height: 80%;
     position: absolute;
-    top: 24%;
+    top: 10%;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -75,7 +75,8 @@ const handleGoSwap = () => {
       }
     }
     img {
-      height: 80%;
+      height: 100%;
+      margin-right: -10%;
     }
   }
 }

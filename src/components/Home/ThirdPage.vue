@@ -11,6 +11,7 @@
       </div>
       <img :src="HOME_CONSTANTS.THIRD_CAT" alt="" />
     </div>
+    <div class="bg"></div>
   </div>
 </template>
 
@@ -24,6 +25,7 @@ import HOME_CONSTANTS from "@constants/home";
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
   .content {
     width: 70%;
     height: 60%;
@@ -50,6 +52,19 @@ import HOME_CONSTANTS from "@constants/home";
         line-height: 20px;
       }
     }
+    & > img {
+      width: 70%;
+    }
+  }
+  .bg {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 30%;
+    height: 40%;
+    background: linear-gradient(166deg, #de7d00 0%, #feca4a 100%);
+    opacity: 0.43;
+    filter: blur(138px);
   }
 }
 </style>
