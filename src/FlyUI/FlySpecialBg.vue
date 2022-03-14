@@ -141,17 +141,17 @@ onBeforeMount(() => {
 // .avatarBg-
 .avatarBg-breath {
   position: absolute;
-  right: 0px;
-  bottom: 0px;
-  width: 1000px;
+  right: -100px;
+  bottom: -200px;
+  width: 700px;
   height: 512px;
 }
 .avatarBg-gradient {
   position: absolute;
-  right: 0px;
-  bottom: 0px;
-  width: 2225px;
-  height: 2020px;
+  right: -400px;
+  bottom: -200px;
+  width: 1000px;
+  height: 500px;
 }
 
 @keyframes beath {
