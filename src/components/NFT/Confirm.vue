@@ -13,7 +13,7 @@
             v-if="props.cType === 'secondConfirm' || props.cType === 'fallback'"
           />
           <img
-            src="../../assets/nft/confirm-logo.gif"
+            src="//static.kikoswap.com/img/loading.webp"
             v-if="props.cType === 'loading'"
             class="loading-img"
           />
