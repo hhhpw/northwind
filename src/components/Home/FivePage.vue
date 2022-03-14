@@ -9,13 +9,18 @@
           Starcoin here
         </p>
       </div>
-      <img :src="HOME_CONSTANTS.LIQUIDITY_CAT" alt="" />
+      <img
+        v-image="HOME_CONSTANTS.LIQUIDITY_CAT"
+        :default-img="defaultImg"
+        alt=""
+      />
     </div>
   </div>
 </template>
 
 <script setup>
 import HOME_CONSTANTS from "@constants/home";
+const defaultImg = require("../../assets/home/new-home/five-cat.png");
 </script>
 <style lang="scss" scoped>
 .wrap {

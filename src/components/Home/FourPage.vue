@@ -2,7 +2,11 @@
 <template>
   <div class="wrap">
     <div class="content">
-      <img :src="HOME_CONSTANTS.PHOTO_CAT" alt="" />
+      <img
+        v-image="HOME_CONSTANTS.PHOTO_CAT"
+        :default-img="defaultImg"
+        alt=""
+      />
       <div class="desc-wrap">
         <p>NFT Market</p>
         <p>
@@ -17,6 +21,7 @@
 
 <script setup>
 import HOME_CONSTANTS from "@constants/home";
+const defaultImg = require("../../assets/home/new-home/four-cat.png");
 </script>
 <style lang="scss" scoped>
 .wrap {

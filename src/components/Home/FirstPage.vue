@@ -7,7 +7,12 @@
         <span>Swap，earn and win crypto on a safe and creative multiverse</span>
         <div @click="handleGoSwap">Swap Now</div>
       </div>
-      <img :src="HOME_CONSTANTS.PLUTUS_CAT" alt="" />
+      <!-- <img :src="HOME_CONSTANTS.PLUTUS_CAT" alt="" /> -->
+      <img
+        v-image="HOME_CONSTANTS.PLUTUS_CAT"
+        :default-img="defaultImg"
+        alt=""
+      />
     </div>
   </div>
 </template>
@@ -15,6 +20,8 @@
 <script setup>
 import { useRouter } from "vue-router";
 import HOME_CONSTANTS from "@constants/home";
+const defaultImg = require("../../assets/home/new-home/cat.png");
+
 const router = useRouter();
 const handleGoSwap = () => {
   router.push("/swap");

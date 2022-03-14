@@ -123,7 +123,7 @@ const pushPage = (item) => {
     height: 72%;
     position: relative;
     .bg {
-      height: 70%;
+      height: 90%;
       position: absolute;
       bottom: 0;
       left: 50%;
