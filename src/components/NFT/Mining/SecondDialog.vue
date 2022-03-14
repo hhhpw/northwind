@@ -5,6 +5,7 @@
       @handleClose="state.secondDialogParams?.handleClose"
       @handleConfirm="state.secondDialogParams?.handleConfirm"
       @handleCancel="state.secondDialogParams?.handleCancel"
+      class="mining-dialog-box"
     >
       <template #custom-content>
         <div class="mining-second-dialog-content">
@@ -78,13 +79,21 @@ let state = reactive({
 const store = useStore();
 </script>
 <style lang="scss" scoped>
+.mining-second-dialog {
+}
+.mining-dialog-box {
+  ::v-deep(.el-dialog .fly-dialog-el) {
+    height: 373px !important;
+  }
+}
 .mining-second-dialog-content {
   text-align: center;
   user-select: none;
+
   .mining-second-dialog-content-title {
     font-size: 20px;
     font-weight: 600;
-    color: #010e22;
+    color: $white;
   }
   .mining-second-dialog-content-error {
     font-size: 16px;
@@ -127,9 +136,9 @@ const store = useStore();
   }
 }
 .mining-second-dialog-nftname {
-  margin-top: 10px;
+  margin-top: 16px;
   font-size: 20px;
   font-weight: 600;
-  color: #000928;
+  color: #fba800;
 }
 </style>

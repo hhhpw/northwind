@@ -32,7 +32,7 @@ export default {
         },
         [
           h("img", {
-            src: CONSTANTS_NFT.LOADING_FISH,
+            src: CONSTANTS_NFT.LOADING,
             style: {
               width: "130px",
             },

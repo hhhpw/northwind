@@ -70,7 +70,7 @@ onUnmounted(() => {
   .main {
     display: flex;
     margin-top: 30px;
-    background: #000000;
+    // background: rgba(0, 0, 0, 0.5);
   }
 }
 </style>

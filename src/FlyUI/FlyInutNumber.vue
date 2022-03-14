@@ -77,8 +77,8 @@ const inputEvent = (e) => {
     background: transparent;
     color: $text-orange-color;
     border: none;
-    height: var(--height);
-    line-height: var(--height);
+    height: 88px;
+    line-height: 88px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -95,16 +95,16 @@ const inputEvent = (e) => {
     border-radius: none;
     background: transparent;
     border: none;
-    color: $text-orange-color;
-    height: var(--height);
-    line-height: var(--height);
+    color: #fba800;
+    width: 23px;
+    height: 88px;
+    line-height: 88px;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-right: 10px;
     &:hover {
       border: none;
-      opacity: 0.7;
     }
     .el-icon-plus {
       font-size: 23px;
@@ -112,17 +112,14 @@ const inputEvent = (e) => {
   }
   ::v-deep(.el-input__inner) {
     width: 100%;
-    height: var(--height);
-    border: 1px solid #ededed;
+    height: 88px;
     padding: 0px;
     font-size: 24px;
     font-weight: bold;
-    border-radius: var(--radius);
-    color: #000;
-    &:focus {
-      border: 1px solid #ededed;
-      // color: transparent;
-    }
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.1);
   }
 }
 </style>

@@ -63,7 +63,11 @@ const changeProperty = (d, i) => {
   .property-item {
     width: 100%;
     height: 40px;
-    background: linear-gradient(90deg, #3e3e3e 0%, #111111 100%);
+    background: linear-gradient(
+      90deg,
+      rgba(62, 62, 62, 1) 0%,
+      rgba(62, 62, 62, 0.3) 100%
+    );
     cursor: pointer;
     padding-left: 30px;
     color: rgba(255, 255, 255, 0.5);

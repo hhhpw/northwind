@@ -67,7 +67,7 @@ const NFT_ERROR_CODES = [
   { code: 200013, msg: "PRICE_TOO_LOW" },
 ];
 
-const LOADING_FISH = "https://static.kikoswap.com/img/fish_1Gzcr.webp";
+const LOADING = "https://static.kikoswap.com/img/loading.webp";
 
 export default {
   INIT_DIALOG_PARAMS,
@@ -75,7 +75,7 @@ export default {
   NFT_GAS_FEE,
   INIT_SOLD_DIALOG_PARAMS,
   NFT_ERROR_CODES,
-  LOADING_FISH,
+  LOADING,
   BID_PRICE_DIALOD_PARAMS,
   NFT_TYPES,
 };

@@ -123,7 +123,7 @@ const state = reactive({
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: rgba(0, 0, 0, 0.4);
+    // background: rgba(0,s 0, 0, 0.4);
     .create-btn {
       width: 426px;
       padding: 0px;

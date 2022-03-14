@@ -50,7 +50,6 @@
               <p>{{ t("即将到来") }}： {{ state.sellingTime }}</p>
             </fly-button>
             <fly-button
-              type="dark"
               class="nft-blindbox-core-header-right-button"
               @click="changeBuyModalStatus(true)"
               v-if="
@@ -100,6 +99,7 @@
       :dialogVisible="state.isShowBuyModal"
       class="nft-blindbox-core-buy-dialog"
       :isCustomContent="true"
+      :width="440"
       @handleClose="changeBuyModalStatus(false)"
       @handleSuccess="handleDialog('success')"
       @handleFailed="handleDialog('failed')"
@@ -116,6 +116,7 @@
           <Fly-space :size="10"></Fly-space>
           <fly-input-number
             width="100%"
+            class="fly-input-number"
             :value="state.inputVal"
             @inputEvent="inputEvent"
           ></fly-input-number>
@@ -136,10 +137,10 @@
       </template>
       <template #footer>
         <div class="nft-blindbox-core-buy-dialog-footer">
-          <fly-button type="light" @click="changeBuyModalStatus(false)">
+          <fly-button type="cancel" @click="changeBuyModalStatus(false)">
             {{ t("取消") }}
           </fly-button>
-          <fly-button type="dark" @click="buyBlindBox">
+          <fly-button @click="buyBlindBox">
             {{ t("确认") }}
           </fly-button>
         </div>
@@ -474,9 +475,30 @@ onUnmounted(() => {
   }
 }
 .nft-blindbox-core-buy-dialog {
+  ::v-deep(.fly-dialog-el) {
+    width: 440px;
+    height: 347px;
+    background: linear-gradient(180deg, #454545 0%, #2d2d2d 100%);
+    color: $white;
+  }
+  ::v-deep(.el-dialog__header) {
+    padding: 32px 25px 24px 27px !important;
+  }
+  .nft-blindbox-core-buy-dialog-content {
+    .fly-input-number {
+      :v-deep(.el-input__inner) {
+        background: rgba(255, 255, 255, 0.1) !important;
+        color: $white;
+      }
+    }
+  }
+
   .nft-blindbox-core-buy-dialog-content-details {
-    display: flex;
-    justify-content: space-between;
+    text-align: right;
+    span {
+      display: block;
+    }
+    color: $white;
   }
   .nft-blindbox-core-buy-dialog-content-errors {
     margin-top: 3px;

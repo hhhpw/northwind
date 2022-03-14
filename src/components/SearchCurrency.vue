@@ -117,6 +117,8 @@ const handleSelect = (item) => {
     padding: 14px 0 32px;
   }
   .search {
+    max-height: 450px;
+    overflow-y: scroll;
     .input-box {
       margin-bottom: 20px;
       padding: 0 28px;
@@ -132,7 +134,7 @@ const handleSelect = (item) => {
       // border-color: #ededed;
       font-size: 16px;
       font-weight: bold;
-      color: #000;
+      color: #fff;
     }
     .item {
       width: 100%;

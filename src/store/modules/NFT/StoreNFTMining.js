@@ -400,8 +400,8 @@ const StoreNFTMining = {
       commit(types.SET_SECOND_DIALOG_PARAMS, {
         imgParams: {
           url: payload.imageLink,
-          width: "180px",
-          height: "180px",
+          width: "130px",
+          height: "130px",
         },
         dialogVisible: true,
         confirmText: utilsFormat.computedLangCtx("确认"),

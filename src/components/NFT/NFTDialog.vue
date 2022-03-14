@@ -288,6 +288,7 @@ const handleClose = () => {
 
 .nft-dialog {
   ::v-deep(.el-dialog) {
+    background: linear-gradient(180deg, #3e3e3e 0%, #3e3e3e 0%, #252525 100%);
     border-radius: 34px;
     .el-dialog__headerbtn:focus .el-dialog__close,
     .el-dialog__headerbtn:hover .el-dialog__close {
@@ -324,7 +325,7 @@ const handleClose = () => {
       }
       .nft-dialog-content-core-text {
         font-size: 20px;
-        color: $text-black-color;
+        color: $white;
         font-weight: 600;
       }
     }
@@ -332,7 +333,7 @@ const handleClose = () => {
   .nft-dialog-content-feedback {
     width: 323px;
     height: 109px;
-    background: #fafafa;
+    background: rgba(175, 138, 51, 0.07);
     border-radius: 16px;
     margin: 0 auto;
     margin-top: 20px;
@@ -344,10 +345,10 @@ const handleClose = () => {
       display: flex;
       align-items: center;
       justify-content: flex-start;
-      color: #000928;
+      color: $white;
       overflow: hidden;
       &.loading-div {
-        color: #8b8b8b;
+        color: $white;
       }
       img {
         width: 14px;

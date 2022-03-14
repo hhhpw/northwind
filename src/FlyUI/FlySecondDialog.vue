@@ -49,7 +49,7 @@
         <fly-button
           @click="emits('handleConfirm')"
           class="fly-second-dialog-footer-button"
-          type="green"
+          type="cancel"
           :style="{ width: isSingleBtn ? '35%' : '80%' }"
           v-if="props.dialogParams.confirmText"
         >
@@ -113,16 +113,19 @@ const emits = defineEmits(["handleClose", "handleCancel", "handleConfirm"]);
 
 .fly-second-dialog {
   ::v-deep(.el-dialog) {
-    border-radius: 34px;
+    background: linear-gradient(180deg, #3e3e3e 0%, #3e3e3e 0%, #252525 100%);
+    border-radius: 16px;
     .el-dialog__headerbtn:focus .el-dialog__close,
     .el-dialog__headerbtn:hover .el-dialog__close {
       color: $btn-orange-bgcolor;
     }
   }
   ::v-deep(.el-dialog__body) {
-    padding-top: 5px !important;
+    padding-top: 0px !important;
   }
+
   .fly-dialog-el {
+    background: linear-gradient(180deg, #454545 0%, #2d2d2d 100%) !important;
     ::v-deep(.el-dialog__header) {
       text-align: left !important;
     }
@@ -160,14 +163,14 @@ const emits = defineEmits(["handleClose", "handleCancel", "handleConfirm"]);
   }
 
   .fly-second-dialog-footer {
-    width: 90%;
-    margin-top: 20px;
-    margin-left: 5%;
+    width: 100%;
+    margin-top: 41px;
     display: flex;
     justify-content: space-around;
     .fly-second-dialog-footer-button {
       user-select: none;
-      padding: 15px 15px;
+      padding: 0;
+      height: 59px;
       width: 35%;
       font-size: 16px;
       border-radius: 12px;
