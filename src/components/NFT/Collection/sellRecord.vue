@@ -43,11 +43,10 @@ let state = reactive({
 
 const emits = defineEmits(["pushMarket", "watchDetail"]);
 
-const handlePageChange = (direction) => {
+const handlePageChange = (val) => {
   store.dispatch("StoreCollection/getSalesHistory", {
     address: state.UserAddress[0],
-    direction,
-    type: "click",
+    pageNum: val.currentPage,
   });
 };
 </script>
