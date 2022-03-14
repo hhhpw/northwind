@@ -114,7 +114,7 @@ watchEffect(() => {
   margin-top: 70px;
   color: #ffffff;
   .detail-specific-info-container {
-    margin-top: 16px;
+    margin-top: 32px;
     font-size: 14px;
     font-weight: 500;
     .specific-history {

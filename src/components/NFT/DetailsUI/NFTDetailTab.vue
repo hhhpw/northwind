@@ -47,11 +47,10 @@ const selectCrossTab = (id) => {
     .bottom-line {
       display: inline-block;
       width: 100%;
-      height: 4px;
-      background: #fb8000;
-      border-radius: 4px;
+      height: 2px;
+      background: #fff;
       position: absolute;
-      bottom: -4px;
+      bottom: -6px;
       left: 0%;
     }
     .selected_tab {

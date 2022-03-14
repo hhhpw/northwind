@@ -43,7 +43,6 @@ import FlySpace from "@FlyUI/FlySpace.vue";
 .swap-container {
   justify-self: center;
   align-self: center;
-  display: flex;
   margin-top: -200px;
   .swap-container-btnwarp {
     display: flex;

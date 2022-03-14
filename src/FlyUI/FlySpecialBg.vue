@@ -49,6 +49,12 @@ const debouMove = debounce((e) => {
 }, 2000);
 onMounted(() => {
   document.addEventListener("mousemove", debouMove);
+
+  pos.left = document.documentElement.clientWidth - 500;
+  pos.top = document.documentElement.clientHeight - 256;
+
+  posGradient.left = document.documentElement.clientWidth - 1112;
+  posGradient.top = document.documentElement.clientHeight - 1010;
 });
 onBeforeMount(() => {
   document.removeEventListener("mousemove", debouMove);

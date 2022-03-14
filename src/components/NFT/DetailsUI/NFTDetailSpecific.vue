@@ -9,7 +9,10 @@
       <span class="title">{{ $t("得分排名") }}</span>
       <span>({{ props.box_detail?.seriesName }})</span>
       <br />
-      <span class="value">{{ rarevalue_total_rank }}</span>
+      <span class="value">
+        <span class="origin">{{ props.box_detail?.rank }}</span
+        >/{{ props.box_detail?.quantity }}</span
+      >
     </div>
   </div>
   <div class="rarevalue-table">
@@ -76,10 +79,6 @@ watchEffect(() => {
 const rarevalue_total_score = computed(() => {
   return props.box_detail.score;
 });
-// 稀有值排名
-const rarevalue_total_rank = computed(() => {
-  return `${props.box_detail?.rank}/${props.box_detail?.quantity}`;
-});
 </script>
 <style lang="scss" scoped>
 .specific-rarevalue {
@@ -87,12 +86,25 @@ const rarevalue_total_rank = computed(() => {
     display: flex;
     margin-bottom: 16px;
     .total-score {
-      margin-right: 72px;
+      margin-right: 20px;
+      padding: 14px 20px;
+      width: 250px;
+      border-radius: 8px;
+      background: rgba(250, 250, 250, 0.2);
     }
     .value {
       margin-top: 6px;
       font-size: 24px;
       font-weight: bold;
+      .origin {
+        color: rgba(251, 168, 0, 1);
+      }
+    }
+    .total-ranking {
+      padding: 14px 20px;
+      width: 250px;
+      border-radius: 8px;
+      background: rgba(250, 250, 250, 0.2);
     }
   }
   .rarevalue-table {
@@ -100,7 +112,7 @@ const rarevalue_total_rank = computed(() => {
     .rarevalue-table-item {
       height: 48px;
       line-height: 48px;
-      box-shadow: 0px 0.5px 0px 0px #391b0f;
+      box-shadow: 0px 0.5px 0px 0px #2e2e2e;
       display: flex;
       justify-content: space-between;
       span {
