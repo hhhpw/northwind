@@ -84,9 +84,6 @@ const handleClose = () => {
     padding-top: 24px;
     padding-bottom: 0;
   }
-  ::v-deep(.el-dialog) {
-    width: 470px !important;
-  }
   ::v-deep(.el-dialog__body) {
     padding: 0 24px 20px;
   }

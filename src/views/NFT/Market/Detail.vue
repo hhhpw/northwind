@@ -51,7 +51,7 @@
               :max="999999999"
             ></fly-input-number>
             <fly-space :size="10"></fly-space>
-            <div style="text-align: right">
+            <div style="text-align: right; color: #fff" class="wallet-account">
               {{ t("钱包余额") + " : " + userAmount }}
               STC
             </div>
@@ -72,14 +72,8 @@
         <template #footer>
           <fly-button
             @click="bidPrice"
-            type="dark"
-            style="
-              width: 100%;
-              padding-left: 0px;
-              padding-right: 0px;
-              font-size: 14px;
-            "
-            >{{ $t("出价") }}</fly-button
+            style="width: 100%; height: 59px; padding: 0; font-size: 14px"
+            >{{ $t("确认") }}</fly-button
           >
         </template>
       </Fly-confirm>
@@ -129,12 +123,7 @@
           <fly-button
             @click="changeBidPrice"
             type="dark"
-            style="
-              width: 100%;
-              padding-left: 0px;
-              padding-right: 0px;
-              font-size: 14px;
-            "
+            style="width: 100%; padding: 0; font-size: 14px"
             >{{ $t("确认") }}</fly-button
           >
         </template>
@@ -635,7 +624,17 @@ const handleSoldOutFunc = () => {
   text-align: right;
   margin-top: 3px;
   font-size: 12px;
-  text-align: right;
   color: #f36346;
+}
+.quotation-confirm {
+  ::v-deep(.el-dialog) {
+    width: 440px;
+    height: 363px;
+    background: linear-gradient(180deg, #3e3e3e 0%, #3e3e3e 0%, #252525 100%);
+    color: $white;
+  }
+  .hight-price-box {
+    color: $white;
+  }
 }
 </style>

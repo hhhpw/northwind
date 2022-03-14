@@ -375,8 +375,7 @@ const StoreCollection = {
                       customImgUrl: nftInfo.data.imageLink, //
                       dialogStatus: "success",
                       dialogText: "",
-                      successBtnText:
-                        utilsFormat.computedLangCtx("去我的NFT查看"),
+                      successBtnText: utilsFormat.computedLangCtx("查看"),
                       isBlindBox: false,
                     });
                   }, 500);

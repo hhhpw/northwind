@@ -325,7 +325,7 @@ const handleClose = () => {
       }
       .nft-dialog-content-core-text {
         font-size: 20px;
-        color: #fba800;
+        color: $white;
         font-weight: 600;
       }
     }

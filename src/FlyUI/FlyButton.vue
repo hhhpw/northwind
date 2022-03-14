@@ -57,4 +57,14 @@ $text-brow-color: #744600;
   background: $gray_light;
   color: $black;
 }
+.fly-button.cancel {
+  border: 1px solid #fba800;
+  background: none;
+  color: #fba800;
+}
+.fly-button.red {
+  border: 1px solid #f36346;
+  background: none;
+  color: #f36346;
+}
 </style>

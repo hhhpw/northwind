@@ -93,6 +93,7 @@ const handleClose = () => {
     }
   }
   .fly-dialog-el {
+    background: linear-gradient(180deg, #454545 0%, #2d2d2d 100%) !important;
     ::v-deep(.el-dialog__header) {
       text-align: left !important;
     }
