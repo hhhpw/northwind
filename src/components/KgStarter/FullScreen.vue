@@ -17,10 +17,12 @@
     <!-- 预加载防止闪烁，后续写个方法 -->
     <img src="../../assets/igo/kg-bg-1.jpeg" style="display: none" />
     <img src="../../assets/igo/kg-bg-2.jpeg" style="display: none" />
+    <FlySpecialBg></FlySpecialBg>
   </div>
 </template>
 <script setup>
 import ScreenData from "./ScreenData.vue";
+import FlySpecialBg from "@FlyUI/FlySpecialBg.vue";
 </script>
 <style scoped></style>
 <style lang="scss" module>
@@ -35,7 +37,6 @@ import ScreenData from "./ScreenData.vue";
   background-image: url("../../assets/igo/kg-bg-3.png");
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: center center;
   .full-screen-container-content {
     // min-height: 550px;
     height: calc(100% - 306px);

@@ -1,5 +1,7 @@
 <template>
-  <section :class="$style['app-main']">
+  <section
+    :class="route.path === '/' ? $style['app-main-home'] : $style['app-main']"
+  >
     <router-view v-slot="{ Component }" :key="route.path">
       <slot></slot>
       <component :is="Component" />
@@ -19,6 +21,11 @@ watchEffect(() => {
 </script>
 
 <style lang="scss" module>
+.app-main-home {
+  width: 100%;
+  height: calc(100vh - 74px);
+  padding-top: 74px;
+}
 .app-main {
   margin: 0 auto;
   margin-top: 100px;
