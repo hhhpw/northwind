@@ -1,6 +1,6 @@
 <template>
   <main-core></main-core>
-  <FlySpecialBg :isAvatar="true"></FlySpecialBg>
+  <FlySpecialBg></FlySpecialBg>
 </template>
 <script setup>
 import MainCore from "@components/Metaverse/MainCore.vue";
