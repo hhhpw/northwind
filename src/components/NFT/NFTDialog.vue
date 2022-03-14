@@ -307,8 +307,8 @@ const handleClose = () => {
       font-size: 18px;
     }
     .svg {
-      width: 36px;
-      height: 36px;
+      width: 28px;
+      height: 28px;
       &:hover {
         opacity: 0.7;
       }
