@@ -147,7 +147,14 @@
   </div>
 </template>
 <script setup>
-import { computed, onMounted, reactive, onUnmounted, watch } from "vue";
+import {
+  computed,
+  onMounted,
+  reactive,
+  onUnmounted,
+  watch,
+  onUpdated,
+} from "vue";
 import FlySpace from "@FlyUI/FlySpace.vue";
 import utilsDate from "@utils/date.js";
 import { isUndefined, cloneDeep } from "lodash";
@@ -214,23 +221,12 @@ watch(
     playTimer();
   }
 );
+onUpdated(() => {
+  store.dispatch("StoreBlindBox/getOfferingList", { type: "init" });
+});
 
-watch(
-  () => state.listData,
-  () => {
-    let newListData = state.listData.map((d) => {
-      return {
-        ...d,
-        status: sellStatus(d.type, d.sellingTime).status,
-      };
-    });
-    state.onSellOrWillSellData = newListData.filter(
-      (d) => d.status !== "sellout"
-    );
-    state.soldOutData = newListData.filter((d) => d.status === "sellout");
-  }
-);
 onMounted(async () => {
+  setData();
   if (!state.listData || (state.listData && state.listData.length === 0)) {
     const data = await store.dispatch("StoreBlindBox/getOfferingList", {
       type: "init",
@@ -250,6 +246,19 @@ onMounted(async () => {
     }
   }
 });
+
+const setData = () => {
+  let newListData = state.listData.map((d) => {
+    return {
+      ...d,
+      status: sellStatus(d.type, d.sellingTime).status,
+    };
+  });
+  state.onSellOrWillSellData = newListData.filter(
+    (d) => d.status !== "sellout"
+  );
+  state.soldOutData = newListData.filter((d) => d.status === "sellout");
+};
 
 onUnmounted(() => {
   // store.commit("StoreBlindBox/CLEAR_DATA");
