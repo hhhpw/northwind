@@ -85,6 +85,9 @@ const store = useStore();
   ::v-deep(.fly-dialog-el) {
     height: 373px !important;
   }
+  ::v-deep(.fly-second-dialog-content) {
+    margin-top: 18px;
+  }
 }
 .mining-second-dialog-content {
   text-align: center;

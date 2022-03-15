@@ -349,9 +349,13 @@ $black: #010e22;
         display: flex;
         flex-direction: column;
         .item-content-info-data-name {
+          width: 120px;
           font-size: 14px;
           font-weight: bold;
           color: $white;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
         }
         .item-content-info-data-address {
           color: #7f7f7f;
@@ -385,6 +389,20 @@ $black: #010e22;
       }
     }
     .item-content-slots {
+      .item-content-slots-market-item {
+        font-size: 14px;
+        display: flex;
+        justify-content: space-between;
+        span {
+          font-weight: $fontWeight;
+        }
+        span:first-child {
+          color: $gray;
+        }
+        span:nth-child(2) {
+          color: $white;
+        }
+      }
       .item-content-slots-buyback {
         margin: 10px 0px;
         text-align: left;
@@ -406,23 +424,6 @@ $black: #010e22;
       }
       .item-content-slots-market {
         margin: 10px 0px;
-        .item-content-slots-market-item {
-          font-size: 14px;
-          display: flex;
-          justify-content: space-between;
-          span {
-            font-weight: $fontWeight;
-          }
-          span:first-child {
-            color: $gray;
-          }
-          span:nth-child(2) {
-            color: $white;
-          }
-        }
-        &:last-child {
-          margin-top: 26px;
-        }
       }
       .item-content-slots-collection {
         .item-content-slots-collection-btns {

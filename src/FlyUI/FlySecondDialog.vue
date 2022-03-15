@@ -136,8 +136,8 @@ const emits = defineEmits(["handleClose", "handleCancel", "handleConfirm"]);
     justify-content: flex-end;
     font-weight: bold;
     .svg {
-      width: 36px;
-      height: 36px;
+      width: 28px;
+      height: 28px;
       &:hover {
         opacity: 0.7;
       }
