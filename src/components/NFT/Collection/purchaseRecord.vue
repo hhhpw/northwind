@@ -7,7 +7,7 @@
   >
     <record
       :data="state.purchaseData"
-      @pageEvent="($event) => handlePageChange($event, 'purchase', direction)"
+      @pageEvent="($event) => handlePageChange($event, 'purchase')"
       :disabled="[
         state.purchaseQuery.pageNum === 1,
         state.purchaseQuery.hasNext,
@@ -48,10 +48,11 @@ let state = reactive({
 
 const emits = defineEmits(["pushMarket", "watchDetail"]);
 
-const handlePageChange = (val) => {
+const handlePageChange = (direction) => {
   store.dispatch("StoreCollection/getPurchaseHistory", {
     address: state.UserAddress[0],
-    pageNum: val.currentPage,
+    direction,
+    type: "click",
   });
 };
 </script>
