@@ -186,19 +186,37 @@ const StoreSwap = {
       let res;
       if (state.focusType === "from") {
         // 换入
-        res = await swapApi.exchangeIn(
-          Object.assign({}, params, {
-            tokenAmount: state.from.inputVal,
-          })
-        );
+        if (state.from.inputVal) {
+          res = await swapApi.exchangeIn(
+            Object.assign({}, params, {
+              tokenAmount: state.from.inputVal,
+            })
+          );
+        } else {
+          commit(types.CHANGE_INPUTVALUE, {
+            value: "",
+            type: state.focusType === "to" ? "from" : "to",
+            automatic: true,
+          });
+          return;
+        }
       }
       if (state.focusType === "to") {
         // 换出
-        res = await swapApi.exchangeOut(
-          Object.assign({}, params, {
-            tokenAmount: state.to.inputVal,
-          })
-        );
+        if (state.to.inputVal) {
+          res = await swapApi.exchangeOut(
+            Object.assign({}, params, {
+              tokenAmount: state.to.inputVal,
+            })
+          );
+        } else {
+          commit(types.CHANGE_INPUTVALUE, {
+            value: "",
+            type: state.focusType === "to" ? "from" : "to",
+            automatic: true,
+          });
+          return;
+        }
       }
       if (res && res.code === 200) {
         if (res.data === null) {

@@ -17,12 +17,10 @@
     <!-- 预加载防止闪烁，后续写个方法 -->
     <img src="../../assets/igo/kg-bg-1.jpeg" style="display: none" />
     <img src="../../assets/igo/kg-bg-2.jpeg" style="display: none" />
-    <FlySpecialBg></FlySpecialBg>
   </div>
 </template>
 <script setup>
 import ScreenData from "./ScreenData.vue";
-import FlySpecialBg from "@FlyUI/FlySpecialBg.vue";
 </script>
 <style scoped></style>
 <style lang="scss" module>
@@ -75,7 +73,7 @@ import FlySpecialBg from "@FlyUI/FlySpecialBg.vue";
         height: 93%;
         width: 100%;
         margin-bottom: 15px;
-        overflow: scroll;
+        // overflow: scroll;
         position: relative;
         .logo {
           width: 200px;

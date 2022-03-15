@@ -320,7 +320,7 @@ const handleClose = () => {
         }
       }
       .p-l {
-        width: 54%;
+        width: 52%;
         .status-btn {
           width: auto;
           max-width: 72px;
