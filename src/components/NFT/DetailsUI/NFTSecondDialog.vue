@@ -17,7 +17,7 @@
           </span>
           <svg-icon
             v-if="state.isShowClose"
-            name="dialog-close"
+            name="f-dialog-close"
             class="svg"
             @click.stop="handleClose"
           ></svg-icon>
@@ -138,8 +138,8 @@ const handleClose = () => {
     justify-content: flex-end;
     font-weight: bold;
     .svg {
-      width: 36px;
-      height: 36px;
+      width: 28px;
+      height: 28px;
       &:hover {
         opacity: 0.7;
       }
@@ -152,6 +152,7 @@ const handleClose = () => {
     background: #e8906c;
     img {
       width: 100%;
+      height: 100%;
     }
   }
 

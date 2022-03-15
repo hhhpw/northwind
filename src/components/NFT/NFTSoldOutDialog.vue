@@ -24,7 +24,7 @@
           </span>
           <svg-icon
             v-if="state.isShowClose"
-            name="dialog-close"
+            name="f-dialog-close"
             class="svg"
             @click.stop="() => emits('handleClose')"
           ></svg-icon>
@@ -119,7 +119,8 @@ const emits = defineEmits(["handleClose", "handleConfirm"]);
 
 .nft-dialog {
   ::v-deep(.el-dialog) {
-    border-radius: 34px;
+    background: linear-gradient(180deg, #3e3e3e 0%, #3e3e3e 0%, #252525 100%);
+    border-radius: 16px;
     .el-dialog__headerbtn:focus .el-dialog__close,
     .el-dialog__headerbtn:hover .el-dialog__close {
       color: $btn-orange-bgcolor;
@@ -137,8 +138,8 @@ const emits = defineEmits(["handleClose", "handleConfirm"]);
       font-size: 18px;
     }
     .svg {
-      width: 36px;
-      height: 36px;
+      width: 28px;
+      height: 28px;
       &:hover {
         opacity: 0.7;
       }

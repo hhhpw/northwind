@@ -363,7 +363,7 @@ const handleCloseQuotation = () => {
 }
 .sold-out {
   flex: 1;
-  height: 100%;
+  // height: 100%;
   display: flex;
   align-items: flex-end;
 }

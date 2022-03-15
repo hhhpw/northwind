@@ -26,7 +26,7 @@
           </span>
           <svg-icon
             v-if="props.dialogParams.isShowClose"
-            name="dialog-close"
+            name="f-dialog-close"
             class="star-wallet-dialog-header-svg"
             @click.stop="() => emits('handleClose')"
           ></svg-icon>

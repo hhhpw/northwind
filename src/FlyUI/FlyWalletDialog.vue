@@ -126,7 +126,7 @@ import { defineProps, defineEmits, reactive, computed, watchEffect } from "vue";
 import SvgIcon from "@components/SvgIcon/Index.vue";
 import FlyButton from "@FlyUI/FlyButton.vue";
 import { useStore } from "vuex";
-import dialogOnGoingImg from "../assets/nft/confirm-logo.gif";
+// import dialogOnGoingImg from "//static.kikoswap.com/img/loading.webp";
 import dialogFailedImg from "../assets/nft/dialog-error.png";
 import dialogSuccessImg from "../assets/nft/dialog-ok.png";
 import dialogLoadingImg from "../assets/nft/dialog-loading.png";
@@ -192,7 +192,7 @@ const setDiaglogStyle = computed(() => {
 const renderContentImg = (type) => {
   console.log("====type====", type);
   const obj = {
-    ongoing: dialogOnGoingImg,
+    ongoing: "//static.kikoswap.com/img/loading.webp",
     failed: dialogFailedImg,
     succeed: dialogSuccessImg,
   };

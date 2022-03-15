@@ -20,12 +20,10 @@
             }`,
           }"
         >
-          <span v-if="props.dialogParams.title">
-            {{ props.dialogParams.title }}
-          </span>
+          <span></span>
           <svg-icon
             v-if="state.isShowClose"
-            name="dialog-close"
+            name="f-dialog-close"
             class="svg"
             @click.stop="handleClose"
           ></svg-icon>
@@ -34,7 +32,6 @@
       <div class="nft-dialog-content">
         <div class="nft-dialog-content-core">
           <img
-            style="border-radius: 16px"
             :src="
               renderContentImg(
                 props.dialogParams.dialogStatus,
@@ -49,6 +46,9 @@
               )
             "
           />
+          <p v-if="props.dialogParams.title" class="dialogParamsTitle">
+            {{ props.dialogParams.title }}
+          </p>
           <fly-space
             :size="15"
             v-if="props.dialogParams.dialogStatus !== 'ongoing'"
@@ -134,7 +134,7 @@ import FlySpace from "@FlyUI/FlySpace.vue";
 import FlyButton from "@FlyUI/FlyButton.vue";
 import { useStore } from "vuex";
 // import { ElDialog } from "element-plus";
-import dialogOnGoingImg from "../../assets/nft/confirm-logo.gif";
+// import dialogOnGoingImg from "//static.kikoswap.com/img/loading.webp";
 import dialogFailedImg from "../../assets/nft/dialog-error.png";
 import dialogSuccessImg from "../../assets/nft/dialog-ok.png";
 import dialogLoadingImg from "../../assets/nft/dialog-loading.png";
@@ -204,7 +204,7 @@ watch(
 const setDiaglogStyle = computed(() => {
   if (state.currLang === "en") {
     return {
-      dialogWidth: "500px",
+      dialogWidth: "424px",
       feedBackWith: "440px",
       loadingMarLeft: "20px",
     };
@@ -216,7 +216,7 @@ const setDiaglogStyle = computed(() => {
 
 const renderContentImg = (type, customImgUrl) => {
   const obj = {
-    ongoing: customImgUrl || dialogOnGoingImg,
+    ongoing: customImgUrl || "//static.kikoswap.com/img/loading.webp",
     failed: dialogFailedImg,
     success: customImgUrl || dialogSuccessImg,
   };
@@ -240,7 +240,7 @@ const setWH = (type, customImgUrl, isBlindBox) => {
   }
   if (customImgUrl) {
     return {
-      width: "80%",
+      width: "100%",
       "margin-bottom": "10px",
     };
   }
@@ -289,7 +289,7 @@ const handleClose = () => {
 .nft-dialog {
   ::v-deep(.el-dialog) {
     background: linear-gradient(180deg, #3e3e3e 0%, #3e3e3e 0%, #252525 100%);
-    border-radius: 34px;
+    border-radius: 16px;
     .el-dialog__headerbtn:focus .el-dialog__close,
     .el-dialog__headerbtn:hover .el-dialog__close {
       color: $btn-orange-bgcolor;
@@ -303,12 +303,13 @@ const handleClose = () => {
 
     align-items: center;
     font-weight: bold;
+    color: #fff;
     span {
       font-size: 18px;
     }
     .svg {
-      width: 36px;
-      height: 36px;
+      width: 28px;
+      height: 28px;
       &:hover {
         opacity: 0.7;
       }
@@ -373,16 +374,22 @@ const handleClose = () => {
       margin-top: 10px;
     }
   }
+  .dialogParamsTitle {
+    color: #fff;
+    text-align: center;
+  }
   .nft-dialog-footer {
     width: 100%;
     margin-top: 0px;
     .nft-dialog-footer-button {
       padding-right: 0px;
       padding-left: 0px;
-      width: 70%;
-      margin-left: 15%;
+      width: 100%;
       font-size: 16px;
-      border-radius: 10px;
+      border-radius: 8px;
+      border: 1px solid #fba800;
+      background: none;
+      color: #fba800;
     }
   }
 }
