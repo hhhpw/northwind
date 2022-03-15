@@ -80,35 +80,37 @@
         </div>
       </div>
       <div :class="$style['container-list-content-footer']">
-        <!-- <fly-pagination
+        <fly-pagination
           @pageEvent="pageEvent"
           :disabled="[
             state.queryParams.pageNum === 1,
             state.queryParams.hasNext,
           ]"
-        ></fly-pagination> -->
-        <pagination
+        ></fly-pagination>
+        <!-- <pagination
           :total="state.assetsList.length"
           :assetsList="state.assetsList"
           v-model:currentPage="currentPage"
           @current-change="handleCurrentChange"
           @prev-click="pageEvent({ type: 'prev', currentPage: currentPage })"
           @next-click="pageEvent({ type: 'next', currentPage: currentPage })"
-        ></pagination>
+        ></pagination> -->
       </div>
     </div>
     <fly-loading-fish
       v-if="!state.assetsList || state.assetsList.length === 0"
     ></fly-loading-fish>
+    <FlySpecialBg></FlySpecialBg>
   </div>
 </template>
 <script setup>
-import { computed, onMounted, reactive, ref } from "vue";
+import { computed, onMounted, reactive } from "vue";
 import FlySpace from "@FlyUI/FlySpace.vue";
-// import FlyPagination from "@FlyUI/FlyPagination.vue";
-import Pagination from "@FlyUI/Pagination.vue";
+import FlyPagination from "@FlyUI/FlyPagination.vue";
+// import Pagination from "@FlyUI/Pagination.vue";
 import FlyAmount from "@FlyUI/FlyAmount.vue";
 import FlyLoadingFish from "@FlyUI/FlyLoadingFish.vue";
+import FlySpecialBg from "@FlyUI/FlySpecialBg.vue";
 import { useStore } from "vuex";
 const store = useStore();
 let state = reactive({
@@ -118,21 +120,18 @@ let state = reactive({
 });
 
 onMounted(() => {
-  store.dispatch("StoreInfo/getAssetsList", { type: "init", currentPage: 1 });
+  store.dispatch("StoreInfo/getAssetsList", { type: "init" });
 });
 
-let currentPage = ref(1);
+// let currentPage = ref(1);
 
-const pageEvent = (args) => {
-  store.dispatch("StoreInfo/getAssetsList", {
-    type: args.type,
-    currentPage: args.currentPage,
-  });
+const pageEvent = (type) => {
+  store.dispatch("StoreInfo/getAssetsList", { type });
 };
 
-const handleCurrentChange = (val) => {
-  pageEvent({ type: "current", currentPage: val });
-};
+// const handleCurrentChange = (val) => {
+//   pageEvent({ type: "current", currentPage: val });
+// };
 </script>
 <style lang="scss" module>
 .container-list {

@@ -20,7 +20,7 @@ const StoreInfo = {
     },
   },
   actions: {
-    async getAssetsList({ state, commit }, { type, currentPage }) {
+    async getAssetsList({ state, commit }, { type }) {
       let res,
         pageNum = 1;
       if (type === "init") {
@@ -217,13 +217,13 @@ const StoreInfo = {
             pageNum,
           });
         }
-        if (type === "current") {
-          if (!queryParams.hasNext) return;
-          let pageNum = currentPage;
-          res = await AssetsApi.getAssetsList({
-            pageNum,
-          });
-        }
+        // if (type === "current") {
+        //   if (!queryParams.hasNext) return;
+        //   let pageNum = currentPage;
+        //   res = await AssetsApi.getAssetsList({
+        //     pageNum,
+        //   });
+        // }
       }
       if (res.code == 200) {
         let k;
