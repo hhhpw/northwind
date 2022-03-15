@@ -2,7 +2,7 @@
   <div class="nft-bid-dialog">
     <ElDialog
       v-model="state.visible"
-      :width="`${props.width ? props.width + 'px' : '684px'}`"
+      :width="`${props.width ? props.width + 'px' : '662px'}`"
       custom-class="star-dialog-el"
       :before-close="handleClose"
       :close-on-press-escape="false"
@@ -31,6 +31,7 @@
             :key="i"
             @click="changeAction(i)"
             :class="state.typeIndex === i ? 'active' : ''"
+            :style="i === 0 ? 'border-right:none' : 'border-left:none'"
           >
             {{ $t(item) }}
           </a>
@@ -231,7 +232,7 @@ const changeAction = (i) => {
     padding: 32px 26px 24px 24px !important;
   }
   ::v-deep(.el-dialog__body) {
-    padding: 0px 26px 55px 24px !important;
+    padding: 0px 24px 55px 22px !important;
   }
 
   .nft-bid-dialog-header {
@@ -244,8 +245,8 @@ const changeAction = (i) => {
       font-size: 24px;
     }
     .svg {
-      width: 36px;
-      height: 36px;
+      width: 28px;
+      height: 28px;
       &:hover {
         opacity: 0.7;
       }
@@ -356,7 +357,7 @@ const changeAction = (i) => {
       .bid-time {
         width: 228px;
         display: inline-block;
-        margin-left: 34px;
+        margin-left: 16px;
         .bid-time-change {
           width: 100%;
           height: 88px;
