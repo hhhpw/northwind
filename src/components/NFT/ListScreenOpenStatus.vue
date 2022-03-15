@@ -25,11 +25,11 @@ import { reactive, defineEmits } from "vue";
 let state = reactive({
   radios: [
     {
-      name: "NFT",
+      name: "盲盒",
       isOpen: true,
     },
     {
-      name: "盲盒",
+      name: "NFT",
       isOpen: true,
     },
   ],

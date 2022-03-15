@@ -114,20 +114,20 @@
                   <fly-space :size="32"></fly-space>
                   <div class="item-content-info">
                     <div class="details-item-info">
-                      <p>{{ $t("售价") }}：</p>
+                      <p>{{ $t("售价") }}</p>
                       <span>
                         {{ d.sellingPrice }}
                         {{ utilsFormat.getTokenCurrency(d.payToken) }}
                       </span>
                     </div>
                     <div class="details-item-info">
-                      <p>{{ $t("发行数量") }}：</p>
+                      <p>{{ $t("发行数量") }}</p>
                       <span>
                         {{ d.seriesQuantity }}
                       </span>
                     </div>
                     <div class="details-item-info">
-                      <p>{{ $t("剩余数量") }}：</p>
+                      <p>{{ $t("剩余数量") }}</p>
                       <span>
                         {{ d.amount }}
                       </span>
@@ -353,9 +353,13 @@ const sellStatus = (type, sellingTime) =>
       padding-left: 73px;
       padding-top: 51px;
       .nft-blindbox-list-item-right-title {
+        width: 90%;
         color: $white;
         font-size: 32px;
         font-weight: 600;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
       }
       .nft-blindbox-list-item-right-detail {
         display: flex;

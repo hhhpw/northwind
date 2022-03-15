@@ -197,6 +197,7 @@ const pushPage = (detail) => {
       font-size: 14px;
       user-select: none;
       border-radius: 5px;
+      color: #b2b2b2;
       &.disabled {
         color: $text-gray4-color;
       }

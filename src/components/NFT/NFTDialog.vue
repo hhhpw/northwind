@@ -204,7 +204,7 @@ watch(
 const setDiaglogStyle = computed(() => {
   if (state.currLang === "en") {
     return {
-      dialogWidth: "424px",
+      dialogWidth: "480px",
       feedBackWith: "440px",
       loadingMarLeft: "20px",
     };

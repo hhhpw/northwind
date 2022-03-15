@@ -281,9 +281,6 @@ const emits = defineEmits(["clickSelectJoint", "clickRadio", "changeTab"]);
         }
       }
     }
-    .nft-status {
-      flex-direction: row-reverse;
-    }
   }
 }
 </style>
