@@ -38,20 +38,20 @@
                     <fly-space :size="32"></fly-space>
                     <div class="nft-blindbox-list-item-right-detail">
                       <div class="details-item-info">
-                        <p>{{ $t("售价") }}：</p>
+                        <p>{{ $t("售价") }}</p>
                         <span>
                           {{ d.sellingPrice }}
                           {{ utilsFormat.getTokenCurrency(d.payToken) }}
                         </span>
                       </div>
                       <div class="details-item-info">
-                        <p>{{ $t("发行数量") }}：</p>
+                        <p>{{ $t("发行数量") }}</p>
                         <span>
                           {{ d.seriesQuantity }}
                         </span>
                       </div>
                       <div class="details-item-info">
-                        <p>{{ $t("剩余数量") }}：</p>
+                        <p>{{ $t("剩余数量") }}</p>
                         <span>
                           {{ d.amount }}
                         </span>
@@ -63,7 +63,7 @@
                       class="nft-blindbox-list-item-right-countdown"
                       v-if="sellInfo.status === 'willsell'"
                     >
-                      <span>{{ $t("发售倒计时") }}:</span>
+                      <span>{{ $t("发售倒计时") }}</span>
                       <span class="countdown">{{
                         (state.timers &&
                           state.timers[i] &&
@@ -402,12 +402,16 @@ const sellStatus = (type, sellingTime) =>
     width: 368px;
     height: 445px;
     float: left;
+    cursor: pointer;
     margin-right: 47px;
     background: linear-gradient(180deg, #3e3e3e 0%, #3e3e3e 0%, #252525 100%);
     border-radius: 16px;
     margin-bottom: 40px;
     &:nth-child(3n) {
       margin-right: 0;
+    }
+    &:hover {
+      opacity: 0.9;
     }
     img {
       width: 368px;
