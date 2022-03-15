@@ -115,7 +115,7 @@
         <!-- collection selling -->
         <div
           v-if="props.cardType === 'collection' && props.sellType === 'selling'"
-          :class="$style['item-content-slots-market']"
+          :class="$style['item-content-slots-market collection-item-bid']"
         >
           <div v-if="offerPriceStyle === 'auction'">
             <div :class="$style['item-content-slots-market-item']">
@@ -288,21 +288,20 @@ const actionsCall = (action) => {
 </script>
 
 <style lang="scss" module>
-$border-radius: 16px;
+$border-radius: 8px;
 $gray: #7f7f7f;
 $fontWeight: bold;
 $black: #010e22;
 
 .nft-card-item {
-  min-height: 370px;
   width: 279px;
   background: linear-gradient(180deg, #3e3e3e 0%, #3e3e3e 0%, #252525 100%);
-  border-radius: 16px;
+  border-radius: 8px;
   font-size: 14px;
   user-select: none;
   margin-bottom: 20px;
   overflow: hidden;
-  margin-right: 20px;
+  margin-right: 28px;
   &:hover {
     box-shadow: 0 18px 32px -18px rgba(0, 0, 0, 0.6) !important;
     transform: translateY(-3px);
@@ -342,7 +341,7 @@ $black: #010e22;
     }
   }
   .item-content {
-    padding: 12px 16px;
+    padding: 12px 16px 24px 16px;
     .item-content-info {
       display: flex;
       justify-content: space-between;
@@ -350,9 +349,13 @@ $black: #010e22;
         display: flex;
         flex-direction: column;
         .item-content-info-data-name {
+          width: 120px;
           font-size: 14px;
           font-weight: bold;
           color: $white;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
         }
         .item-content-info-data-address {
           color: #7f7f7f;
@@ -386,6 +389,20 @@ $black: #010e22;
       }
     }
     .item-content-slots {
+      .item-content-slots-market-item {
+        font-size: 14px;
+        display: flex;
+        justify-content: space-between;
+        span {
+          font-weight: $fontWeight;
+        }
+        span:first-child {
+          color: $gray;
+        }
+        span:nth-child(2) {
+          color: $white;
+        }
+      }
       .item-content-slots-buyback {
         margin: 10px 0px;
         text-align: left;
@@ -407,20 +424,6 @@ $black: #010e22;
       }
       .item-content-slots-market {
         margin: 10px 0px;
-        .item-content-slots-market-item {
-          font-size: 14px;
-          display: flex;
-          justify-content: space-between;
-          span {
-            font-weight: $fontWeight;
-          }
-          span:first-child {
-            color: $gray;
-          }
-          span:nth-child(2) {
-            color: $white;
-          }
-        }
       }
       .item-content-slots-collection {
         .item-content-slots-collection-btns {

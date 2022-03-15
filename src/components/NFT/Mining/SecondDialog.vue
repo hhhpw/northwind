@@ -6,6 +6,9 @@
       @handleConfirm="state.secondDialogParams?.handleConfirm"
       @handleCancel="state.secondDialogParams?.handleCancel"
       class="mining-dialog-box"
+      :class="
+        state.secondDialogParams?.dataParams?.gas ? 'mining-earnings-box' : ''
+      "
     >
       <template #custom-content>
         <div class="mining-second-dialog-content">
@@ -82,6 +85,11 @@ const store = useStore();
 .mining-second-dialog {
 }
 .mining-dialog-box {
+  ::v-deep(.fly-second-dialog-content) {
+    margin-top: 18px;
+  }
+}
+.mining-earnings-box {
   ::v-deep(.fly-dialog-el) {
     height: 373px !important;
   }

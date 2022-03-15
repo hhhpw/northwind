@@ -11,36 +11,108 @@
       v-if="state.listData && state.listData.length > 0 && !state.firstLoading"
     >
       <template #content>
-        <div
-          class="nft-blindbox-list"
-          :style="
-            state.onSellOrWillSellData.length === 0 ? 'padding-top:55px' : ''
-          "
-        >
+        <div class="nft-list-content">
+          <div class="nft-blindbox-list">
+            <div
+              v-for="(d, i) in state.onSellOrWillSellData"
+              :key="i"
+              :set="(sellInfo = sellStatus(d.type, d.sellingTime))"
+              @click="pushDetailPage(d.id)"
+              class="nft-blindbox-list-item"
+            >
+              <div
+                v-if="sellInfo.status !== 'sellout'"
+                class="nft-blindbox-content-box"
+              >
+                <p
+                  class="nft-blindbox-list-item-right-status"
+                  :class="sellInfo.status"
+                >
+                  {{ $t(sellInfo.text) }}
+                </p>
+                <div class="nft-blindbox-content">
+                  <div class="nft-blindbox-list-item-right">
+                    <p class="nft-blindbox-list-item-right-title">
+                      {{ d.seriesName }}-{{ d.name }}
+                    </p>
+                    <fly-space :size="32"></fly-space>
+                    <div class="nft-blindbox-list-item-right-detail">
+                      <div class="details-item-info">
+                        <p>{{ $t("售价") }}</p>
+                        <span>
+                          {{ d.sellingPrice }}
+                          {{ utilsFormat.getTokenCurrency(d.payToken) }}
+                        </span>
+                      </div>
+                      <div class="details-item-info">
+                        <p>{{ $t("发行数量") }}</p>
+                        <span>
+                          {{ d.seriesQuantity }}
+                        </span>
+                      </div>
+                      <div class="details-item-info">
+                        <p>{{ $t("剩余数量") }}</p>
+                        <span>
+                          {{ d.amount }}
+                        </span>
+                      </div>
+                    </div>
+                    <fly-space :size="25"></fly-space>
+
+                    <p
+                      class="nft-blindbox-list-item-right-countdown"
+                      v-if="sellInfo.status === 'willsell'"
+                    >
+                      <span>{{ $t("发售倒计时") }}</span>
+                      <span class="countdown">{{
+                        (state.timers &&
+                          state.timers[i] &&
+                          state.timers[i].loaded &&
+                          state.timers[i].countdown) ||
+                        ""
+                      }}</span>
+                    </p>
+                    <div
+                      v-if="sellInfo.status === 'selling'"
+                      class="buy-button actions-button"
+                      @click="pushDetailPage(d.id)"
+                    >
+                      {{ $t("购买") }}
+                    </div>
+                  </div>
+                  <img :src="d.seriesLogo" alt="" />
+                </div>
+              </div>
+            </div>
+          </div>
           <div
-            v-for="(d, i) in state.onSellOrWillSellData"
-            :key="i"
-            :set="(sellInfo = sellStatus(d.type, d.sellingTime))"
-            @click="pushDetailPage(d.id)"
-            class="nft-blindbox-list-item"
+            class="nft-past-list"
+            :style="
+              state.onSellOrWillSellData.length === 0 ? 'padding-top:55px' : ''
+            "
           >
             <div
-              v-if="sellInfo.status !== 'sellout'"
-              class="nft-blindbox-content-box"
+              class="nft-soldout-blindbox-item"
+              v-for="(d, i) in state.soldOutData"
+              :key="i"
+              :set="(sellInfo = sellStatus(d.type, d.sellingTime))"
+              @click="pushDetailPage(d.id)"
             >
-              <p
-                class="nft-blindbox-list-item-right-status"
-                :class="sellInfo.status"
-              >
-                {{ $t(sellInfo.text) }}
-              </p>
-              <div class="nft-blindbox-content">
-                <div class="nft-blindbox-list-item-right">
-                  <p class="nft-blindbox-list-item-right-title">
+              <div class="nft-soldout-content-box">
+                <p
+                  v-if="i === 0"
+                  class="nft-soldout-title-status"
+                  :class="sellInfo.status"
+                >
+                  {{ $t("往期回顾") }}
+                </p>
+                <img :src="d.seriesLogo" alt="" />
+                <div class="nft-soldout-blindbox-content">
+                  <p class="item-content-title">
                     {{ d.seriesName }}-{{ d.name }}
                   </p>
                   <fly-space :size="32"></fly-space>
-                  <div class="nft-blindbox-list-item-right-detail">
+                  <div class="item-content-info">
                     <div class="details-item-info">
                       <p>{{ $t("售价") }}：</p>
                       <span>
@@ -61,78 +133,10 @@
                       </span>
                     </div>
                   </div>
-                  <fly-space :size="25"></fly-space>
-
-                  <p
-                    class="nft-blindbox-list-item-right-countdown"
-                    v-if="sellInfo.status === 'willsell'"
-                  >
-                    <span>{{ $t("发售倒计时") }}:</span>
-                    <span class="countdown">{{
-                      (state.timers &&
-                        state.timers[i] &&
-                        state.timers[i].loaded &&
-                        state.timers[i].countdown) ||
-                      ""
-                    }}</span>
+                  <p class="nft-soldout-status" :class="sellInfo.status">
+                    {{ $t(sellInfo.text) }}
                   </p>
-                  <div
-                    v-if="sellInfo.status === 'selling'"
-                    class="buy-button actions-button"
-                    @click="pushDetailPage(d.id)"
-                  >
-                    {{ $t("购买") }}
-                  </div>
                 </div>
-                <img :src="d.seriesLogo" alt="" />
-              </div>
-            </div>
-          </div>
-          <div
-            class="nft-soldout-blindbox-item"
-            v-for="(d, i) in state.soldOutData"
-            :key="i"
-            :set="(sellInfo = sellStatus(d.type, d.sellingTime))"
-            @click="pushDetailPage(d.id)"
-          >
-            <div class="nft-soldout-content-box">
-              <p
-                v-if="i === 0"
-                class="nft-soldout-title-status"
-                :class="sellInfo.status"
-              >
-                {{ $t("往期回顾") }}
-              </p>
-              <img :src="d.seriesLogo" alt="" />
-              <div class="nft-soldout-blindbox-content">
-                <p class="item-content-title">
-                  {{ d.seriesName }}-{{ d.name }}
-                </p>
-                <fly-space :size="32"></fly-space>
-                <div class="item-content-info">
-                  <div class="details-item-info">
-                    <p>{{ $t("售价") }}：</p>
-                    <span>
-                      {{ d.sellingPrice }}
-                      {{ utilsFormat.getTokenCurrency(d.payToken) }}
-                    </span>
-                  </div>
-                  <div class="details-item-info">
-                    <p>{{ $t("发行数量") }}：</p>
-                    <span>
-                      {{ d.seriesQuantity }}
-                    </span>
-                  </div>
-                  <div class="details-item-info">
-                    <p>{{ $t("剩余数量") }}：</p>
-                    <span>
-                      {{ d.amount }}
-                    </span>
-                  </div>
-                </div>
-                <p class="nft-soldout-status" :class="sellInfo.status">
-                  {{ $t(sellInfo.text) }}
-                </p>
               </div>
             </div>
           </div>
@@ -388,16 +392,26 @@ const sellStatus = (type, sellingTime) =>
       }
     }
   }
+}
+.nft-past-list {
+  margin-top: 47px;
+  position: relative;
+  overflow: hidden;
+  padding-top: 55px;
   .nft-soldout-blindbox-item {
     width: 368px;
     height: 445px;
     float: left;
+    cursor: pointer;
     margin-right: 47px;
     background: linear-gradient(180deg, #3e3e3e 0%, #3e3e3e 0%, #252525 100%);
     border-radius: 16px;
     margin-bottom: 40px;
     &:nth-child(3n) {
       margin-right: 0;
+    }
+    &:hover {
+      opacity: 0.9;
     }
     img {
       width: 368px;
