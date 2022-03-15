@@ -93,7 +93,7 @@
   </div>
 </template>
 <script setup>
-import { computed, reactive } from "vue";
+import { computed, onMounted, reactive } from "vue";
 import SvgIcon from "@components/SvgIcon/Index.vue";
 import FlySpace from "@FlyUI/FlySpace.vue";
 import FlyButton from "@FlyUI/FlyButton.vue";
@@ -123,6 +123,13 @@ const state = reactive({
   professionValue: "Adventurer",
 });
 
+onMounted(() => {
+  state.genderLabels = ["male", "female"];
+  state.genderValue = "male";
+  state.nameValue = "";
+  state.professionValue = "Adventurer";
+});
+
 const selectGender = (gender) => {
   state.genderValue = gender;
 };
@@ -138,6 +145,9 @@ const validateParams = (flag) => {
     ) {
       throw new Error("error");
     }
+    store.commit("StoreMeta/SET_CREATE_DIALOG_PARAMS", {
+      dialogVisible: false,
+    });
     store.dispatch("StoreMeta/generateNFTRole", {
       userAddress: state.accounts[0],
       customName: state.nameValue,
