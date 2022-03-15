@@ -16,32 +16,12 @@
         {{ $t(d.name) }}
       </span>
     </div>
-    <div v-if="props.showTips">
-      <span>{{ $t("费率") }} {{ NFT_CONSTANTS.NFT_GAS_FEE * 100 }}%</span>
-      <ElTooltip effect="light" placement="left-start">
-        <template #default>
-          <svg-icon name="question" class="question"></svg-icon>
-        </template>
-        <template #content>
-          <p style="width: 250px">
-            {{ $t("平台费文本") }}
-          </p>
-        </template>
-      </ElTooltip>
-    </div>
   </div>
 </template>
 <script setup>
-import { reactive, defineEmits, defineProps } from "vue";
-import SvgIcon from "@components/SvgIcon/Index.vue";
+import { reactive, defineEmits } from "vue";
 // import { ElTooltip } from "element-plus";
-import NFT_CONSTANTS from "@constants/nft";
-const props = defineProps({
-  showTips: {
-    type: Boolean,
-    default: true,
-  },
-});
+
 let state = reactive({
   radios: [
     {

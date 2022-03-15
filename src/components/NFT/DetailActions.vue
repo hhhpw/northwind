@@ -13,7 +13,7 @@
           class="sell-blind-box actions-button"
           @click="actionsCall('SellBlinkBox')"
         >
-          {{ $t("出售盲盒") }}
+          {{ $t("出售") }}
         </div>
       </div>
       <!-- 我的NFT nft-->

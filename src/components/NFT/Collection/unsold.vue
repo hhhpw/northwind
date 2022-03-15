@@ -16,6 +16,7 @@
       :key="d.id"
       cardType="collection"
       :sellType="d.sellType"
+      class="blind-list-unsold-item"
       :hasBtn="false"
       :baseData="d"
       @actionsCall="actionsCall"
@@ -49,4 +50,10 @@ const emits = defineEmits(["pushMarket", "watchDetail", "actionsCall"]);
 
 <style scoped lang="scss">
 @import "./style.scss";
+.blind-list-unsold-item {
+  margin-right: 28px;
+  &:nth-child(4n) {
+    margin-right: 0;
+  }
+}
 </style>
