@@ -175,6 +175,7 @@ const emits = defineEmits(["handleClose", "handleCancel", "handleConfirm"]);
       width: 35%;
       font-size: 16px;
       border-radius: 12px;
+      font-weight: normal;
     }
   }
 }
