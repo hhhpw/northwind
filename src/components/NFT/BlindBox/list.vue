@@ -208,6 +208,7 @@ const loadMore = () => {
 watch(
   () => state.listData,
   () => {
+    setData();
     state.timers = cloneDeep(state.listData);
     state.timers.map((d) => {
       if (d.type === "willsell") {
