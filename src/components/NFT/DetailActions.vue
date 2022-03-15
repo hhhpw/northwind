@@ -235,6 +235,9 @@ const handleCloseQuotation = () => {
   justify-content: space-between;
   position: relative;
   // padding-top: 30px;
+  .sell-blind-box {
+    color: #a03300 !important;
+  }
 }
 .trade-input {
   width: 100%;
@@ -282,7 +285,7 @@ const handleCloseQuotation = () => {
   line-height: 46px;
   text-align: center;
   font-weight: 600;
-  color: #000000;
+  color: #a03300;
   cursor: pointer;
   background: linear-gradient(256deg, #fdd300 0%, #fba800 100%);
   box-shadow: 0px 12px 15px 0px rgba(253, 168, 0, 0.39);
