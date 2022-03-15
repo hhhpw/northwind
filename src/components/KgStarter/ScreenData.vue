@@ -3,7 +3,7 @@
     :class="$style['screen-data-container']"
     v-if="state.igoList && state.igoList.length > 0"
   >
-    <!-- <p :class="$style['screen-data-container-title']">IGOs</p> -->
+    <p :class="$style['screen-data-container-title']">IGOs</p>
     <div :class="$style['data']">
       <div
         :class="$style['data-block']"
@@ -201,9 +201,13 @@ watch(
   background-repeat: no-repeat;
   background-size: contain;
   width: 100%;
-  margin: -240px auto 0;
+  margin: 0 auto;
   overflow: hidden;
+  position: absolute;
+  top: 340px;
+  z-index: 111;
   .screen-data-container-title {
+    display: none;
     color: #fec944;
     font-size: 26px;
     font-weight: bolder;
@@ -216,6 +220,7 @@ watch(
     width: calc(100% - 60px);
     overflow-x: scroll;
     .data-block {
+      width: 100%;
       display: flex;
       padding-bottom: 10px;
       .data-block-item {

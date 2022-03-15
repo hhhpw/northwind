@@ -12,13 +12,13 @@ const BOOK = "https://static.kikoswap.com/img/book_Ki12x.png";
 // bookSiap_zh.webp
 const BOOK_ZH = "https://static.kikoswap.com/img/bookSiap_zh.webp";
 
-const PLUTUS_CAT = "https://static.kikoswap.com/img/plutus-cat1.webp";
+const PLUTUS_CAT = "https://static.kikoswap.com/img/plutus-cat2.webp";
 
 const RUNNING_CAT = "https://static.kikoswap.com/img/running-cat1.webp";
 
 const THIRD_CAT = "https://static.kikoswap.com/img/third-cat1.webp";
 
-const PHOTO_CAT = "https://static.kikoswap.com/img/photo-cat.webp";
+const PHOTO_CAT = "https://static.kikoswap.com/img/photo-cat1.webp";
 
 const LIQUIDITY_CAT = "https://static.kikoswap.com/img/liquidity-cat1.webp";
 
