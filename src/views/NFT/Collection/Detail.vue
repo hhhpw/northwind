@@ -259,36 +259,6 @@ const actionsCall = async (d) => {
         isShow: true,
       }
     );
-    // if (!state.detail_info.sellingPrice) return;
-    // if (utilsNumber.bigNum(state.detail_info.sellingPrice).gt(0)) {
-    //   const price = utilsNumber
-    //     .bigNum(String(state.detail_info.sellingPrice))
-    //     .times(Math.pow(10, 9))
-    //     .toString();
-    //   let params;
-    //   if (state.detail_type === "box") {
-    //     params = {
-    //       tyArgs: [state.detail_info.boxToken, state.detail_info.payToken],
-    //       args: [price],
-    //       type: "box",
-    //       groupId: ref(route.query.groupId).value,
-    //       chainId: ref(route.query.chainId).value,
-    //     };
-    //   } else {
-    //     params = {
-    //       tyArgs: [
-    //         state.detail_info.nftMeta,
-    //         state.detail_info.nftBody,
-    //         state.detail_info.payToken,
-    //       ],
-    //       args: [String(state.detail_info.nftId), String(price)],
-    //       type: "nft",
-    //       infoId: ref(route.query.infoId).value,
-    //     };
-    //   }
-    //   state.dialogEvent = dialogEventMaps["Sell"];
-    //   store.dispatch("StoreCollection/sellContractsCall", params);
-    // }
   } else if (d.action === "OpenBlinkBox") {
     state.dialogEvent = dialogEventMaps["OpenBlinkBox"];
     store.dispatch("StoreCollection/openBlindBoxCall", {

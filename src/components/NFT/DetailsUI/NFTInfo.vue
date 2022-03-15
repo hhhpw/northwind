@@ -139,6 +139,8 @@
       :action_type="props.action_type"
       :isNFT="state.isNFT"
       @actionsCall="actionsCall"
+      :isOwner="props.isOwner"
+      :isOnSell="props.isOnSell"
     ></detail-action>
   </div>
 </template>
@@ -181,6 +183,12 @@ let props = defineProps({
   blind_box_type: String, // box或是nft
   type: {
     type: String,
+  },
+  isOwner: {
+    type: Boolean,
+  },
+  isOnSell: {
+    type: Boolean,
   },
 });
 const stringFormat = (str) => {

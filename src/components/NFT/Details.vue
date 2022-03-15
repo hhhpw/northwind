@@ -16,8 +16,8 @@
         :action_type="props.action_type"
         :isNFT="props.isNFT"
         :isOwner="props.isOwner"
-        :cardType="props.cardType"
         :isOnSell="props.isOnSell"
+        :cardType="props.cardType"
         @actionsCall="actionsCall"
       ></Info>
     </div>

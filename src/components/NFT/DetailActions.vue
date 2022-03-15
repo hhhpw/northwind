@@ -5,16 +5,16 @@
     <div class="sell-blind" v-if="props.action_type === 'UNSOLD'">
       <!-- 盲盒未开启 -->
       <div
-        class="buttons blind-buttons button-style"
+        class="buttons buttons-box-status button-style"
         v-if="!props.isNFT"
         style="margin-top: 10px"
       >
-        <div
-          class="sell-blind-box actions-button"
-          @click="actionsCall('SellBlinkBox')"
-        >
+        <span class="cancel-bg-normal" @click="actionsCall('OpenBlinkBox')">
+          {{ $t("打开盲盒") }}
+        </span>
+        <span class="sell-blind-box" @click="actionsCall('SellBlinkBox')">
           {{ $t("出售") }}
-        </div>
+        </span>
       </div>
       <!-- 我的NFT nft-->
       <div class="buttons button-style" v-else>
@@ -34,7 +34,7 @@
         :box_detail="props.box_detail"
         :sellType="props.box_detail.sellType"
       ></nft-bid-info>
-      <div class="blind-offer-actions button-style" v-if="props.box_detail">
+      <div class="buttons-box-status button-style" v-if="props.box_detail">
         <span
           class="purchase"
           v-if="props.box_detail.sellType === 1"
@@ -64,10 +64,10 @@
         :sellType="props.box_detail.sellType"
       ></nft-bid-info>
       <div
-        class="blind-offer-actions button-style"
+        class="buttons-box-status button-style"
         v-if="props.box_detail.onSell"
       >
-        <span class="cancel-sell" @click="actionsCall('CancelSell')">{{
+        <span class="cancel-bg-normal" @click="actionsCall('CancelSell')">{{
           $t("取消出售")
         }}</span>
         <span
@@ -163,6 +163,12 @@ const props = defineProps({
   box_detail: {}, // 详情信息
   action_type: String, // 操作类型  SELL 出售 OWNERSELL 本人出售 BUYERSELL 购买者 SOLDOUT售罄 RECOVERY回收
   isNFT: Boolean, // 盲盒是否开启
+  isOwner: {
+    type: Boolean,
+  },
+  isOnSell: {
+    type: Boolean,
+  },
 });
 
 const formatPriceWithLength = (price, precision) => {
@@ -284,21 +290,6 @@ const handleCloseQuotation = () => {
 .button-style {
   width: 100%;
 }
-.blind-buttons {
-  display: flex;
-  justify-content: space-between;
-  div {
-    height: 46px;
-    height: 46px;
-  }
-}
-.sell-blind-box {
-  border: 1px solid #f88000;
-  margin-bottom: 17px;
-  background-color: #f88000;
-  color: #ffffff;
-}
-
 .on-offer-blind {
   height: 100%;
   justify-content: space-between;
@@ -332,7 +323,7 @@ const handleCloseQuotation = () => {
     }
   }
 }
-.blind-offer-actions {
+.buttons-box-status {
   display: flex;
   justify-content: space-between;
   margin-top: 36px;
@@ -354,7 +345,30 @@ const handleCloseQuotation = () => {
     font-weight: 600;
   }
 }
-.cancel-sell {
+
+.buttons-box-status {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 36px;
+  :first-child {
+    margin-right: 17px;
+  }
+  span {
+    cursor: pointer;
+    flex: 1;
+    display: inline-block;
+    height: 56px;
+    line-height: 56px;
+    text-align: center;
+    border-radius: 8px;
+    background: linear-gradient(256deg, #fdd300 0%, #fba800 100%);
+    box-shadow: 0px 12px 15px 0px rgba(253, 168, 0, 0.39);
+    color: #a03300;
+    font-size: 16px;
+    font-weight: 600;
+  }
+}
+.cancel-bg-normal {
   cursor: pointer;
   background: none !important;
   box-shadow: none !important;
