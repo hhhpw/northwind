@@ -245,8 +245,24 @@ const StoreCollection = {
         commit(types.SET_DETAIL_TYPE, "box");
       }
     },
-    async getPurchaseHistory({ commit }, payload) {
-      let pageNum = payload.pageNum;
+    async getPurchaseHistory({ commit, state }, payload) {
+      let pageNum = 1;
+      if (payload.type === "change") {
+        commit(types.SET_PURCHASE_HISTORY_QUERY, {
+          pageNum,
+        });
+      } else if (payload.type === "click") {
+        pageNum = state.purchaseQuery.pageNum;
+        if (payload.direction === "prev") {
+          if (pageNum <= 1) return;
+          pageNum = pageNum - 1;
+        }
+        if (payload.direction === "next") {
+          if (!state.purchaseQuery.hasNext) return;
+
+          pageNum = pageNum + 1;
+        }
+      }
       const res = await collectionApi.getPurchaseHistory({
         address: payload.address,
         pageNum,
@@ -261,8 +277,23 @@ const StoreCollection = {
         });
       }
     },
-    async getSalesHistory({ commit }, payload) {
-      let pageNum = payload.pageNum;
+    async getSalesHistory({ commit, state }, payload) {
+      let pageNum = 1;
+      if (payload.type === "change") {
+        commit(types.SET_SALE_HISTORY_QUERY, {
+          pageNum,
+        });
+      } else if (payload.type === "click") {
+        pageNum = state.sellQuery.pageNum;
+        if (payload.direction === "prev") {
+          if (pageNum <= 1) return;
+          pageNum = pageNum - 1;
+        }
+        if (payload.direction === "next") {
+          if (!state.sellQuery.hasNext) return;
+          pageNum = pageNum + 1;
+        }
+      }
       const res = await collectionApi.getSalesHistory({
         address: payload.address,
         pageNum,

@@ -48,12 +48,20 @@
       </p>
     </div>
     <div class="record-wrap-pagination">
-      <pagination
-        :total="props.data.length"
-        v-model:currentPage="currentPage"
-        :page-size="20"
-        @current-change="handleCurrentChange"
-      ></pagination>
+      <div
+        class="record-wrap-pagination-prev"
+        @click="emits('pageEvent', 'prev')"
+        :class="{ disabled: props.disabled[0] }"
+      >
+        {{ $t("上一页") }}
+      </div>
+      <div
+        class="record-wrap-pagination-next"
+        @click="emits('pageEvent', 'next')"
+        :class="{ disabled: props.disabled[1] === false }"
+      >
+        {{ $t("下一页") }}
+      </div>
     </div>
   </div>
 </template>
@@ -62,18 +70,10 @@
 // 购买记录
 // 出售记录
 /* eslint-disable */
-import {
-  computed,
-  onMounted,
-  reactive,
-  defineProps,
-  defineEmits,
-  ref,
-} from "vue";
+import { computed, onMounted, reactive, defineProps, defineEmits } from "vue";
 import dayjs from "dayjs";
 import utilsFormat from "@utils/format";
 import { useRouter } from "vue-router";
-import Pagination from "@FlyUI/Pagination.vue";
 const router = useRouter();
 import qs from "qs";
 const STATE = {
@@ -85,16 +85,6 @@ const STATE = {
 };
 const setState = (state) => {
   return STATE[state] || "";
-};
-
-let currentPage = ref(1);
-
-const pageEvent = (args) => {
-  emits("pageEvent", args);
-};
-
-const handleCurrentChange = (val) => {
-  pageEvent({ type: "current", currentPage: val });
 };
 
 const props = defineProps({
