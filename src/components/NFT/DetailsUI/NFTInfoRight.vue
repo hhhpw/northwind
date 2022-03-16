@@ -225,20 +225,22 @@ const actionsCall = (action) => {
     margin-top: 36px;
     p {
       font-weight: 400;
-      color: #fafafa;
+      color: #8c8b8c;
     }
     .item-info {
       flex: 1;
       .item-title {
-        font-size: 12px;
+        font-size: 14px;
         margin-bottom: 4px;
       }
       .item-value {
-        font-size: 14px;
+        font-size: 20px;
+        color: #fafafa;
       }
     }
     .title-text {
-      font-size: 24px !important;
+      font-size: 32px !important;
+      color: #fafafa;
     }
   }
   .details-title {
