@@ -1,64 +1,69 @@
 <template>
-  <fly-nft
-    class="blind-box-container"
-    :coreType="state.coreType"
-    v-if="state.walletStatus === 'connected'"
-    :cardTypeParams="{ minHeight: '800px' }"
-  >
-    <template #nft-card>
-      <div v-if="state.detail_info">
-        <detailCard
-          :detailData="state.detail_info"
-          :action_type="state.action_type"
-          :blind_box_type="state.detail_type"
-          :isNFT="state.blind_box_type !== 'box' && !state.detail_info.boxToken"
-          :isOnSell="state.detail_info.onSell"
-          :isOwner="isOwner(state.detail_info.address)"
-          @actionsCall="actionsCall"
-          fromView="collection"
-        ></detailCard>
-      </div>
-      <fly-loading-fish v-else></fly-loading-fish>
-    </template>
-  </fly-nft>
+  <div class="">
+    <FlySpecialBg></FlySpecialBg>
+    <fly-nft
+      class="blind-box-container"
+      :coreType="state.coreType"
+      v-if="state.walletStatus === 'connected'"
+      :cardTypeParams="{ minHeight: '800px' }"
+    >
+      <template #nft-card>
+        <div v-if="state.detail_info">
+          <detailCard
+            :detailData="state.detail_info"
+            :action_type="state.action_type"
+            :blind_box_type="state.detail_type"
+            :isNFT="
+              state.blind_box_type !== 'box' && !state.detail_info.boxToken
+            "
+            :isOnSell="state.detail_info.onSell"
+            :isOwner="isOwner(state.detail_info.address)"
+            @actionsCall="actionsCall"
+            fromView="collection"
+          ></detailCard>
+        </div>
+        <fly-loading-fish v-else></fly-loading-fish>
+      </template>
+    </fly-nft>
 
-  <nft-dialog
-    :dialogVisible="state.dialogEvent && state.dialogParams.isShow"
-    :isShowClose="!(state.dialogParams.dialogStatus === 'ongoing')"
-    :dialogParams="state.dialogParams"
-    @handleClose="
-      state.dialogEvent &&
-        state.dialogEvent.handleClose(state.dialogParams.dialogStatus)
-    "
-    @handleSuccess="state.dialogEvent && state.dialogEvent.handleSuccess()"
-    @handleFailed="state.dialogEvent && state.dialogEvent.handleFailed()"
-  >
-  </nft-dialog>
+    <nft-dialog
+      :dialogVisible="state.dialogEvent && state.dialogParams.isShow"
+      :isShowClose="!(state.dialogParams.dialogStatus === 'ongoing')"
+      :dialogParams="state.dialogParams"
+      @handleClose="
+        state.dialogEvent &&
+          state.dialogEvent.handleClose(state.dialogParams.dialogStatus)
+      "
+      @handleSuccess="state.dialogEvent && state.dialogEvent.handleSuccess()"
+      @handleFailed="state.dialogEvent && state.dialogEvent.handleFailed()"
+    >
+    </nft-dialog>
 
-  <nft-second-dialog
-    :dialogVisible="state.secondDialogParams.isShow"
-    :dialogParams="state.secondDialogParams"
-    @handleClose="secondDialogClose"
-    @handleCancel="secondDialogClose"
-    @handleConfirm="sencondDialogConfirm"
-  >
-  </nft-second-dialog>
-  <nft-bid-dialog
-    :dialogVisible="state.bidPriceDialogParams.isShow"
-    :dialogParams="state.bidPriceDialogParams"
-    @handleClose="bidPriceDialogClose"
-    @handleCancel="bidPriceDialogClose"
-    @handleConfirm="bidPricConfirm"
-  >
-  </nft-bid-dialog>
+    <nft-second-dialog
+      :dialogVisible="state.secondDialogParams.isShow"
+      :dialogParams="state.secondDialogParams"
+      @handleClose="secondDialogClose"
+      @handleCancel="secondDialogClose"
+      @handleConfirm="sencondDialogConfirm"
+    >
+    </nft-second-dialog>
+    <nft-bid-dialog
+      :dialogVisible="state.bidPriceDialogParams.isShow"
+      :dialogParams="state.bidPriceDialogParams"
+      @handleClose="bidPriceDialogClose"
+      @handleCancel="bidPriceDialogClose"
+      @handleConfirm="bidPricConfirm"
+    >
+    </nft-bid-dialog>
 
-  <nft-sold-out-dialog
-    :dialogVisible="state.soldDialogParams.isShow"
-    :dialogParams="state.soldDialogParams"
-    @handleClose="handleSoldOutCloseFunc"
-    @handleConfirm="handleSoldOutConfirmFunc"
-  >
-  </nft-sold-out-dialog>
+    <nft-sold-out-dialog
+      :dialogVisible="state.soldDialogParams.isShow"
+      :dialogParams="state.soldDialogParams"
+      @handleClose="handleSoldOutCloseFunc"
+      @handleConfirm="handleSoldOutConfirmFunc"
+    >
+    </nft-sold-out-dialog>
+  </div>
 </template>
 <script setup>
 /* eslint-disable */
@@ -87,6 +92,7 @@ import { useI18n } from "vue-i18n";
 import { dialogEventMaps } from "./dialog";
 import utilsFormat from "@utils/format";
 import NFT_CONSTANTS from "@constants/nft.js";
+import FlySpecialBg from "@FlyUI/FlySpecialBg.vue";
 const { t } = useI18n();
 const route = useRoute();
 const store = useStore();

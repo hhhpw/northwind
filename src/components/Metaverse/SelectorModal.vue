@@ -117,6 +117,7 @@ const pushMarket = () => {
 <style lang="scss" scoped>
 .meta-nft-selector-modal {
   ::v-deep(.el-dialog) {
+    min-height: 373px;
     background: linear-gradient(180deg, #3e3e3e 0%, #3e3e3e 0%, #252525 100%);
     border-radius: 16px;
     .el-dialog__headerbtn:focus .el-dialog__close,

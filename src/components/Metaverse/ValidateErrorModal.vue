@@ -41,6 +41,7 @@ const handleClose = () => {
 <style lang="scss" scoped>
 .meta-error-validate-modal {
   ::v-deep(.el-dialog) {
+    min-height: 373px;
     border-radius: 16px;
     background: linear-gradient(180deg, #3e3e3e 0%, #3e3e3e 0%, #252525 100%);
   }
