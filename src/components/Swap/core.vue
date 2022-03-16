@@ -329,7 +329,7 @@ const debounceFunc = debounce(
       isTransfer: false,
     });
   },
-  2000,
+  500,
   {
     leading: true,
   }
@@ -337,7 +337,9 @@ const debounceFunc = debounce(
 
 onMounted(async () => {
   state.addTimer = setInterval(() => {
-    transfromCurrencySelect(false);
+    if (state.from.inputVal || state.to.inputVal) {
+      transfromCurrencySelect(false);
+    }
   }, 5000);
   if (state.currencyList && state.currencyList.length === 0) {
     const data = await store.dispatch("StoreCommon/getCurrencyList");
@@ -526,6 +528,7 @@ const swapFunc = async (status) => {
 };
 onUnmounted(() => {
   store.commit("StoreSwap/CLEAR_SWAP_DATA");
+  clearInterval(state.addTimer);
 });
 </script>
 

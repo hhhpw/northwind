@@ -108,6 +108,7 @@ onBeforeMount(() => {
     width: 2225px;
     height: 2020px;
     transition: 50s all linear;
+    opacity: 0.8;
   }
   .animation {
     position: relative;
@@ -154,13 +155,13 @@ onBeforeMount(() => {
 
 @keyframes beath {
   0% {
-    opacity: 0.5;
+    opacity: 0.3;
   }
   50% {
-    opacity: 1;
+    opacity: 0.7;
   }
   100% {
-    opacity: 0.5;
+    opacity: 0.3;
   }
 }
 @keyframes bRTaPl {
