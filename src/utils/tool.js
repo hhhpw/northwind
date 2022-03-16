@@ -259,6 +259,21 @@ const imageisExist = (url) => {
     image.src = url;
   });
 };
+/**
+ * 多次调用函数返回最后值（未实验）
+ * @param cb 执行的回调函数，和防抖使用方法一致
+ * @returns
+ */
+const requestMoreFun = (cb) => {
+  let count = -1;
+  let arr = [];
+  return async (...args) => {
+    count++;
+    let res = await cb(...args);
+    arr[count] = res;
+    return arr[arr.length - 1];
+  };
+};
 
 export default {
   openNewWindow,
@@ -274,4 +289,5 @@ export default {
   getCountDown,
   getCountDownDetails,
   imageisExist,
+  requestMoreFun,
 };
