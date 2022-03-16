@@ -179,7 +179,6 @@ const pushPage = (detail) => {
       &.name {
         font-size: 14px;
         color: $white;
-        font-weight: 600;
       }
     }
   }
