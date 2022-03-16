@@ -111,7 +111,8 @@ onMounted(() => {
   width: 1200px;
   .fly-nft-header {
     width: 100%;
-    background: #191919;
+    background: rgba(255, 255, 255, 0.2);
+    // opacity: 0.09;
   }
   .nft-card-core {
     width: 100%;

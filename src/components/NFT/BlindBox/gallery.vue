@@ -137,7 +137,7 @@ onUnmounted(() => {
   margin-top: 20px;
 }
 .nft-gallery-list {
-  padding: 35px 32px;
+  padding-top: 58px;
   border-radius: 34px;
   h3 {
     font-size: 24px;
