@@ -71,7 +71,11 @@ let state = reactive({
   height: 192px;
   color: $white;
   display: inline-block;
-  background: linear-gradient(144deg, #3e3e3e 0%, #252525 100%);
+  background: linear-gradient(
+    144deg,
+    rgba(148, 148, 148, 0.4) 0%,
+    rgba(82, 82, 82, 0.4) 100%
+  );
   border-radius: 8px;
   .title {
     font-size: 14px;
