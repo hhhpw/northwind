@@ -33,10 +33,14 @@
 
     <div class="nft-selector-sort" @click="changeSortDir">
       <div class="sort-item">
-        <svg-icon name="f-arrow-up" class="direction-icon"></svg-icon>
-      </div>
-      <div class="sort-item">
-        <svg-icon name="f-arrow-down" class="direction-icon"></svg-icon>
+        <img
+          src="../../assets/nft/arrow-up.png"
+          v-if="state.sortDirValue === 'desc'"
+        />
+        <img
+          src="../../assets/nft/arrow-down.png"
+          v-if="state.sortDirValue === 'asc'"
+        />
       </div>
       <!-- 排序类别 -->
       <ElSelect
@@ -191,7 +195,7 @@ const changeSortDir = () => {
     border: none;
     border-radius: 8px;
     .el-select-dropdown__list {
-      margin: 14px 0 !important;
+      margin-top: 14px !important;
     }
     .el-select-dropdown__item.selected {
       color: $white;
@@ -240,9 +244,7 @@ const changeSortDir = () => {
       line-height: 36px;
       margin-right: 6px;
       border-radius: 8px;
-      .direction-icon {
-        width: 25px;
-        height: 25px;
+      img {
         vertical-align: middle;
       }
     }
