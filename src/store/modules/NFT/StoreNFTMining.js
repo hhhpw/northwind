@@ -57,7 +57,7 @@ const StoreNFTMining = {
       ...WALLET_DIALOG_PARAMS,
       dialogText: utilsFormat.computedLangCtx("nftmining.add-nft"),
       successText: utilsFormat.computedLangCtx("nftmining.add-nft-ok"),
-      dialogText: utilsFormat.computedLangCtx("nftmining.add-nft-failed"),
+      failedText: utilsFormat.computedLangCtx("nftmining.add-nft-failed"),
     },
     secondDialogParams: MY_SECOND_DIALOG_PARAMS,
     nftStakeList: listRender,
@@ -405,8 +405,8 @@ const StoreNFTMining = {
       commit(types.SET_SECOND_DIALOG_PARAMS, {
         imgParams: {
           url: payload.imageLink,
-          width: "130px",
-          height: "130px",
+          width: "180px",
+          height: "180px",
         },
         dialogVisible: true,
         confirmText: utilsFormat.computedLangCtx("确认"),
