@@ -163,6 +163,7 @@ const pushPage = (detail) => {
       height: 120px;
       vertical-align: middle;
       border-radius: 8px;
+      background: #e8906c;
       + span {
         margin-left: 32px;
       }
