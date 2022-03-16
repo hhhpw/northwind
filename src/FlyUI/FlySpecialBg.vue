@@ -44,7 +44,7 @@ const pos = reactive({
 });
 const posGradient = reactive({
   left: -1112,
-  top: -1010,
+  top: document.documentElement.clientHeight - 1010,
 });
 // let open = true;
 const debouMove = debounce((e) => {
@@ -63,7 +63,7 @@ onMounted(() => {
   pos.top = document.documentElement.clientHeight - 256;
 
   posGradient.left = document.documentElement.clientWidth - 1112;
-  posGradient.top = document.documentElement.clientHeight - 1010;
+  posGradient.top = -1010;
 });
 onBeforeMount(() => {
   document.removeEventListener("mousemove", debouMove);
