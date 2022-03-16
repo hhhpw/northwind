@@ -189,15 +189,14 @@ const pushPage = (detail) => {
     justify-content: center;
     .record-wrap-pagination-prev,
     .record-wrap-pagination-next {
-      border: 0.5px solid $border-gray-color;
       padding: 5px 0px;
       width: 70px;
       text-align: center;
       cursor: pointer;
       font-size: 14px;
       user-select: none;
-      border-radius: 5px;
-      color: #b2b2b2;
+      color: #8c8b8c;
+      background: rgba(255, 255, 255, 0.09);
       &.disabled {
         color: $text-gray4-color;
       }

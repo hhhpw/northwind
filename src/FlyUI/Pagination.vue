@@ -25,7 +25,7 @@
     .btn-prev {
       width: 48px;
       background: none;
-      color: rgba(255, 255, 255, 0.5);
+      color: rgba(255, 255, 255, 0.09);
       // color: #fff;
       &:not(:disabled):hover {
         background-color: rgba(255, 255, 255, 0.2);
@@ -37,7 +37,7 @@
     .btn-next {
       width: 48px;
       background: none;
-      color: rgba(255, 255, 255, 0.5);
+      color: rgba(255, 255, 255, 0.09);
       // color: #fff;
       &:not(:disabled):hover {
         background-color: rgba(255, 255, 255, 0.2);

@@ -388,7 +388,7 @@ const sellStatus = (type, sellingTime) =>
       }
       .buy-button {
         width: 217px;
-        color: $white;
+        color: #923b00;
         padding: 10px 0;
         background: linear-gradient(256deg, #fdd300 0%, #fba800 100%);
         box-shadow: 0px 12px 15px 0px rgba(253, 168, 0, 0.39);
@@ -432,10 +432,14 @@ const sellStatus = (type, sellingTime) =>
       font-weight: bold;
     }
     .item-content-title {
+      width: 95%;
       color: $white;
       font-size: 20px;
       text-indent: 30px;
       margin-top: 18px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
     }
     .item-content-info {
       width: 309px;

@@ -116,7 +116,6 @@ watchEffect(() => {
   .detail-specific-info-container {
     margin-top: 32px;
     font-size: 14px;
-    font-weight: 500;
     .specific-history {
       height: 100%;
     }

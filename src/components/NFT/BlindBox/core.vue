@@ -426,17 +426,16 @@ onUnmounted(() => {
           display: block;
         }
         :first-child {
-          font-size: 12px;
+          font-size: 14px;
         }
       }
       .nft-blindbox-core-header-right-quantity {
-        font-size: 14px;
-        font-weight: bold;
+        font-size: 18px;
         span {
           display: block;
         }
         :first-child {
-          font-size: 12px;
+          font-size: 14px;
         }
       }
       .nft-blindbox-core-header-right-button {

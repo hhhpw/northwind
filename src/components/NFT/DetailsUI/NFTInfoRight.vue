@@ -234,8 +234,9 @@ const actionsCall = (action) => {
         margin-bottom: 4px;
       }
       .item-value {
-        font-size: 20px;
+        font-size: 18px;
         color: #fafafa;
+        font-weight: normal;
       }
     }
     .title-text {
