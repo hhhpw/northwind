@@ -30,7 +30,7 @@
               {{ $t("components") }}
             </span>
             <span v-if="props.box_detail.nftType === 'COMPOSITE_CARD'">
-              <SvgIcon name="clothes"></SvgIcon>
+              <SvgIcon name="f-clothes"></SvgIcon>
               {{ $t("disassembled NFT") }}
             </span>
             <span v-if="props.box_detail.nftType === 'NORMAL'">
