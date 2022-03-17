@@ -22,7 +22,10 @@
     <Fly-space :size="40"></Fly-space>
     <div class="liquidity-content-core">
       <template v-if="state.poolType === 'init'">
-        <no-data v-if="state.poolList && !state.hasLiquidity"></no-data>
+        <no-data
+          v-if="!state.hasLiquidity && !state.loading"
+          :poolList="state.poolList"
+        ></no-data>
         <template v-if="state.hasLiquidity">
           <pool-list :data="state.poolList"></pool-list>
         </template>
@@ -128,6 +131,7 @@ let state = reactive({
   walletStatus: computed(() => store.state.StoreWallet.walletStatus),
   focusType: null,
   poolList: computed(() => store.state.StoreLiquidity.poolList),
+  loading: computed(() => store.state.StoreLiquidity.loading),
   isShowSearchDialog: computed(
     () => store.state.StoreLiquidity.isShowSearchDialog
   ),
@@ -260,7 +264,7 @@ const btnClickEvent = (flag) => {
     store.dispatch("StoreLiquidity/delLiquidity");
   }
 };
-
+// init
 store.dispatch(
   "StoreLiquidity/getAllPoolListByUser",
   state.accounts[0] || null
