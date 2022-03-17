@@ -31,11 +31,13 @@
       <div class="nft-dialog-content">
         <div class="nft-dialog-content-core">
           <img
+            v-if="
+              props.dialogParams.customImgUrl ||
+              props.dialogParams.dialogStatus == 'ongoing'
+            "
             :src="
-              renderContentImg(
-                props.dialogParams.dialogStatus,
-                props.dialogParams.customImgUrl
-              )
+              props.dialogParams.customImgUrl ||
+              '//static.kikoswap.com/img/loading.webp'
             "
             :style="
               setWH(
@@ -45,6 +47,17 @@
               )
             "
           />
+          <svg-icon
+            v-else
+            :name="renderContentImg(props.dialogParams.dialogStatus)"
+            :style="
+              setWH(
+                props.dialogParams.dialogStatus,
+                props.dialogParams.customImgUrl,
+                props.dialogParams.isBlindBox
+              )
+            "
+          ></svg-icon>
           <p v-if="props.dialogParams.title" class="dialogParamsTitle">
             {{ props.dialogParams.title }}
           </p>
@@ -134,8 +147,8 @@ import FlyButton from "@FlyUI/FlyButton.vue";
 import { useStore } from "vuex";
 // import { ElDialog } from "element-plus";
 // import dialogOnGoingImg from "//static.kikoswap.com/img/loading.webp";
-import dialogFailedImg from "../../assets/nft/dialog-error.png";
-import dialogSuccessImg from "../../assets/nft/dialog-ok.png";
+// import dialogFailedImg from "../../assets/nft/dialog-error.png";
+// import dialogSuccessImg from "../../assets/nft/dialog-ok.png";
 import dialogLoadingImg from "../../assets/nft/dialog-loading.png";
 import dialogPhaseSuccessImg from "../../assets/nft/dialog-success.png";
 
@@ -213,11 +226,10 @@ const setDiaglogStyle = computed(() => {
   };
 });
 
-const renderContentImg = (type, customImgUrl) => {
+const renderContentImg = (type) => {
   const obj = {
-    ongoing: customImgUrl || "//static.kikoswap.com/img/loading.webp",
-    failed: dialogFailedImg,
-    success: customImgUrl || dialogSuccessImg,
+    failed: "dialog-error",
+    succeed: "dialog-ok",
   };
   return obj[type];
 };
@@ -246,7 +258,7 @@ const setWH = (type, customImgUrl, isBlindBox) => {
   if (type !== "ongoing") {
     return {
       width: "63px",
-      // height: "56px",
+      height: "56px",
     };
   }
   return {};

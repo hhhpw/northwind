@@ -36,15 +36,20 @@
         <div class="fly-wallet-dialog-content-core">
           <img
             style="border-radius: 16px"
-            :src="renderContentImg(props.dialogParams.dialogStatus)"
-            :style="
-              Object.assign({}, setWH(props.dialogParams.dialogStatus), {
-                'margin-bottom':
-                  props.dialogParams.dialogStatus !== 'ongoing' ? '20px' : '',
-              })
+            src="//static.kikoswap.com/img/loading.webp"
+            v-if="
+              props.dialogParams.isUseStatusImg &&
+              props.dialogParams.dialogStatus == 'ongoing'
             "
-            v-if="props.dialogParams.isUseStatusImg"
           />
+          <svg-icon
+            v-if="
+              props.dialogParams.isUseStatusImg &&
+              props.dialogParams.dialogStatus !== 'ongoing'
+            "
+            :name="renderContentImg(props.dialogParams.dialogStatus)"
+            :style="setWH()"
+          ></svg-icon>
           <p
             class="fly-wallet-dialog-content-core-text"
             :class="{ error: props.dialogParams.dialogStatus === 'failed' }"
@@ -127,8 +132,8 @@ import SvgIcon from "@components/SvgIcon/Index.vue";
 import FlyButton from "@FlyUI/FlyButton.vue";
 import { useStore } from "vuex";
 // import dialogOnGoingImg from "//static.kikoswap.com/img/loading.webp";
-import dialogFailedImg from "../assets/nft/dialog-error.png";
-import dialogSuccessImg from "../assets/nft/dialog-ok.png";
+// import dialogFailedImg from "../assets/nft/dialog-error.png";
+// import dialogSuccessImg from "../assets/nft/dialog-ok.png";
 import dialogLoadingImg from "../assets/nft/dialog-loading.png";
 import dialogPhaseSuccessImg from "../assets/nft/dialog-success.png";
 
@@ -192,9 +197,8 @@ const setDiaglogStyle = computed(() => {
 const renderContentImg = (type) => {
   console.log("====type====", type);
   const obj = {
-    ongoing: "//static.kikoswap.com/img/loading.webp",
-    failed: dialogFailedImg,
-    succeed: dialogSuccessImg,
+    failed: "dialog-error",
+    succeed: "dialog-ok",
   };
   return obj[type];
 };
@@ -207,20 +211,12 @@ const renderPhaseStatus = (type) => {
   return obj[type];
 };
 
-const setWH = (type) => {
-  // if (customImgUrl) {
-  //   return {
-  //     width: "80%",
-  //     "margin-bottom": "10px",
-  //   };
-  // }
-  if (type !== "ongoing") {
-    return {
-      width: "63px",
-      // height: "56px",
-    };
-  }
-  return {};
+const setWH = () => {
+  return {
+    "margin-bottom": "20px",
+    width: "63px",
+    height: "56px",
+  };
 };
 
 const rotateAni = (type) => {

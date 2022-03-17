@@ -17,16 +17,27 @@
             v-if="props.cType === 'loading'"
             class="loading-img"
           />
-          <img
+          <!-- <img
             src="../../assets/nft/dialog-error.png"
             v-if="props.cType === 'fail'"
             class="info-img"
           />
+          
           <img
             src="../../assets/nft/dialog-ok.png"
             v-if="props.cType === 'success'"
             class="info-img"
-          />
+          /> -->
+          <svg-icon
+            name="dialog-error"
+            v-if="props.cType === 'fail'"
+            class="info-img"
+          ></svg-icon>
+          <svg-icon
+            name="dialog-ok"
+            v-if="props.cType === 'success'"
+            class="info-img"
+          ></svg-icon>
         </div>
       </template>
       <template #content-text>
@@ -63,6 +74,7 @@
 import FlyButton from "@FlyUI/FlyButton.vue";
 import FlyConfirm from "@FlyUI/FlyConfirm";
 import { defineProps, defineEmits } from "vue";
+import SvgIcon from "@components/SvgIcon/Index.vue";
 
 const props = defineProps({
   //confirm类型
@@ -109,8 +121,8 @@ const handleClose = () => {
     height: 140px;
   }
   .info-img {
-    width: auto;
-    height: auto;
+    width: 63px;
+    height: 56px;
   }
 }
 .confirm-foot-btn {
