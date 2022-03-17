@@ -229,7 +229,7 @@ const setDiaglogStyle = computed(() => {
 const renderContentImg = (type) => {
   const obj = {
     failed: "dialog-error",
-    succeed: "dialog-ok",
+    success: "dialog-ok",
   };
   return obj[type];
 };

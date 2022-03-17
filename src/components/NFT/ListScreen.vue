@@ -262,7 +262,7 @@ const emits = defineEmits(["clickSelectJoint", "clickRadio", "changeTab"]);
   }
   .nft-list-screen-collection {
     display: flex;
-    justify-content: space-between;
+    position: relative;
     .nft-list-screen-collection-tabs {
       display: flex;
       flex: 3;

@@ -152,6 +152,8 @@ const props = defineProps({
         phase2: "", // loading succeed
         successBtnText: "",
         failedBtnText: "",
+        successText: "",
+        failedText: "",
       };
     },
   },

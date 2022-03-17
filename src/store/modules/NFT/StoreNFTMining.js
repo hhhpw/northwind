@@ -125,6 +125,8 @@ const StoreNFTMining = {
           dialogText: utilsFormat.computedLangCtx("操作失败"),
           failedBtnText: utilsFormat.computedLangCtx("确认"),
           isShowClose: true,
+          successText: "提取成功",
+          failedText: "提取失败",
           handleFailed: () => handleWalletCloseEvent(commit),
           handleClose: () => handleWalletCloseEvent(commit),
         });
@@ -135,6 +137,8 @@ const StoreNFTMining = {
           dialogVisible: true,
           dialogText: utilsFormat.computedLangCtx("提取中"),
           isShowClose: false,
+          successText: "提取成功",
+          failedText: "提取失败",
         });
         const account = rootState.StoreWallet.accounts[0];
         const signHash = await Wallet.starMaskSign({
@@ -261,6 +265,8 @@ const StoreNFTMining = {
       commit(types.SET_WALLET_DIALOG_PARAMS, {
         dialogVisible: true,
         dialogText: utilsFormat.computedLangCtx("nftmining.add-nft"),
+        successText: "放置成功",
+        failedText: "放置失败",
         isShowClose: false,
       });
       const params = {
@@ -319,6 +325,8 @@ const StoreNFTMining = {
       commit(types.SET_WALLET_DIALOG_PARAMS, {
         dialogVisible: true,
         isShowClose: false,
+        successText: "赎回成功",
+        failedText: "赎回失败",
         dialogText: utilsFormat.computedLangCtx("nftmining.remove-nft"),
       });
       let params = {

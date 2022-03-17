@@ -25,7 +25,7 @@ const { connectWallet } = connectLogic(store);
   padding: 0 96px;
   box-sizing: border-box;
   // background-color: $btn-light-orange-bgcolor;
-  background-image: url("../../assets/nft/no-connect-bg.png");
+  background: url("../../assets/nft/no-connect-bgNew.png") no-repeat;
   margin: 0 auto;
   display: flex;
   align-items: center;
