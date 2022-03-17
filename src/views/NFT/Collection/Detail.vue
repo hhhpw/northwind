@@ -17,6 +17,7 @@
               state.blind_box_type !== 'box' && !state.detail_info.boxToken
             "
             :isOnSell="state.detail_info.onSell"
+            :occupations="state.occupations"
             :isOwner="isOwner(state.detail_info.address)"
             @actionsCall="actionsCall"
             fromView="collection"
@@ -133,6 +134,7 @@ let state = reactive({
   }),
   bidPriceDialogParams: NFT_CONSTANTS.BID_PRICE_DIALOD_PARAMS,
   action_call_type: "",
+  occupations: computed(() => store.state.StoreMeta.metaData.occupations),
 });
 
 let editState = reactive({
@@ -157,6 +159,7 @@ const isOwner = (address) =>
   });
 
 onMounted(() => {
+  store.dispatch("StoreMeta/getNFTMeatInfo");
   store.commit(
     "StoreCollection/CHANGE_SECOND_DIALOG_STATUS",
     NFT_CONSTANTS.INIT_SECOND_DIALOG_PARAMS

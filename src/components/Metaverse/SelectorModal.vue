@@ -238,8 +238,8 @@ const pushMarket = () => {
     img {
       display: inline-block;
       margin-bottom: 20px;
-      width: 90px;
-      height: 90px;
+      // width: 70px;
+      // height: 80px;
     }
     .no-nft-data-link {
       color: #fba800;

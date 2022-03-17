@@ -85,6 +85,7 @@ const changeProperty = (d, i) => {
   }
   .property-item-active {
     background: linear-gradient(129deg, #4a4a4a 0%, #3c3c3c 100%);
+    color: #ffffff;
     .property-item-active-block {
       left: 0px;
       position: absolute;

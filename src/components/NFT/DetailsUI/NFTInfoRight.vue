@@ -62,7 +62,11 @@
     <!-- avatar info  -->
     <div
       class="details-avatar-info base-item"
-      v-if="state.isNFT && props.box_detail.nftType === 'COMPOSITE_CARD'"
+      v-if="
+        state.isNFT &&
+        props.box_detail.nftType === 'COMPOSITE_CARD' &&
+        !props.box_detail?.original
+      "
     >
       <div class="item-info name">
         <p class="item-title">{{ $t("name") }}</p>
@@ -70,7 +74,9 @@
       </div>
       <div class="item-info job" v-if="props.box_detail?.occupation">
         <p class="item-title">{{ $t("profession") }}</p>
-        <p class="item-value">{{ props.box_detail?.occupation }}</p>
+        <p class="item-value">
+          {{ mapProfession(props.box_detail?.occupation) || "" }}
+        </p>
       </div>
       <div
         class="item-info sex"
@@ -158,6 +164,8 @@ import { reactive, computed, defineProps, defineEmits, onUnmounted } from "vue";
 import FlyAmount from "@FlyUI/FlyAmount";
 import detailAction from "@components/NFT/DetailActions";
 import utilsTools from "@utils/tool";
+import { useStore } from "vuex";
+const store = useStore();
 let state = reactive({
   isNFT: computed(() => {
     if (
@@ -181,6 +189,8 @@ let state = reactive({
     }
   }),
   countdown: { day: "00", hours: "00", minutes: "00", seconds: "00" },
+
+  lang: computed(() => store.state.StoreApp.currLang),
 });
 let props = defineProps({
   box_detail: {
@@ -192,6 +202,9 @@ let props = defineProps({
   type: {
     type: String,
   },
+  occupations: {
+    type: Array,
+  },
 });
 const stringFormat = (str) => {
   if (str) {
@@ -200,6 +213,7 @@ const stringFormat = (str) => {
     return "--";
   }
 };
+store.dispatch("StoreMeta/getNFTMeatInfo");
 const pushPage = (path) => {
   utilsTools.openNewWindow(`https://stcscan.io/main/address/${path}`);
 };
@@ -215,6 +229,17 @@ let getCountDown = (timestamp) => {
 onUnmounted(() => {
   getCountDown = null;
 });
+
+const mapProfession = (item) => {
+  let value;
+  if (props.occupations) {
+    let obj = props.occupations.filter((i) => i.value === item);
+    if (obj) {
+      value = state.lang === "zh" ? obj.cnDesc : obj.desc;
+    }
+  }
+  return value || "";
+};
 // 操作事件回调
 const emits = defineEmits(["actionsCall"]);
 const actionsCall = (action) => {
