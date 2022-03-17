@@ -10,12 +10,10 @@
         alt=""
       />
       <div class="desc-wrap">
-        <img
-          class="desc"
-          src="../../assets/home/new-home/second-desc.png"
-          alt=""
-        />
-        <div class="click-area" @click.stop="handleLearnMore"></div>
+        <p class="title">{{ $t("home.letter-title") }}</p>
+        <p>{{ $t("home.letter-desc1") }}</p>
+        <p>{{ $t("home.letter-desc2") }}</p>
+        <p>{{ $t("home.letter-desc3") }}</p>
       </div>
     </div>
   </div>
@@ -25,9 +23,6 @@
 import HOME_CONSTANTS from "@constants/home";
 
 const defaultImg = require("../../assets/home/new-home/second-img1.png");
-const handleLearnMore = () => {
-  console.log("handle learn more");
-};
 </script>
 <style lang="scss" scoped>
 .second-wrap {
@@ -38,9 +33,9 @@ const handleLearnMore = () => {
   align-items: center;
   .content-wrap {
     width: 90%;
+    min-width: 1000px;
     height: fit-content;
     position: relative;
-    margin-top: -10%;
     .bg {
       width: 100%;
     }
@@ -51,22 +46,53 @@ const handleLearnMore = () => {
       width: 40%;
     }
     .desc-wrap {
-      width: 40%;
-      height: fit-content;
+      width: 30%;
+      height: 100%;
       position: absolute;
       right: 10%;
-      bottom: -20%;
-      .desc {
-        width: 100%;
+      top: 60%;
+      transform: translateY(-50%);
+      z-index: 1;
+      background: url("../../assets/home/new-home/content-bg.png") no-repeat;
+      background-size: 100% 100%;
+      display: flex;
+      flex-direction: column;
+      .title {
+        font-size: 24px;
+        font-family: Denmark;
+        color: #000000;
+        line-height: 29px;
+        margin: 11% 0 0 12%;
       }
-      .click-area {
-        position: absolute;
-        bottom: 10%;
-        left: 5%;
-        width: 50%;
-        height: 13%;
-        z-index: 10;
-        cursor: pointer;
+      & > p {
+        width: 80%;
+        margin-top: 22px;
+        font-size: 14px;
+        font-family: PingFangSC-Medium, PingFang SC;
+        font-weight: 500;
+        color: #000000;
+        line-height: 20px;
+        margin: 6% 12% 0 12%;
+      }
+    }
+  }
+}
+@media screen and (min-width: 1600px) {
+  .second-wrap {
+    .content-wrap {
+      width: 80%;
+      .desc-wrap {
+        bottom: -20%;
+        .title {
+          font-size: 36px;
+          line-height: 32px;
+          padding-bottom: 30px;
+        }
+        & > p {
+          font-size: 20px;
+          line-height: 32px;
+          margin-top: 12px;
+        }
       }
     }
   }

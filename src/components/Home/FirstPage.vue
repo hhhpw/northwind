@@ -3,9 +3,11 @@
   <div class="first-wrap">
     <div class="content-wrap">
       <div class="desc">
-        <span>Fishing Crypto with kiko</span>
-        <span>Swap，earn and win crypto on a safe and creative multiverse</span>
-        <div @click="handleGoSwap">Swap Now</div>
+        <img src="../../assets/home/new-home/slogn.svg" alt="" />
+        <!-- <div @click="handleGoSwap">{{ $t("home.learn-more") }}</div> -->
+        <fly-button class="btn" type="normal" @click="handleGoSwap">{{
+          $t("home.learn-more")
+        }}</fly-button>
       </div>
       <!-- <img :src="HOME_CONSTANTS.PLUTUS_CAT" alt="" /> -->
       <img
@@ -20,6 +22,7 @@
 <script setup>
 import { useRouter } from "vue-router";
 import HOME_CONSTANTS from "@constants/home";
+import FlyButton from "@FlyUI/FlyButton.vue";
 const defaultImg = require("../../assets/home/new-home/cat.png");
 
 const router = useRouter();
@@ -48,6 +51,9 @@ const handleGoSwap = () => {
     .desc {
       display: flex;
       flex-direction: column;
+      & > img {
+        width: 150%;
+      }
       span:first-child {
         font-size: 40px;
         font-family: DenmarkRegular;
@@ -62,28 +68,39 @@ const handleGoSwap = () => {
         color: #ffffff;
         line-height: 22px;
       }
-      & > div {
-        width: 190px;
-        height: 50px;
-        background-image: url("../../assets/home/new-home/btn-bg.png");
-        background-size: cover;
-        background-repeat: no-repeat;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+      .btn {
+        width: 300px;
+        height: 80px;
         margin-top: 47px;
-        border: none;
-        font-size: 20px;
+        padding: 0;
+        font-size: 32px;
         font-family: PingFangSC-Semibold, PingFang SC;
         font-weight: 600;
         color: #000000;
         line-height: 28px;
-        cursor: pointer;
       }
     }
     img {
       height: 100%;
       margin-right: -10%;
+    }
+  }
+}
+@media screen and (max-width: 1600px) {
+  .first-wrap {
+    .content-wrap {
+      .desc {
+        & > img {
+          width: 100%;
+        }
+        .btn {
+          width: 190px;
+          height: 50px;
+          margin-top: 47px;
+          padding: 0;
+          font-size: 20px;
+        }
+      }
     }
   }
 }
