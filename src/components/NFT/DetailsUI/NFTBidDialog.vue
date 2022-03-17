@@ -381,6 +381,7 @@ const changeAction = (i) => {
             background: rgba(255, 255, 255, 0.1);
             border: none;
             color: $white;
+            padding-left: 24px;
             &:hover {
               border-color: $white;
             }

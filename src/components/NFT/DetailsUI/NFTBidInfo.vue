@@ -73,7 +73,7 @@ let props = defineProps({
 <style lang="scss" scoped>
 .nft-bid-info {
   display: flex;
-  background: #37322c;
+  background: rgba(255, 255, 255, 0.15);
   border-radius: 8px;
   padding: 17px 0;
   margin-bottom: 20px;

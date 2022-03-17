@@ -274,7 +274,7 @@ const emits = defineEmits(["clickSelectJoint", "clickRadio", "changeTab"]);
         padding: 7px 18px;
         &.active {
           color: $white;
-          background: rgba(255, 255, 255, 0.1);
+          background: rgba(255, 255, 255, 0.15);
         }
         &:hover {
           cursor: pointer;

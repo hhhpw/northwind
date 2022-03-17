@@ -165,7 +165,7 @@ const emits = defineEmits(["handleClose", "handleCancel", "handleConfirm"]);
 
   .fly-second-dialog-footer {
     width: 100%;
-    margin-top: 41px;
+    margin-top: 31px;
     display: flex;
     justify-content: space-around;
     .fly-second-dialog-footer-button {

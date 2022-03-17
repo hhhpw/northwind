@@ -163,7 +163,7 @@ const changeSortDir = () => {
 @import "~@/styles/_vars.scss";
 .nft-selector {
   .series-select {
-    width: 144px;
+    width: 193px;
   }
   ::v-deep(.el-input) {
     width: 100%;
@@ -171,7 +171,6 @@ const changeSortDir = () => {
     overflow: hidden;
     height: 36px;
     border: none;
-    background: rgba(255, 255, 255, 0.2);
   }
   ::v-deep(.el-input__inner) {
     height: 36px;
@@ -179,7 +178,7 @@ const changeSortDir = () => {
     border: none;
     text-indent: 18px;
     padding: 0;
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.15);
   }
   ::v-deep(.el-input__inner:focus) {
     border: none;
@@ -239,7 +238,6 @@ const changeSortDir = () => {
       cursor: pointer;
       width: 32px;
       height: 36px;
-      background: rgba(255, 255, 255, 0.2);
       text-align: center;
       line-height: 36px;
       margin-right: 6px;

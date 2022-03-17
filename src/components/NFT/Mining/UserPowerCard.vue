@@ -85,11 +85,16 @@ const drawProfit = () => {
   height: 192px;
   float: right;
   color: #fba800;
-  background: linear-gradient(161deg, #422c00 0%, #1f1400 100%);
+  background: linear-gradient(
+    70deg,
+    rgba(195, 143, 39, 0.4) 0%,
+    rgba(88, 52, 00, 0.4) 50%
+  );
   border-radius: 8px;
   .title {
     font-weight: 600;
     font-size: 14px;
+    color: rgba(251, 168, 0, 0.6);
   }
 
   .my-power-header {

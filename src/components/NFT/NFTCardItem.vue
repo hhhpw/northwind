@@ -72,7 +72,7 @@
               style="margin-left: 3px"
               :value="itemData?.score"
               :formatOptions="{
-                precision: 2,
+                precision: 0,
               }"
             >
             </fly-amount>

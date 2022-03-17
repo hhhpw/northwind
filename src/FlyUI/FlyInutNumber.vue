@@ -72,6 +72,14 @@ const inputEvent = (e) => {
   ::v-deep(.el-input-number) {
     width: var(--width);
   }
+  ::v-deep(.el-icon) {
+    width: 23px;
+    height: 23px;
+    svg {
+      width: 100%;
+      height: 100%;
+    }
+  }
   ::v-deep(.el-input-number__decrease) {
     border-radius: none;
     background: transparent;
