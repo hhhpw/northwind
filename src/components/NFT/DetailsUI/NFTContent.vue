@@ -69,7 +69,6 @@ const selectCrossTab = (name) => {
   state.selected_tab = name;
 };
 const getBarArray = () => {
-  if (!props.box_detail.nftType) return;
   if (props.isNFT) {
     if (props.box_detail.nftType === "COMPOSITE_ELEMENT") {
       return [
@@ -104,7 +103,6 @@ const getBarArray = () => {
   }
 };
 watchEffect(() => {
-  if (!props.box_detail.nftType) return;
   state.cross_bar_array = getBarArray();
   state.selected_tab = state.cross_bar_array?.[0]?.id;
 });
