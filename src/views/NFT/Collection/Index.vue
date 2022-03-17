@@ -391,5 +391,8 @@ const clickRadio = (data) => {
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
+  :nth-child(4n) {
+    margin-right: 0;
+  }
 }
 </style>
