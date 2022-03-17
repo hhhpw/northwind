@@ -20,7 +20,7 @@
       :hasBtn="false"
       :baseData="d"
       @actionsCall="actionsCall"
-      @watchDetail="() => emits('watchDetail', d, 'unsold')"
+      @watchDetail="() => emits('watchDetail', d, state.accounts[0], 'unsold')"
     >
     </nft-card-item>
   </template>
@@ -37,6 +37,7 @@ import { useStore } from "vuex";
 const store = useStore();
 let state = reactive({
   isLoading: computed(() => store.state.StoreCollection.isLoading),
+  accounts: computed(() => store.state.StoreWallet.accounts),
 });
 const unsold_data = computed(
   () => store.getters["StoreCollection/unsold_data"]

@@ -2,12 +2,13 @@
 import request from "../../utils/request";
 
 //获取盲盒详情
-function getBoxDetail(boxToken, payToken) {
+function getBoxDetail(boxToken, userAddress) {
   return request({
     url: `/v1/nft/box/info`,
     method: "GET",
     params: {
       boxToken,
+      userAddress,
     },
   });
 }

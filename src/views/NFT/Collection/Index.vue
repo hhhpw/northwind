@@ -308,7 +308,7 @@ const clearData = () => {
 
 const isNFT = (type) => NFT_CONSTANTS.NFT_TYPES.indexOf(type) > -1;
 
-const watchDetail = (d, sellType) => {
+const watchDetail = (d, account, sellType) => {
   state.coreType = "card";
   if (sellType === "unsold") {
     let query = {};
@@ -319,6 +319,7 @@ const watchDetail = (d, sellType) => {
         nftId: d.nftId,
         nftMeta: d.nftMeta,
         nftBody: d.nftBody,
+
         // payToken: d.payToken,
       };
     } else {
@@ -326,6 +327,7 @@ const watchDetail = (d, sellType) => {
         id: d.id,
         sellType,
         boxToken: d.boxToken,
+        account: account,
         // payToken: d.payToken,
       };
     }
@@ -354,6 +356,7 @@ const watchDetail = (d, sellType) => {
         sellType,
         groupId: d.groupId,
         chainId: d.chainId,
+        account: account,
       };
     }
     const url = qs.stringify(query);

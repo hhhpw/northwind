@@ -176,7 +176,10 @@ const StoreCollection = {
   actions: {
     //获取未出售盲盒详情
     async getBoxDetail({ commit }, payload) {
-      let res = await collectionApi.getBoxDetail(payload.boxToken);
+      let res = await collectionApi.getBoxDetail(
+        payload.boxToken,
+        payload.userAddress
+      );
       if (res.code === 200) {
         commit(types.SET_DETAIL_INFO, res.data);
         commit(types.SET_DETAIL_TYPE, "box");

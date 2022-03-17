@@ -97,7 +97,6 @@ import FlySpecialBg from "@FlyUI/FlySpecialBg.vue";
 const { t } = useI18n();
 const route = useRoute();
 const store = useStore();
-
 const handleSoldOutCloseFunc = () => {
   window.location.reload();
 };
@@ -177,7 +176,7 @@ onMounted(() => {
   const nftBody = ref(route.query.nftBody).value;
   const payToken = ref(route.query.payToken).value;
   const chainId = ref(route.query.chainId).value;
-
+  const account = ref(route.query.account).value;
   if (sellType === "selling") {
     if (infoId) {
       store.dispatch("StoreCollection/getSellingNftDetail", infoId);
@@ -194,6 +193,7 @@ onMounted(() => {
         boxToken,
         // payToken,
         type: "detail",
+        userAddress: account,
       });
     } else {
       store.dispatch("StoreCollection/getNftDetail", {
