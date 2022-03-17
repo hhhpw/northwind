@@ -451,7 +451,7 @@
     "开始倒计时": "開始倒計時",
     "敬请期待": "敬請期待",
     "title": "欢迎来到KG歡迎來到KGStarter!",
-    "content": "KGStarter是Kikoverse的一個平行宇宙，在這個宇宙裏，有繁華的都市、荒蕪的沙漠、熱鬧的賽場，以及形象各異、光彩照人的玩家，不同次元的影視遊戲中的經典角色也可以在這裏齊聚。您可以以任何的風格穿梭在不同的場景。",
+    "content": "K-Starter 是 IKO 平台（Initial Kiko Offering），致力於解決各賽道（Game、NFT、DeFi）高潛力項目初始社區建設、道具、藏品或代幣銷售的需求，成為項目方與投資者、藝術家與收藏家、P2E 遊戲與玩家之間的橋樑，促進 Starcoin 生態蓬勃發展。",
     "footer": "準備好在這裏遨遊了嗎?"
   },
   "navs": {
@@ -461,5 +461,21 @@
     "兑换": "兌換",
     "流动性挖矿": "流動性挖礦",
     "交易挖矿": "交易挖礦"
+  },
+  "home": {
+    "learn-more": "了解更多",
+    "letter-title": "關於 KikoVerse",
+    "letter-desc1": "頭號玩家，歡迎來到 Kiko 世界！",
+    "letter-desc2": "KikoVerse 是一個多元宇宙經濟世界。在這裡，玩家可以沉浸酣暢淋漓的遊戲戰鬥，欣賞玲瑯滿目的 NFT 藏品，體驗便捷高效的 DeFi 應用。所有玩家都有機會創造無限的可能。",
+    "letter-desc3": "KikoVerse = Game + NFT + DeFi + 更多",
+    "game-title": "Game",
+    "game-desc1": "讓遊戲不僅好玩、有趣，更可以賺錢！K-Starter 致力於成為 P2E 遊戲與玩家之間的橋樑。",
+    "game-desc2": "每個玩家都將在 Kiko 的遊戲王國中創造財富，收穫樂趣。",
+    "nft-title": "NFT",
+    "nft-desc1": "發現、收集並創造非凡的 NFT 藏品。NFT 挖礦為特定藏品增添額外屬性和價值。K-Avatar 賦予每個玩家創造非凡藏品的權利！",
+    "nft-desc2": "繽紛節日，機甲風雲，冬奧盛會，純真童趣......",
+    "defi-title": "DeFi",
+    "defi-desc1": "為首發項目提供公平的代幣銷售方式。K-Starter 使投資者和項目方之間能夠直接對話。",
+    "defi-desc2": "明星項目 STAR 上線最高漲幅 800%！"
   }
 }

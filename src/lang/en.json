@@ -453,7 +453,7 @@
     "开始倒计时": "countdown",
     "敬请期待": "Coming soon",
     "title": "Welcome to KGStarter!",
-    "content": "KGStarter is a parallel universe of Kikoverse. In this universe, there are prosperous cities, barren deserts, lively stadiums, and players with different images and brilliance. Characters in games of different dimensions and universe can also gather here. You can travel through different scenes in any style.",
+    "content": "K-Starter is an IKO platform (Initial Kiko Offering), dedicated to solving the needs of initial props, collections or token sales for high-potential projects in various tracks (Game, NFT, DeFi), and becoming a bridge between projects and investors, artists and collectors, P2E games and players.",
     "footer": "Are you ready for your voyage here?"
   },
   "navs": {
@@ -463,5 +463,21 @@
     "兑换": "Swap",
     "流动性挖矿": "LP token Farm",
     "交易挖矿": "Trading Farm"
+  },
+  "home": {
+    "learn-more": "Learn More",
+    "letter-title": "About KikoVerse",
+    "letter-desc1": "Ready Player One, welcome to the world of Kiko!",
+    "letter-desc2": "KikoVerse is a multiverse economic world. Here, players can immerse themselves in hearty game battles, enjoy a dazzling collection of NFTs, and experience convenient and efficient DeFi applications. All players can make the impossible possible.",
+    "letter-desc3": "KikoVerse = Game + NFT + DeFi + More",
+    "game-title": "Game",
+    "game-desc1": "Make the game not only fun, interesting, but also profitable! K-Starter strives to be the bridge between P2E games and players.",
+    "game-desc2": "Every player will create wealth and have fun in Kiko's gaming kingdom.",
+    "nft-title": "NFT",
+    "nft-desc1": "Discover, collect and create extraordinary NFT collections. NFT mining adds additional properties and value to specific NFTs.",
+    "nft-desc2": "K-Avatar empowers every player to create an extraordinary avatar! Themes such as festivals, robots and Winter Olympics have been covered.",
+    "defi-title": "DeFi",
+    "defi-desc1": "Provide a fair token sale method for initial projects. K-Starter enables direct dialogue between investors and project.",
+    "defi-desc2": "The first DEX project — STAR has a maximum increase of 800%!"
   }
 }

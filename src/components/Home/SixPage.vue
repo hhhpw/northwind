@@ -15,6 +15,18 @@
 
 <script setup></script>
 <style lang="scss" scoped>
+@import "./animation.scss";
+@keyframes move {
+  0% {
+    transform: translate(0px, 0px);
+  }
+  50% {
+    transform: translate(5px, 30px);
+  }
+  100% {
+    transform: translate(0px, 0px);
+  }
+}
 .six-wrap {
   width: 100%;
   height: 100%;
@@ -38,7 +50,9 @@
     width: 30% !important;
     position: absolute;
     right: -7%;
-    top: -6%;
+    top: -7%;
+    transition: 5s;
+    animation: move 5s linear infinite;
   }
   .bg {
     position: absolute;
@@ -49,6 +63,21 @@
     background: linear-gradient(166deg, #de7d00 0%, #feca4a 100%);
     opacity: 0.63;
     filter: blur(138px);
+  }
+}
+@media screen and (max-width: 1600px) {
+  .six-wrap {
+    .content-wrap {
+      height: 70%;
+    }
+    .quare {
+      width: 26% !important;
+      position: absolute;
+      right: -7%;
+      top: -7%;
+      transition: 5s;
+      animation: move 5s linear infinite;
+    }
   }
 }
 </style>

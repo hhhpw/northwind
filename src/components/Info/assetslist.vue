@@ -136,7 +136,6 @@ const pageEvent = (type) => {
 <style lang="scss" module>
 .container-list {
   width: 100%;
-  font-weight: 500;
   padding-top: 72px;
   .container-list-title {
     color: #fff;
@@ -202,6 +201,7 @@ const pageEvent = (type) => {
           display: flex;
           overflow: hidden;
           color: #fff;
+          font-weight: 400;
           justify-content: flex-end;
         }
         &:hover {
