@@ -49,6 +49,9 @@ const emits = defineEmits(["clickRadio"]);
 .nft-status {
   display: flex;
   color: $white;
+  position: absolute;
+  right: 0;
+  top: 7px;
   .nft-status-item {
     display: flex;
     margin-right: 24px;
