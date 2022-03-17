@@ -77,7 +77,7 @@ const defaultImg = require("../../assets/home/new-home/second-img1.png");
     }
   }
 }
-@media screen and (min-width: 1900px) {
+@media screen and (min-width: 1800px) {
   .second-wrap {
     .content-wrap {
       width: 80%;
