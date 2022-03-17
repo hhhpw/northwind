@@ -39,31 +39,31 @@ const props = defineProps({
   // },
 });
 const pos = reactive({
-  left: -500,
-  top: -256,
+  left: -350,
+  top: -179,
 });
 const posGradient = reactive({
-  left: -1112,
-  top: document.documentElement.clientHeight - 1010,
+  left: -778,
+  top: document.documentElement.clientHeight - 707,
 });
 // let open = true;
 const debouMove = debounce((e) => {
   const scroll_top = document.documentElement.scrollTop;
 
-  pos.left = e.pageX - 500;
-  pos.top = e.pageY - scroll_top - 256;
+  pos.left = e.pageX - 350;
+  pos.top = e.pageY - scroll_top - 179;
 
-  posGradient.left = e.pageX - 1112;
-  posGradient.top = e.pageY - scroll_top - 1010;
+  posGradient.left = e.pageX - 778;
+  posGradient.top = e.pageY - scroll_top - 707;
 }, 2000);
 onMounted(() => {
   document.addEventListener("mousemove", debouMove);
 
-  pos.left = document.documentElement.clientWidth - 500;
-  pos.top = document.documentElement.clientHeight - 256;
+  pos.left = document.documentElement.clientWidth - 350;
+  pos.top = document.documentElement.clientHeight - 179;
 
-  posGradient.left = document.documentElement.clientWidth - 1112;
-  posGradient.top = -1010;
+  posGradient.left = document.documentElement.clientWidth - 778;
+  posGradient.top = -707;
 });
 onBeforeMount(() => {
   document.removeEventListener("mousemove", debouMove);
@@ -91,8 +91,8 @@ onBeforeMount(() => {
     position: absolute;
     // top: v-bind("pos.top");
     // left: v-bind("pos.left");
-    width: 1000px;
-    height: 512px;
+    width: 700px;
+    height: 358px;
     animation: 3s infinite beath;
     transform-origin: 50% 50%;
     transition: 50s all linear;
@@ -105,8 +105,8 @@ onBeforeMount(() => {
     top: 0;
     // top: 100px;
     // left: 100px;
-    width: 2225px;
-    height: 2020px;
+    width: 1557px;
+    height: 1414px;
     transition: 50s all linear;
     opacity: 0.8;
   }
