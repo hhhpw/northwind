@@ -1,6 +1,7 @@
 <template>
   <div class="mining-no-data">
-    <img src="../../../assets/nft/f-mining-no-data.png" />
+    <!-- <img src="../../../assets/nft/f-mining-no-data.png" /> -->
+    <SvgIcon name="f-no-data"></SvgIcon>
     <p style="color: #8b8b8b">
       {{ $t("nftmining.nft-selector-nodata") }}
     </p>
@@ -12,6 +13,7 @@
 <script setup>
 import utilsRouter from "@utils/router";
 import { useStore } from "vuex";
+import SvgIcon from "@components/SvgIcon/Index.vue";
 const store = useStore();
 const pushMarket = () => {
   store.commit("StoreNFTMining/SET_SELECTOR_DIALOG_PARAMS", {
@@ -31,11 +33,11 @@ const pushMarket = () => {
   width: 100%;
   height: 60vh;
   font-size: 16px;
-  img {
+  svg {
     display: inline-block;
     margin-bottom: 40px;
-    width: 91px;
-    height: 76px;
+    width: 90px;
+    height: 90px;
   }
   .mining-no-data-link {
     color: #fba800;

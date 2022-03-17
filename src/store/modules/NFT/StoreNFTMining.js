@@ -55,9 +55,6 @@ const StoreNFTMining = {
     selectorDialogParams: INIT_SELECTOR_DIALOG_PARAMS,
     walletDialogParams: {
       ...WALLET_DIALOG_PARAMS,
-      dialogText: utilsFormat.computedLangCtx("nftmining.add-nft"),
-      successText: utilsFormat.computedLangCtx("nftmining.add-nft-ok"),
-      failedText: utilsFormat.computedLangCtx("nftmining.add-nft-failed"),
     },
     secondDialogParams: MY_SECOND_DIALOG_PARAMS,
     nftStakeList: listRender,

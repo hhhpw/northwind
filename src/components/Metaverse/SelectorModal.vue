@@ -64,7 +64,7 @@
         </div>
       </div>
       <div class="no-nft-data" v-else>
-        <img src="../../assets/nft/empty.png" />
+        <SvgIcon name="f-no-data"></SvgIcon>
         <p style="color: #8b8b8b">
           {{ $t("metaverse.no NFT available") }}
         </p>
@@ -235,11 +235,11 @@ const pushMarket = () => {
     justify-content: center;
     width: 100%;
     height: 60vh;
-    img {
+    svg {
       display: inline-block;
       margin-bottom: 20px;
-      // width: 70px;
-      // height: 80px;
+      width: 90px;
+      height: 90px;
     }
     .no-nft-data-link {
       color: #fba800;
