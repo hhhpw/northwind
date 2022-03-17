@@ -24,7 +24,7 @@ $text-brow-color: #744600;
   font-size: 16px;
   &:hover {
     cursor: pointer;
-    opacity: 0.7;
+    opacity: 0.85;
     transition: all 0.3s ease-in-out;
   }
 }
@@ -55,6 +55,7 @@ $text-brow-color: #744600;
 }
 .fly-button.disabled {
   background: $gray_light;
+  // color: $black;
   color: rgba(0, 0, 0, 0.54);
 }
 .fly-button.success {

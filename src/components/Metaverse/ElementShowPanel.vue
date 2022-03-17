@@ -11,7 +11,7 @@
           <div
             :class="$style['main-item-img']"
             :style="{
-              border: i === state.activeElement ? '1px solid #ffa400' : '',
+              border: i === state.activeElement ? '2px solid #ffa400' : '',
             }"
           >
             <img :src="d.image" :class="$style['main-item-img-element']" />
@@ -41,7 +41,7 @@
       </template>
       <div :class="$style['main-no-data']" v-else>
         <no-element-item style="margin-top: 160px"></no-element-item>
-        <div>
+        <div :class="$style['main-no-data-div']">
           <span>{{
             $t("metaverse.disassemble an nft detail description one")
           }}</span>
@@ -136,13 +136,17 @@ $mainHeight: 460px;
       display: flex;
       flex-direction: column;
       align-items: center;
+
       div {
         margin-top: 60px;
       }
+      .main-no-data-div {
+        margin-left: 40px;
+      }
       span {
-        color: #a89587;
         font-size: 14px;
         display: inline-block;
+        color: rgba(255, 255, 255, 0.5);
       }
     }
     .main-item-pos {
@@ -158,14 +162,14 @@ $mainHeight: 460px;
       .main-item-img {
         width: 102px;
         height: 102px;
-        border-radius: 4px;
+        // border-radius: 4px;
         position: relative;
         overflow: hidden;
         box-sizing: border-box;
         background: rgba(216, 216, 216, 0.11);
-        border: 1px solid transparent;
+        border: 2px solid transparent;
         &:hover {
-          border: 1px solid #ffa400;
+          border: 2px solid #ffa400;
         }
         img {
           width: 100%;
@@ -189,13 +193,13 @@ $mainHeight: 460px;
         box-sizing: border-box;
         font-size: 14px;
         .main-item-info-data {
-          width: 40px;
-          max-width: 60;
+          min-width: 40px;
           display: inline-block;
           height: 20px;
           border-radius: 14px;
           background: rgba(251, 168, 0, 0.1);
           padding-left: 10px;
+          padding-right: 10px;
         }
         svg + span {
           margin-left: 3px;

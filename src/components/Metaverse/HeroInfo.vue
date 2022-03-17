@@ -135,7 +135,7 @@ const state = reactive({
     bottom: 0;
     left: 0;
     right: 0;
-    transform: scale(0.925, 0.95);
+    // transform: scale(0.925, 0.95);
     z-index: 9;
     cursor: not-allowed;
     // display: flex;

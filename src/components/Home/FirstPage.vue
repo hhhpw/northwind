@@ -20,14 +20,27 @@
 </template>
 
 <script setup>
-import { useRouter } from "vue-router";
 import HOME_CONSTANTS from "@constants/home";
 import FlyButton from "@FlyUI/FlyButton.vue";
+import utilsTool from "@utils/tool";
+import { reactive, computed } from "vue";
+import { useStore } from "vuex";
+const store = useStore();
 const defaultImg = require("../../assets/home/new-home/cat.png");
 
-const router = useRouter();
+let state = reactive({
+  currLang: computed(() => store.state.StoreApp.currLang),
+});
+
 const handleGoSwap = () => {
-  router.push("/swap");
+  console.log("currLang", state.currLang);
+  state.currLang === "zh"
+    ? utilsTool.openNewWindow(
+        "https://kiko-verse.gitbook.io/kiko-yuan-yu-zhou/kiko-yuan-yu-zhou"
+      )
+    : utilsTool.openNewWindow(
+        "https://kiko-verse.gitbook.io/kiko-verse/kikoverse"
+      );
 };
 </script>
 <style lang="scss" scoped>
