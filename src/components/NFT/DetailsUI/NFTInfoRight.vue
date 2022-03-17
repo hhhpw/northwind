@@ -18,8 +18,8 @@
     </div>
 
     <!-- 类型 / 稀有值 -->
-    <div class="details-type-rarity base-item" v-if="state.isNFT">
-      <div class="item-info type" v-if="props.box_detail.nftType">
+    <div class="details-type-rarity base-item">
+      <div class="item-info type">
         <p class="item-title">{{ $t("category") }}</p>
         <p class="item-value">
           <span v-if="props.box_detail.nftType === 'COMPOSITE_ELEMENT'">
@@ -36,12 +36,16 @@
           </span>
           <span
             v-if="
-              props.box_detail.nftType === 'NORMAL' ||
+              (props.blind_box_type !== 'box' &&
+                props.box_detail.nftType === 'NORMAL') ||
               (props.box_detail.nftType === 'COMPOSITE_CARD' &&
                 props.box_detail?.original === true)
             "
           >
             {{ $t("original NFT") }}
+          </span>
+          <span v-if="props.blind_box_type === 'box'">
+            {{ $t("盲盒") }}
           </span>
         </p>
       </div>
@@ -189,7 +193,6 @@ let state = reactive({
     }
   }),
   countdown: { day: "00", hours: "00", minutes: "00", seconds: "00" },
-
   lang: computed(() => store.state.StoreApp.currLang),
 });
 let props = defineProps({
@@ -213,6 +216,7 @@ const stringFormat = (str) => {
     return "--";
   }
 };
+
 store.dispatch("StoreMeta/getNFTMeatInfo");
 const pushPage = (path) => {
   utilsTools.openNewWindow(`https://stcscan.io/main/address/${path}`);
