@@ -272,6 +272,8 @@ const emits = defineEmits(["clickSelectJoint", "clickRadio", "changeTab"]);
         padding-bottom: 8px;
         color: #8c8b8c;
         padding: 7px 18px;
+        border-radius: 4px;
+
         &.active {
           color: $white;
           background: rgba(255, 255, 255, 0.15);

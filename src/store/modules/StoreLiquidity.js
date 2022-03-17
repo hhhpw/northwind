@@ -185,6 +185,7 @@ const StoreLiquidity = {
       successText: "流动性添加成功",
       failedText: "流动性添加失败",
     },
+    loading: false,
   },
   mutations: {
     [types.SET_LPTOKEN_TOTAL_AMOUNT](state, payload) {
@@ -215,6 +216,9 @@ const StoreLiquidity = {
     },
     [types.ADD_TOKEN_INFO](state, payload) {
       state.addToken = payload;
+    },
+    [types.ADD_LOADING_INFO](state, payload) {
+      state.loading = payload;
     },
     [types.SET_DEL_INPUT_VALUE](state, payload) {
       state.delInpVal = payload;
@@ -719,8 +723,11 @@ const StoreLiquidity = {
     async getAllPoolListByUser({ commit }, payload) {
       if (!payload) {
         commit(types.SET_POOLLIST_STATUS, null);
+        commit(types.ADD_LOADING_INFO, false);
       } else {
+        commit(types.ADD_LOADING_INFO, true);
         const res = await liquidityApi.getAllPoolListByUser(payload);
+        commit(types.ADD_LOADING_INFO, false);
         if (res.result && res.result.resources) {
           let list = [];
           for (const [k, v] of Object.entries(res.result.resources)) {

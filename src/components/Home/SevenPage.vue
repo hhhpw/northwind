@@ -29,7 +29,7 @@
           <img src="../../assets/home/new-home/cat-bottom.png" alt="" />
           <div>
             <img src="../../assets/home/new-home/kikoverse.svg" alt="" />
-            <span>Fishing Crypto with kiko</span>
+            <!-- <span>Fishing Crypto with kiko</span> -->
           </div>
         </div>
         <div class="bottom-right">
@@ -111,6 +111,16 @@ const pushPage = (item) => {
 </script>
 
 <style lang="scss" scoped>
+@keyframes animate {
+  0% {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(0, 200px);
+    opacity: 0;
+  }
+}
 .seven-wrap {
   width: 100%;
   height: 100%;
@@ -148,37 +158,38 @@ const pushPage = (item) => {
           flex-direction: column;
           align-items: center;
           & > div {
-            font-size: 32px;
+            font-size: 50px;
             font-family: Denmark;
             color: #ffffff;
-            line-height: 37px;
+            line-height: 50px;
             span:last-child {
               margin-left: 4px;
             }
           }
           span {
-            font-size: 32px;
+            font-size: 50px;
             font-family: DenmarkRegular;
             color: #ffffff;
-            line-height: 37px;
+            line-height: 50px;
           }
           p {
-            margin-top: 12px;
-            font-size: 14px;
+            margin-top: 24px;
+            font-size: 24px;
             font-family: DenmarkRegular;
             color: #ffffff;
-            line-height: 16px;
+            line-height: 24px;
           }
         }
       }
     }
   }
   .coin {
+    display: none;
     width: 30%;
     position: absolute;
     top: 0;
-    left: 50%;
-    transform: translateX(-50%);
+    transition: 5s;
+    animation: animate 5s linear infinite;
   }
   .bottom-wrap {
     width: 100%;
@@ -189,7 +200,7 @@ const pushPage = (item) => {
     justify-content: center;
     align-items: center;
     .bottom-content {
-      width: 1050px;
+      width: 1200px;
       height: 100%;
       display: flex;
       align-items: center;
@@ -198,24 +209,16 @@ const pushPage = (item) => {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        img {
+        & > img {
           width: 120px;
           height: 95px;
         }
         div {
-          display: flex;
-          flex-direction: column;
           margin-left: 18px;
+          display: flex;
+          align-items: center;
           img {
-            height: 35px;
-          }
-          span {
-            margin-top: 2px;
-            font-size: 21px;
-            font-family: PingFangSC-Regular, PingFang SC;
-            font-weight: 400;
-            color: #ffffff;
-            line-height: 29px;
+            height: 66px;
           }
         }
       }
@@ -230,16 +233,16 @@ const pushPage = (item) => {
             list-style-type: none;
             margin-left: 36px;
             cursor: pointer;
-            img {
-              width: 32px;
-              height: 32px;
+            & > img {
+              width: 50px;
+              height: 50px;
             }
             span {
               margin-top: 4px;
               font-size: 14px;
               font-family: PingFangSC-Regular, PingFang SC;
               font-weight: 400;
-              color: #ffffff;
+              color: rgba(255, 255, 255, 0.5);
               line-height: 20px;
             }
           }
@@ -257,6 +260,67 @@ const pushPage = (item) => {
     background: linear-gradient(166deg, #de7d00 0%, #feca4a 100%);
     opacity: 0.43;
     filter: blur(138px);
+  }
+}
+@media screen and (max-width: 1600px) {
+  .seven-wrap {
+    .bg-wrap {
+      .data-wrap {
+        ul {
+          li {
+            & > div {
+              font-size: 32px;
+              line-height: 37px;
+              span:last-child {
+                margin-left: 4px;
+              }
+            }
+            span {
+              font-size: 32px;
+              line-height: 37px;
+            }
+            p {
+              margin-top: 12px;
+              font-size: 14px;
+              line-height: 16px;
+            }
+          }
+        }
+      }
+    }
+    .bottom-wrap {
+      .bottom-content {
+        .bottom-left {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          & > img {
+            width: 80px;
+            height: 65px;
+          }
+          div {
+            margin-left: 18px;
+            display: flex;
+            align-items: center;
+            img {
+              height: 50px;
+            }
+          }
+        }
+        .bottom-right {
+          ul {
+            display: flex;
+            align-items: center;
+            li {
+              & > img {
+                width: 40px;
+                height: 40px;
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }
 </style>

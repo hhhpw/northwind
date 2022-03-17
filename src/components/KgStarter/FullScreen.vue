@@ -7,7 +7,7 @@
             <img src="../../assets/igo/logo-B.png" :class="$style['logo']" />
             <div :class="$style['full-screen-container-content-main-desc']">
               <p>{{ $t("kgstarter.content") }}</p>
-              <p>{{ $t("kgstarter.footer") }}</p>
+              <!-- <p>{{ $t("kgstarter.footer") }}</p> -->
             </div>
           </div>
         </div>

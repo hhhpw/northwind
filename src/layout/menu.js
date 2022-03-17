@@ -1,17 +1,5 @@
 export default [
   {
-    label: "兑换",
-    path: "/swap",
-  },
-  {
-    label: "流动性",
-    path: "/liquidity",
-  },
-  {
-    label: "KGStarter",
-    path: "/kgstarter",
-  },
-  {
     label: "NFT",
     defaultPath: "/nftblindbox",
     path: [
@@ -24,9 +12,22 @@ export default [
     ],
   },
   {
+    label: "K-Starter",
+    path: "/kgstarter",
+  },
+  {
     label: "K-Avatar",
     path: "/metaverse",
   },
+  {
+    label: "兑换",
+    path: "/swap",
+  },
+  {
+    label: "流动性",
+    path: "/liquidity",
+  },
+
   {
     label: "行情",
     path: "/info",
