@@ -41,14 +41,14 @@ const pagiEvent = (type) => emits("pageEvent", type);
   justify-content: center;
   .fly-pagination-prev,
   .fly-pagination-next {
-    border: 0.5px solid $border-gray-color;
-    padding: 5px 0px;
-    width: 70px;
+    padding: 14px 32px;
     text-align: center;
     cursor: pointer;
     font-size: 14px;
     user-select: none;
-    border-radius: 5px;
+    color: #8c8b8c;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.09);
     &.disabled {
       color: $text-gray4-color;
     }
