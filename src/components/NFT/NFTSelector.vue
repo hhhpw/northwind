@@ -242,6 +242,7 @@ const changeSortDir = () => {
       line-height: 36px;
       margin-right: 6px;
       border-radius: 8px;
+      background: rgba(255, 255, 255, 0.15);
       img {
         vertical-align: middle;
       }
