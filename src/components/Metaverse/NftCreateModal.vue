@@ -16,7 +16,7 @@
             <p>{{ $t("metaverse.generate character NFT") }}</p>
             <p style="margin-top: 5px">
               {{ $t("metaverse.minting fees") }} :
-              {{ ` (${state?.metaData?.compositeFee}) STC` }}
+              {{ `${state?.metaData?.compositeFee} STC` }}
             </p>
           </div>
           <svg-icon
@@ -231,6 +231,7 @@ const handleClose = () => {
   ::v-deep(.el-select) {
     .el-input__inner {
       color: #fff !important;
+      font-size: 16px;
     }
   }
   ::v-deep(.el-input) {
@@ -256,6 +257,7 @@ const handleClose = () => {
   }
   ::v-deep(.el-input__inner::placeholder) {
     color: rgba(255, 255, 255, 0.4);
+    font-size: 16px;
   }
   ::v-deep(.el-select__popper.el-popper[role="tooltip"]) {
     border: none;

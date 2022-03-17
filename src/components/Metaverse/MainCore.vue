@@ -67,10 +67,12 @@ onUnmounted(() => {
   overflow: hidden;
   margin: 0 auto;
   margin-top: 20px;
+  min-height: 800px;
+  height: 800px;
   .main {
     display: flex;
     margin-top: 30px;
-    // background: rgba(0, 0, 0, 0.5);
+    padding-bottom: 30px;
   }
 }
 </style>

@@ -5,12 +5,19 @@
       :class="$style['role-no-character']"
       v-if="!state.composeNFT || state.composeNFT.length < 1"
     >
-      <p>
+      <!-- <p>
         {{ $t("metaverse.character nft making") }}
       </p>
       <p>
         {{ $t("metaverse.no character nft yet") }}
-      </p>
+      </p> -->
+      <div :class="$style['role-character-add']" @click="changeMainType">
+        <span
+          :style="{ 'margin-top': state.currLang === 'zh' ? '60px' : '50px' }"
+        >
+          {{ $t("metaverse.character nft making") }}
+        </span>
+      </div>
     </div>
     <!-- 角色卡片 -->
     <div :class="$style['role-character']" v-else>
@@ -36,7 +43,11 @@
         <img :src="d.image" />
       </div>
       <div :class="$style['role-character-add']" @click="changeMainType">
-        {{ $t("metaverse.character nft making") }}
+        <span
+          :style="{ 'margin-top': state.currLang === 'zh' ? '60px' : '50px' }"
+        >
+          {{ $t("metaverse.character nft making") }}
+        </span>
       </div>
     </div>
   </div>
@@ -51,6 +62,7 @@ const state = reactive({
   maskDOMs: [],
   type: computed(() => store.state.StoreMeta.type),
   composeNFT: computed(() => store.state.StoreMeta.composeNFT),
+  currLang: computed(() => store.state.StoreApp.currLang),
 });
 const hoverEvent = (index, flag) => {
   nextTick(() => {
@@ -94,6 +106,21 @@ const pushHeroDetail = (payload) => {
 <style lang="scss" module>
 @import "~@/styles/mixin.scss";
 
+.role-character-add {
+  display: inline-block;
+  margin-left: 15px;
+  width: 150px;
+  height: 150px;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.3);
+  color: #ffffff;
+  font-size: 16px;
+  text-align: center;
+  span {
+    display: inline-block;
+  }
+  // line-height: 150px;
+}
 .role {
   height: 180px;
   box-sizing: border-box;
@@ -158,18 +185,6 @@ const pushHeroDetail = (payload) => {
         width: 100%;
         height: 100%;
       }
-    }
-    .role-character-add {
-      display: inline-block;
-      margin-left: 15px;
-      width: 150px;
-      height: 150px;
-      cursor: pointer;
-      background: rgba(255, 255, 255, 0.3);
-      color: #ffffff;
-      font-size: 16px;
-      text-align: center;
-      line-height: 150px;
     }
   }
 }

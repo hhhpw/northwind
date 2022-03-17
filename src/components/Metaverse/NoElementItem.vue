@@ -18,14 +18,14 @@ const store = useStore();
 </script>
 <style lang="scss" module>
 .box {
-  min-width: 102px;
-  min-height: 102px;
-  background: rgba(216, 216, 216, 0.11);
-  border-radius: 4px;
-  opacity: 0.98;
+  min-width: 100px;
+  min-height: 100px;
+  // background: rgba(216, 216, 216, 0.11);
   display: flex;
   align-items: center;
   justify-content: center;
+  opacity: 0.98;
+  border: 1px dashed rgba(255, 255, 255, 0.52);
   flex-direction: column;
   .svg {
     width: 18px;
