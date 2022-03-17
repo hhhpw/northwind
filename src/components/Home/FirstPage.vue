@@ -99,7 +99,7 @@ const handleGoSwap = () => {
     }
   }
 }
-@media screen and (max-width: 1600px) {
+@media screen and (max-width: 1900px) {
   .first-wrap {
     .content-wrap {
       .desc {
