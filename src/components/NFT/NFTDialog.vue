@@ -10,7 +10,6 @@
       :modal="props.isHasModal"
       :show-close="false"
     >
-      <!-- :width="`${props.width ? props.width + 'px' : '480px'}`" -->
       <template #title>
         <div
           class="nft-dialog-header"
@@ -103,7 +102,7 @@
         <fly-button
           @click="() => emits('handleSuccess')"
           class="nft-dialog-footer-button"
-          type="green"
+          type="success"
           v-if="
             props.dialogParams.successBtnText &&
             props.dialogParams.dialogStatus === 'success'
@@ -204,7 +203,7 @@ watch(
 const setDiaglogStyle = computed(() => {
   if (state.currLang === "en") {
     return {
-      dialogWidth: "424px",
+      dialogWidth: "480px",
       feedBackWith: "440px",
       loadingMarLeft: "20px",
     };
@@ -290,6 +289,7 @@ const handleClose = () => {
   ::v-deep(.el-dialog) {
     background: linear-gradient(180deg, #3e3e3e 0%, #3e3e3e 0%, #252525 100%);
     border-radius: 16px;
+    min-height: 353px;
     .el-dialog__headerbtn:focus .el-dialog__close,
     .el-dialog__headerbtn:hover .el-dialog__close {
       color: $btn-orange-bgcolor;
@@ -380,16 +380,15 @@ const handleClose = () => {
   }
   .nft-dialog-footer {
     width: 100%;
-    margin-top: 0px;
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-around;
     .nft-dialog-footer-button {
       padding-right: 0px;
       padding-left: 0px;
-      width: 100%;
+      width: 70%;
       font-size: 16px;
       border-radius: 8px;
-      border: 1px solid #fba800;
-      background: none;
-      color: #fba800;
     }
   }
 }

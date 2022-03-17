@@ -101,7 +101,7 @@
             (props.cardType === 'collection' && props.sellType === 'selling')
           "
         >
-          <span>{{ $t("售价") }}：</span>
+          <span>{{ $t("售价") }}</span>
           <span
             >{{ utilsFormat.formatPrice(baseData.sellPrice) }}
             {{ utilsFormat.getTokenCurrency(baseData.payToken) }}</span
@@ -121,7 +121,7 @@
               (props.cardType === 'collection' && props.sellType === 'sell')
             "
           >
-            <span>{{ $t("最高出价") }}：</span>
+            <span>{{ $t("最高出价") }}</span>
             <span v-if="Number(baseData.offerPrice) > 0">
               {{ utilsFormat.formatPrice(baseData.offerPrice) }}
               {{ utilsFormat.getTokenCurrency(baseData.payToken) }}
@@ -136,7 +136,7 @@
             "
             class="nft-blind-text-price-item"
           >
-            <span>{{ $t("最高出价") }}：</span>
+            <span>{{ $t("最高出价") }}</span>
             <span v-if="Number(baseData.offerPrice) > 0">
               {{ utilsFormat.formatPrice(baseData.offerPrice) }}
               {{ utilsFormat.getTokenCurrency(baseData.payToken) }}
@@ -151,7 +151,7 @@
           class="nft-blind-text-price-item buyback"
           v-if="props.cardType === 'buyback'"
         >
-          <span>{{ $t("回收价格") }}：</span>
+          <span>{{ $t("回收价格") }}</span>
           <span> {{ baseData.buyPrice }} {{ baseData.currency }}</span>
         </div>
       </div>

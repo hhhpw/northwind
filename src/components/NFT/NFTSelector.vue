@@ -33,10 +33,14 @@
 
     <div class="nft-selector-sort" @click="changeSortDir">
       <div class="sort-item">
-        <svg-icon name="f-arrow-up" class="direction-icon"></svg-icon>
-      </div>
-      <div class="sort-item">
-        <svg-icon name="f-arrow-down" class="direction-icon"></svg-icon>
+        <img
+          src="../../assets/nft/arrow-up.png"
+          v-if="state.sortDirValue === 'desc'"
+        />
+        <img
+          src="../../assets/nft/arrow-down.png"
+          v-if="state.sortDirValue === 'asc'"
+        />
       </div>
       <!-- 排序类别 -->
       <ElSelect
@@ -159,7 +163,7 @@ const changeSortDir = () => {
 @import "~@/styles/_vars.scss";
 .nft-selector {
   .series-select {
-    width: 144px;
+    width: 193px;
   }
   ::v-deep(.el-input) {
     width: 100%;
@@ -167,7 +171,6 @@ const changeSortDir = () => {
     overflow: hidden;
     height: 36px;
     border: none;
-    background: rgba(255, 255, 255, 0.2);
   }
   ::v-deep(.el-input__inner) {
     height: 36px;
@@ -175,7 +178,7 @@ const changeSortDir = () => {
     border: none;
     text-indent: 18px;
     padding: 0;
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.15);
   }
   ::v-deep(.el-input__inner:focus) {
     border: none;
@@ -191,7 +194,7 @@ const changeSortDir = () => {
     border: none;
     border-radius: 8px;
     .el-select-dropdown__list {
-      margin: 14px 0 !important;
+      margin-top: 14px !important;
     }
     .el-select-dropdown__item.selected {
       color: $white;
@@ -235,14 +238,12 @@ const changeSortDir = () => {
       cursor: pointer;
       width: 32px;
       height: 36px;
-      background: rgba(255, 255, 255, 0.2);
       text-align: center;
       line-height: 36px;
       margin-right: 6px;
       border-radius: 8px;
-      .direction-icon {
-        width: 25px;
-        height: 25px;
+      background: rgba(255, 255, 255, 0.15);
+      img {
         vertical-align: middle;
       }
     }

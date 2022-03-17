@@ -5,6 +5,8 @@ import utilsNumber from "@utils/number";
 import { has, get, isNil, cloneDeep } from "lodash";
 import swapApi from "@api/swap.js";
 import Wallet from "../../wallet/index";
+let count = -1;
+let arr = [];
 const StoreSwap = {
   namespaced: true,
   moduleName: "StoreSwap",
@@ -164,6 +166,7 @@ const StoreSwap = {
   },
   actions: {
     async transfromCurrencySelect({ commit, rootState, state }, payload) {
+      count++;
       if (payload.isTransfer) {
         commit(types.TRANSFROM_CURRENCY);
       }
@@ -198,6 +201,7 @@ const StoreSwap = {
             type: state.focusType === "to" ? "from" : "to",
             automatic: true,
           });
+          arr[count] = null;
           return;
         }
       }
@@ -215,8 +219,14 @@ const StoreSwap = {
             type: state.focusType === "to" ? "from" : "to",
             automatic: true,
           });
+          arr[count] = null;
           return;
         }
+      }
+
+      arr[count] = res;
+      if (count + 1 < arr.length) {
+        return;
       }
       if (res && res.code === 200) {
         if (res.data === null) {
@@ -324,7 +334,6 @@ const StoreSwap = {
             automatic: true,
           });
         }
-        console.log(obj, "=====s");
         commit(types.SET_CALCALATOR_SWAP_DATA, obj);
       }
     },

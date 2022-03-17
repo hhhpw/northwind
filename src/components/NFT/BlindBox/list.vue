@@ -113,21 +113,21 @@
                   </p>
                   <fly-space :size="32"></fly-space>
                   <div class="item-content-info">
-                    <div class="details-item-info">
-                      <p>{{ $t("售价") }}：</p>
+                    <div class="details-item-info item-left">
+                      <p>{{ $t("售价") }}</p>
                       <span>
                         {{ d.sellingPrice }}
                         {{ utilsFormat.getTokenCurrency(d.payToken) }}
                       </span>
                     </div>
-                    <div class="details-item-info">
-                      <p>{{ $t("发行数量") }}：</p>
+                    <div class="details-item-info item-center">
+                      <p>{{ $t("发行数量") }}</p>
                       <span>
                         {{ d.seriesQuantity }}
                       </span>
                     </div>
-                    <div class="details-item-info">
-                      <p>{{ $t("剩余数量") }}：</p>
+                    <div class="details-item-info item-right">
+                      <p>{{ $t("剩余数量") }}</p>
                       <span>
                         {{ d.amount }}
                       </span>
@@ -314,6 +314,7 @@ const sellStatus = (type, sellingTime) =>
   .nft-blindbox-list-item-right-status {
     font-size: 24px;
     color: $white;
+    font-weight: bold;
   }
   .nft-blindbox-list-item:not(:first-child) {
     margin-top: 20px;
@@ -353,9 +354,13 @@ const sellStatus = (type, sellingTime) =>
       padding-left: 73px;
       padding-top: 51px;
       .nft-blindbox-list-item-right-title {
+        width: 90%;
         color: $white;
         font-size: 32px;
         font-weight: 600;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
       }
       .nft-blindbox-list-item-right-detail {
         display: flex;
@@ -383,7 +388,7 @@ const sellStatus = (type, sellingTime) =>
       }
       .buy-button {
         width: 217px;
-        color: $white;
+        color: #923b00;
         padding: 10px 0;
         background: linear-gradient(256deg, #fdd300 0%, #fba800 100%);
         box-shadow: 0px 12px 15px 0px rgba(253, 168, 0, 0.39);
@@ -424,12 +429,17 @@ const sellStatus = (type, sellingTime) =>
       color: $white;
       top: 0;
       font-size: 24px;
+      font-weight: bold;
     }
     .item-content-title {
+      width: 95%;
       color: $white;
       font-size: 20px;
       text-indent: 30px;
       margin-top: 18px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
     }
     .item-content-info {
       width: 309px;
@@ -443,9 +453,19 @@ const sellStatus = (type, sellingTime) =>
         p {
           font-size: 14px;
         }
+
         span {
           font-size: 18px;
         }
+      }
+      .item-left {
+        text-align: left;
+      }
+      .item-center {
+        text-align: center;
+      }
+      .item-right {
+        text-align: right;
       }
       border-bottom: 2px solid rgba(255, 255, 255, 0.14);
     }

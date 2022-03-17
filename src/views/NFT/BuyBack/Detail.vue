@@ -1,5 +1,6 @@
 <template>
   <div class="buy-back-detail">
+    <FlySpecialBg></FlySpecialBg>
     <fly-nft
       class="blind-box-container"
       coreType="card"
@@ -50,6 +51,7 @@ import NftDialog from "@components/NFT/NFTDialog.vue";
 import NftSecondDialog from "@components/NFT/DetailsUI/NFTSecondDialog.vue";
 import FlyLoadingFish from "@FlyUI/FlyLoadingFish.vue";
 import utilsNumber from "@utils/number";
+import FlySpecialBg from "@FlyUI/FlySpecialBg.vue";
 const { t } = useI18n();
 const route = useRoute();
 import { useStore } from "vuex";

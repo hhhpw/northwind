@@ -147,7 +147,7 @@
     "下架失败，请重试": "Removing item failed, please try again",
     "获取收益失败": "Transfer failed",
     "盲盒": "Mystery Box",
-    "剩余数量": "Amount remaining",
+    "剩余数量": "Remaining",
     "即将到来": "Start sale in",
     "倒计时": "{day}day{hour}hours{min}mins{sec}secs",
     "商品描述": "Item description",
@@ -304,7 +304,8 @@
     "起拍价": "Auction Start Price",
     "拍卖时间": "Auction Time",
     "提交": "Submit",
-    "往期回顾": "Past Review"
+    "往期回顾": "Recent NFTs",
+    "去市场转转吧": "Find more on the market"
   },
   "farms": {
     "farm-swap-total-1": "Total trading volume",

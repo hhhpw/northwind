@@ -1,17 +1,6 @@
 <template>
   <div class="liquidity-content-core-delete">
     <div class="liquidity-content-core-delete-input">
-      <div class="liquidity-content-core-delete-title">
-        <span v-if="state.lpDelInfo.poolAmount">
-          {{ $t("余额") }}: {{ state.lpDelInfo.poolAmount }}
-        </span>
-        <span
-          class="liquidity-content-core-max"
-          @click="setToInputValueMax(state.lpDelInfo.poolAmount)"
-        >
-          MAX
-        </span>
-      </div>
       <div class="liquidity-content-core-delete-main">
         <Fly-input
           class="liquidity-content-core-delete-main-input"
@@ -26,6 +15,17 @@
           </span>
           <!-- <svg-icon name="arrowdownselect"></svg-icon> -->
         </div>
+      </div>
+      <div class="liquidity-content-core-delete-title">
+        <span v-if="state.lpDelInfo.poolAmount">
+          {{ $t("余额") }}: {{ state.lpDelInfo.poolAmount }}
+        </span>
+        <span
+          class="liquidity-content-core-max"
+          @click="setToInputValueMax(state.lpDelInfo.poolAmount)"
+        >
+          MAX
+        </span>
       </div>
     </div>
     <fly-space :size="36"></fly-space>

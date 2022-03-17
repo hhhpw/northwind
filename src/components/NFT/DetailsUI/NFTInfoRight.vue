@@ -25,11 +25,22 @@
           <span v-if="props.box_detail.nftType === 'COMPOSITE_ELEMENT'">
             {{ $t("components") }}
           </span>
-          <span v-if="props.box_detail.nftType === 'COMPOSITE_CARD'">
+          <span
+            v-if="
+              props.box_detail.nftType === 'COMPOSITE_CARD' &&
+              props.box_detail?.original === false
+            "
+          >
             <SvgIcon name="f-clothes"></SvgIcon>
             {{ $t("disassembled NFT") }}
           </span>
-          <span v-if="props.box_detail.nftType === 'NORMAL'">
+          <span
+            v-if="
+              props.box_detail.nftType === 'NORMAL' ||
+              (props.box_detail.nftType === 'COMPOSITE_CARD' &&
+                props.box_detail?.original === true)
+            "
+          >
             {{ $t("original NFT") }}
           </span>
         </p>
@@ -40,7 +51,7 @@
           <fly-amount
             :value="props.box_detail?.score"
             :formatOptions="{
-              precision: 2,
+              precision: 0,
             }"
           >
           </fly-amount>
@@ -63,7 +74,7 @@
       </div>
       <div
         class="item-info sex"
-        v-if="props.box_detail?.sex === 1 || props.box_detail?.sex === 0"
+        v-if="props.box_detail?.sex === 9 || props.box_detail?.sex === 0"
       >
         <p class="item-title">{{ $t("sex") }}</p>
         <p class="item-value">
@@ -218,38 +229,40 @@ const actionsCall = (action) => {
   display: flex;
   flex-flow: column;
   justify-content: space-between;
-
   .base-item {
     display: flex;
     justify-content: space-between;
-    margin-top: 36px;
+    margin-top: 32px;
     p {
       font-weight: 400;
-      color: #fafafa;
+      color: #8c8b8c;
     }
     .item-info {
       flex: 1;
       .item-title {
-        font-size: 12px;
+        font-size: 14px;
         margin-bottom: 4px;
       }
       .item-value {
-        font-size: 14px;
+        font-size: 18px;
+        color: #fafafa;
+        font-weight: normal;
       }
     }
     .title-text {
-      font-size: 24px !important;
+      font-size: 32px !important;
+      color: #fafafa;
     }
   }
   .details-title {
     margin-top: 0 !important;
   }
   .details-user {
-    height: 39px;
     padding: 21px 0;
     background: rgba(255, 255, 255, 0);
     box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.16),
       inset 0px 0px 0px 0px rgba(255, 255, 255, 0.16);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.16);
   }
   .details-countdown {
     margin-top: 15px !important;

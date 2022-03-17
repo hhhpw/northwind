@@ -120,12 +120,14 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits, reactive, watch } from "vue";
+import { defineProps, defineEmits, reactive, watch, computed } from "vue";
 import SvgIcon from "@components/SvgIcon/Index.vue";
 import FlyButton from "@FlyUI/FlyButton.vue";
 import { BID_DIALOG_PARAMS } from "@constants/dialog.js";
 import FlyInput from "@FlyUI/FlyInput.vue";
 import FlySelector from "@FlyUI/FlySelector.vue";
+import { useStore } from "vuex";
+const store = useStore();
 import { useI18n } from "vue-i18n";
 const { t } = useI18n();
 
@@ -153,6 +155,7 @@ const state = reactive({
   price: "",
   endDay: 1,
   errorInfo: false,
+  currLang: computed(() => store.state.StoreApp.currLang),
 });
 
 watch(
@@ -172,6 +175,15 @@ watch(
 const emits = defineEmits(["handleClose", "handleCancel", "handleConfirm"]);
 
 let timeOptions = [];
+
+watch(
+  () => state.currLang,
+  () => {
+    BID_DIALOG_PARAMS.TIME.map((i) => {
+      timeOptions.push({ label: i + " " + t("天"), value: i });
+    });
+  }
+);
 BID_DIALOG_PARAMS.TIME.map((i) => {
   timeOptions.push({ label: i + " " + t("天"), value: i });
 });
@@ -369,6 +381,7 @@ const changeAction = (i) => {
             background: rgba(255, 255, 255, 0.1);
             border: none;
             color: $white;
+            padding-left: 24px;
             &:hover {
               border-color: $white;
             }

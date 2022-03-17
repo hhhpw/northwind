@@ -20,12 +20,12 @@
 <style scoped lang="scss">
 .white-list-tool {
   ::v-deep(.el-pagination) {
-    background-color: rgba(255, 255, 255, 0.09);
+    background-color: rgba(255, 255, 255, 0.15);
     padding: 6px;
     .btn-prev {
       width: 48px;
       background: none;
-      color: rgba(255, 255, 255, 0.5);
+      color: rgba(255, 255, 255, 0.15);
       // color: #fff;
       &:not(:disabled):hover {
         background-color: rgba(255, 255, 255, 0.2);
@@ -37,7 +37,7 @@
     .btn-next {
       width: 48px;
       background: none;
-      color: rgba(255, 255, 255, 0.5);
+      color: rgba(255, 255, 255, 0.15);
       // color: #fff;
       &:not(:disabled):hover {
         background-color: rgba(255, 255, 255, 0.2);

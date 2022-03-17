@@ -154,6 +154,7 @@ const pushPage = (detail) => {
     align-items: center;
     cursor: pointer;
     background: rgba(255, 255, 255, 0.09);
+    border-radius: 4px;
     &:hover {
       opacity: 0.7;
       transition: all ease-in-out 0.3s;
@@ -163,6 +164,7 @@ const pushPage = (detail) => {
       height: 120px;
       vertical-align: middle;
       border-radius: 8px;
+      background: #e8906c;
       + span {
         margin-left: 32px;
       }
@@ -178,7 +180,6 @@ const pushPage = (detail) => {
       &.name {
         font-size: 14px;
         color: $white;
-        font-weight: 600;
       }
     }
   }
@@ -189,14 +190,14 @@ const pushPage = (detail) => {
     justify-content: center;
     .record-wrap-pagination-prev,
     .record-wrap-pagination-next {
-      border: 0.5px solid $border-gray-color;
-      padding: 5px 0px;
-      width: 70px;
+      padding: 14px 32px;
       text-align: center;
       cursor: pointer;
       font-size: 14px;
       user-select: none;
-      border-radius: 5px;
+      color: #8c8b8c;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.09);
       &.disabled {
         color: $text-gray4-color;
       }

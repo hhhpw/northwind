@@ -1,5 +1,6 @@
 <template>
   <div class="market-detail" v-if="state.box_detail">
+    <FlySpecialBg></FlySpecialBg>
     <fly-nft
       class="blind-box-container"
       coreType="card"
@@ -192,6 +193,7 @@ import CONSTANTS_TOKENS from "@constants/token";
 import utilsNumber from "@utils/number";
 import { useRoute } from "vue-router";
 import { dialogEventMaps } from "./dialog";
+import FlySpecialBg from "@FlyUI/FlySpecialBg.vue";
 // import { ElInputNumber } from "element-plus";
 import { useI18n } from "vue-i18n";
 const { t } = useI18n();

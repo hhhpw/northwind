@@ -272,6 +272,7 @@ onUnmounted(() => {
           p {
             margin-top: 24px;
             color: $white;
+            font-size: 14px;
           }
         }
         .mining-core-container-slot-item-shadow-box {

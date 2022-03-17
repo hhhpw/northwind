@@ -10,7 +10,7 @@
   background-position: top;
   background-repeat: no-repeat;
   background-size: 100%;
-  border-radius: 34px;
+  border-radius: 16px;
   width: 440px;
   padding: 30px 28px 40px;
 }

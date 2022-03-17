@@ -308,7 +308,7 @@ const emits = defineEmits(["handleClose", "handleSucceed", "handleFailed"]);
     // transform-origin: right center;
     width: 323px;
     height: 109px;
-    background: rgba(175, 138, 51, 0.2);
+    background: rgba(175, 138, 51, 0.07);
     border-radius: 16px;
     margin: 0 auto;
     margin-top: 20px;
@@ -323,7 +323,7 @@ const emits = defineEmits(["handleClose", "handleSucceed", "handleFailed"]);
       overflow: hidden;
       color: #fff;
       &.loading-div {
-        color: rgba(139, 139, 139, 0.9);
+        color: rgba(255, 255, 255, 0.9);
         font-size: 16px;
       }
       img {

@@ -6,7 +6,7 @@
     <p>{{ $t("您可以添加流动性以获取LP Token并享受额外代币激励") }}</p>
     <Fly-space :size="40"></Fly-space>
     <Fly-button class="no-liquidity-data-btn" @click="addPool"
-      >{{ $t("添加流动性") }}
+      >{{ state.value === "unConnected" ? $t("添加流动性") : $t("连接钱包") }}
     </Fly-button>
   </div>
 </template>
@@ -14,8 +14,16 @@
 import FlyButton from "@FlyUI/FlyButton.vue";
 import FlySpace from "@FlyUI/FlySpace.vue";
 import { useStore } from "vuex";
+import connectLogic from "@hooks/useMyWallet";
+import { computed, ref } from "vue";
 const store = useStore();
+const { connectWallet } = connectLogic(store);
+let state = ref(computed(() => store.state.StoreWallet.walletStatus));
 const addPool = () => {
+  if (state.value === "unConnected") {
+    connectWallet();
+    return;
+  }
   store.commit("StoreLiquidity/CHANGE_POOL_TYPE", "add");
 };
 </script>

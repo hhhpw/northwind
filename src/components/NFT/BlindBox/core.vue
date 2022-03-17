@@ -1,5 +1,6 @@
 <template>
   <div>
+    <FlySpecialBg></FlySpecialBg>
     <div class="nft-blindbox-core" v-if="state.blindBoxData">
       <div class="nft-blindbox-core-header">
         <div class="nft-blindbox-core-header-left">
@@ -191,6 +192,7 @@ import CONSTANTS_TOKENS from "@constants/token";
 import NftSoldOutDialog from "@components/NFT/NFTSoldOutDialog.vue";
 import FlyLoadingFish from "@FlyUI/FlyLoadingFish.vue";
 import utilsRegexp from "@utils/regexp";
+import FlySpecialBg from "@FlyUI/FlySpecialBg.vue";
 const store = useStore();
 const router = useRouter();
 const route = useRoute();
@@ -414,7 +416,7 @@ onUnmounted(() => {
       .nft-blindbox-core-price-content {
         height: 39px;
         padding: 18px 0;
-        background: #2c2720;
+        background: rgba(255, 255, 255, 0.15);
         border-radius: 8px;
         padding-left: 16px;
       }
@@ -426,17 +428,16 @@ onUnmounted(() => {
           display: block;
         }
         :first-child {
-          font-size: 12px;
+          font-size: 14px;
         }
       }
       .nft-blindbox-core-header-right-quantity {
-        font-size: 14px;
-        font-weight: bold;
+        font-size: 18px;
         span {
           display: block;
         }
         :first-child {
-          font-size: 12px;
+          font-size: 14px;
         }
       }
       .nft-blindbox-core-header-right-button {

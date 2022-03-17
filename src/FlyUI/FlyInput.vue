@@ -73,6 +73,12 @@ const inputEvent = (val) => {
 .fly-input {
   ::v-deep(.el-input) {
     border: none;
+    // input::-webkit-input-placeholde {
+    //   color: red;
+    // }
+    input::placeholder {
+      color: rgba(255, 255, 255, 0.3);
+    }
   }
   ::v-deep(.el-input__inner) {
     height: 50px;
@@ -82,6 +88,7 @@ const inputEvent = (val) => {
     padding: 0px;
     font-size: 20px;
     padding-left: 8px;
+
     &:focus {
       border: none;
     }

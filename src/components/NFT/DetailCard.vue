@@ -60,7 +60,7 @@
                     props.box_detail?.original === false
                   "
                 >
-                  <SvgIcon name="clothes"></SvgIcon>
+                  <SvgIcon name="f-clothes"></SvgIcon>
                   {{ $t("disassembled NFT") }}
                 </span>
                 <span
