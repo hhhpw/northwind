@@ -19,6 +19,7 @@
         :isOnSell="props.isOnSell"
         :cardType="props.cardType"
         @actionsCall="actionsCall"
+        :occupations="props.occupations"
       ></Info>
     </div>
     <div class="content">
@@ -62,6 +63,9 @@ let props = defineProps({
   },
   isOwner: {
     type: Boolean,
+  },
+  occupations: {
+    type: Array,
   },
 });
 
