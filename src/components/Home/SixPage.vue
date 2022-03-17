@@ -65,7 +65,7 @@
     filter: blur(138px);
   }
 }
-@media screen and (max-width: 1900px) {
+@media screen and (max-width: 1800px) {
   .six-wrap {
     .content-wrap {
       height: 70%;

@@ -262,7 +262,7 @@ const pushPage = (item) => {
     filter: blur(138px);
   }
 }
-@media screen and (max-width: 1900px) {
+@media screen and (max-width: 1800px) {
   .seven-wrap {
     .bg-wrap {
       .data-wrap {
