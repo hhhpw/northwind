@@ -105,7 +105,6 @@ const getBarArray = () => {
 watchEffect(() => {
   state.cross_bar_array = getBarArray();
   state.selected_tab = state.cross_bar_array?.[0]?.id;
-  debugger;
 });
 </script>
 <style lang="scss" scoped>
