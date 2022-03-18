@@ -58,7 +58,7 @@
   </div>
 </template>
 <script setup>
-import { computed, reactive, watch } from "vue";
+import { computed, reactive } from "vue";
 import SvgIcon from "@components/SvgIcon/Index.vue";
 import NoElementItem from "./NoElementItem.vue";
 import FlyAmount from "@FlyUI/FlyAmount.vue";
@@ -67,19 +67,11 @@ const store = useStore();
 const state = reactive({
   activeProperty: 0,
   activeElement: null,
-  currProto: computed(() => store.state.StoreMeta.currProto),
   metaData: computed(() => store.state.StoreMeta.metaData),
   elementList: computed(() => store.getters["StoreMeta/elementList"]),
 });
 
 const activeMap = new Map();
-watch(
-  () => state.currProto,
-  () => {
-    state.activeElement = null;
-    activeMap.delete(state.activeProperty);
-  }
-);
 
 const selectElement = (ele, index) => {
   if (index === state.activeElement) {
