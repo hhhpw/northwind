@@ -6,7 +6,7 @@
     <p>{{ $t("您可以添加流动性以获取LP Token并享受额外代币激励") }}</p>
     <Fly-space :size="40"></Fly-space>
     <Fly-button class="no-liquidity-data-btn" @click="addPool"
-      >{{ state.value === "unConnected" ? $t("添加流动性") : $t("连接钱包") }}
+      >{{ state === "unConnected" ? $t("连接钱包") : $t("添加流动性") }}
     </Fly-button>
   </div>
 </template>
