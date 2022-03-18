@@ -20,7 +20,7 @@
       :hasBtn="false"
       :baseData="d"
       @actionsCall="actionsCall"
-      @watchDetail="() => emits('watchDetail', d, state.accounts[0], 'unsold')"
+      @watchDetail="() => emits('watchDetail', d, 'unsold', state.accounts[0])"
     >
     </nft-card-item>
   </template>

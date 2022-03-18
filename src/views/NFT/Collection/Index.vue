@@ -308,7 +308,7 @@ const clearData = () => {
 
 const isNFT = (type) => NFT_CONSTANTS.NFT_TYPES.indexOf(type) > -1;
 
-const watchDetail = (d, account, sellType) => {
+const watchDetail = (d, sellType, account) => {
   state.coreType = "card";
   if (sellType === "unsold") {
     let query = {};
