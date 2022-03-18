@@ -7,10 +7,7 @@ import utilsTool from "@utils/tool.js";
 import Wallet from "@wallet/meta";
 import collectionApi from "@api/nft/collection.js";
 import CONSTANTS_TOKEN from "@constants/token.js";
-import {
-  WALLET_DIALOG_PARAMS,
-  SECOND_DIALOG_PARAMS,
-} from "@constants/dialog.js";
+import { WALLET_DIALOG_PARAMS } from "@constants/dialog.js";
 
 const INIT_SELECTOR_DIALOG_PARAMS = {
   dialogVisible: false,
