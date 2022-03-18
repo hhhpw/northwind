@@ -1,7 +1,8 @@
 <template>
   <div class="nft-no-data">
     <div class="nft-no-data-box">
-      <div class="nft-no-data-text">{{ $t("没有数据,请连接钱包") }}</div>
+      <div class="nft-no-data-text">{{ $t("没有数据") }}</div>
+      <div class="nft-no-data-text">{{ $t("请连接钱包") }}</div>
       <fly-button type="normal" class="nft-no-data-btn" @click="connectWallet">
         {{ $t("连接钱包") }}
       </fly-button>
@@ -40,7 +41,7 @@ const { connectWallet } = connectLogic(store);
       color: #fff;
       font-size: 24px;
       text-align: left;
-      width: 200px;
+      width: 250px;
     }
     .nft-no-data-btn {
       margin-top: 5px;
