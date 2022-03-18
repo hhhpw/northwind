@@ -239,7 +239,7 @@ const mapProfession = (item) => {
   if (props.occupations) {
     let obj = props.occupations.filter((i) => i.value === item);
     if (obj) {
-      value = state.lang === "zh" ? obj.cnDesc : obj.desc;
+      value = state.lang === "zh" ? obj[0].cnDesc : obj[0].desc;
     }
   }
   return value || "";
