@@ -11,7 +11,8 @@
     >
       <div class="fly-net-dialog-content">
         <fly-space :size="86"></fly-space>
-        <img src="../assets/common/net-error.png" />
+        <!-- <img src="../assets/common/net-error.png" /> -->
+        <svg-icon name="wifi" class="wifi"></svg-icon>
         <fly-space :size="30"></fly-space>
         <p class="fly-net-dialog-content-text">{{ $t("网络错误") }}</p>
         <p style="font-size: 14px">
@@ -26,6 +27,7 @@
 <script setup>
 import { reactive, defineProps, watch } from "vue";
 import FlySpace from "@FlyUI/FlySpace";
+import SvgIcon from "@components/SvgIcon/Index.vue";
 const props = defineProps({
   visible: Boolean,
 });
@@ -63,6 +65,10 @@ watch(
       color: $white;
       font-weight: 600;
     }
+  }
+  .wifi {
+    width: 62px;
+    height: 43px;
   }
 }
 </style>

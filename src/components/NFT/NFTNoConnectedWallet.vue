@@ -2,7 +2,7 @@
   <div class="nft-no-data">
     <div class="nft-no-data-box">
       <div class="nft-no-data-text">{{ $t("没有数据,请连接钱包") }}</div>
-      <fly-button type="dark" class="nft-no-data-btn" @click="connectWallet">
+      <fly-button type="normal" class="nft-no-data-btn" @click="connectWallet">
         {{ $t("连接钱包") }}
       </fly-button>
     </div>
@@ -18,14 +18,15 @@ const { connectWallet } = connectLogic(store);
 <style lang="scss" scoped>
 @import "~@/styles/variables.scss";
 .nft-no-data {
-  width: 900px;
-  height: 204px;
+  width: 100%;
+  height: 263px;
   border-radius: 16px;
   color: $text-brown-color;
   padding: 0 96px;
   box-sizing: border-box;
   // background-color: $btn-light-orange-bgcolor;
   background: url("../../assets/nft/no-connect-bgNew.png") no-repeat;
+  background-size: 100%;
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -34,10 +35,12 @@ const { connectWallet } = connectLogic(store);
     position: absolute;
     right: 30px;
     text-align: center;
-    top: 80px;
+    top: 90px;
     .nft-no-data-text {
-      color: #391b0f;
-      font-size: 14px;
+      color: #fff;
+      font-size: 24px;
+      text-align: left;
+      width: 200px;
     }
     .nft-no-data-btn {
       margin-top: 5px;
