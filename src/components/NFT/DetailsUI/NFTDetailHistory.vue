@@ -66,6 +66,7 @@ watch(
 );
 
 const formatStr = (type) => {
+  type = type.indexOf("V2") !== -1 ? type.replace("V2", "") : type;
   const obj = {
     NFTMintEvent: {
       status: "铸造",
