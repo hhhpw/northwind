@@ -32,22 +32,14 @@ import { computed, reactive } from "vue";
 import { useStore } from "vuex";
 const store = useStore();
 const state = reactive({
-  activeProperty: 0,
-  activeElement: null,
+  activeProperty: computed(() => store.state.StoreMeta.activeProperty),
   metaData: computed(() => store.state.StoreMeta.metaData),
   elementList: computed(() => store.getters["StoreMeta/elementList"]),
 });
 
-const activeMap = new Map();
-
 const changeProperty = (d, i) => {
   store.commit("StoreMeta/SET_CURR_NFT_PROPERTY", d);
-  state.activeProperty = i;
-  if (activeMap.has(state.activeProperty)) {
-    state.activeElement = activeMap.get(state.activeProperty);
-  } else {
-    state.activeElement = null;
-  }
+  store.commit("StoreMeta/SET_ACTIVE_PROPERTY", i);
 };
 </script>
 <style lang="scss" module>

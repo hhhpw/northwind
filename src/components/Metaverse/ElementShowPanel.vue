@@ -50,28 +50,35 @@
           }}</span>
         </div>
       </div>
-      <!-- <template v-else>
-        <no-element-item :class="$style['main-no-data']"></no-element-item>
-        <span>{{ $t("metaverse.disassemble nft detail description") }}</span>
-      </template> -->
     </div>
   </div>
 </template>
 <script setup>
-import { computed, reactive } from "vue";
+import { computed, reactive, watch } from "vue";
 import SvgIcon from "@components/SvgIcon/Index.vue";
 import NoElementItem from "./NoElementItem.vue";
 import FlyAmount from "@FlyUI/FlyAmount.vue";
 import { useStore } from "vuex";
 const store = useStore();
 const state = reactive({
-  activeProperty: 0,
+  activeProperty: computed(() => store.state.StoreMeta.activeProperty),
   activeElement: null,
   metaData: computed(() => store.state.StoreMeta.metaData),
   elementList: computed(() => store.getters["StoreMeta/elementList"]),
 });
 
 const activeMap = new Map();
+
+watch(
+  () => state.activeProperty,
+  () => {
+    let index = null;
+    if (activeMap.size) {
+      index = activeMap.get(state.activeProperty);
+    }
+    state.activeElement = index;
+  }
+);
 
 const selectElement = (ele, index) => {
   if (index === state.activeElement) {
@@ -84,9 +91,10 @@ const selectElement = (ele, index) => {
     return;
   }
   state.activeElement = index;
-  if (!activeMap.has(state.activeProperty)) {
-    activeMap.set(state.activeProperty, state.activeElement);
-  }
+  // if (!activeMap.has(state.activeProperty)) {
+  //   activeMap.set(state.activeProperty, state.activeElement);
+  // }
+  activeMap.set(state.activeProperty, state.activeElement);
   store.dispatch("StoreMeta/setSelectedElementList", {
     type: "add",
     data: ele,

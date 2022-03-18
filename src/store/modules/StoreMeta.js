@@ -52,6 +52,7 @@ const StoreMeta = {
     allSplitNFT: [],
     allElements: null,
     loadingStatus: true,
+    activeProperty: 0,
   },
   getters: {
     elementList: (state) => {
@@ -88,6 +89,7 @@ const StoreMeta = {
       state.allElements = null;
       state.loadingStatus = true;
       state.createNFTDialogParams = INIT_CREAT_NFT_DIALOG_PARAMS;
+      state.activeProperty = 0;
     },
     [types.SET_CREATE_DIALOG_PARAMS](state, payload) {
       state.createNFTDialogParams = Object.assign(
@@ -140,6 +142,9 @@ const StoreMeta = {
         state.callBackDialogParams,
         payload
       );
+    },
+    [types.SET_ACTIVE_PROPERTY](state, payload) {
+      state.activeProperty = payload;
     },
   },
   actions: {
