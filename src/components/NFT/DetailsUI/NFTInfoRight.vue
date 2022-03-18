@@ -235,14 +235,19 @@ onUnmounted(() => {
 });
 
 const mapProfession = (item) => {
-  let value;
-  if (props.occupations) {
-    let obj = props.occupations.filter((i) => i.value === item);
-    if (obj) {
-      value = state.lang === "zh" ? obj[0].cnDesc : obj[0].desc;
+  // 历史数据原因 需判断 “None”
+  if (item === "None") {
+    return false;
+  } else {
+    let value = { cnDesc: "", desc: "" };
+    if (props.occupations) {
+      let obj = props.occupations.filter((i) => i.value === item);
+      if (obj) {
+        value = state.lang === "zh" ? obj[0].cnDesc : obj[0].desc;
+      }
     }
+    return value || "";
   }
-  return value || "";
 };
 // 操作事件回调
 const emits = defineEmits(["actionsCall"]);
