@@ -198,6 +198,12 @@ const StoreMeta = {
         dialogText: utilsFormat.computedLangCtx(
           "metaverse.generating character cards"
         ),
+        successText: utilsFormat.computedLangCtx(
+          "metaverse.generating character cards succeed"
+        ),
+        failedText: utilsFormat.computedLangCtx(
+          "metaverse.generating character cards failed"
+        ),
       });
       // 钱包账户不够
       const balances = rootState.StoreWallet.balances;
@@ -382,6 +388,12 @@ const StoreMeta = {
         isShowClose: false,
         dialogText: utilsFormat.computedLangCtx(
           "metaverse.disassembling character NFT"
+        ),
+        successText: utilsFormat.computedLangCtx(
+          "disassembling character NFT succeeded"
+        ),
+        failedText: utilsFormat.computedLangCtx(
+          "disassembling character NFT failed"
         ),
       });
       try {
