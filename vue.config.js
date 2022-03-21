@@ -44,7 +44,7 @@ const cssConfig = isProduction
   ? {
       modules: {
         mode: "local",
-        localIdentName: "hpw__[hash:base64:8]",
+        localIdentName: "kiko__[hash:base64:8]",
       },
     }
   : {};
