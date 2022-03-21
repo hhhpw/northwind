@@ -2,7 +2,7 @@
   <div class="nft-mining-selector-dialog">
     <ElDialog
       v-model="state.visible"
-      custom-class="star-dialog-el"
+      custom-class="fly-dialog-el"
       width="672px"
       :before-close="handleClose"
       :close-on-press-escape="false"
@@ -72,7 +72,7 @@ const handleClose = () => {
   ::v-deep(.el-dialog__header) {
     padding: 0 !important;
   }
-  .star-dialog-el {
+  .fly-dialog-el {
     ::v-deep(.el-dialog__header) {
       text-align: left !important;
     }

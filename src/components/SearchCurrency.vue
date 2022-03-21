@@ -1,5 +1,5 @@
 <template>
-  <div class="star-search" v-if="state.visible">
+  <div class="fly-search" v-if="state.visible">
     <Fly-dialog
       :title="$t('选择代币')"
       :dialogVisible="state.visible"
@@ -106,7 +106,7 @@ const handleSelect = (item) => {
 <style lang="scss" scoped>
 @import "~@/styles/variables.scss";
 @import "~@styles/mixin.scss";
-.star-search {
+.fly-search {
   ::v-deep(.el-dialog) {
     background-image: url("../../src/assets/common/bg.png");
     background-position: top;

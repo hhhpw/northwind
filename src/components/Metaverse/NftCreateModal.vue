@@ -2,7 +2,7 @@
   <div class="meta-nft-create-modal">
     <ElDialog
       v-model="state.createNFTDialogParams.dialogVisible"
-      custom-class="star-dialog-el"
+      custom-class="fly-dialog-el"
       width="390px"
       :before-close="handleClose"
       :close-on-press-escape="false"
@@ -198,7 +198,7 @@ const handleClose = () => {
   ::v-deep(.el-dialog__body) {
     padding-top: 0px !important;
   }
-  .star-dialog-el {
+  .fly-dialog-el {
     ::v-deep(.el-dialog__header) {
       text-align: left !important;
     }

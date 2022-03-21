@@ -1,9 +1,6 @@
 <template>
   <div class="swap-container">
     <Fly-space :size="20"></Fly-space>
-    <!-- <div class="swap-container-btnwarp">
-      <star-change-button :activeIndex="0"></star-change-button>
-    </div> -->
     <fly-space :size="25"></fly-space>
     <fly-swap-card class="swap-container-card">
       <swap-core class="swap-container-core"></swap-core>
@@ -19,7 +16,6 @@ import SwapCore from "@components/Swap/core.vue";
 import SwapTransitionCard from "@components/Swap/card.vue";
 import FlySwapCard from "@FlyUI/FlySwapCard.vue";
 import FlySpecialBg from "@FlyUI/FlySpecialBg.vue";
-// import StarChangeButton from "@StarUI/StarChangeButton.vue";
 import FlySpace from "@FlyUI/FlySpace.vue";
 // const test = (type) => {
 //   let t = {};

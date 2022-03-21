@@ -1,5 +1,5 @@
 <template>
-  <div class="star-history">
+  <div class="fly-history">
     <Fly-dialog
       :title="props.historyType === 'swap' ? $t('兑换记录') : $t('流动性记录')"
       :dialogVisible="state.visible"
@@ -220,7 +220,7 @@ const handleClose = () => {
 
 <style lang="scss" scoped>
 @import "~@/styles/variables.scss";
-.star-history {
+.fly-history {
   ::v-deep(.el-dialog) {
     background-image: url("../../src/assets/common/bg.png");
     background-position: top;

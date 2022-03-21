@@ -159,30 +159,6 @@
         </div>
       </div>
     </div>
-    <!-- <star-confirm
-      :dialogVisible="state.isShowConfirm"
-      @handleClose="handleClose('isShowConfirm')"
-    >
-      <template #image-logo>
-        <img src="../../assets/confirm/confirm-logo.png" />
-      </template>
-      <template #content-text>
-        {{ state.pointer }}
-        {{ $t("正在兑换") }}
-        <br />
-        {{ $t("请稍后查看记录") }}
-      </template>
-      <template #footer>
-        <Fly-button class="confirm-btn" @click="handleConfirm">{{
-          $t("确认")
-        }}</Fly-button>
-      </template>
-    </star-confirm> -->
-
-    <!-- <TransactionDialog
-      :text="'兑换'"
-      v-bind="dialogSetting"
-    ></TransactionDialog> -->
     <Fly-wallet-dialog
       :dialogParams="dialogSetting"
       @handleFailed="handleSucceed"
@@ -217,7 +193,6 @@ import FlyToolTip from "@FlyUI/FlyToolTip.vue";
 import { useStore } from "vuex";
 import FlyInput from "@FlyUI/FlyInput";
 // import TransactionDialog from "@components/TransactionDialog.vue";
-// import StarConfirm from "@StarUI/StarConfirm.vue";
 import utilsNumber from "@utils/number";
 import SearchCurrency from "../SearchCurrency";
 import HistoryRecord from "../HistoryRecord.vue";

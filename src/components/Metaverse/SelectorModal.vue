@@ -2,7 +2,7 @@
   <div class="meta-nft-selector-modal">
     <ElDialog
       v-model="state.selectorDialogParams.dialogVisible"
-      custom-class="star-dialog-el"
+      custom-class="fly-dialog-el"
       width="672px"
       :before-close="handleClose"
       :close-on-press-escape="false"
@@ -129,7 +129,7 @@ const pushMarket = () => {
     padding-top: 0px !important;
     // padding: 0px 0px 30px !important;
   }
-  .star-dialog-el {
+  .fly-dialog-el {
     ::v-deep(.el-dialog__header) {
       text-align: left !important;
     }

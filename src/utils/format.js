@@ -22,7 +22,7 @@ const getTokenCurrency = (token) => {
  * @param {*} price
  * @param {*} precision
  * @param {*} options
- * @returns 格式化分组等 展示用 后续使用Star-amount 不使用这个
+ * @returns 格式化分组等 展示用 后续使用fly-amount 不使用这个
  */
 const formatPrice = (price, precision = 9, options) => {
   return utilsNumber.formatNumberMeta(

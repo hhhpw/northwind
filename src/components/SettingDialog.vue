@@ -1,5 +1,5 @@
 <template>
-  <div class="star-setting">
+  <div class="fly-setting">
     <fly-dialog
       :title="$t('设置')"
       :dialogVisible="state.visible"
@@ -161,7 +161,7 @@ const handleBlurSlipppage = () => {
   align-items: center;
   justify-content: flex-start;
 }
-.star-setting {
+.fly-setting {
   ::v-deep(.el-dialog__body) {
     padding: 14px 18px 32px;
   }
@@ -251,7 +251,7 @@ const handleBlurSlipppage = () => {
       left: -20px;
       color: #b2b2b2;
     }
-    .star-switch {
+    .fly-switch {
       width: 55px;
       float: right;
       height: 35px;

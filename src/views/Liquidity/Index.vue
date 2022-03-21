@@ -1,9 +1,6 @@
 <template>
   <div class="liquidity-container">
     <Fly-space :size="20"></Fly-space>
-    <!-- <div class="liquidity-container-btnwarp">
-      <star-change-button :activeIndex="1"></star-change-button>
-    </div> -->
     <Fly-space :size="25"></Fly-space>
     <fly-swap-card class="liquidity-container-card">
       <liquidity-core class="liquidity-container-core"></liquidity-core>
@@ -21,7 +18,6 @@ import LiquidityCore from "@components/Liquidity/core.vue";
 import LiquidityTransitionCard from "@components/Liquidity/transitioncard.vue";
 import FlySpecialBg from "@FlyUI/FlySpecialBg.vue";
 import FlySwapCard from "@FlyUI/FlySwapCard.vue";
-// import StarChangeButton from "@StarUI/StarChangeButton.vue";
 import FlySpace from "@FlyUI/FlySpace.vue";
 import { useStore } from "vuex";
 const store = useStore();

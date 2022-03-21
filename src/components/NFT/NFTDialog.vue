@@ -2,7 +2,7 @@
   <div class="nft-dialog">
     <ElDialog
       v-model="state.visible"
-      custom-class="star-dialog-el"
+      custom-class="fly-dialog-el"
       :width="setDiaglogStyle.dialogWidth"
       :before-close="handleClose"
       :close-on-press-escape="false"

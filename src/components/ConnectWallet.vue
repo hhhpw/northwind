@@ -1,5 +1,5 @@
 <template>
-  <div class="star-connect-wallet">
+  <div class="fly-connect-wallet">
     <fly-button
       type="dark"
       v-if="state.walletStatus === 'unConnected'"
@@ -8,19 +8,19 @@
       {{ $t("连接钱包") }}
     </fly-button>
     <div
-      class="star-connect-wallet-connected"
+      class="fly-connect-wallet-connected"
       v-if="state.walletStatus === 'connected'"
     >
       <transition name="slide-fade">
         <span
-          class="star-connect-wallet-connected-amountstc"
+          class="fly-connect-wallet-connected-amountstc"
           v-if="state.balances && state.balances[CONSTANTS_TOKENS.STC]"
           >{{ stcBalance(state.balances[CONSTANTS_TOKENS.STC]) }}
           <span style="margin-left: 3px">STC</span>
         </span>
       </transition>
 
-      <span class="star-connect-wallet-connected-account"
+      <span class="fly-connect-wallet-connected-account"
         >{{ renderAccount }}
       </span>
     </div>
@@ -70,7 +70,7 @@ const stcBalance = (balance) => {
 <style lang="scss" scoped>
 @import "~@/styles/variables.scss";
 $h: 35px;
-.star-connect-wallet {
+.fly-connect-wallet {
   height: $h;
   display: inline-block;
   .slide-fade-enter-active {
@@ -93,14 +93,14 @@ $h: 35px;
     width: auto;
     max-width: 150px;
   }
-  .star-connect-wallet-connected {
+  .fly-connect-wallet-connected {
     height: $h;
     font-size: 16px;
     border-radius: 8px;
     background-color: $btn-light-orange-bgcolor;
     display: flex;
     align-items: center;
-    .star-connect-wallet-connected-amountstc {
+    .fly-connect-wallet-connected-amountstc {
       background: $btn-orange-bgcolor;
       color: $white;
       border-radius: 8px;
@@ -109,7 +109,7 @@ $h: 35px;
       padding: 0px 16px;
       text-align: center;
     }
-    .star-connect-wallet-connected-account {
+    .fly-connect-wallet-connected-account {
       color: $text-orange-color;
       width: 80px;
       text-align: center;

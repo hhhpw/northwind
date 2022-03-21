@@ -2,7 +2,7 @@
   <div class="meta-error-validate-modal">
     <ElDialog
       :model-value="state.callBackDialogParams.dialogVisible"
-      custom-class="star-dialog-el"
+      custom-class="fly-dialog-el"
       width="458px"
       :before-close="handleClose"
       :close-on-press-escape="false"
@@ -48,7 +48,7 @@ const handleClose = () => {
   ::v-deep(.el-dialog__body) {
     padding-top: 0px !important;
   }
-  .star-dialog-el {
+  .fly-dialog-el {
     ::v-deep(.el-dialog__header) {
       text-align: left !important;
     }

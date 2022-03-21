@@ -66,32 +66,6 @@
       @handleClose="handleClose('isShowHistoryRecordDialog')"
     >
     </history-record>
-    <!-- <star-confirm
-      :dialogVisible="state.isShowConfirm"
-      @handleClose="handleClose('isShowConfirm')"
-    >
-      <template #image-logo>
-        <img src="../../assets/confirm/confirm-logo.png" />
-      </template>
-      <template #content-text>
-        {{ state.pointer }}
-        <p v-if="state.poolType === 'add'">
-          {{ $t("流动性添加中") }}
-          <br />
-          {{ $t("稍后请刷新查看") }}
-        </p>
-        <p v-if="state.poolType === 'delete'">
-          {{ $t("流动性移除中") }}
-          <br />
-          {{ $t("稍后请刷新查看") }}
-        </p>
-      </template>
-      <template #footer>
-        <Fly-button class="confirm-btn" @click="handleConfirm">{{
-          $t("确认")
-        }}</Fly-button>
-      </template>
-    </star-confirm> -->
     <Fly-wallet-dialog
       :dialogParams="state.walletDialogParams"
       @handleFailed="handleConfirm"

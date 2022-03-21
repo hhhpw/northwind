@@ -5,7 +5,7 @@
     @handleClose="state.walletDialogParams?.handleClose"
     @handleSucceed="state.walletDialogParams?.handleSucceed"
   >
-    <template #star-wallet-dialog-custom-content>
+    <template #fly-wallet-dialog-custom-content>
       <div style="text-align: center; color: #8b8b8b">
         <p v-if="state.walletDialogParams?.miningData?.draw">
           {{
@@ -23,7 +23,6 @@
 <script setup>
 import { computed, reactive } from "vue";
 import { useStore } from "vuex";
-// import StarWalletDialog from "@StarUI/StarWalletDialog.vue";
 import FlyWalletDialog from "@FlyUI/FlyWalletDialog.vue";
 import utilsNumber from "@utils/number";
 import FlySpace from "@FlyUI/FlySpace.vue";

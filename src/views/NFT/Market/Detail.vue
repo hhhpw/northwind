@@ -27,7 +27,7 @@
         :dialogVisible="state.quotation_show"
         :title="t('报价')"
         :isCustomContent="true"
-        class="star-refresh quotation-confirm"
+        class="fly-refresh quotation-confirm"
         @handleClose="
           () => {
             state.quotation_show = false;
@@ -83,7 +83,7 @@
         :dialogVisible="editState.edit_price_show"
         :title="t('修改售价')"
         :isCustomContent="true"
-        class="star-refresh quotation-confirm"
+        class="fly-refresh quotation-confirm"
         @handleClose="
           () => {
             editState.edit_price_show = false;

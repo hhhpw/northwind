@@ -3,7 +3,7 @@
     <ElDialog
       v-model="state.visible"
       :width="`${props.width ? props.width + 'px' : '440px'}`"
-      custom-class="star-dialog-el"
+      custom-class="fly-dialog-el"
       :before-close="() => emits('handleClose')"
       :close-on-press-escape="false"
       :close-on-click-modal="false"

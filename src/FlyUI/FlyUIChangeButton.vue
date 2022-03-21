@@ -1,8 +1,8 @@
 <template>
-  <div class="star-exchange-button">
+  <div class="fly-exchange-button">
     <div
       v-for="(d, i) in props.tabs"
-      class="star-exchange-button-item"
+      class="fly-exchange-button-item"
       :key="i"
       :class="{ 'is-active': state.activeIndex === i }"
       @click="btnClick(d, i)"
@@ -57,12 +57,12 @@ const btnClick = (d) => {
 <style lang="scss" scoped>
 @import "~@/styles/variables.scss";
 @import "~@/styles/_vars.scss";
-.star-exchange-button {
+.fly-exchange-button {
   border-radius: 4px;
   display: inline-flex;
   width: 252px;
   height: 50px;
-  .star-exchange-button-item {
+  .fly-exchange-button-item {
     -webkit-box-align: center;
     align-items: center;
     border: 0px;

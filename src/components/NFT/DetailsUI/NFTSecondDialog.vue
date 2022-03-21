@@ -3,7 +3,7 @@
     <ElDialog
       v-model="state.visible"
       :width="`${props.width ? props.width + 'px' : '424px'}`"
-      custom-class="star-dialog-el"
+      custom-class="fly-dialog-el"
       :before-close="handleClose"
       :close-on-press-escape="false"
       :close-on-click-modal="props.isClickModal"
@@ -128,7 +128,7 @@ const handleClose = () => {
     padding: 24px;
     padding-top: 0px;
   }
-  .star-dialog-el {
+  .fly-dialog-el {
     ::v-deep(.el-dialog__header) {
       text-align: left !important;
     }
