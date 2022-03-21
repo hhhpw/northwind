@@ -3,7 +3,10 @@ import utilsTool from "@utils/tool.js";
 
 // create an axios instance
 const service = axios.create({
-  baseURL: process.env.VUE_APP_ENV === "development" ? "/center" : "", // url = base url + request url
+  baseURL:
+    process.env.VUE_APP_ENV === "development"
+      ? "/center"
+      : "https://kikoswap.com", // url = base url + request url
   timeout: 50000, // request timeout
 });
 
