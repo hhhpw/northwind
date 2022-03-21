@@ -4,8 +4,7 @@ import request from "../utils/request";
 // swap 流动池币种列表
 function getCurrency() {
   return request({
-    url: "http://10.10.1.146:8991/v1/swap/coin/getAll",
-    // url: "/v1/swap/coin/getAll",
+    url: "/v1/swap/coin/getAll",
     method: "GET",
   });
 }
