@@ -91,9 +91,6 @@ const selectElement = (ele, index) => {
     return;
   }
   state.activeElement = index;
-  // if (!activeMap.has(state.activeProperty)) {
-  //   activeMap.set(state.activeProperty, state.activeElement);
-  // }
   activeMap.set(state.activeProperty, state.activeElement);
   store.dispatch("StoreMeta/setSelectedElementList", {
     type: "add",
