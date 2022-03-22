@@ -6,7 +6,7 @@ const service = axios.create({
   baseURL:
     process.env.VUE_APP_ENV === "development"
       ? "/center"
-      : "https://test.kikoverse.com", // url = base url + request url
+      : "https://kikoverse.com", // url = base url + request url
   timeout: 50000, // request timeout
 });
 
