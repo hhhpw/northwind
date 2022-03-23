@@ -16,7 +16,10 @@
             <div
               v-for="(d, i) in state.onSellOrWillSellData"
               :key="i"
-              :set="(sellInfo = sellStatus(d.type, d.sellingTime))"
+              :set="
+                ((sellInfo = sellStatus(d.type, d.sellingTime)),
+                (t = getCountDown(d.sellingTime)))
+              "
               @click="pushDetailPage(d.id)"
               class="nft-blindbox-list-item"
             >
@@ -64,13 +67,12 @@
                       v-if="sellInfo.status === 'willsell'"
                     >
                       <span>{{ $t("发售倒计时") }}</span>
-                      <span class="countdown">{{
-                        (state.timers &&
-                          state.timers[i] &&
-                          state.timers[i].loaded &&
-                          state.timers[i].countdown) ||
-                        ""
-                      }}</span>
+                      <span class="countdown" v-if="state.countdown">
+                        <i>{{ state.countdown["day"] }}</i> :
+                        <i>{{ state.countdown["hours"] }}</i> :
+                        <i>{{ state.countdown["minutes"] }}</i> :
+                        <i>{{ state.countdown["seconds"] }}</i>
+                      </span>
                     </p>
                     <div
                       v-if="sellInfo.status === 'selling'"
@@ -160,9 +162,9 @@ import {
   onUpdated,
 } from "vue";
 import FlySpace from "@FlyUI/FlySpace.vue";
-import utilsDate from "@utils/date.js";
-import { isUndefined, cloneDeep } from "lodash";
+import { cloneDeep } from "lodash";
 import dayjs from "dayjs";
+import utilsTools from "@utils/tool";
 import utilsFormat from "@utils/format";
 import FlyLoadingFish from "@FlyUI/FlyLoadingFish.vue";
 import FlyScroll from "@FlyUI/FlyScroll.vue";
@@ -179,31 +181,21 @@ let state = reactive({
   hasOnSellOrWillSell: true,
   onSellOrWillSellData: [],
   soldOutData: [],
+  countdown: { day: "00", hours: "00", minutes: "00", seconds: "00" },
 });
 
-const formateDate = (obj) => {
-  const { day, hour, minute, second } = obj;
-  if (
-    isUndefined(day) &&
-    isUndefined(hour) &&
-    isUndefined(minute) &&
-    isUndefined(second)
-  ) {
-    return;
+let getCountDown = (timestamp) => {
+  if (timestamp) {
+    setTimeout(() => {
+      const res = utilsTools.getCountDownDetails(timestamp);
+      state.countdown = res;
+    }, 1000);
   }
-  return `${day === 0 ? "" : `${day}D`} ${hour}:${minute}:${second}`;
 };
 
-const playTimer = () => {
-  state.timer = setInterval(() => {
-    for (let key in state.timers) {
-      state.timers[key].countdown = formateDate(
-        utilsDate.countdown(state.timers[key].sellingTime)
-      );
-      state.timers[key].loaded = true;
-    }
-  }, 1000);
-};
+onUnmounted(() => {
+  getCountDown = null;
+});
 
 const loadMore = () => {
   store.dispatch("StoreBlindBox/getOfferingList", { type: "scroll" });
@@ -223,7 +215,6 @@ watch(
         d.countdown = "";
       }
     });
-    playTimer();
   }
 );
 onUpdated(() => {
@@ -247,7 +238,6 @@ onMounted(async () => {
           d.countdown = "";
         }
       });
-      playTimer();
     }
   }
 });
@@ -383,7 +373,19 @@ const sellStatus = (type, sellingTime) =>
           display: block;
         }
         .countdown {
-          font-size: 18px;
+          margin-top: 6px;
+          i {
+            font-style: normal;
+            display: inline-block;
+            width: 35px;
+            height: 33px;
+            font-size: 20px;
+            background: rgba(250, 250, 250, 0.2);
+            text-align: center;
+            line-height: 33px;
+            font-weight: normal;
+            border-radius: 3px;
+          }
         }
       }
       .buy-button {
