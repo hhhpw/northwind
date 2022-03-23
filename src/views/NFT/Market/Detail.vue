@@ -18,6 +18,7 @@
           :isOwner="isOwner(detailData.address)"
           cardType="market"
           :blind_box_type="state.blind_box_type"
+          :occupations="state.occupations"
         ></detailCard>
         <fly-loading-fish v-else></fly-loading-fish>
       </template>
@@ -205,6 +206,7 @@ const num = ref(1);
 
 let state = reactive({
   soldDialogParams: computed(() => store.state.StoreNftMarket.soldDialogParams),
+  occupations: computed(() => store.state.StoreMeta.metaData.occupations),
   quotation_show: false, // 报价弹窗
   quotation_error: [false, false, false],
   quotation_inputVal: 1,
@@ -272,6 +274,8 @@ let state = reactive({
     return { id, codes, contractType, offerPrice };
   }),
 });
+
+store.dispatch("StoreMeta/getNFTMeatInfo");
 
 const editState = reactive({
   edit_price_inputVal: 1,

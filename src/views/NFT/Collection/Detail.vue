@@ -157,8 +157,9 @@ const isOwner = (address) =>
     }
   });
 
+store.dispatch("StoreMeta/getNFTMeatInfo");
+
 onMounted(() => {
-  store.dispatch("StoreMeta/getNFTMeatInfo");
   store.commit(
     "StoreCollection/CHANGE_SECOND_DIALOG_STATUS",
     NFT_CONSTANTS.INIT_SECOND_DIALOG_PARAMS
@@ -177,6 +178,7 @@ onMounted(() => {
   const payToken = ref(route.query.payToken).value;
   const chainId = ref(route.query.chainId).value;
   const account = ref(route.query.account).value;
+
   if (sellType === "selling") {
     if (infoId) {
       store.dispatch("StoreCollection/getSellingNftDetail", infoId);

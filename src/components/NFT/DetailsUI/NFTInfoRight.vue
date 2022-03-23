@@ -170,6 +170,7 @@ import detailAction from "@components/NFT/DetailActions";
 import utilsTools from "@utils/tool";
 import { useStore } from "vuex";
 const store = useStore();
+
 let state = reactive({
   isNFT: computed(() => {
     if (
@@ -209,6 +210,7 @@ let props = defineProps({
     type: Array,
   },
 });
+store.dispatch("StoreMeta/getNFTMeatInfo");
 const stringFormat = (str) => {
   if (str) {
     return str.slice(0, 6) + "..." + str.slice(-4);
@@ -217,7 +219,6 @@ const stringFormat = (str) => {
   }
 };
 
-store.dispatch("StoreMeta/getNFTMeatInfo");
 const pushPage = (path) => {
   utilsTools.openNewWindow(`https://stcscan.io/main/address/${path}`);
 };
