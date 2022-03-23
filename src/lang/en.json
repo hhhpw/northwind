@@ -243,7 +243,7 @@
     "还没有购买任何NFT": "You haven't purchased any NFTs",
     "可用金额不足": "Insufficient balance",
     "商品上架成功": "Item listing succeed",
-    "即将发售": "Will be on sale in",
+    "即将发售": "Coming soon",
     "已售罄": "Sold out",
     "只能输入整数": "Integers only",
     "售价需大于当前最高出价": "Changed price must be greater than the current highest bid",
@@ -306,7 +306,8 @@
     "拍卖时间": "Auction Time",
     "提交": "Submit",
     "往期回顾": "Recent NFTs",
-    "去市场转转吧": "Find more on the market"
+    "去市场转转吧": "Find more on the market",
+    "发售倒计时": "Will be sale in"
   },
   "farms": {
     "farm-swap-total-1": "Total trading volume",
